@@ -2,9 +2,13 @@ import { AppProps } from 'next/dist/next-server/lib/router/router';
 import '../styles/globals.css';
 import { Global, css } from '@emotion/react';
 import ModeProvider from '../hooks/ThemeContext';
+
 const globalStyle = css`
   * {
     box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
   }
 `;
 

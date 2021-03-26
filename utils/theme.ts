@@ -8,6 +8,7 @@ const calcRem = (size: number) => `${size / 16}rem`;
 export type colorTheme = {
   primary: {
     1: string;
+    2: string;
   };
   background: {
     initial: string;
@@ -51,6 +52,7 @@ const theme: ThemeType = {
   dark: {
     primary: {
       1: '#8C30F5',
+      2: '#f1e4ff',
     },
     background: {
       initial: '#2B2B2B',
@@ -88,6 +90,7 @@ const theme: ThemeType = {
   light: {
     primary: {
       1: '#8C30F5',
+      2: '#f1e4ff',
     },
     background: {
       initial: '#FCFCFC',

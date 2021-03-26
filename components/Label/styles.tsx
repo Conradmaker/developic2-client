@@ -20,3 +20,17 @@ export const TitleLabelBox = styled.div`
     }
   }
 `;
+
+export const PageLabelBox = styled.div<{ width: number }>`
+  width: ${({ width }) => width}px;
+  font-family: 'Nanum Myeongjo', serif;
+  h1 {
+    font-size: 48px;
+    line-height: 1.31;
+    color: ${({ theme }) => theme.textColor.initial};
+  }
+  p {
+    line-height: 1.78;
+    color: ${({ theme }) => theme.textColor.lighten};
+  }
+`;

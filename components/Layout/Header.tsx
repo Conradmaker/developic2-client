@@ -25,10 +25,10 @@ export default function Header(): JSX.Element {
               <Link href="/feed">
                 <li>피드</li>
               </Link>
-              <Link href="/feed">
+              <Link href="/discovery">
                 <li>탐색</li>
               </Link>
-              <Link href="/feed">
+              <Link href="/exhibition">
                 <li>전시전보</li>
               </Link>
               <Link href="/search/1">

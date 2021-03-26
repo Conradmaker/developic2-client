@@ -1,12 +1,19 @@
 import React from 'react';
 import { TitleLabelBox } from './styles';
 
-export default function TitleLabel(): JSX.Element {
+type TitleLabelPropsType = {
+  title: string;
+  desc?: string;
+};
+export default function TitleLabel({
+  title = '',
+  desc = '',
+}: TitleLabelPropsType): JSX.Element {
   return (
     <TitleLabelBox>
       <div>
-        <h4>로그인</h4>
-        <p>login</p>
+        <h4>{title}</h4>
+        <p>{desc}</p>
       </div>
     </TitleLabelBox>
   );

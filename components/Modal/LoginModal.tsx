@@ -15,7 +15,7 @@ export default function LoginModal({ onClose }: LoginModalPropsType): JSX.Elemen
     <ModalLayout onClick={onClickBg} className="bg">
       <LoginModalBox>
         <div className="login--left">
-          <TitleLabel />
+          <TitleLabel title="로그인" desc="login" />
           <form>
             <input type="text" />
           </form>
