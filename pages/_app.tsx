@@ -1,23 +1,19 @@
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import '../styles/globals.css';
-import { Global, css, ThemeProvider } from '@emotion/react';
-import { useThemeState } from '../hooks/ThemeContext';
-import theme from '../utils/theme';
-
+import { Global, css } from '@emotion/react';
+import ModeProvider from '../hooks/ThemeContext';
 const globalStyle = css`
-  body {
-    background: #000;
+  * {
+    box-sizing: border-box;
   }
 `;
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  const currentTheme = useThemeState();
-  console.log(currentTheme);
   return (
-    <ThemeProvider theme={theme}>
+    <ModeProvider>
       <Global styles={globalStyle} />
       <Component {...pageProps} />
-    </ThemeProvider>
+    </ModeProvider>
   );
 }
 

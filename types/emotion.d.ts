@@ -1,7 +1,7 @@
 import '@emotion/react';
-import { ThemeType } from '../utils/theme';
+import { colorTheme } from '../utils/theme';
 
 declare module '@emotion/react' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  export interface Theme extends ThemeType {}
+  export interface Theme extends colorTheme {}
 }
