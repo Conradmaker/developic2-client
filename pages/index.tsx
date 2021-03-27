@@ -7,6 +7,7 @@ import TitleLabel from '../components/Label/TitleLabel';
 import PopularPostCard from '../components/Card/PopularPostCard';
 import UserProfilrCard from '../components/Card/UserProfilrCard';
 import Exhibition from '../components/Card/Exhibition';
+import { DarkModeBtn } from '../components/Button/FloatingBtn';
 
 const MainContainer = styled.main`
   width: 1240px;
@@ -38,6 +39,7 @@ const MainContainer = styled.main`
   section {
     margin: 50px 0 100px 0;
     h3 {
+      color: ${({ theme }) => theme.textColor.initial};
       font-family: 'Nanum Myeongjo';
       font-size: 30px;
       margin-bottom: 40px;
@@ -92,6 +94,7 @@ export default function Home(): JSX.Element {
           <PopularPostCard />
         </section>
       </MainContainer>
+      <DarkModeBtn />
     </Layout>
   );
 }

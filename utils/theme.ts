@@ -9,6 +9,8 @@ export type colorTheme = {
   primary: {
     1: string;
     2: string;
+    pLight: string;
+    pDark: string;
   };
   background: {
     initial: string;
@@ -17,6 +19,7 @@ export type colorTheme = {
   textColor: {
     initial: string;
     lighten: string;
+    reverse: string;
   };
   layerColor: {
     imageLayer: string;
@@ -53,6 +56,8 @@ const theme: ThemeType = {
     primary: {
       1: '#8C30F5',
       2: '#f1e4ff',
+      pLight: '#c364ff',
+      pDark: '#5300c1',
     },
     background: {
       initial: '#2B2B2B',
@@ -61,6 +66,7 @@ const theme: ThemeType = {
     textColor: {
       initial: '#fff',
       lighten: '#E1DFDC',
+      reverse: '#2B2B2B',
     },
     layerColor: {
       imageLayer: 'rgba(0,0,0,.3)',
@@ -91,6 +97,8 @@ const theme: ThemeType = {
     primary: {
       1: '#8C30F5',
       2: '#f1e4ff',
+      pLight: '#c364ff',
+      pDark: '#5300c1',
     },
     background: {
       initial: '#FCFCFC',
@@ -99,6 +107,7 @@ const theme: ThemeType = {
     textColor: {
       initial: '#474A57',
       lighten: '#474a57',
+      reverse: '#FCFCFC',
     },
     layerColor: {
       imageLayer: 'rgba(0,0,0,.3)',

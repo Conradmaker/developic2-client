@@ -94,6 +94,7 @@ export const ExhibitionCardBox = styled.div`
   article {
     margin-top: 10px;
     padding: 5px;
+    color: ${({ theme }) => theme.textColor.initial};
     h5 {
       font-size: 20px;
     }

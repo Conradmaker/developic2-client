@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { HeaderContainer } from './styles';
 import LoginModal from '../Modal/LoginModal';
 import { MdSearch } from 'react-icons/md';
+import UserMenu from './UserMenu';
 
 export function Logo(): JSX.Element {
   return (
@@ -13,7 +14,15 @@ export function Logo(): JSX.Element {
 }
 
 export default function Header(): JSX.Element {
+  const [isLogin, setIsLogin] = useState(false);
+  const toggleLogin = () => {
+    setIsLogin(state => !state);
+  };
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const toggleUserMenu = useCallback(() => setUserMenuOpen(!userMenuOpen), [
+    userMenuOpen,
+  ]);
   const toggleLoginModal = useCallback(() => setLoginOpen(!loginOpen), [loginOpen]);
   return (
     <>
@@ -39,11 +48,20 @@ export default function Header(): JSX.Element {
             </ul>
           </div>
           <div className="header--right">
-            <span onClick={toggleLoginModal}>로그인</span>
+            {isLogin ? (
+              <img
+                src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                alt=""
+                onClick={toggleUserMenu}
+              ></img>
+            ) : (
+              <span onClick={toggleLoginModal}>로그인</span>
+            )}
           </div>
         </div>
       </HeaderContainer>
-      {loginOpen && <LoginModal onClose={toggleLoginModal} />}
+      {loginOpen && <LoginModal onClose={toggleLoginModal} fakeLogin={toggleLogin} />}
+      {userMenuOpen && <UserMenu onClose={toggleUserMenu} />}
     </>
   );
 }
