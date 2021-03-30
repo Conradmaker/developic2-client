@@ -8,6 +8,7 @@ export const CustomInputBox = styled.div<{ width?: number }>`
   overflow: hidden;
   padding: 5px 0;
   width: ${props => (props.width ? `${props.width}px` : '100%')};
+  color: ${({ theme }) => theme.textColor.initial};
   span {
     width: 100px;
   }
@@ -40,6 +41,7 @@ export const CustomInputBox = styled.div<{ width?: number }>`
   }
 `;
 export const CustomSelectBox = styled.div<{ width?: number }>`
+  color: ${({ theme }) => theme.textColor.initial};
   position: relative;
   display: flex;
   align-items: center;
@@ -84,6 +86,7 @@ export const CustomSelectBox = styled.div<{ width?: number }>`
   }
 `;
 export const CustomTextareaBox = styled.div<{ width: number }>`
+  color: ${({ theme }) => theme.textColor.initial};
   position: relative;
   font-family: 'Noto Serif KR', serif;
   overflow: hidden;

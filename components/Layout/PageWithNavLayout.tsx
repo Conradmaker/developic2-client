@@ -1,15 +1,11 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import TitleLabel from '../Label/TitleLabel';
-import Layout from '../Layout';
+import Layout from '.';
 import PageNavigation from '../Nav/PageNavigation';
-const navData = [
-  { name: '공지사항', link: '/cs/notice' },
-  { name: '자주묻는 질문', link: '/cs/faq' },
-  { name: '약관 및 정책', link: '/cs/term' },
-  { name: '문의', link: '/cs/inquery' },
-];
-const CustomerCenterContainer = styled.main`
+import { NavDataType } from '../../utils/data';
+
+export const PageWithNavContainer = styled.main`
   width: 1240px;
   margin: 0 auto;
   .title {
@@ -25,19 +21,28 @@ const CustomerCenterContainer = styled.main`
     }
   }
 `;
-type CSPageLayoutPropsType = {
+
+type PageWithNavLayoutPropsType = {
   children: React.ReactNode;
+  navData: NavDataType;
+  pageName: string;
+  pageDesc: string;
 };
-export default function CSPageLayout({ children }: CSPageLayoutPropsType): JSX.Element {
+export default function PageWithNavLayout({
+  pageName = '',
+  pageDesc = '',
+  navData,
+  children,
+}: PageWithNavLayoutPropsType): JSX.Element {
   return (
     <Layout>
-      <CustomerCenterContainer>
+      <PageWithNavContainer>
         <div className="title">
-          <TitleLabel title="고객센터" desc="Customer Center" />
+          <TitleLabel title={pageName} desc={pageDesc} />
         </div>
         <PageNavigation data={navData} />
         {children}
-      </CustomerCenterContainer>
+      </PageWithNavContainer>
     </Layout>
   );
 }

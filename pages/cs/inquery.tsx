@@ -4,7 +4,8 @@ import CustomInput from '../../components/Input/CustomInput';
 import CustomSelect from '../../components/Input/CustomSelect';
 import CustomTextarea from '../../components/Input/CustomTextarea';
 import PageLabel from '../../components/Label/PageLabel';
-import CSPageLayout from '../../components/Layout/CSPageLayout';
+import PageWithNavLayout from '../../components/Layout/PageWithNavLayout';
+import { CSNavData } from '../../utils/data';
 
 const InqueryContainer = styled.section`
   display: flex;
@@ -22,6 +23,7 @@ const InqueryContainer = styled.section`
         display: flex;
         justify-content: flex-end;
         button {
+          color: ${({ theme }) => theme.textColor.initial};
           padding: 5px 10px;
           cursor: pointer;
           font-size: 16px;
@@ -44,7 +46,7 @@ const InqueryContainer = styled.section`
 
 export default function Inquery(): JSX.Element {
   return (
-    <CSPageLayout>
+    <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <InqueryContainer>
         <div className="cs__left">
           <PageLabel
@@ -67,6 +69,6 @@ export default function Inquery(): JSX.Element {
           </form>
         </div>
       </InqueryContainer>
-    </CSPageLayout>
+    </PageWithNavLayout>
   );
 }

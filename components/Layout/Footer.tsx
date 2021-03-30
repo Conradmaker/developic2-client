@@ -19,10 +19,10 @@ export default function Footer(): JSX.Element {
             <Link href="/">
               <li>홈페이지</li>
             </Link>
-            <Link href="/">
+            <Link href="/cs/inquery">
               <li>문의</li>
             </Link>
-            <Link href="/">
+            <Link href="/cs/term">
               <li>정책/약관</li>
             </Link>
           </ul>

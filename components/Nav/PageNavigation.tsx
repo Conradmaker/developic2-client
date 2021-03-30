@@ -9,15 +9,17 @@ type PageNavigationPropsType = {
     link: string;
   }[];
 };
+
 export default function PageNavigation({ data }: PageNavigationPropsType): JSX.Element {
   const router = useRouter();
-  console.log(router);
   return (
     <PageNavigationBox>
       <ul>
-        {data.map(v => (
-          <Link href={v.link} key={v.link + v.name}>
-            <li className={router.asPath === v.link ? 'nav--active' : ''}>{v.name}</li>
+        {data.map(navItem => (
+          <Link href={navItem.link} key={navItem.link + navItem.name}>
+            <li className={router.asPath === navItem.link ? 'nav--active' : ''}>
+              {navItem.name}
+            </li>
           </Link>
         ))}
       </ul>

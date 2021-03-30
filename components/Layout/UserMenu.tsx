@@ -43,9 +43,9 @@ function MenuNavItem({ data }: MenuNavItemPropsType): JSX.Element {
     <li>
       <h3>{data.title}</h3>
       <ul>
-        {data.content.map((v, i) => (
-          <Link href={v.link} key={v.name + i}>
-            <li>{v.name}</li>
+        {data.content.map((navItem, index) => (
+          <Link href={navItem.link} key={navItem.name + index}>
+            <li>{navItem.name}</li>
           </Link>
         ))}
       </ul>
@@ -70,8 +70,8 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
           <strong>누구누구</strong>님
         </h2>
         <ul>
-          {navData.map(v => (
-            <MenuNavItem data={v} key={v.title} />
+          {navData.map(subMenuData => (
+            <MenuNavItem data={subMenuData} key={subMenuData.title} />
           ))}
 
           <li>

@@ -29,7 +29,7 @@ const MainContainer = styled.main`
     justify-content: center;
     gap: 100px;
     margin-bottom: 100px;
-    & > div {
+    & > li {
       cursor: pointer;
       &:hover {
         text-shadow: 0 0 3px ${({ theme }) => theme.grayScale[2]};
@@ -69,16 +69,24 @@ export default function Home(): JSX.Element {
         </div>
         <ul className="main__nav">
           <Link href="/feed">
-            <TitleLabel title="피드" desc="Posts by you’r followers" />
+            <li>
+              <TitleLabel title="피드" desc="Posts by you’r followers" />
+            </li>
           </Link>
           <Link href="/feed">
-            <TitleLabel title="탐색" desc="Discover interesting posts" />
+            <li>
+              <TitleLabel title="탐색" desc="Discover interesting posts" />
+            </li>
           </Link>
           <Link href="/feed">
-            <TitleLabel title="아카이브" desc="Achieve for exhibition" />
+            <li>
+              <TitleLabel title="아카이브" desc="Achieve for exhibition" />
+            </li>
           </Link>
-          <Link href="/feed">
-            <TitleLabel title="고객센터" desc="customer center" />
+          <Link href="/cs/notice">
+            <li>
+              <TitleLabel title="고객센터" desc="customer center" />
+            </li>
           </Link>
         </ul>
         <section>
