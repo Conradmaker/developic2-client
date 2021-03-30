@@ -5,7 +5,7 @@ export const IncompleteContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  section {
+  & > section {
     margin-right: 100px;
     ul {
       color: ${({ theme }) => theme.textColor.initial};

@@ -14,6 +14,8 @@ const InqueryContainer = styled.section`
     flex: 1;
   }
   .cs__right {
+    display: flex;
+    justify-content: flex-end;
     form {
       width: 450px;
       & > div {

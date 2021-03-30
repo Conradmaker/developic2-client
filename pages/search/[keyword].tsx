@@ -1,6 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
+import { PageWithNavContainer } from '../../components/Layout/PageWithNavLayout';
+import PageNavigation from '../../components/Nav/PageNavigation';
+
+const SearchContainer = styled(PageWithNavContainer)`
+  .title {
+    input {
+    }
+  }
+`;
 
 export default function SearchPage(): JSX.Element {
-  return <Layout>검색페이지</Layout>;
+  const [keywords, setKeywords] = useState('');
+  useEffect(() => {}, []);
+  return (
+    <Layout>
+      <PageWithNavContainer>
+        <div className="title">
+          <TitleLabel title="검색" desc="search page" />
+          input
+        </div>
+        <PageNavigation data={navData} />
+        {}
+      </PageWithNavContainer>
+    </Layout>
+  );
 }
