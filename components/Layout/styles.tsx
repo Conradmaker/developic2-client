@@ -139,6 +139,7 @@ export const UserMenuContainer = styled.div`
   bottom: 0;
   left: 0;
   cursor: pointer;
+  z-index: 10;
   .user-menu__drawer {
     font-family: 'Noto Serif KR', serif;
     cursor: initial;

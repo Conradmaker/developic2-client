@@ -28,6 +28,7 @@ export const ModalLayout = styled.div`
   justify-content: center;
   background-color: ${({ theme }) => theme.layerColor.modalLayer};
   animation: ${fadeIn} 0.4s;
+  z-index: 10;
 `;
 
 export const ModalBox = styled.div`

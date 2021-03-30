@@ -6,6 +6,7 @@ import ModeProvider from '../hooks/ThemeContext';
 const globalStyle = css`
   * {
     box-sizing: border-box;
+    list-style: none;
   }
   html {
     scroll-behavior: smooth;

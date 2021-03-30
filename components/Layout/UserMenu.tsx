@@ -14,23 +14,23 @@ const navData: navDataType[] = [
     title: '집필',
     content: [
       { name: '새 글 작성', link: '/' },
-      { name: '임시저장 글', link: '/' },
+      { name: '임시저장 글', link: '/user/drawer/save' },
     ],
   },
   {
     title: '내 서랍',
     content: [
-      { name: '포토바인더', link: '/' },
-      { name: '좋아요 목록', link: '/' },
-      { name: '최근 본 글', link: '/' },
+      { name: '포토바인더', link: '/user/drawer/binder' },
+      { name: '좋아요 목록', link: '/user/drawer/like' },
+      { name: '최근 본 글', link: '/user/drawer/recent' },
     ],
   },
   {
     title: '설정',
     content: [
-      { name: '계정정보', link: '/' },
-      { name: '소개', link: '/' },
-      { name: '통계', link: '/' },
+      { name: '계정정보', link: '/user/drawer/binder' },
+      { name: '소개', link: '/user/drawer/binder' },
+      { name: '통계', link: '/user/drawer/binder' },
     ],
   },
 ];
