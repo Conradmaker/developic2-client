@@ -36,3 +36,32 @@ export const DarkModeBox = styled(FloatingButtonBox)`
     animation: ${slideUp} 0.3s;
   }
 `;
+export const ButtonBox = styled.div<{ width: number; height: number }>`
+  button {
+    border: 1px solid ${({ theme }) => theme.textColor.initial};
+    color: ${({ theme }) => theme.textColor.initial};
+    background: none;
+    width: ${props => (props.width ? `${props.width}px` : '150px')};
+    height: ${props => (props.height ? `${props.height}px` : '30px')};
+  }
+`;
+export const CheckBtnBox = styled.div`
+  .ck__btn__outline {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid ${({ theme }) => theme.textColor.initial};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .ck__btn__inside {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: none;
+      background-color: ${({ theme }) => theme.primary[1]};
+    }
+  }
+  label {
+  }
+`;

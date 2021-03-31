@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { CustomInputBox } from './styles';
 
 type CustomInputPropsType = {
   title: string;
-  value: string;
-  onChange: string;
+  // value: string;
+  // onChange: string;
   width?: number;
 };
 export default function CustomInput({
