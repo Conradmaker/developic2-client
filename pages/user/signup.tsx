@@ -7,6 +7,7 @@ import TitleLabel from '../../components/Label/TitleLabel';
 import Button from '../../components/Button/Button';
 import CustomInput from '../../components/Input/CustomInput';
 import CustomCheckBox from '../../components/Input/CustomCheckBox';
+import SignupAuthModal from '../../components/Modal/SignupAuthModal';
 
 const SignupContainer = styled.div`
   width: 1240px;
@@ -24,8 +25,10 @@ const SignupContainer = styled.div`
       .signup__form {
         display: flex;
         flex-direction: column;
-        gap: 20px;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
+        & > div {
+          margin-bottom: 20px;
+        }
       }
       article {
         display: flex;
@@ -59,10 +62,12 @@ const SignupContainer = styled.div`
 `;
 export default function signup(): JSX.Element {
   const [term, setTerm] = useState(false);
+  const [authOpen, setAuthOpen] = useState<boolean>(false);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  };
+    setAuthOpen(state => !state);
+  }, []);
   const onChangeTerm = useCallback(() => {
     setTerm(current => !current);
   }, []);
@@ -91,8 +96,8 @@ export default function signup(): JSX.Element {
               <a href="">이용약관</a>
             </article>
             <div className="signup__btn">
-              <Button text="뒤로가기" width={160} />
-              <Button text="회원가입" width={160} type="submit" />
+              <Button text="뒤로가기" />
+              <Button text="회원가입" type="submit" />
             </div>
           </form>
           <section>
@@ -101,6 +106,7 @@ export default function signup(): JSX.Element {
           </section>
         </div>
       </SignupContainer>
+      {authOpen && <SignupAuthModal setAuthOpen={setAuthOpen} />}
     </Layout>
   );
 }

@@ -34,6 +34,7 @@ export type colorTheme = {
   fontSize: {
     small: string;
     base: string;
+    basel: string;
     lg: string;
     xl: string;
     xxl: string;
@@ -81,6 +82,7 @@ const theme: ThemeType = {
     fontSize: {
       small: calcRem(12),
       base: calcRem(14),
+      basel: calcRem(16),
       lg: calcRem(18),
       xl: calcRem(20),
       xxl: calcRem(22),
@@ -122,6 +124,7 @@ const theme: ThemeType = {
     fontSize: {
       small: calcRem(12),
       base: calcRem(14),
+      basel: calcRem(16),
       lg: calcRem(18),
       xl: calcRem(20),
       xxl: calcRem(22),

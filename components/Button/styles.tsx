@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const slideUp = keyframes`
@@ -36,15 +36,42 @@ export const DarkModeBox = styled(FloatingButtonBox)`
     animation: ${slideUp} 0.3s;
   }
 `;
-export const ButtonBox = styled.div<{ width: number; height: number }>`
+export const ButtonBox = styled.div<{
+  width: undefined | string;
+  height: undefined | string;
+  bar: null | boolean;
+}>`
   button {
-    border: 1px solid ${({ theme }) => theme.textColor.initial};
+    font-family: 'Noto Serif KR', serif;
+    width: ${props => (props.width ? `${props.width}` : '160px')};
+    height: ${props => (props.height ? `${props.height}` : '35px')};
     color: ${({ theme }) => theme.textColor.initial};
     background: none;
-    width: ${props => (props.width ? `${props.width}px` : '150px')};
-    height: ${props => (props.height ? `${props.height}px` : '30px')};
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.textColor.initial};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    &:active {
+      border: 1px solid ${({ theme }) => theme.textColor.lighten};
+      color: ${({ theme }) => theme.textColor.lighten};
+    }
+    ${props => {
+      if (props.bar) {
+        return css`
+          width: ${props.width ? props.width : 'auto'};
+          padding: 1px 10px;
+          border: none;
+          border-bottom: 1px solid ${props.theme.textColor.initial};
+          font-size: ${props.theme.fontSize.basel};
+          &:active {
+            border: none;
+            border-bottom: 1px solid ${props.theme.textColor.lighten};
+          }
+        `;
+      }
+    }}
   }
 `;
+
 export const CheckBtnBox = styled.div`
   .ck__btn__outline {
     width: 20px;
