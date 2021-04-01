@@ -6,7 +6,7 @@ import PageNavigation from '../Nav/PageNavigation';
 import { NavDataType } from '../../utils/data';
 
 export const PageWithNavContainer = styled.main`
-  width: 1240px;
+  width: 1150px;
   margin: 0 auto;
   .title {
     margin: 30px 0;

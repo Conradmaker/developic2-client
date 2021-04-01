@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const slideDown = keyframes`
@@ -85,15 +85,10 @@ export const RecentViewListContainer = styled.ul`
       }
     }
     ul {
-      display: flex;
-      flex-wrap: wrap;
-      & > li {
-        margin-right: 53.3px;
-        margin-bottom: 50px;
-      }
-      li:nth-child(4n) {
-        margin-right: 0;
-      }
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 50px 24px;
+      margin-bottom: 100px;
     }
   }
 `;
@@ -111,14 +106,85 @@ export const LikeListContainer = styled.div`
     }
   }
   ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px 24px;
+    margin-bottom: 100px;
+  }
+`;
+
+export const PhotoBinderGalleryContainer = styled.div`
+  width: 100%;
+  z-index: 0;
+  .my-masonry-grid {
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    & > li {
-      margin-right: 53.3px;
-      margin-bottom: 100px;
-    }
-    li:nth-child(4n) {
-      margin-right: 0;
+    width: auto;
+  }
+  .my-masonry-grid_column {
+    padding-left: 10px; /* gutter size */
+    background-clip: padding-box;
+  }
+
+  /* Style your items */
+  .my-masonry-grid_column {
+    & > div {
     }
   }
+`;
+
+export const ImgItemBox = styled.div<{ selected: boolean }>`
+  z-index: 0;
+  position: relative;
+  width: 100%;
+  /* change div to reference your elements you put in <Masonry> */
+  margin-bottom: 10px;
+  cursor: pointer;
+  & > .img__layer {
+    position: absolute;
+    top: 0;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    background: ${({ theme }) => theme.layerColor.imageLayer};
+    display: none;
+  }
+  img {
+    width: 100%;
+  }
+  .check__circle {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: 0.3s;
+    &:hover {
+      background-color: ${({ theme }) => theme.grayScale[4]};
+    }
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+  }
+  &:hover {
+    .check__circle {
+      display: flex;
+    }
+  }
+  ${({ selected }) =>
+    selected &&
+    css`
+      .img__layer {
+        display: block;
+      }
+      .check__circle {
+        display: flex;
+        background-color: #8c30f5;
+      }
+    `}
 `;

@@ -19,7 +19,7 @@ export const FooterContainer = styled.footer`
   background-color: ${({ theme }) => theme.primary[1]};
   color: #fff;
   .inner {
-    max-width: 1240px;
+    max-width: 1150px;
     height: 150px;
     margin: 0 auto;
     display: flex;
@@ -73,7 +73,7 @@ export const HeaderContainer = styled.header`
   background-color: ${({ theme }) => theme.background.initial};
   transition: background-color 0.3s;
   .inner {
-    max-width: 1240px;
+    max-width: 1150px;
     height: 72px;
     margin: 0 auto;
     display: flex;
