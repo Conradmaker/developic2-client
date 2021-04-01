@@ -62,3 +62,62 @@ export const LoginModalBox = styled(ModalBox)`
     background-image: url('https://images.unsplash.com/photo-1542435503-956c469947f6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
   }
 `;
+
+export const BinderEditModalBox = styled(ModalBox)`
+  color: ${({ theme }) => theme.textColor.initial};
+  form {
+    padding: 10px 0;
+    div:nth-child(2) {
+      margin: 15px 0 5px 0;
+    }
+    .btn__group {
+      display: flex;
+      justify-content: flex-end;
+      button + button {
+        margin-left: 20px;
+      }
+    }
+    & > span {
+      cursor: pointer;
+      font-family: 'Noto Serif KR';
+      font-size: 14px;
+      border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
+      &:hover {
+        font-weight: 500;
+      }
+    }
+  }
+`;
+
+export const ConfirmRemoveModalBox = styled(ModalBox)`
+  min-height: 300px;
+  font-family: 'Noto Serif KR';
+  form {
+    padding: 50px 0 20px 0;
+    & > span {
+      font-size: 20px;
+    }
+    & > p {
+      margin: 20px 0;
+      strong {
+        font-weight: 600;
+      }
+    }
+    & > input {
+      width: 100%;
+      padding: 5px 0;
+      border: none;
+      outline: none;
+      border-bottom: 1px solid #000;
+      font-size: 16px;
+    }
+    .btn__group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      button + button {
+        margin-left: 20px;
+      }
+    }
+  }
+`;
