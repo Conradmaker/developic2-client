@@ -232,3 +232,127 @@ export const DrawerPostCardContainer = styled.li`
     }
   }
 `;
+
+export const UnfinishedPostCardContainer = styled.div`
+  font-family: 'Noto Serif KR';
+  width: 350px;
+  background-color: ${({ theme }) => theme.background.modal};
+  margin-bottom: 30px;
+  padding: 15px;
+  transition: 0.3s;
+  article {
+    color: ${({ theme }) => theme.textColor.initial};
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    h2 {
+      line-height: 2.22;
+      font-size: 18px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+    p {
+      color: ${({ theme }) => theme.textColor.lighten};
+      line-height: 2.5;
+      font-size: 14px;
+      flex: 1;
+      overflow: hidden;
+    }
+    span {
+      align-self: flex-end;
+      color: ${({ theme }) => theme.textColor.lighten};
+      height: 20px;
+      font-size: 14px;
+      line-height: 1.43;
+    }
+  }
+  .btn__group {
+    margin-top: 20px;
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+    button + button {
+      margin-left: 25px;
+    }
+  }
+  &:hover {
+    transform: translateY(-3px);
+  }
+`;
+
+export const PhotoBinderCardBox = styled.div`
+  width: 350px;
+  cursor: pointer;
+  transition: 0.3s;
+  .img__box {
+    height: 210px;
+    width: 100%;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+
+    & > div {
+      overflow: hidden;
+      & > img {
+        transition: 0.3s;
+        min-width: 100%;
+        min-height: 100%;
+      }
+    }
+    & > div:nth-child(1) {
+      grid-row: 1/ 13;
+      grid-column: 1/ 5;
+    }
+    & > div:nth-child(2) {
+      grid-row: 1/ 8;
+      grid-column: 5/ 8;
+    }
+    & > div:nth-child(3) {
+      grid-row: 1/ 6;
+      grid-column: 8/ 11;
+    }
+    & > div:nth-child(4) {
+      grid-row: 8/ 13;
+      grid-column: 5/ 8;
+    }
+    & > div:nth-child(5) {
+      grid-row: 6/ 13;
+      grid-column: 8/ 11;
+    }
+  }
+  article {
+    color: ${({ theme }) => theme.textColor.lighten};
+    height: 84px;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    .left {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      h3 {
+        color: ${({ theme }) => theme.textColor.initial};
+        margin-bottom: 5px;
+      }
+      p {
+        flex: 1;
+        font-size: 14px;
+      }
+    }
+    & > p {
+      margin-left: 5px;
+      font-size: 14px;
+    }
+  }
+  &:hover {
+    transform: translatey(-3px);
+    .img__box > div > img {
+      transform: scale(1.1);
+    }
+    article > .left > h3 {
+      text-decoration: underline;
+    }
+  }
+`;
