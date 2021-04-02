@@ -1,19 +1,24 @@
 import styled from '@emotion/styled';
 import React from 'react';
-
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import { PageWithNavContainer } from '../../components/Layout/PageWithNavLayout';
+import UserCardList from '../../components/List/UserCardList';
 import PageNavigation from '../../components/Nav/PageNavigation';
-import Incomplete from '../../components/Result/Incomplete';
 import SortTab from '../../components/Tab/SortTab';
 import { SearchNavData } from '../../utils/data';
+import { UserInfoData } from '../../utils/userData';
 
 const SearchPageWithNavContainer = styled(PageWithNavContainer)``;
 
 const Wrapper = styled.section`
   width: 1240px;
   margin: 0 auto;
+  position: relative;
+  .list__Container {
+    padding: 0.766em;
+    margin: 3.125em 0 0 0;
+  }
 `;
 
 export default function SearchWithNavLayout(): JSX.Element {
@@ -27,7 +32,9 @@ export default function SearchWithNavLayout(): JSX.Element {
           <PageNavigation data={SearchNavData} />
         </SearchPageWithNavContainer>
         <SortTab></SortTab>
-        <Incomplete width={330} title="검색어를 입력해주세요" desc="" />
+        <div className="list__Container">
+          <UserCardList data={UserInfoData}></UserCardList>
+        </div>
       </Wrapper>
     </Layout>
   );

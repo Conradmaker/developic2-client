@@ -4,6 +4,7 @@ import React from 'react';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import { PageWithNavContainer } from '../../components/Layout/PageWithNavLayout';
+
 import PageNavigation from '../../components/Nav/PageNavigation';
 import Incomplete from '../../components/Result/Incomplete';
 import SortTab from '../../components/Tab/SortTab';
@@ -27,7 +28,7 @@ export default function SearchWithNavLayout(): JSX.Element {
           <PageNavigation data={SearchNavData} />
         </SearchPageWithNavContainer>
         <SortTab></SortTab>
-        <Incomplete width={330} title="검색어를 입력해주세요" desc="" />
+        <Incomplete width={330} title="아직 준비중인 페이지에요." desc="물러가세요" />
       </Wrapper>
     </Layout>
   );

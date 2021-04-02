@@ -4,10 +4,11 @@ import React from 'react';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import { PageWithNavContainer } from '../../components/Layout/PageWithNavLayout';
+import PostCardList from '../../components/List/PostCardList';
 import PageNavigation from '../../components/Nav/PageNavigation';
-import Incomplete from '../../components/Result/Incomplete';
 import SortTab from '../../components/Tab/SortTab';
 import { SearchNavData } from '../../utils/data';
+import { PostData } from '../../utils/postData';
 
 const SearchPageWithNavContainer = styled(PageWithNavContainer)``;
 
@@ -27,7 +28,7 @@ export default function SearchWithNavLayout(): JSX.Element {
           <PageNavigation data={SearchNavData} />
         </SearchPageWithNavContainer>
         <SortTab></SortTab>
-        <Incomplete width={330} title="검색어를 입력해주세요" desc="" />
+        <PostCardList data={PostData} />
       </Wrapper>
     </Layout>
   );
