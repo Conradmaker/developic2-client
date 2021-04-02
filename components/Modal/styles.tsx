@@ -118,3 +118,35 @@ export const SignupAuthModalBox = styled(ModalBox)`
     margin-bottom: 70px;
   }
 `;
+
+export const SignupPenNameModalBox = styled(ModalBox)`
+  position: relative;
+  & > div {
+    height: 44px;
+  }
+  form {
+    & > div {
+      width: 300px;
+      margin: 0 auto;
+      margin-top: 70px;
+      margin-bottom: 50px;
+    }
+    p {
+      margin-top: 20px;
+      text-align: center;
+      color: ${({ theme }) => theme.textColor.initial};
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
+    section {
+      width: 250px;
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      margin: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin-bottom: 70px;
+    }
+  }
+`;
