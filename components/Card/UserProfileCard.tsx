@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserProfileCardBox } from './styles';
 
-export default function UserProfilrCard(): JSX.Element {
+export default function UserProfileCard(): JSX.Element {
   return (
     <UserProfileCardBox>
       <img

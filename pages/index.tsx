@@ -5,7 +5,7 @@ import PageLabel from '../components/Label/PageLabel';
 import Layout from '../components/Layout';
 import TitleLabel from '../components/Label/TitleLabel';
 import PopularPostCard from '../components/Card/PopularPostCard';
-import UserProfilrCard from '../components/Card/UserProfilrCard';
+import UserProfileCard from '../components/Card/UserProfileCard';
 import Exhibition from '../components/Card/Exhibition';
 import { DarkModeBtn } from '../components/Button/FloatingBtn';
 
@@ -95,7 +95,7 @@ export default function Home(): JSX.Element {
         </section>
         <section>
           <h3>추천작가</h3>
-          <UserProfilrCard />
+          <UserProfileCard />
         </section>
         <section>
           <h3>인기글</h3>

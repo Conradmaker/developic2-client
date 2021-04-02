@@ -34,11 +34,19 @@ export type colorTheme = {
   fontSize: {
     small: string;
     base: string;
+    medium: string;
     lg: string;
     xl: string;
     xxl: string;
     xxxl: string;
     titleSize: string;
+  };
+  fontWeight: {
+    extraBold: number;
+    bold: number;
+    semiBold: number;
+    medium: number;
+    regular: number;
   };
   viewPortSize: {
     mobile: string;
@@ -81,11 +89,19 @@ const theme: ThemeType = {
     fontSize: {
       small: calcRem(12),
       base: calcRem(14),
-      lg: calcRem(18),
-      xl: calcRem(20),
+      medium: calcRem(15),
+      lg: calcRem(16),
+      xl: calcRem(18),
       xxl: calcRem(22),
       xxxl: calcRem(30),
       titleSize: calcRem(48),
+    },
+    fontWeight: {
+      extraBold: 800,
+      bold: 700,
+      semiBold: 600,
+      medium: 500,
+      regular: 400,
     },
     viewPortSize: {
       mobile: `(max-width: ${size.mobile})`,
@@ -122,11 +138,19 @@ const theme: ThemeType = {
     fontSize: {
       small: calcRem(12),
       base: calcRem(14),
-      lg: calcRem(18),
-      xl: calcRem(20),
+      medium: calcRem(15),
+      lg: calcRem(16),
+      xl: calcRem(18),
       xxl: calcRem(22),
       xxxl: calcRem(30),
       titleSize: calcRem(48),
+    },
+    fontWeight: {
+      extraBold: 800,
+      bold: 700,
+      semiBold: 600,
+      medium: 500,
+      regular: 400,
     },
     viewPortSize: {
       mobile: `(max-width: ${size.mobile})`,
