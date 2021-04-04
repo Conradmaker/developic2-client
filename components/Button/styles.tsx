@@ -42,7 +42,7 @@ export const ButtonBox = styled.div<{
   bar: null | boolean;
 }>`
   button {
-    font-family: 'Noto Serif KR', serif;
+    font-family: 'Noto Serif KR';
     width: ${props => (props.width ? `${props.width}` : '160px')};
     height: ${props => (props.height ? `${props.height}` : '35px')};
     color: ${({ theme }) => theme.textColor.initial};

@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const PopularPostCardBox = styled.div`
@@ -115,6 +116,94 @@ export const ExhibitionCardBox = styled.div`
         strong {
         }
       }
+    }
+  }
+`;
+
+export const AchieveItemContainer = styled.li<{
+  posterId: number;
+  currentTheme: null | string;
+}>`
+  width: 1020px;
+  margin: 0 auto;
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  ${props =>
+    props.posterId % 2 === 0 &&
+    css`
+      & {
+        flex-direction: row-reverse;
+      }
+    `};
+  .img__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 232px;
+    height: 350px;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-height: 350px;
+      overflow: hidden;
+      cursor: pointer;
+      ${props =>
+        props.currentTheme === 'light' &&
+        css`
+          & {
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15),
+              -3px -3px 15px rgba(0, 0, 0, 0.15);
+          }
+        `};
+      ${props =>
+        props.currentTheme === 'dark' &&
+        css`
+          & {
+            box-shadow: 3px 3px 15px rgba(255, 255, 255, 0.15),
+              -3px -3px 15px rgba(255, 255, 255, 0.15);
+          }
+        `};
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  article {
+    width: 500px;
+    margin: 0 100px;
+    font-family: 'Noto Serif KR';
+    small {
+      font-size: ${({ theme }) => theme.fontSize.base};
+      color: ${({ theme }) => theme.textColor.lighten};
+    }
+    h2 {
+      font-weight: 500;
+      font-size: ${({ theme }) => theme.fontSize.xxl};
+      color: ${({ theme }) => theme.textColor.initial};
+      margin-top: 28px;
+      line-height: 33px;
+      cursor: pointer;
+      &:hover {
+        color: ${({ theme }) => theme.textColor.lighten};
+      }
+    }
+    h2 + p {
+      margin-top: 28px;
+    }
+    p {
+      font-size: ${({ theme }) => theme.fontSize.basel};
+      color: ${({ theme }) => theme.textColor.lighten};
+      margin-top: 22px;
+      span + span::before {
+        content: ', ';
+      }
+    }
+    b {
+      font-family: 'Montserrat';
     }
   }
 `;

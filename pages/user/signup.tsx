@@ -8,7 +8,7 @@ import Button from '../../components/Button/Button';
 import CustomInput from '../../components/Input/CustomInput';
 import CustomCheckBox from '../../components/Input/CustomCheckBox';
 import SignupAuthModal from '../../components/Modal/SignupAuthModal';
-import SignupPenNameModal from '../../components/Modal/SignupPenNameModal';
+// import SignupPenNameModal from '../../components/Modal/SignupPenNameModal';
 
 const SignupContainer = styled.div`
   width: 1240px;
@@ -62,7 +62,7 @@ const SignupContainer = styled.div`
   }
 `;
 export default function signup(): JSX.Element {
-  const [term, setTerm] = useState(false);
+  const [term, setTerm] = useState<boolean>(false);
   const [authOpen, setAuthOpen] = useState<boolean>(false);
 
   const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
@@ -107,8 +107,8 @@ export default function signup(): JSX.Element {
           </section>
         </div>
       </SignupContainer>
-      {/* {authOpen && <SignupAuthModal setAuthOpen={setAuthOpen} />} */}
-      {authOpen && <SignupPenNameModal setModalOpen={setAuthOpen} />}
+      {authOpen && <SignupAuthModal setAuthOpen={setAuthOpen} />}
+      {/* {authOpen && <SignupPenNameModal setModalOpen={setAuthOpen} />} */}
     </Layout>
   );
 }
