@@ -32,6 +32,11 @@ export type AchieveItemPropsType = {
   date: string[];
   place: string;
   src: string;
+  url?: string;
+  manager?: string;
+  phone?: string;
+  email?: string;
+  info?: JSX.Element;
 };
 type AchieveItemsPropsType = AchieveItemPropsType[];
 const achieveItems: AchieveItemsPropsType = [

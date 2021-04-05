@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useThemeState } from '../../hooks/ThemeContext';
 import { AchieveItemPropsType } from '../../pages/achieve/inquiry';
@@ -13,8 +14,10 @@ export default function AchieveItem({
   src,
 }: AchieveItemPropsType): JSX.Element {
   const currentTheme = useThemeState();
+  const router = useRouter();
   const onClickAchieve = () => {
     console.log('클릭');
+    router.push(`localhost:3000/achieve/${id}`);
   };
   return (
     <AchieveItemContainer posterId={id} currentTheme={currentTheme}>
