@@ -1,16 +1,9 @@
+import { UserItem } from '../../utils/data';
 import React from 'react';
 import { UserInfoCardBox } from './styles';
 
 type UserInfoCardPropsType = {
-  data: {
-    id: string;
-    userName: string;
-    avatarImgUrl: string;
-    userIntro: string;
-    followerCount: number;
-    postCount: number;
-    imgUrl: string[];
-  };
+  data: UserItem;
 };
 export default function UserInfoCard({ data }: UserInfoCardPropsType): JSX.Element {
   return (

@@ -1,25 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { SearchListOptions } from '../../utils/data';
 import { SortTabBox } from './styles';
 
-const ListOptions = {
-  Popular: 'popular',
-  Recent: 'recent',
+type SortTabPropsType = {
+  currentSort: string;
+  setCurrentSort: React.Dispatch<React.SetStateAction<string>>;
 };
-export default function SortTab(): JSX.Element {
-  const [active, setActiveState] = useState(ListOptions.Popular);
-
+export default function SortTab({
+  setCurrentSort,
+  currentSort,
+}: SortTabPropsType): JSX.Element {
   return (
     <SortTabBox>
       <ul>
         <li
-          className={`list__Option ${active === ListOptions.Popular ? 'active' : ''}`}
-          onClick={() => setActiveState(ListOptions.Popular)}
+          className={`list__Option ${
+            currentSort === SearchListOptions.Popular ? 'active' : ''
+          }`}
+          onClick={() => setCurrentSort(SearchListOptions.Popular)}
         >
           인기순
         </li>
         <li
-          className={`list__Option ${active === ListOptions.Recent ? 'active' : ''}`}
-          onClick={() => setActiveState(ListOptions.Recent)}
+          className={`list__Option ${
+            currentSort === SearchListOptions.Recent ? 'active' : ''
+          }`}
+          onClick={() => setCurrentSort(SearchListOptions.Recent)}
         >
           최신순
         </li>

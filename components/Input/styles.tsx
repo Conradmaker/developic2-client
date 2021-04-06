@@ -113,3 +113,42 @@ export const CustomTextareaBox = styled.div<{ width: number }>`
     }
   }
 `;
+
+export const SearchInputBox = styled.form`
+  border: 1px solid ${({ theme }) => theme.textColor.initial};
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  height: 50px;
+  padding: 0.75em;
+  margin-bottom: 3em;
+  transition: all 0.15s ease-in;
+  max-width: 50%;
+  svg {
+    width: 25px;
+    height: 25px;
+    fill: ${({ theme }) => theme.textColor.initial};
+    margin-right: 0.5em;
+    transition: all 0.125s ease-in;
+  }
+  input {
+    font-size: ${({ theme }) => theme.fontSize.medium};
+    flex: 1;
+    display: block;
+    line-height: 25px;
+    height: 25px;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    transition: all 0.125s ease-in;
+    &::placeholder {
+      color: ${({ theme }) => theme.grayScale[2]};
+    }
+  }
+  input:focus,
+  input:focus + svg {
+    fill: black;
+    color: black;
+  }
+`;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserDataType } from '../../utils/userData';
+import { UserDataType } from '../../utils/data';
 import UserInfoCard from '../Card/UserInfoCard';
 import { ListContainer } from './styles';
 

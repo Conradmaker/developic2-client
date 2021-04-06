@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import theme from '../../utils/theme';
 
 export const SearchTabBox = styled.nav`
   height: 30px;

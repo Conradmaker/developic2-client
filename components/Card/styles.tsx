@@ -130,7 +130,7 @@ export const CommonPostCardBox = styled.li`
   article {
     cursor: pointer;
     width: 100%;
-    > img {
+    & > img {
       width: 100%;
     }
     h3 {
@@ -145,9 +145,7 @@ export const CommonPostCardBox = styled.li`
   }
   article:hover h3 {
     transition: all 0.25s ease-in-out;
-     {
-      color: ${({ theme }) => theme.primary[1]};
-    }
+    color: ${({ theme }) => theme.primary[1]};
   }
   div {
     display: flex;

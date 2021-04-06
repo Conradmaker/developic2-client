@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import UserCardList from '../../components/List/UserCardList';
 import SearchPageNav from '../../components/Nav/SearchPageNav';
-import { UserInfoData } from '../../utils/userData';
+import SortTab from '../../components/Tab/SortTab';
+import { UserInfoData, SearchListOptions } from '../../utils/data';
 
 const Wrapper = styled.section`
   width: 1240px;
@@ -16,11 +17,18 @@ const Wrapper = styled.section`
   }
 `;
 
-export default function SearchWriter({ value }): JSX.Element {
+export default function SearchWriter(): JSX.Element {
+  const [currentSort, setCurrentSort] = useState(SearchListOptions.Popular);
+  const { query } = useRouter();
+  useEffect(() => {
+    console.log('서버로 작가 데이터 요청', query.keyword);
+  }, [query]);
+
   return (
     <Layout>
       <Wrapper>
-        <SearchPageNav value={value} />
+        <SearchPageNav />
+        <SortTab currentSort={currentSort} setCurrentSort={setCurrentSort} />
         <div className="list__Container">
           <UserCardList data={UserInfoData}></UserCardList>
         </div>

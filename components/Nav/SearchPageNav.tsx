@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import _debounce from 'lodash/debounce';
+import React, { useCallback, useState } from 'react';
 import SearchInput from '../Input/SearchInput';
 import TitleLabel from '../Label/TitleLabel';
 import { PageWithNavContainer } from '../Layout/PageWithNavLayout';
@@ -9,58 +10,43 @@ import { PageNavigationBox } from './styles';
 
 const SearchPageWithNavContainer = styled(PageWithNavContainer)``;
 
-export default function SearchPageNav({ value }): JSX.Element {
-  // const router = useRouter();
-  // const onSearch = keyword => {
-  //   router.push(`/search/post?keyword=${keyword}`);
-  //   console.log(router.query.keyword);
-  //   const query = router.query.keyword;
-  // };
-
+export default function SearchPageNav(): JSX.Element {
   const router = useRouter();
+  const [keyword, setKeyword] = useState(router.query.keyword as string);
 
-  const onSearch = value => {
-    console.log(router);
-    console.log(`value: ${value}`);
-    const keyword = router.query.keyword;
-    console.log(`keyword: ${keyword}`);
-    const pathname = router.pathname;
-    console.log(pathname);
-    if (pathname) {
-      switch (pathname) {
-        case '/search/[keyword]':
-          return router.push(`/search/posts?keyword=`);
-        case '/search/post':
-          return router.push(`/search/post?keyword=${value}`);
-        case '/search/writer':
-          return router.push(`/search/writer?keyword=${value}`);
-        case '/search/tag':
-          return router.push(`/search/tag?keyword=${value}`);
-        default:
-          return;
-      }
-    }
+  const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+    debounce(e.target.value);
   };
+  const debounce = useCallback(
+    _debounce(searchValue => {
+      router.push(`${router.pathname}?keyword=${searchValue}`);
+    }, 500),
+    [router]
+  );
 
   return (
     <SearchPageWithNavContainer>
       <div className="title">
         <TitleLabel title="검색" desc="Search" />
       </div>
-      <SearchInput onSearch={onSearch} />
+      <SearchInput value={keyword} onChange={onChangeKeyword} />
       <PageNavigationBox>
         <ul>
-          <Link href="/search/post" as={`/search/post/keyword=${router.query.keyword}`}>
-            <li>글</li>
+          <Link href={`/search/post?keyword=${router.query.keyword}`}>
+            <li className={router.pathname === '/search/post' ? 'nav--active' : ''}>
+              글
+            </li>
           </Link>
-          <Link
-            href="/search/writer"
-            as={`/search/writer/keyword=${router.query.keyword}`}
-          >
-            <li>작가</li>
+          <Link href={`/search/writer?keyword=${router.query.keyword}`}>
+            <li className={router.pathname === '/search/writer' ? 'nav--active' : ''}>
+              작가
+            </li>
           </Link>
-          <Link href="/search/tag" as={`/search/tag/keyword=${router.query.keyword}`}>
-            <li>해시태그</li>
+          <Link href={`/search/tag?keyword=${router.query.keyword}`}>
+            <li className={router.pathname === '/search/tag' ? 'nav--active' : ''}>
+              해시태그
+            </li>
           </Link>
         </ul>
       </PageNavigationBox>
