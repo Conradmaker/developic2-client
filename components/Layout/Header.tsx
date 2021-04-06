@@ -4,6 +4,7 @@ import { HeaderContainer } from './styles';
 import LoginModal from '../Modal/LoginModal';
 import { MdSearch } from 'react-icons/md';
 import UserMenu from './UserMenu';
+import SearchModal from '../Modal/SearchModal';
 
 export function Logo(): JSX.Element {
   return (
@@ -20,10 +21,15 @@ export default function Header(): JSX.Element {
   };
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+
+  const [searchOpen, setSearchOpen] = useState(false);
+
   const toggleUserMenu = useCallback(() => setUserMenuOpen(!userMenuOpen), [
     userMenuOpen,
   ]);
   const toggleLoginModal = useCallback(() => setLoginOpen(!loginOpen), [loginOpen]);
+  const toggleSearchModal = useCallback(() => setSearchOpen(!searchOpen), [searchOpen]);
+
   return (
     <>
       <HeaderContainer>
@@ -43,6 +49,7 @@ export default function Header(): JSX.Element {
               <Link href="/search/1">
                 <li>
                   <MdSearch />
+                  {/* <MdSearch onClick={toggleSearchModal} /> */}
                 </li>
               </Link>
             </ul>
@@ -62,6 +69,7 @@ export default function Header(): JSX.Element {
       </HeaderContainer>
       {loginOpen && <LoginModal onClose={toggleLoginModal} fakeLogin={toggleLogin} />}
       {userMenuOpen && <UserMenu onClose={toggleUserMenu} />}
+      {searchOpen && <SearchModal onClose={toggleSearchModal} />}
     </>
   );
 }

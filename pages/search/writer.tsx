@@ -1,15 +1,10 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import React from 'react';
-import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
-import { PageWithNavContainer } from '../../components/Layout/PageWithNavLayout';
 import UserCardList from '../../components/List/UserCardList';
-import PageNavigation from '../../components/Nav/PageNavigation';
-import SortTab from '../../components/Tab/SortTab';
-import { SearchNavData } from '../../utils/data';
+import SearchPageNav from '../../components/Nav/SearchPageNav';
 import { UserInfoData } from '../../utils/userData';
-
-const SearchPageWithNavContainer = styled(PageWithNavContainer)``;
 
 const Wrapper = styled.section`
   width: 1240px;
@@ -21,17 +16,11 @@ const Wrapper = styled.section`
   }
 `;
 
-export default function SearchWithNavLayout(): JSX.Element {
+export default function SearchWriter({ value }): JSX.Element {
   return (
     <Layout>
       <Wrapper>
-        <SearchPageWithNavContainer>
-          <div className="title">
-            <TitleLabel title="검색" desc="Search" />
-          </div>
-          <PageNavigation data={SearchNavData} />
-        </SearchPageWithNavContainer>
-        <SortTab></SortTab>
+        <SearchPageNav value={value} />
         <div className="list__Container">
           <UserCardList data={UserInfoData}></UserCardList>
         </div>

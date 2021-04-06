@@ -30,6 +30,17 @@ export const ModalLayout = styled.div`
   animation: ${fadeIn} 0.4s;
 `;
 
+export const SearchModalLayout = styled(ModalLayout)`
+  background-color: ${({ theme }) => theme.background.initial};
+  z-index: 1;
+`;
+
+export const SearchModalbox = styled.div`
+  width: 1240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export const ModalBox = styled.div`
   min-width: 500px;
   min-height: 500px;
