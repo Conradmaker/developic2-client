@@ -6,18 +6,24 @@ import PageNavigation from '../Nav/PageNavigation';
 import { NavDataType } from '../../utils/data';
 
 export const PageWithNavContainer = styled.main`
-  width: 1240px;
+  width: 1150px;
   margin: 0 auto;
   .title {
     margin: 30px 0;
   }
-  section {
+  & > section {
+    display: flex;
+    justify-content: space-between;
     .cs__left {
+      flex: 1;
       img {
         margin-top: 50px;
         margin-left: 30px;
         width: 500px;
       }
+    }
+    .cs__right {
+      flex: 1;
     }
   }
 `;

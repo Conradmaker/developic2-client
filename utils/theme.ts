@@ -81,10 +81,10 @@ const theme: ThemeType = {
       modalLayer: 'rgba(115,115,115,.4)',
     },
     grayScale: {
-      1: '#484848',
-      2: '#C4C4C4',
-      3: '#E1DFDC',
-      4: '#EFEFEF',
+      1: '#EFEFEF',
+      2: '#E1DFDC',
+      3: '#484848',
+      4: '#484848',
     },
     fontSize: {
       small: calcRem(12),

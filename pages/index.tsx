@@ -10,17 +10,17 @@ import Exhibition from '../components/Card/Exhibition';
 import { DarkModeBtn } from '../components/Button/FloatingBtn';
 
 const MainContainer = styled.main`
-  width: 1240px;
+  width: 1150px;
   margin: 0 auto;
   margin-top: 50px;
   .banner__image {
     margin-top: 30px;
     margin-bottom: 150px;
-    width: 1240px;
-    height: 473px;
+    width: 1150px;
+    height: 436px;
     background-color: #111;
     img {
-      height: 100%;
+      width: 100%;
     }
   }
   .main__nav {

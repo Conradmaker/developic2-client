@@ -11,21 +11,26 @@ to{
     opacity:1;
 }
 `;
-export const FloatingButtonBox = styled.button`
+const Btn = styled.button`
+  font-family: 'Noto Serif KR';
+  border: none;
+  outline: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+export const FloatingButtonBox = styled(Btn)`
   position: fixed;
   bottom: 50px;
   right: 30px;
-  border: none;
-  outline: none;
   z-index: 1;
   width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.primary[1]};
   color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
 `;
 export const DarkModeBox = styled(FloatingButtonBox)`
@@ -34,5 +39,16 @@ export const DarkModeBox = styled(FloatingButtonBox)`
     -3px -3px 10px ${({ theme }) => theme.primary.pLight};
   svg {
     animation: ${slideUp} 0.3s;
+  }
+`;
+
+export const SquareBtnBox = styled(Btn)`
+  display: inline-block;
+  padding: 3px 20px;
+  font-size: 14px;
+  color: ${({ theme }) => theme.grayScale[1]};
+  border: 1px solid ${({ theme }) => theme.grayScale[2]};
+  &:hover {
+    background-color: ${({ theme }) => theme.grayScale[3]};
   }
 `;

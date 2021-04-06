@@ -7,14 +7,10 @@ import SearchPageNav from '../../components/Nav/SearchPageNav';
 import SortTab from '../../components/Tab/SortTab';
 import { UserInfoData, SearchListOptions } from '../../utils/data';
 
-const Wrapper = styled.section`
-  width: 1240px;
+const SearchWriterContainer = styled.section`
+  width: 1150px;
   margin: 0 auto;
   position: relative;
-  .list__Container {
-    padding: 0.766em;
-    margin: 3.125em 0 0 0;
-  }
 `;
 
 export default function SearchWriter(): JSX.Element {
@@ -26,13 +22,11 @@ export default function SearchWriter(): JSX.Element {
 
   return (
     <Layout>
-      <Wrapper>
+      <SearchWriterContainer>
         <SearchPageNav />
         <SortTab currentSort={currentSort} setCurrentSort={setCurrentSort} />
-        <div className="list__Container">
-          <UserCardList data={UserInfoData}></UserCardList>
-        </div>
-      </Wrapper>
+        <UserCardList data={UserInfoData}></UserCardList>
+      </SearchWriterContainer>
     </Layout>
   );
 }

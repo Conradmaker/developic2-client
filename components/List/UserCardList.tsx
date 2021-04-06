@@ -1,18 +1,18 @@
 import React from 'react';
 import { UserDataType } from '../../utils/data';
 import UserInfoCard from '../Card/UserInfoCard';
-import { ListContainer } from './styles';
+import { UserCardListContainer } from './styles';
 
 type UserCardListPropsType = {
   data: UserDataType;
 };
 export default function UserCardList({ data }: UserCardListPropsType): JSX.Element {
   return (
-    <ListContainer>
+    <UserCardListContainer>
       {data &&
         data.map(userInfoItem => (
           <UserInfoCard key={userInfoItem.id} data={userInfoItem} />
         ))}
-    </ListContainer>
+    </UserCardListContainer>
   );
 }
