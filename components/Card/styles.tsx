@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const PopularPostCardBox = styled.div`
@@ -123,14 +124,22 @@ export const CommonPostCardBox = styled.li`
   font-size: ${({ theme }) => theme.fontSize.base};
   text-align: justify;
   position: relative;
-  width: 100%;
   line-height: 1.5;
+  width: 273px;
   article {
     cursor: pointer;
     width: 100%;
-    & > img {
-      width: 100%;
+    .img__wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      & > img {
+        min-width: 100%;
+        min-height: 100%;
+      }
     }
+
     h3 {
       font-weight: 600;
       font-size: ${({ theme }) => theme.fontSize.medium};
@@ -140,22 +149,37 @@ export const CommonPostCardBox = styled.li`
       color: ${({ theme }) => theme.grayScale[1]};
       margin-bottom: 1.786em;
     }
+    &:hover h3 {
+      transition: all 0.25s ease-in-out;
+      color: ${({ theme }) => theme.primary[1]};
+    }
   }
-  article:hover h3 {
-    transition: all 0.25s ease-in-out;
-    color: ${({ theme }) => theme.primary[1]};
-  }
-  div {
+
+  .info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 20px;
-    padding: 0.714em 0;
+    .stats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 32%;
+      font-size: ${({ theme }) => theme.fontSize.small};
+
+      svg {
+        color: ${({ theme }) => theme.grayScale[1]};
+        padding-top: 0.071em;
+        margin-right: 0.214em;
+        font-size: ${({ theme }) => theme.fontSize.base};
+      }
+    }
   }
 `;
 
 export const UserAvatarWithNameBox = styled.div`
   cursor: pointer;
+  display: flex;
+  align-items: center;
   img {
     width: 20px;
     height: 20px;
@@ -175,10 +199,6 @@ export const StatsBox = styled.div`
   width: 32%;
   font-size: ${({ theme }) => theme.fontSize.small};
   .post__likes {
-    svg {
-    }
-  }
-  .post__views {
     svg {
     }
   }
@@ -496,6 +516,94 @@ export const PhotoBinderCardBox = styled.div`
     }
     article > .left > h3 {
       text-decoration: underline;
+    }
+  }
+`;
+
+export const AchieveItemContainer = styled.li<{
+  posterId: number;
+  currentTheme: null | string;
+}>`
+  width: 1020px;
+  margin: 0 auto;
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  ${props =>
+    props.posterId % 2 === 0 &&
+    css`
+      & {
+        flex-direction: row-reverse;
+      }
+    `};
+  .img__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 232px;
+    height: 350px;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-height: 350px;
+      overflow: hidden;
+      cursor: pointer;
+      ${props =>
+        props.currentTheme === 'light' &&
+        css`
+          & {
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15),
+              -3px -3px 15px rgba(0, 0, 0, 0.15);
+          }
+        `};
+      ${props =>
+        props.currentTheme === 'dark' &&
+        css`
+          & {
+            box-shadow: 3px 3px 15px rgba(255, 255, 255, 0.15),
+              -3px -3px 15px rgba(255, 255, 255, 0.15);
+          }
+        `};
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  article {
+    width: 500px;
+    margin: 0 100px;
+    font-family: 'Noto Serif KR';
+    small {
+      font-size: ${({ theme }) => theme.fontSize.base};
+      color: ${({ theme }) => theme.textColor.lighten};
+    }
+    h2 {
+      font-weight: 500;
+      font-size: ${({ theme }) => theme.fontSize.xxl};
+      color: ${({ theme }) => theme.textColor.initial};
+      margin-top: 28px;
+      line-height: 33px;
+      cursor: pointer;
+      &:hover {
+        color: ${({ theme }) => theme.textColor.lighten};
+      }
+    }
+    h2 + p {
+      margin-top: 28px;
+    }
+    p {
+      font-size: ${({ theme }) => theme.fontSize.lg};
+      color: ${({ theme }) => theme.textColor.lighten};
+      margin-top: 22px;
+      span + span::before {
+        content: ', ';
+      }
+    }
+    b {
+      font-family: 'Montserrat';
     }
   }
 `;

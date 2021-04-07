@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const slideUp = keyframes`
@@ -50,5 +50,61 @@ export const SquareBtnBox = styled(Btn)`
   border: 1px solid ${({ theme }) => theme.grayScale[2]};
   &:hover {
     background-color: ${({ theme }) => theme.grayScale[3]};
+  }
+`;
+export const ButtonBox = styled.div<{
+  width: undefined | string;
+  height: undefined | string;
+  bar: null | boolean;
+}>`
+  button {
+    font-family: 'Noto Serif KR';
+    width: ${props => (props.width ? `${props.width}` : '160px')};
+    height: ${props => (props.height ? `${props.height}` : '35px')};
+    color: ${({ theme }) => theme.textColor.initial};
+    background: none;
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.textColor.initial};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    &:active {
+      border: 1px solid ${({ theme }) => theme.textColor.lighten};
+      color: ${({ theme }) => theme.textColor.lighten};
+    }
+    ${props => {
+      if (props.bar) {
+        return css`
+          width: ${props.width ? props.width : 'auto'};
+          padding: 1px 10px;
+          border: none;
+          border-bottom: 1px solid ${props.theme.textColor.initial};
+          font-size: ${props.theme.fontSize.medium};
+          &:active {
+            border: none;
+            border-bottom: 1px solid ${props.theme.textColor.lighten};
+          }
+        `;
+      }
+    }}
+  }
+`;
+
+export const CheckBtnBox = styled.div`
+  .ck__btn__outline {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid ${({ theme }) => theme.textColor.initial};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .ck__btn__inside {
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      border: none;
+      background-color: ${({ theme }) => theme.primary[1]};
+    }
+  }
+  label {
   }
 `;

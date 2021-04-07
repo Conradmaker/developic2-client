@@ -132,3 +132,92 @@ export const ConfirmRemoveModalBox = styled(ModalBox)`
     }
   }
 `;
+
+export const SignupAuthModalBox = styled(ModalBox)`
+  position: relative;
+  & > div {
+    height: 44px;
+  }
+  .auth__input {
+    div {
+      width: 300px;
+      margin: 0 auto;
+      margin-top: 70px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      span {
+        width: 50px;
+        height: 60px;
+        border: 2px solid white;
+        border-radius: 5px;
+        background-color: ${({ theme }) => theme.textColor.initial};
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        input {
+          width: 40px;
+          height: 50px;
+          text-align: center;
+          font-size: ${({ theme }) => theme.fontSize.xxxl};
+          font-weight: 600;
+          color: ${({ theme }) => theme.primary[1]};
+          background: none;
+          outline: none;
+          border: none;
+        }
+      }
+    }
+    p {
+      text-align: center;
+      color: ${({ theme }) => theme.textColor.initial};
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
+    p + p {
+      margin-top: 20px;
+    }
+  }
+  .auth__btn {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 70px;
+  }
+`;
+
+export const SignupPenNameModalBox = styled(ModalBox)`
+  position: relative;
+  & > div {
+    height: 44px;
+  }
+  form {
+    & > div {
+      width: 300px;
+      margin: 0 auto;
+      margin-top: 70px;
+      margin-bottom: 50px;
+    }
+    p {
+      margin-top: 20px;
+      text-align: center;
+      color: ${({ theme }) => theme.textColor.initial};
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
+    section {
+      width: 250px;
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      margin: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin-bottom: 70px;
+    }
+  }
+`;

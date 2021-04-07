@@ -21,6 +21,7 @@ export const CustomInputBox = styled.div<{ width?: number }>`
     font-size: 16px;
     padding: 5px 10px;
     border-radius: 0;
+    color: ${({ theme }) => theme.textColor.initial};
   }
 
   .line {
@@ -40,6 +41,7 @@ export const CustomInputBox = styled.div<{ width?: number }>`
     }
   }
 `;
+
 export const CustomSelectBox = styled.div<{ width?: number }>`
   color: ${({ theme }) => theme.textColor.initial};
   position: relative;
@@ -85,6 +87,7 @@ export const CustomSelectBox = styled.div<{ width?: number }>`
     }
   }
 `;
+
 export const CustomTextareaBox = styled.div<{ width: number }>`
   color: ${({ theme }) => theme.textColor.initial};
   position: relative;
@@ -150,5 +153,36 @@ export const SearchInputBox = styled.form`
   input:focus + svg {
     fill: black;
     color: black;
+  }
+`;
+
+export const CustomCheckBoxBox = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-family: 'Noto Serif KR', serif;
+  input {
+  }
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.primary[1]};
+    margin-right: 12px;
+    cursor: pointer;
+  }
+  input:checked + span::after {
+    content: '';
+    display: block;
+    background-color: #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  label {
+    color: ${({ theme }) => theme.textColor.initial};
   }
 `;
