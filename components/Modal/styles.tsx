@@ -78,7 +78,7 @@ export const SignupAuthModalBox = styled(ModalBox)`
       span {
         width: 50px;
         height: 60px;
-        border: 2px solid white;
+        border: 2px solid ${({ theme }) => theme.textColor.initial};
         border-radius: 5px;
         background-color: ${({ theme }) => theme.textColor.initial};
         display: flex;

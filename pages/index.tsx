@@ -80,7 +80,7 @@ export default function Home(): JSX.Element {
           </Link>
           <Link href="/feed">
             <li>
-              <TitleLabel title="아카이브" desc="Achieve for exhibition" />
+              <TitleLabel title="아카이브" desc="Archive for exhibition" />
             </li>
           </Link>
           <Link href="/cs/notice">

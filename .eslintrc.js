@@ -22,6 +22,7 @@ module.exports = {
         printWidth: 90,
         bracketSpacing: true,
         arrowParens: 'avoid',
+        endOfLine: 'auto',
       },
     ],
   },

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import React from 'react';
 import Button from '../../components/Button/Button';
-import AchieveItem from '../../components/Card/AchieveItem';
+import ArchiveItem from '../../components/Card/ArchiveItem';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 
@@ -10,7 +10,7 @@ const InquiryContainer = styled.div`
   width: 1240px;
   margin: 0 auto;
   margin-top: 50px;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
   & > section {
     display: flex;
     justify-content: space-between;
@@ -24,7 +24,7 @@ type ByPropsType = {
   id: number;
   name: string;
 };
-export type AchieveItemPropsType = {
+export type ArchiveItemPropsType = {
   id: number;
   price: string;
   title: string;
@@ -38,8 +38,8 @@ export type AchieveItemPropsType = {
   email?: string;
   info?: JSX.Element;
 };
-type AchieveItemsPropsType = AchieveItemPropsType[];
-const achieveItems: AchieveItemsPropsType = [
+type ArchiveItemsPropsType = ArchiveItemPropsType[];
+const archiveItems: ArchiveItemsPropsType = [
   {
     id: 1,
     price: '무료',
@@ -119,16 +119,16 @@ export default function inquiry(): JSX.Element {
   return (
     <Layout>
       <Head>
-        <title>DEVELOPIC | Achieve</title>
+        <title>DEVELOPIC | Archive</title>
       </Head>
       <InquiryContainer>
         <section>
-          <TitleLabel title="전시정보" desc="Exhibition Achieve" />
+          <TitleLabel title="전시정보" desc="Exhibition Archive" />
           <Button text="전시 등록" width="140px" />
         </section>
         <ul>
-          {achieveItems.map(v => (
-            <AchieveItem
+          {archiveItems.map(v => (
+            <ArchiveItem
               key={v.id}
               id={v.id}
               price={v.price}
