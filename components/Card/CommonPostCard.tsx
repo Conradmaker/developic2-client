@@ -18,9 +18,7 @@ export default function CommonPostCard({ data }: PostCardPropsType): JSX.Element
   return (
     <CommonPostCardBox>
       <article>
-        <div className="img__wrapper">
-          <img src={data.postImgUrl} alt="postImg" />
-        </div>
+        <img src={data.postImgUrl} alt="postImg" />
         <h3>{data.title}</h3>
         <p>{data.description}</p>
       </article>

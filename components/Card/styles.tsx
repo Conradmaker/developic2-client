@@ -129,15 +129,10 @@ export const CommonPostCardBox = styled.li`
   article {
     cursor: pointer;
     width: 100%;
-    .img__wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      & > img {
-        min-width: 100%;
-        min-height: 100%;
-      }
+    & > img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
     }
 
     h3 {
