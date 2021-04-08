@@ -126,6 +126,7 @@ export const CommonPostCardBox = styled.li`
   position: relative;
   line-height: 1.5;
   width: 273px;
+  margin-bottom: 30px;
   article {
     cursor: pointer;
     width: 100%;
@@ -134,14 +135,14 @@ export const CommonPostCardBox = styled.li`
       height: 160px;
       object-fit: cover;
     }
-
     h3 {
+      color: ${({ theme }) => theme.textColor.initial};
       font-weight: 600;
       font-size: ${({ theme }) => theme.fontSize.medium};
       margin: 0.857em 0 0.857em 0;
     }
     p {
-      color: ${({ theme }) => theme.grayScale[1]};
+      color: ${({ theme }) => theme.grayScale[2]};
       margin-bottom: 1.786em;
     }
     &:hover h3 {
@@ -155,14 +156,15 @@ export const CommonPostCardBox = styled.li`
     justify-content: space-between;
     align-items: center;
     .stats {
+      color: ${({ theme }) => theme.textColor.initial};
+      font-family: 'Montserrat';
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 32%;
       font-size: ${({ theme }) => theme.fontSize.small};
-
       svg {
-        color: ${({ theme }) => theme.grayScale[1]};
+        color: ${({ theme }) => theme.grayScale[2]};
         padding-top: 0.071em;
         margin-right: 0.214em;
         font-size: ${({ theme }) => theme.fontSize.base};
@@ -182,26 +184,13 @@ export const UserAvatarWithNameBox = styled.div`
     margin-right: 0.357em;
   }
   strong {
-    font-weight: 400;
+    color: ${({ theme }) => theme.textColor.initial};
+    font-weight: ${({ theme }) => theme.fontWeight.regular};
     margin-right: 0.143em;
   }
   span {
+    color: ${({ theme }) => theme.grayScale[2]};
     font-size: ${({ theme }) => theme.fontSize.small};
-  }
-`;
-
-export const StatsBox = styled.div`
-  width: 32%;
-  font-size: ${({ theme }) => theme.fontSize.small};
-  .post__likes {
-    svg {
-    }
-  }
-  svg {
-    color: ${({ theme }) => theme.grayScale[1]};
-    padding-top: 0.071em;
-    margin-right: 0.214em;
-    font-size: ${({ theme }) => theme.fontSize.base};
   }
 `;
 
@@ -254,7 +243,7 @@ export const UserInfoCardBox = styled.li`
         text-align: center;
         div {
           margin-bottom: 0.357em;
-          font-weight: 600;
+          font-weight: ${({ theme }) => theme.fontWeight.semiBold};
         }
         span {
           font-weight: ${({ theme }) => theme.fontWeight.regular};

@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React from 'react';
 import { useThemeState } from '../../hooks/ThemeContext';
-import { AchieveItemPropsType } from '../../pages/achieve/inquiry';
-import { AchieveItemContainer } from './styles';
+import { ArchiveItemPropsType } from '../../pages/archive';
+import { ArchiveItemContainer } from './styles';
 
-export default function AchieveItem({
+export default function ArchiveItem({
   id,
   price,
   title,
@@ -12,24 +12,23 @@ export default function AchieveItem({
   date,
   place,
   src,
-}: AchieveItemPropsType): JSX.Element {
+}: ArchiveItemPropsType): JSX.Element {
   const currentTheme = useThemeState();
-  const router = useRouter();
-  const onClickAchieve = () => {
-    console.log('클릭');
-    router.push(`localhost:3000/achieve/${id}`);
-  };
   return (
-    <AchieveItemContainer posterId={id} currentTheme={currentTheme}>
+    <ArchiveItemContainer posterId={id} currentTheme={currentTheme}>
       <div className="img__wrapper">
-        <div onClick={onClickAchieve}>
-          <img src={src} alt="poster" />
+        <div>
+          <Link href={`/archive/${id}`}>
+            <img src={src} alt="poster" />
+          </Link>
         </div>
       </div>
       <article>
         {price === '무료' && <small>{price}</small>}
         {price !== '무료' && <small>₩ {parseInt(price).toLocaleString()}</small>}
-        <h2 onClick={onClickAchieve}>{title}</h2>
+        <Link href={`/archive/${id}`}>
+          <h2>{title}</h2>
+        </Link>
         <p>
           <b>by. </b>
           {by.map(v => (
@@ -41,6 +40,6 @@ export default function AchieveItem({
         </p>
         <p>{place}</p>
       </article>
-    </AchieveItemContainer>
+    </ArchiveItemContainer>
   );
 }

@@ -1,15 +1,18 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Head from 'next/head';
-// import { useRouter } from 'next/router';
-import React, { LegacyRef, useRef } from 'react';
+import React from 'react';
 import Button from '../../components/Button/Button';
 import Layout from '../../components/Layout';
-import { AchieveItemPropsType } from './inquiry';
+import { ArchiveItemPropsType } from '.';
+import Link from 'next/link';
 
-const AchieveDetailContainer = styled.div`
+const ArchiveDetailContainer = styled.div`
   width: 900px;
   margin: 0 auto;
+  margin-bottom: 100px;
+  b {
+    font-family: 'Montserrat';
+  }
   .detail__poster__wrapper {
     width: 430px;
     max-height: 610px;
@@ -49,21 +52,35 @@ const AchieveDetailContainer = styled.div`
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        min-width: 210px;
+        max-width: 300px;
         .detail__by {
           display: flex;
+          width: 100%;
           span {
             font-family: 'Montserrat';
             width: 40px;
           }
-          li {
-            font-size: ${({ theme }) => theme.fontSize.lg};
+          ul {
+            flex: 1;
+            li {
+              font-size: ${({ theme }) => theme.fontSize.lg};
+              text-align: end;
+            }
+            li + li {
+              margin-top: 10px;
+            }
           }
-          li + li {
-            margin-top: 10px;
+        }
+        .detail__link {
+          text-decoration: underline;
+          cursor: pointer;
+          &:hover {
+            color: ${({ theme }) => theme.textColor.lighten};
           }
         }
         & > li + li {
-          margin-top: 25px;
+          margin-top: 35px;
         }
       }
     }
@@ -82,6 +99,10 @@ const AchieveDetailContainer = styled.div`
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      li {
+        word-break: break-all;
+        text-align: end;
+      }
       li + li {
         margin-top: 25px;
       }
@@ -110,7 +131,7 @@ const AchieveDetailContainer = styled.div`
         color: ${({ theme }) => theme.textColor.initial};
       }
       p {
-        font-size: ${({ theme }) => theme.fontSize.basel};
+        font-size: ${({ theme }) => theme.fontSize.lg};
         color: ${({ theme }) => theme.textColor.initial};
         font-weight: 500;
       }
@@ -121,7 +142,7 @@ const AchieveDetailContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 130px 0;
+    margin-top: 100px;
     li {
       display: flex;
       position: relative;
@@ -133,7 +154,7 @@ const AchieveDetailContainer = styled.div`
         bottom: 0;
         content: '';
         display: inline-block;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
         width: 12px;
         transform-origin: left;
         transform: translate(0, -17px) rotate(-45deg);
@@ -145,7 +166,7 @@ const AchieveDetailContainer = styled.div`
         bottom: 0;
         content: '';
         display: inline-block;
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
         width: 12px;
         transform-origin: left;
         transform: translate(0, -17px) rotate(-135deg);
@@ -153,7 +174,7 @@ const AchieveDetailContainer = styled.div`
     }
   }
 `;
-const achieveItem: AchieveItemPropsType = {
+const archiveItem: ArchiveItemPropsType = {
   id: 1,
   price: '무료관람',
   title: '퓰리처상 사진전 - SHOOTING THE PULITZER',
@@ -202,17 +223,17 @@ const achieveItem: AchieveItemPropsType = {
     </>
   ),
 };
-export default function achieveId(): JSX.Element {
+export default function archiveId(): JSX.Element {
   // const queryId = useRouter();
-  // const { achieveId } = queryId.query;
-  // console.log(achieveId);
+  // const { archiveId } = queryId.query;
+  // console.log(archiveId);
   // console.log(queryId.query);
   return (
     <Layout>
       <Head>
-        <title>DEVELOPIC | achieve</title>
+        <title>DEVELOPIC | archive</title>
       </Head>
-      <AchieveDetailContainer>
+      <ArchiveDetailContainer>
         <div className="detail__poster__wrapper">
           <img
             src="https://www.m-i.kr/news/photo/202009/748842_528632_4051.jpg"
@@ -220,24 +241,28 @@ export default function achieveId(): JSX.Element {
           />
         </div>
         <section className="detail__summary">
-          <h1>{achieveItem.title}</h1>
-          <p>{`${achieveItem.date[0]} - ${achieveItem.date[1]}`}</p>
-          <p>{achieveItem.place}</p>
+          <h1>{archiveItem.title}</h1>
+          <p>
+            <b>{`${archiveItem.date[0]} - ${archiveItem.date[1]}`}</b>
+          </p>
+          <p>{archiveItem.place}</p>
           <div>
             <ul>
               <li className="detail__by">
                 <span>By</span>
                 <ul>
-                  {achieveItem.by.map(v => (
+                  {archiveItem.by.map(v => (
                     <li key={v.id}>{v.name}</li>
                   ))}
                 </ul>
               </li>
-              <li>{achieveItem.url}</li>
+              <Link href={`http://${archiveItem.url}`}>
+                <li className="detail__link">사이트로 이동</li>
+              </Link>
               <li>
-                {achieveItem.price === '무료관람'
-                  ? achieveItem.price
-                  : `₩ ${parseInt(achieveItem.price).toLocaleString()}`}
+                {archiveItem.price === '무료관람'
+                  ? archiveItem.price
+                  : `₩ ${parseInt(archiveItem.price).toLocaleString()}`}
               </li>
             </ul>
           </div>
@@ -245,14 +270,16 @@ export default function achieveId(): JSX.Element {
         <section className="detail__contact">
           <p>전시지원</p>
           <ul>
-            <li>{achieveItem.manager}</li>
-            <li>{achieveItem.phone}</li>
-            <li>{achieveItem.email}</li>
+            <li>{archiveItem.manager}</li>
+            <li>{archiveItem.phone}</li>
+            <li>
+              <b>{archiveItem.email}</b>
+            </li>
           </ul>
         </section>
         <section className="detail__info">
           <p>Info</p>
-          <article className="infoinfo">{achieveItem.info}</article>
+          <article className="infoinfo">{archiveItem.info}</article>
         </section>
         <ul>
           <li className="list__btn">
@@ -262,7 +289,7 @@ export default function achieveId(): JSX.Element {
             <Button text="수정요청" bar width="100px" />
           </li>
         </ul>
-      </AchieveDetailContainer>
+      </ArchiveDetailContainer>
     </Layout>
   );
 }

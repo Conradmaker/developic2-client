@@ -77,7 +77,7 @@ export const ButtonBox = styled.div<{
           padding: 1px 10px;
           border: none;
           border-bottom: 1px solid ${props.theme.textColor.initial};
-          font-size: ${props.theme.fontSize.medium};
+          font-size: ${props.theme.fontSize.lg};
           &:active {
             border: none;
             border-bottom: 1px solid ${props.theme.textColor.lighten};
