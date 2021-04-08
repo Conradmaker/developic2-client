@@ -3,7 +3,7 @@ import { CustomSelectBox } from './styles';
 
 type CustomSelectPropsType = {
   title: string;
-  values: string;
+  values: string[];
   onChange: string;
   width?: number;
 };
