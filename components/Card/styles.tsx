@@ -607,3 +607,71 @@ export const AchieveItemContainer = styled.li<{
     }
   }
 `;
+
+export const BlogPostCardBox = styled.li`
+  font-size: ${({ theme }) => theme.fontSize.base};
+  text-align: justify;
+  line-height: 1.3;
+  article {
+    cursor: pointer;
+    width: 100%;
+
+    .img__wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 13px;
+      & > img {
+        min-width: 100%;
+        min-height: 100%;
+      }
+    }
+
+    .post__description {
+      span {
+        color: ${({ theme }) => theme.grayScale[1]};
+      }
+      h3 {
+        font-weight: 600;
+        font-size: ${({ theme }) => theme.fontSize.medium};
+        margin: 0.333em 0 0.857em 0;
+      }
+      p {
+        color: ${({ theme }) => theme.grayScale[1]};
+        margin-bottom: 1.786em;
+      }
+      &:hover h3 {
+        transition: all 0.25s ease-in-out;
+        color: ${({ theme }) => theme.primary[1]};
+      }
+    }
+
+    .post__info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.786em;
+      .post__stats {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 18%;
+        div {
+          display: flex;
+          align-items: center;
+          svg {
+            color: ${({ theme }) => theme.grayScale[1]};
+            padding-top: 0.071em;
+            margin-right: 0.125em;
+          }
+          span:nth-of-type(1) {
+            margin-right: 8px;
+          }
+        }
+      }
+      .post__date {
+      }
+    }
+  }
+`;
