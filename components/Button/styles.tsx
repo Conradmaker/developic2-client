@@ -108,3 +108,34 @@ export const CheckBtnBox = styled.div`
   label {
   }
 `;
+
+export const FollowBtnBox = styled.button<{
+  isFollow: undefined | boolean;
+}>`
+  outline: none;
+  border: none;
+  border: 1px solid ${({ theme }) => theme.primary[1]};
+  background-color: transparent;
+  color: ${({ theme }) => theme.primary[1]};
+  border-radius: 5px;
+  cursor: pointer;
+  width: 160px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  & > svg {
+    margin-right: 5px;
+    font-size: ${({ theme }) => theme.fontSize.lg};
+  }
+
+  ${props => {
+    if (props.isFollow) {
+      return css`
+        background-color: ${props.theme.primary[1]};
+        color: #fff;
+      `;
+    }
+  }}
+`;
