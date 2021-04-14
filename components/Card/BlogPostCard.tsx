@@ -24,7 +24,7 @@ export default function BlogPostCard({ data }: BlogPostCardPropsType): JSX.Eleme
           <img src={data.postImgUrl} alt="postImg" />
         </div>
         <div className="post__description">
-          <span>{data.picstoryTitle}</span>
+          {data.picstoryTitle && <span>{data.picstoryTitle}</span>}
           <h3>{data.title}</h3>
           <p>{data.description}</p>
         </div>
