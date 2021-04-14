@@ -5,9 +5,13 @@ import { ConfirmRemoveModalBox, ModalLayout } from './styles';
 
 type ConfirmRemoveModalPropsType = {
   onClose: () => void;
+  sectionTitle?: string;
+  description?: string;
 };
 export default function ConfirmRemoveModal({
   onClose,
+  sectionTitle,
+  description,
 }: ConfirmRemoveModalPropsType): JSX.Element {
   const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -17,9 +21,13 @@ export default function ConfirmRemoveModal({
   return (
     <ModalLayout onClick={onClickBg} className="bg">
       <ConfirmRemoveModalBox>
-        <TitleLabel title="삭제" desc="ConfirmRemove" />
+        <TitleLabel title="삭제" desc="Confirm Remove" />
         <form>
-          <span>정말 삭제하시겠습니까?</span>
+          <span>
+            {sectionTitle} 정말 삭제하시겠습니까?
+            <br />
+            {description}
+          </span>
           <p>
             <strong>'삭제'</strong> 를 입력해 주세요.
           </p>

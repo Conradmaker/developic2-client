@@ -104,7 +104,9 @@ export default function binderId(): JSX.Element {
       {editModalOpen && (
         <BinderEditModal onClose={onToggleEditModal} onRemove={onToggleRemoveModal} />
       )}
-      {removeModalOpen && <ConfirmRemoveModal onClose={onToggleRemoveModal} />}
+      {removeModalOpen && (
+        <ConfirmRemoveModal sectionTitle="바인더를" onClose={onToggleRemoveModal} />
+      )}
     </PageWithNavLayout>
   );
 }
