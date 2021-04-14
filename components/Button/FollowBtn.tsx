@@ -1,11 +1,11 @@
 import React from 'react';
 import { MdDoneAll, MdPersonAdd } from 'react-icons/md';
-import { FollowBtnBox } from './styles';
+import { RoundCornerBtnBox } from './styles';
 
 type FollowBtnPropsType = {
   text: string;
   isFollow?: undefined | boolean;
-  onClick: () => void;
+  onClick?: () => void;
 };
 export default function FollowBtn({
   text,
@@ -13,9 +13,9 @@ export default function FollowBtn({
   onClick,
 }: FollowBtnPropsType): JSX.Element {
   return (
-    <FollowBtnBox onClick={onClick} isFollow={isFollow}>
-      {isFollow ? <MdPersonAdd /> : <MdDoneAll />}
+    <RoundCornerBtnBox onClick={onClick} isFollow={isFollow}>
+      {isFollow ? <MdDoneAll /> : <MdPersonAdd />}
       {text}
-    </FollowBtnBox>
+    </RoundCornerBtnBox>
   );
 }

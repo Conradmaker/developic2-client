@@ -109,14 +109,13 @@ export const CheckBtnBox = styled.div`
   }
 `;
 
-export const FollowBtnBox = styled.button<{
-  isFollow: undefined | boolean;
+export const RoundCornerBtnBox = styled.button<{
+  isFollow?: undefined | boolean;
 }>`
+  background-color: ${({ theme }) => theme.primary[1]};
+  color: #fff;
   outline: none;
   border: none;
-  border: 1px solid ${({ theme }) => theme.primary[1]};
-  background-color: transparent;
-  color: ${({ theme }) => theme.primary[1]};
   border-radius: 5px;
   cursor: pointer;
   width: 160px;
@@ -129,12 +128,12 @@ export const FollowBtnBox = styled.button<{
     margin-right: 5px;
     font-size: ${({ theme }) => theme.fontSize.lg};
   }
-
   ${props => {
     if (props.isFollow) {
       return css`
-        background-color: ${props.theme.primary[1]};
-        color: #fff;
+        border: 1px solid ${props.theme.primary[1]};
+        background-color: transparent;
+        color: ${props.theme.primary[1]};
       `;
     }
   }}

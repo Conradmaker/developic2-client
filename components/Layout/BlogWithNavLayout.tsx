@@ -46,7 +46,7 @@ export default function BlogWithNavLayout({
               <p>취미는 사진 취향도 사진 좋아하는 일을 좋아하기</p>
               <FollowBtn
                 isFollow={isFollow}
-                text={isFollow ? '구독' : '구독해지'}
+                text={isFollow ? '구독해지' : '구독'}
                 onClick={onFollowToggle}
               ></FollowBtn>
             </div>
