@@ -6,7 +6,7 @@ import ArchiveItem from '../../components/Card/ArchiveItem';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 
-const InquiryContainer = styled.div`
+const ArchiveContainer = styled.div`
   width: 1240px;
   margin: 0 auto;
   margin-top: 50px;
@@ -115,13 +115,13 @@ const archiveItems: ArchiveItemsPropsType = [
       'https://post-phinf.pstatic.net/MjAyMDAxMjBfMTU3/MDAxNTc5NDkwODg5Mjky._McrNa9NQm2Mwh10TCp-N2gURDQ0Kjc6dROZQB5iS4gg.bF25U0fkZ4ltaJAF28XpHWM2xDtXFNjnVSRVqa_mZZkg.JPEG/%28%EB%B6%99%EC%9E%844%29_%ED%98%B8%ED%85%94%EC%82%AC%ED%9A%8C_%ED%8F%AC%EC%8A%A4%ED%84%B0_%E2%93%92%EC%9B%8C%ED%81%AC%EB%A3%B8.jpg?type=w1200',
   },
 ];
-export default function inquiry(): JSX.Element {
+export default function archive(): JSX.Element {
   return (
     <Layout>
       <Head>
         <title>DEVELOPIC | Archive</title>
       </Head>
-      <InquiryContainer>
+      <ArchiveContainer>
         <section>
           <TitleLabel title="전시정보" desc="Exhibition Archive" />
           <Button text="전시 등록" width="140px" />
@@ -140,7 +140,7 @@ export default function inquiry(): JSX.Element {
             />
           ))}
         </ul>
-      </InquiryContainer>
+      </ArchiveContainer>
     </Layout>
   );
 }

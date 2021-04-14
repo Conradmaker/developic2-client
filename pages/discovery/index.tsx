@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import React, { forwardRef, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import CommonPostCard from '../../components/Card/CommonPostCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
@@ -32,6 +32,7 @@ const DiscoveryContainer = styled.div`
         padding: 5px 5px;
         margin-left: 60px;
         margin-bottom: 20px;
+        cursor: pointer;
         &:hover {
           color: ${({ theme }) => theme.primary[1]};
         }

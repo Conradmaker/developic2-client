@@ -504,7 +504,7 @@ export const PhotoBinderCardBox = styled.div`
   }
 `;
 
-export const AchieveItemContainer = styled.li<{
+export const ArchiveItemContainer = styled.li<{
   posterId: number;
   currentTheme: null | string;
 }>`
@@ -589,5 +589,62 @@ export const AchieveItemContainer = styled.li<{
     b {
       font-family: 'Montserrat';
     }
+  }
+`;
+
+export const BlogCommentCardBox = styled.li`
+  position: relative;
+  width: 800px;
+  padding: 30px 0;
+  font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
+  font-size: ${({ theme }) => theme.fontSize.base};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  & + & {
+    border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
+  }
+  & > section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+    & > article {
+      img {
+        position: absolute;
+        margin: 0 auto;
+        top: 30px;
+        left: -71px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      div {
+        strong {
+          font-size: ${({ theme }) => theme.fontSize.xl};
+          font-weight: ${({ theme }) => theme.fontWeight.medium};
+        }
+        p {
+          font-family: 'Montserrat';
+          margin-top: 12px;
+        }
+      }
+    }
+    & > div {
+      span {
+        color: ${({ theme }) => theme.textColor.lighten};
+        cursor: pointer;
+        &:hover {
+          color: ${({ theme }) => theme.textColor.initial};
+        }
+      }
+      span + span {
+        margin-left: 20px;
+      }
+    }
+  }
+  & > article {
+    margin-top: 15px;
+    line-height: 25px;
   }
 `;

@@ -108,3 +108,19 @@ export const CheckBtnBox = styled.div`
   label {
   }
 `;
+
+export const HashTagBox = styled.li`
+  border: 1px solid ${({ theme }) => theme.textColor.initial};
+  padding: 0 10px;
+  color: ${({ theme }) => theme.textColor.lighten};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  height: 30px;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.textColor.lighten};
+  }
+`;
