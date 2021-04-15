@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import dynamic from 'next/dynamic';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import TitleInput, { HashInput } from '../../components/Input/EditPageInput';
 import Layout from '../../components/Layout';
 
@@ -17,6 +18,12 @@ const ToastEditorWithNoSSR = dynamic(
 );
 
 export default function edit(): JSX.Element {
+  const router = useRouter();
+  useEffect(() => {
+    return () => {
+      console.dir(router);
+    };
+  }, []);
   return (
     <Layout>
       <EditContainer>
