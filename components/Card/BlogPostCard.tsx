@@ -22,6 +22,21 @@ export default function BlogPostCard({ data }: BlogPostCardPropsType): JSX.Eleme
       <article>
         <div className="img__wrapper">
           <img src={data.postImgUrl} alt="postImg" />
+          {/* <div className="img__description">
+            <div className="post__info">
+              <div className="post__stats">
+                <div>
+                  <MdFavorite />
+                  <span>{data.likeCount}</span>
+                </div>
+                <div>
+                  <MdRemoveRedEye />
+                  <span>{data.viewCount}</span>
+                </div>
+              </div>
+              <div className="post__date">{data.date}</div>
+            </div>
+          </div> */}
         </div>
         <div className="post__description">
           {data.picstoryTitle && <span>{data.picstoryTitle}</span>}
