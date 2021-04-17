@@ -47,6 +47,7 @@ export const UserProfileCardBox = styled.div`
     border-radius: 35px;
     width: 70px;
     height: 70px;
+    object-fit: cover;
     margin-bottom: 15px;
   }
   p {
@@ -65,6 +66,31 @@ export const UserProfileCardBox = styled.div`
     p {
       text-decoration: underline;
     }
+  }
+`;
+
+export const RecentUserCardCardBox = styled.li`
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0 0 10px ${({ theme }) => theme.textColor.lighten};
+      & + p {
+        color: ${({ theme }) => theme.primary[1]};
+      }
+    }
+  }
+  p {
+    color: ${({ theme }) => theme.textColor.initial};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    margin-top: 10px;
   }
 `;
 

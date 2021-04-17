@@ -49,7 +49,7 @@ export const discoveryData: DiscoveryDataPropsType[] = [
   {
     id: 4,
     postImgUrl:
-      'https://avatar.maplestory.nexon.com/Character/180/FLDEPMDDIKKAPKDEPLLAHHLPFMPDNGKBMHNBELHLLBAGGNKOHJKNNNGMCLKCBOKOOLNDMOALCCDOKAFMNDHGAPPJKNHILMCBNOPOKDJHOCIBJMGCFANIMCJOPCMBGNOJHKLGBCOMLJEDPNFLFNAPJNDFBIAPEEEIAEGCEOKHOEBNLAKDAACCMBNMFJFBELKBFCDOKLJPOKAJDPDIOJNGNNAMKNNJEPOOBGHDPMLIGBPGKDLHPFPDFKEEJLKAJDNN.png',
+      'https://cdn.crowdpic.net/list-thumb/thumb_l_D033E20FA5FA98C38CBB08013031FFA1.jpg',
     title: '윌리엄 진서가 자전적 글을 쓰는 방법을 말하는 책',
     description: '진서는 자서전, 회고록, 개인사/가족사 기록 등 형식과 관계없이 스스로의',
     userName: '일번 작가',

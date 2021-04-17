@@ -364,3 +364,46 @@ export const comments: CommentsPropstype[] = [
       '"위대한 작가는 어떻게 쓰는가"는 작가 공에서 뚝 떨어진 위대한 작가라는 것 1번 작가님이다',
   },
 ];
+
+export type RecentUsersPropsType = {
+  id: number;
+  name: string;
+  img: string;
+};
+
+export const recentUsers: RecentUsersPropsType[] = [
+  {
+    id: 1,
+    name: 'Jane Cooper',
+    img:
+      'https://img.huffingtonpost.com/asset/5d8102d63b00002b88d5d612.jpeg?ops=scalefit_630_noupscale',
+  },
+  {
+    id: 2,
+    name: 'Jane Cooper',
+    img:
+      'https://img.appstory.co.kr/@files/monthly.appstory.co.kr/content/201611/b3bb4b30a796335e054a4431085841e1.jpg',
+  },
+  {
+    id: 3,
+    name: 'Jane Cooper',
+    img:
+      'https://mblogthumb-phinf.pstatic.net/MjAyMDAzMTdfMTA5/MDAxNTg0NDI5NjMxODEz.WwYVCgkGXwXzUfjV_pxyrsh7PCK0k-UfCB_pdNOouVIg.b2Co_GvJ3ZKbF3NBG6SGjCJtK2e3ds81HSBkIArWdjcg.JPEG.kcscpr/cm27013892_l.jpg?type=w800',
+  },
+  {
+    id: 4,
+    name: 'Jane Cooper',
+    img: 'https://i.pinimg.com/474x/e6/07/38/e60738a0ee92a16a88064d3fb42625c3.jpg',
+  },
+  {
+    id: 5,
+    name: 'Jane Cooper',
+    img:
+      'https://assets.blog.engoo.com/wp-content/uploads/sites/2/2018/10/18083723/photo-1474925218713-9e8a1d89c7b4.jpg',
+  },
+  {
+    id: 6,
+    name: 'Jane Cooper',
+    img: 'https://i.pinimg.com/originals/32/d3/89/32d389e4018184c11222fe09caa71617.jpg',
+  },
+];

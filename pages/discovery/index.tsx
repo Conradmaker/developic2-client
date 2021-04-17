@@ -8,7 +8,7 @@ import { discoveryData } from '../../utils/discoveryData';
 import { hashTag } from '../../utils/hashTagData';
 
 const DiscoveryContainer = styled.div`
-  width: 1240px;
+  width: 1150px;
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 100px;
@@ -30,7 +30,7 @@ const DiscoveryContainer = styled.div`
         color: ${({ theme }) => theme.textColor.initial};
         font-size: ${({ theme }) => theme.fontSize.xl};
         padding: 5px 5px;
-        margin-left: 60px;
+        margin-left: 40px;
         margin-bottom: 20px;
         cursor: pointer;
         &:hover {
@@ -53,7 +53,7 @@ const DiscoveryContainer = styled.div`
       display: flex;
       flex-wrap: wrap;
       li {
-        width: 291px;
+        width: 268px;
         padding: 1.786em 0;
         margin-right: 1.786em;
       }
