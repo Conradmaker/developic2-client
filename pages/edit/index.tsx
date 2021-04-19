@@ -1,36 +1,39 @@
-import styled from '@emotion/styled';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
-import TitleInput, { HashInput } from '../../components/Input/EditPageInput';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout';
-
-const EditContainer = styled.div`
-  max-width: 1100px;
-  margin: 0 auto;
-`;
-
-const ToastEditorWithNoSSR = dynamic(
-  () => import('../../components/Editor/ToastEditor'),
-  {
-    ssr: false,
-  }
-);
+import EditPost from '../../components/Layout/EditPost';
 
 export default function edit(): JSX.Element {
   const router = useRouter();
-  useEffect(() => {
-    return () => {
-      console.dir(router);
-    };
-  }, []);
+  const [editProg, setEditProg] = useState(1);
+  const [title, setTitle] = useState('');
+  const [tagList, setTagList] = useState<{ id: number; name: string }[]>([]);
+  const [content, setContent] = useState('글을 입력해주세요.');
+
+  const changeProg = (prog: 1 | 2) => {
+    setEditProg(prog);
+  };
+
+  const temporarySave = (editorContent: string) => {
+    console.log({ title, tagList, content: editorContent });
+    router.push('/user/drawer/save');
+  };
   return (
     <Layout>
-      <EditContainer>
-        <TitleInput />
-        <HashInput />
-        <ToastEditorWithNoSSR />
-      </EditContainer>
+      {editProg === 1 ? (
+        <EditPost
+          changeProg={changeProg}
+          setTagList={setTagList}
+          tagList={tagList}
+          title={title}
+          setTitle={setTitle}
+          content={content}
+          setContent={setContent}
+          temporarySave={temporarySave}
+        />
+      ) : (
+        <div />
+      )}
     </Layout>
   );
 }

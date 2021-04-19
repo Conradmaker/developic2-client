@@ -4,13 +4,32 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import axios from 'axios';
 import exifr from 'exifr';
+import SquareBtn from '../Button/SquareBtn';
+import { ToastEditorStyle } from './styles';
 
-export default function ToastEditor(): JSX.Element {
+type ToastEditorPropsType = {
+  changeProg: (prog: 1 | 2) => void;
+  content: string;
+  setContent: React.Dispatch<React.SetStateAction<string>>;
+  temporarySave: (editorContent: string) => void;
+};
+
+export default function ToastEditor({
+  changeProg,
+  content,
+  setContent,
+  temporarySave,
+}: ToastEditorPropsType): JSX.Element {
   const [imageList, setImageList] = useState<{ id: number; src: string }[]>([]);
   const EditorRef = useRef<null | Editor>(null);
 
-  const onSubmit = () => {
-    console.dir(EditorRef.current?.getInstance().getHtml());
+  const onTempSubmit = () => {
+    setContent(EditorRef.current?.getInstance().getHtml() as string);
+    temporarySave(EditorRef.current?.getInstance().getHtml() as string);
+  };
+  const onFinalSubmit = () => {
+    setContent(EditorRef.current?.getInstance().getHtml() as string);
+    changeProg(2);
   };
 
   const uploadImageToServer = async (image: Blob | File) => {
@@ -46,9 +65,9 @@ export default function ToastEditor(): JSX.Element {
     callback(`http://localhost:8000/image/post/${data.src}`, `${data.imageId}`);
   }, []);
   return (
-    <>
+    <ToastEditorStyle>
       <Editor
-        initialValue="글을 입력해주센ㅇㅁㄴㅇ"
+        initialValue={content}
         previewStyle="vertical"
         height="800px"
         initialEditType="wysiwyg"
@@ -56,8 +75,10 @@ export default function ToastEditor(): JSX.Element {
         ref={EditorRef}
         hooks={{ addImageBlobHook: onUpload }}
       />
-      <button onClick={onSubmit}>임시저장</button>
-      <button onClick={onSubmit}>제출</button>
-    </>
+      <div className="btn_group">
+        <SquareBtn onClick={onTempSubmit}>임시저장</SquareBtn>
+        <SquareBtn onClick={onFinalSubmit}>제출</SquareBtn>
+      </div>
+    </ToastEditorStyle>
   );
 }

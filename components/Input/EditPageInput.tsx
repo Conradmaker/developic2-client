@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-const CommonInputContainer = styled.div`
+export const CommonInputContainer = styled.div`
   font-family: 'Noto Serif KR';
   display: flex;
   align-items: center;
@@ -22,9 +22,9 @@ const CommonInputContainer = styled.div`
     border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
   }
 `;
-const HashInputContainer = styled(CommonInputContainer)`
-  margin: 30px 0;
-
+export const HashInputContainer = styled(CommonInputContainer)`
+  position: relative;
+  margin: 20px 0;
   input {
     flex: 1;
   }
@@ -45,11 +45,18 @@ const TitleInputContainer = styled(CommonInputContainer)`
     border-bottom: 2px solid ${({ theme }) => theme.textColor.initial};
   }
 `;
-export default function TitleInput(): JSX.Element {
+type TitleInputPropsType = {
+  title: string;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
+};
+export default function TitleInput({
+  title,
+  setTitle,
+}: TitleInputPropsType): JSX.Element {
   return (
     <TitleInputContainer>
       <span>제목</span>
-      <input type="text" />
+      <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
     </TitleInputContainer>
   );
 }

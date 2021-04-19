@@ -197,3 +197,5 @@ export const UserMenuContainer = styled.div`
     }
   }
 `;
+
+export const InfoPostContainer = styled.div``;
