@@ -320,3 +320,23 @@ export const photos = [
     height: 3,
   },
 ];
+
+export const copyRightData = [
+  'Copyright © All Rights Reserved',
+  'CC BY (저작자표시)',
+  'CC BY-SA (저작자표시-동일조건변경허락)',
+  'CC BY-ND (저작자표시-변경금지)',
+  'CC BY-NC (저작자표시-비영리)',
+  'CC BY-NC-SA (저작자표시-비영리-동일조건변경허락)',
+  'CC BY-NC-ND (저작자표시-비영리-변경금지)',
+];
+
+export const fakePicstoryList = [
+  { id: 1, name: '픽스토리1' },
+  { id: 2, name: '픽스토리2' },
+  { id: 3, name: '픽스토리3' },
+  { id: 5, name: '픽스토리4' },
+  { id: 6, name: '픽스토리5' },
+  { id: 7, name: '픽스토리6' },
+  { id: 8, name: '픽스토리7' },
+];

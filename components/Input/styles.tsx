@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const CustomInputBox = styled.div<{ width?: number }>`
@@ -167,8 +168,8 @@ export const CustomCheckBoxBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.primary[1]};
     margin-right: 12px;
@@ -183,6 +184,58 @@ export const CustomCheckBoxBox = styled.div`
     border-radius: 50%;
   }
   label {
+    font-size: 14px;
     color: ${({ theme }) => theme.textColor.initial};
   }
+`;
+
+export const ImageDropZoneContainer = styled.div<{
+  width?: number;
+  height?: number;
+  background?: string;
+}>`
+  width: 400px;
+  height: 250px;
+  background-color: #fff;
+  border-radius: 3px;
+  border: 1px solid ${({ theme }) => theme.grayScale[2]};
+  cursor: pointer;
+  section {
+    height: 100%;
+    div {
+      color: ${({ theme }) => theme.grayScale[2]};
+      text-shadow: 0 0 2px #fff;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      span:nth-child(2) {
+        font-size: 30px;
+      }
+      span {
+        color: 1px solid ${({ theme }) => theme.grayScale[4]};
+        font-size: 14px;
+      }
+    }
+  }
+  ${({ background }) =>
+    background &&
+    css`
+      background-image: url('http://localhost:8000/image/thumbnail/${background}');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    `}
+  ${({ width }) =>
+    width &&
+    css`
+      width: ${width}px;
+    `};
+  ${({ height }) =>
+    height &&
+    css`
+      height: ${height}px;
+    `}
 `;

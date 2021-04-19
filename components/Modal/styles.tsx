@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const fadeIn = keyframes`
@@ -42,13 +42,23 @@ export const SearchModalbox = styled.div`
   justify-content: center;
   align-items: center;
 `;
-export const ModalBox = styled.div`
+export const ModalBox = styled.div<{ width?: number; height?: number }>`
   min-width: 500px;
   min-height: 500px;
   padding: 35px 50px;
   background-color: ${({ theme }) => theme.background.modal};
   animation: ${slideUp} 0.4s;
   position: relative;
+  ${({ width }) =>
+    width &&
+    css`
+      width: ${width}px;
+    `};
+  ${({ height }) =>
+    height &&
+    css`
+      height: ${height}px;
+    `}
 `;
 
 export const LoginModalBox = styled(ModalBox)`
@@ -218,6 +228,100 @@ export const SignupPenNameModalBox = styled(ModalBox)`
       right: 0;
       bottom: 0;
       margin-bottom: 70px;
+    }
+  }
+`;
+
+export const PicstoryModalBox = styled(ModalBox)`
+  display: flex;
+  font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
+  h4 {
+    margin: 25px 0 10px 0;
+    font-size: 18px;
+  }
+  h5 {
+    margin: 25px 0 10px 0;
+    font-size: 16px;
+  }
+  .modal__left {
+    padding-right: 50px;
+    flex: 1;
+    ul {
+      height: 330px;
+      overflow: auto;
+      padding-top: 10px;
+      li {
+        display: flex;
+        align-items: center;
+        padding: 5px 0;
+        height: 35px;
+        .checked {
+          cursor: pointer;
+          width: 20px;
+          height: 20px;
+          margin-right: 10px;
+          background-color: ${({ theme }) => theme.background.initial};
+          border: 1px solid ${({ theme }) => theme.textColor.lighten};
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:hover {
+            background-color: ${({ theme }) => theme.grayScale[3]};
+          }
+        }
+        p {
+          cursor: default;
+          height: 19px;
+          color: ${({ theme }) => theme.textColor.lighten};
+          flex: 1;
+          font-size: 14px;
+        }
+        span {
+          cursor: pointer;
+          display: none;
+          color: #ec5663;
+          font-size: 20px;
+        }
+        &:hover {
+          span {
+            display: initial;
+          }
+        }
+      }
+    }
+  }
+  .modal__right {
+    padding-left: 50px;
+    flex: 1;
+    & > div {
+      &:focus-within {
+        .line {
+          transform: translateX(60px);
+        }
+        span {
+          width: 60px;
+        }
+      }
+    }
+    textarea {
+      font-family: 'san-serif';
+      font-size: 16px;
+      width: 100%;
+      height: 100px;
+      outline: none;
+      resize: none;
+      padding: 5px;
+      border: 1px solid ${({ theme }) => theme.grayScale[2]};
+    }
+    .btn__group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      button + button {
+        margin-left: 20px;
+      }
     }
   }
 `;
