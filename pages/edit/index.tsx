@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import EditPost from '../../components/Layout/EditPost';
+import InfoPost from '../../components/Layout/InfoPost';
 
 export default function edit(): JSX.Element {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function edit(): JSX.Element {
           temporarySave={temporarySave}
         />
       ) : (
-        <div />
+        <InfoPost changeProg={changeProg} />
       )}
     </Layout>
   );
