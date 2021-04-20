@@ -15,3 +15,13 @@ export const getHashAPI = async (
   );
   return res.data;
 };
+
+export const postPreSave = async data => {
+  const res = await axios.post('http://localhost:8000/post/presave', data);
+  return res.data;
+};
+
+export const postSubmit = async data => {
+  const res = await axios.post('http://localhost:8000/post/submit', data);
+  return res.data;
+};

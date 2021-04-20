@@ -7,30 +7,34 @@ import exifr from 'exifr';
 import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
 import useConfirmModal from '../../hooks/useConfirmModal';
+import { useRouter } from 'next/router';
 
 type ToastEditorPropsType = {
-  changeProg: (prog: 1 | 2) => void;
   content: string;
   setContent: React.Dispatch<React.SetStateAction<string>>;
   temporarySave: (editorContent: string) => void;
 };
 
 export default function ToastEditor({
-  changeProg,
   content,
   setContent,
   temporarySave,
 }: ToastEditorPropsType): JSX.Element {
+  const router = useRouter();
   const [imageList, setImageList] = useState<{ id: number; src: string }[]>([]);
   const EditorRef = useRef<null | Editor>(null);
 
-  const onTempSubmit = () => {
+  const onTempSubmit = async () => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);
     temporarySave(EditorRef.current?.getInstance().getHtml() as string);
+    router.push(`/user/drawer/save`);
   };
-  const onFinalSubmit = () => {
+  const onFinalSubmit = async () => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);
-    changeProg(2);
+    const postId = await temporarySave(
+      EditorRef.current?.getInstance().getHtml() as string
+    );
+    router.push(`/edit/info/${postId}`);
   };
   const [confirmModalOpen, toggleConfirmModal, ConfirmModal] = useConfirmModal(
     onTempSubmit,
