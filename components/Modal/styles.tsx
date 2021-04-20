@@ -325,3 +325,22 @@ export const PicstoryModalBox = styled(ModalBox)`
     }
   }
 `;
+
+export const ConfirmModalBox = styled(ModalBox)`
+  min-width: auto;
+  min-height: auto;
+  width: 370px;
+  height: 160px;
+  color: ${({ theme }) => theme.textColor.initial};
+  font-family: 'Noto Serif KR';
+  span {
+  }
+  .btn__group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 50px;
+    button + button {
+      margin-left: 20px;
+    }
+  }
+`;

@@ -6,6 +6,7 @@ import axios from 'axios';
 import exifr from 'exifr';
 import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
+import useConfirmModal from '../../hooks/useConfirmModal';
 
 type ToastEditorPropsType = {
   changeProg: (prog: 1 | 2) => void;
@@ -31,6 +32,10 @@ export default function ToastEditor({
     setContent(EditorRef.current?.getInstance().getHtml() as string);
     changeProg(2);
   };
+  const [confirmModalOpen, toggleConfirmModal, ConfirmModal] = useConfirmModal(
+    onTempSubmit,
+    '임시저장항목으로 저장하시겠습니까?'
+  );
 
   const uploadImageToServer = async (image: Blob | File) => {
     const formData = new FormData();
@@ -65,20 +70,23 @@ export default function ToastEditor({
     callback(`http://localhost:8000/image/post/${data.src}`, `${data.imageId}`);
   }, []);
   return (
-    <ToastEditorStyle>
-      <Editor
-        initialValue={content}
-        previewStyle="vertical"
-        height="800px"
-        initialEditType="wysiwyg"
-        useCommandShortcut={true}
-        ref={EditorRef}
-        hooks={{ addImageBlobHook: onUpload }}
-      />
-      <div className="btn_group">
-        <SquareBtn onClick={onTempSubmit}>임시저장</SquareBtn>
-        <SquareBtn onClick={onFinalSubmit}>제출</SquareBtn>
-      </div>
-    </ToastEditorStyle>
+    <>
+      <ToastEditorStyle>
+        <Editor
+          initialValue={content}
+          previewStyle="vertical"
+          height="800px"
+          initialEditType="wysiwyg"
+          useCommandShortcut={true}
+          ref={EditorRef}
+          hooks={{ addImageBlobHook: onUpload }}
+        />
+        <div className="btn_group">
+          <SquareBtn onClick={toggleConfirmModal}>임시저장</SquareBtn>
+          <SquareBtn onClick={onFinalSubmit}>제출</SquareBtn>
+        </div>
+      </ToastEditorStyle>
+      {confirmModalOpen && <ConfirmModal />}
+    </>
   );
 }
