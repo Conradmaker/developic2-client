@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { copyRightData } from '../../../utils/data';
-import { postSubmit } from '../../../utils/fakeApi';
+import { getTempPostContent, postSubmit } from '../../../utils/fakeApi';
 import styled from '@emotion/styled';
 import ImageDropZone from '../../../components/Input/ImageDropZone';
 import SquareBtn from '../../../components/Button/SquareBtn';
@@ -71,7 +71,7 @@ export default function InfoPost(): JSX.Element {
   const [picstoryOpen, setPicstoryOpen] = useState(false);
   const [picstoryList, setPicstoryList] = useState<number[]>([]);
   const [allowComment, setAllowComment] = useState(true);
-  const [summary, onChangeSummary] = useInput('');
+  const [summary, onChangeSummary, setSummary] = useInput('');
   const [isPublic, setIsPublic] = useState(true);
   const [copyRight, setCopyRight] = useState('Copyright © All Rights Reserved');
   const [thumbnail, setThumbnail] = useState('');
@@ -90,6 +90,22 @@ export default function InfoPost(): JSX.Element {
     };
     await postSubmit(data);
   };
+
+  //NOTE:FAKE
+  const getTemp = async () => {
+    const data = await getTempPostContent(router.query.postId);
+    setAllowComment(data.allowComment);
+    setSummary(data.summary);
+    setIsPublic(data.isPublic);
+    setThumbnail(data.thumbnail);
+    setCopyRight(data.license);
+  };
+  useEffect(() => {
+    if (router.query.postId === 'new') return; //새로만들때
+    if (router.query.postId) {
+      getTemp();
+    }
+  }, [router]);
   return (
     <Layout>
       <InfoPostContainer>

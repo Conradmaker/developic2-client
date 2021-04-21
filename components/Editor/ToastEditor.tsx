@@ -27,7 +27,7 @@ export default function ToastEditor({
   const onTempSubmit = async () => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);
     temporarySave(EditorRef.current?.getInstance().getHtml() as string);
-    router.push(`/user/drawer/save`);
+    router.replace(`/user/drawer/save`);
   };
   const onFinalSubmit = async () => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);

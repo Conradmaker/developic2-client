@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdCancel, MdCheck } from 'react-icons/md';
 import useInput from '../../hooks/useInput';
-import { fakePicstoryList } from '../../utils/data';
+import {
+  createPicstory,
+  getPicstoryList,
+  destroyPicstoryAPI,
+  removePicstoryAPI,
+  addPicstoryAPI,
+} from '../../utils/fakeApi';
 import SquareBtn from '../Button/SquareBtn';
 import CustomInput from '../Input/CustomInput';
 import ImageDropZone from '../Input/ImageDropZone';
@@ -12,7 +18,7 @@ type PicstoryListItemPropsType = {
   checked: boolean;
   addPicstory: (id: number) => void;
   removePicstory: (id: number) => void;
-  picstoryData: { id: number; name: string };
+  picstoryData: { id: number; title: string };
 };
 function PicstoryListItem({
   checked,
@@ -20,11 +26,15 @@ function PicstoryListItem({
   removePicstory,
   picstoryData,
 }: PicstoryListItemPropsType): JSX.Element {
+  const onRemovePicstory = (e: React.MouseEvent<HTMLSpanElement>) => {
+    e.stopPropagation();
+    removePicstory(picstoryData.id);
+  };
   return (
     <li onClick={() => addPicstory(picstoryData.id)}>
       <div className="checked">{checked && <MdCheck />}</div>
-      <p>{picstoryData.name}</p>
-      <span onClick={() => removePicstory(picstoryData.id)}>
+      <p>{picstoryData.title}</p>
+      <span onClick={onRemovePicstory}>
         <MdCancel />
       </span>
     </li>
@@ -41,29 +51,61 @@ export default function PicstoryModal({
   picstoryList,
   setPicstoryList,
 }: PicstoryModalPropsType): JSX.Element {
-  const [usersPicstoryList, setUsersPicstoryList] = useState(fakePicstoryList);
+  const [usersPicstoryList, setUsersPicstoryList] = useState<
+    {
+      id: number;
+      title: string;
+    }[]
+  >([]);
   const [title, onChangeTitle, setTitle] = useInput('');
   const [desc, onChangeDesc, setDesc] = useInput('');
   const [thumbnail, setThumbnail] = useState('');
   const onClickBG = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) onClose();
   };
-  const addPicstory = (id: number) => {
+  const addPicstory = async (id: number) => {
     const isExist = picstoryList.findIndex(picid => picid === id) !== -1;
-    isExist
-      ? setPicstoryList(picstoryList.filter(picid => picid !== id))
-      : setPicstoryList([...picstoryList, id]);
+    if (isExist) {
+      const res = await removePicstoryAPI({ PostId: 1, PicstoryId: id });
+      setPicstoryList(picstoryList.filter(picid => picid !== res.id));
+    } else {
+      const res = await addPicstoryAPI({ PostId: 1, PicstoryId: id });
+      setPicstoryList([...picstoryList, res.id]);
+    }
   };
-  const removePicstory = (id: number) => {
+  const destroyPicstory = async (id: number) => {
+    //리덕스로
+    const res = await destroyPicstoryAPI(id);
+    //
     setUsersPicstoryList(usersPicstoryList.filter(pic => pic.id !== id));
   };
-  const onCreatePicstory = () => {
+  const onCreatePicstory = async () => {
     if (!title.trim()) return alert('제목을 입력해주세요.');
     if (!thumbnail.trim()) return alert('썸네일 이미지를 등록해주세요.');
+    //리덕스로
+    const newPic = await createPicstory({
+      title,
+      thumbnail,
+      description: desc,
+      UserId: 1,
+    });
+    //
     setTitle('');
+    setThumbnail('');
     setDesc('');
-    setUsersPicstoryList([...usersPicstoryList, { id: 100, name: title }]);
+    setUsersPicstoryList([...usersPicstoryList, newPic]);
   };
+
+  //NOTE: FAKE
+  const getList = async () => {
+    const res = await getPicstoryList(1); //UserId
+    setUsersPicstoryList(res);
+  };
+
+  useEffect(() => {
+    //리덕스로
+    getList();
+  }, []);
   return (
     <ModalLayout onClick={onClickBG}>
       <PicstoryModalBox width={800} height={600}>
@@ -77,7 +119,7 @@ export default function PicstoryModal({
                 checked={picstoryList.findIndex(pic => picstory.id === pic) !== -1}
                 addPicstory={addPicstory}
                 picstoryData={picstory}
-                removePicstory={removePicstory}
+                removePicstory={destroyPicstory}
               />
             ))}
           </ul>
@@ -95,7 +137,7 @@ export default function PicstoryModal({
           <h5>설명</h5>
           <textarea onChange={onChangeDesc} value={desc}></textarea>
           <div className="btn__group">
-            <SquareBtn onClick={onClose}>취소</SquareBtn>
+            <SquareBtn onClick={onClose}>확인</SquareBtn>
             <SquareBtn onClick={onCreatePicstory}>생성</SquareBtn>
           </div>
         </div>

@@ -5,7 +5,7 @@ import Layout from '../../../components/Layout';
 import styled from '@emotion/styled';
 import HashTagInstant from '../../../components/Editor/HashTagInstant';
 import TitleInput from '../../../components/Input/EditPageInput';
-import { postPreSave } from '../../../utils/fakeApi';
+import { getTempPostContent, postPreSave } from '../../../utils/fakeApi';
 const EditContainer = styled.div`
   max-width: 1100px;
   margin: 0 auto;
@@ -28,14 +28,22 @@ export default function edit(): JSX.Element {
       tagList: tagList.map(tag => tag.id),
       content: editorContent,
       UserId: 1,
-      PostId: null, //수정일때 아이디들어있음.
+      PostId: router.query.postId === 'new' ? null : router.query.postId,
     });
     return result.postId;
+  };
+
+  //NOTE:FAKE
+  const getTemp = async () => {
+    const data = await getTempPostContent(router.query.postId);
+    setTitle(data.title);
+    setContent(data.content);
+    setTagList(data.tagList);
   };
   useEffect(() => {
     if (router.query.postId === 'new') return; //새로만들때
     if (router.query.postId) {
-      console.log(router.query.postId);
+      getTemp();
     }
   }, [router]);
   return (
