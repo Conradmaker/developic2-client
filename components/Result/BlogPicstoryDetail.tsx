@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useCallback, useState } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import { PicstoryDataType } from '../../utils/data';
 import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
@@ -21,7 +22,13 @@ const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
     }
   }
 `;
-export default function BlogPicstoryDetailBox(): JSX.Element {
+
+type PicstoryCardPropsType = {
+  data: PicstoryDataType;
+};
+export default function BlogPicstoryDetailBox({
+  data,
+}: PicstoryCardPropsType): JSX.Element {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [removeModalOpen, setRemoveModalOpen] = useState(false);
 
@@ -37,65 +44,35 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
     <BlogPicstoryDetailContainer>
       <article>
         <div className="picstory__description">
-          <h2>Summer</h2>
+          <h2>{data[0].title}</h2>
           <div className="picstory__stats">
             <div>
               <MdBook />
-              <span>10</span>
+              <span>{data[0].postCount ? data[0].postCount : 0}</span>
             </div>
             <div>
               <MdFavorite />
-              <span>113</span>
+              <span>{data[0].likeCount ? data[0].likeCount : 0}</span>
             </div>
             <div>
               <MdRemoveRedEye />
-              <span>112</span>
+              <span>{data[0].viewCount ? data[0].viewCount : 0}</span>
             </div>
           </div>
         </div>
-        <p>내가 기록한 여름</p>
+        <p>{data[0].description}</p>
         <div className="picstory__btn">
           <SquareBtn onClick={onToggleEditModal}>편집</SquareBtn>
           <SquareBtn onClick={onToggleRemoveModal}>삭제</SquareBtn>
         </div>
 
         <ul className="picstory__recent-img">
-          <li className="img__box">
-            <img
-              src="https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-              alt="picstory__recent-img"
-            />
-          </li>
-          <li className="img__box">
-            <img
-              src="https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-              alt="picstory__recent-img"
-            />
-          </li>
-          <li className="img__box">
-            <img
-              src="https://images.unsplash.com/photo-1586902197503-e71026292412?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-              alt="picstory__recent-img"
-            />
-          </li>
-          <li className="img__box">
-            <img
-              src="https://images.unsplash.com/photo-1498747946579-bde604cb8f44?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-              alt="picstory__recent-img"
-            />
-          </li>
-          <li className="img__box">
-            <img
-              src="https://images.unsplash.com/photo-1459314079206-9970f36c7784?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fHN1bW1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-              alt="picstory__recent-img"
-            />
-          </li>
-          <li className="img__box">
-            <img
-              src="https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-              alt="picstory__recent-img"
-            />
-          </li>
+          {data[0].ThumbnailImages &&
+            data[0].ThumbnailImages.map(picstoryImgItem => (
+              <li className="img__box">
+                <img src={picstoryImgItem.src} alt="picstory__recent-img" />
+              </li>
+            ))}
         </ul>
       </article>
       {editModalOpen && (

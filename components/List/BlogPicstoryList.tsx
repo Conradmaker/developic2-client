@@ -1,13 +1,16 @@
 import React from 'react';
+import { PicstoryDataType } from '../../utils/data';
 import BlogPistoryCard from '../Card/BlogPistoryCard';
 import { BlogPicstoryListContainer } from './styles';
 
-export default function BlogPicstoryList(): JSX.Element {
+type PicstoryListPropsType = { data: PicstoryDataType };
+export default function BlogPicstoryList({ data }: PicstoryListPropsType): JSX.Element {
   return (
     <BlogPicstoryListContainer>
-      <BlogPistoryCard />
-      <BlogPistoryCard />
-      <BlogPistoryCard />
+      {data &&
+        data.map(picstoryItem => (
+          <BlogPistoryCard key={picstoryItem.id} data={picstoryItem} />
+        ))}
     </BlogPicstoryListContainer>
   );
 }

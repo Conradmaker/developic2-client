@@ -10,9 +10,11 @@ const PicstoryEditModalBox = styled(BinderEditModalBox)``;
 
 type PicstoryEditModalPropsType = {
   onClose: () => void;
+  onRemove: () => void;
 };
 export default function PicstoryEditModal({
   onClose,
+  onRemove,
 }: PicstoryEditModalPropsType): JSX.Element {
   const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {

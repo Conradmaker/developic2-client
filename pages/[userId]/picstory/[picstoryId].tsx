@@ -4,7 +4,7 @@ import React from 'react';
 import Layout from '../../../components/Layout';
 import PicstoryDetailList from '../../../components/List/PicstoryDetailList';
 import BlogPicstoryDetailBox from '../../../components/Result/BlogPicstoryDetail';
-import { PostData } from '../../../utils/data';
+import { PicstoryData } from '../../../utils/data';
 
 const PicstoryDetailContainer = styled.section`
   min-height: 550px;
@@ -24,11 +24,11 @@ export default function PicstoryId(): JSX.Element {
   return (
     <Layout>
       <PicstoryDetailContainer>
-        <Link href="/blog/picstory">
+        <Link href="/user123/picstory">
           <h1>Picstory</h1>
         </Link>
-        <BlogPicstoryDetailBox />
-        <PicstoryDetailList data={PostData} />
+        <BlogPicstoryDetailBox data={PicstoryData} />
+        <PicstoryDetailList data={PicstoryData} />
       </PicstoryDetailContainer>
     </Layout>
   );

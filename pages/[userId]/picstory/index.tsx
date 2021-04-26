@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import BlogWithNavLayout from '../../../components/Layout/BlogWithNavLayout';
 import BlogPicstoryList from '../../../components/List/BlogPicstoryList';
-import { PostData } from '../../../utils/data';
+import { PicstoryData, UserInfoData } from '../../../utils/data';
 
 const BlogPicstoryContainer = styled.section`
   min-height: 550px;
@@ -12,9 +12,9 @@ const BlogPicstoryContainer = styled.section`
 
 export default function Picstory(): JSX.Element {
   return (
-    <BlogWithNavLayout>
+    <BlogWithNavLayout data={UserInfoData}>
       <BlogPicstoryContainer>
-        <BlogPicstoryList data={PostData} />
+        <BlogPicstoryList data={PicstoryData} />
       </BlogPicstoryContainer>
     </BlogWithNavLayout>
   );

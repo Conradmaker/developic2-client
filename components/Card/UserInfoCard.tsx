@@ -23,7 +23,7 @@ export default function UserInfoCard({ data }: UserInfoCardPropsType): JSX.Eleme
           </div>
         </div>
         <div className="writer__recent-img">
-          {data.imgUrl.map(imgItem => (
+          {data.recentPostImgUrl.map(imgItem => (
             <div className="img__box">
               <img src={imgItem} alt="writer-recent-img" />
             </div>

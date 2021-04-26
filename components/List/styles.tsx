@@ -206,7 +206,7 @@ export const ImgItemBox = styled.div<{ selected: boolean }>`
 export const BlogPicstoryListContainer = styled.ul`
   margin-bottom: 100px;
 `;
-export const BlogWorkListContainer = styled.ul`
+export const BlogPostListContainer = styled.ul`
   margin-bottom: 100px;
   .my-masonry-grid {
     display: -webkit-box; /* Not needed if autoprefixing */
