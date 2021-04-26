@@ -2,17 +2,18 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
+import BlogPicstoryList from '../../components/List/BlogPicstoryList';
 import SearchPageNav from '../../components/Nav/SearchPageNav';
 import Incomplete from '../../components/Result/Incomplete';
 import SortTab from '../../components/Tab/SortTab';
-import { SearchListOptions } from '../../utils/data';
+import { PicstoryData, PostData, SearchListOptions } from '../../utils/data';
 
 const SearchTagContainer = styled.section`
   width: 1150px;
   margin: 0 auto;
 `;
 
-export default function SearchTag(): JSX.Element {
+export default function SearchPicstory(): JSX.Element {
   const [currentSort, setCurrentSort] = useState(SearchListOptions.Popular);
   const { query } = useRouter();
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function SearchTag(): JSX.Element {
       <SearchTagContainer>
         <SearchPageNav />
         <SortTab currentSort={currentSort} setCurrentSort={setCurrentSort} />
-        <Incomplete width={330} title="아직 준비중인 페이지에요." desc="물러가세요" />
+        <BlogPicstoryList data={PicstoryData} />
       </SearchTagContainer>
     </Layout>
   );
