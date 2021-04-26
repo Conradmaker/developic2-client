@@ -1,5 +1,26 @@
 import styled from '@emotion/styled';
 
+export const BlogTabBox = styled.ul`
+  margin: 45px auto;
+  display: flex;
+  justify-content: center;
+  li {
+    text-align: center;
+    width: 20%;
+    display: inline-block;
+    padding: 15px 30px;
+    margin-bottom: -1px;
+  }
+  li:hover {
+    cursor: pointer;
+    font-weight: bold;
+  }
+  li.nav--active {
+    border-bottom: 2px solid ${({ theme }) => theme.primary[1]};
+    font-weight: bold;
+  }
+`;
+
 export const SearchTabBox = styled.nav`
   height: 30px;
   margin-top: 50px;

@@ -71,6 +71,7 @@ export const NoticeListContainer = styled.ul`
     }
   }
 `;
+
 export const RecentViewListContainer = styled.ul`
   width: 100%;
   font-family: 'Noto Serif KR';
@@ -200,4 +201,27 @@ export const ImgItemBox = styled.div<{ selected: boolean }>`
         background-color: #8c30f5;
       }
     `}
+`;
+
+export const BlogPicstoryListContainer = styled.ul`
+  margin-bottom: 100px;
+`;
+export const BlogPostListContainer = styled.ul`
+  margin-bottom: 100px;
+  .my-masonry-grid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
+  }
+  .my-masonry-grid_column {
+    padding-left: 30px; /* gutter size */
+    background-clip: padding-box;
+  }
+
+  /* Style your items */
+  .my-masonry-grid_column > li {
+    margin-bottom: 50px;
+  }
 `;

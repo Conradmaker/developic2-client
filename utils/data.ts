@@ -21,76 +21,345 @@ export const SettingNavData: NavDataType = [
   { name: '소개', link: '/user/setting/intro' },
   { name: '통계', link: '/user/setting/stats' },
 ];
-export const SearchNavData: NavDataType = [
-  { name: '글', link: '/search/post' },
-  { name: '작가', link: '/search/writer' },
-  { name: '해시태그', link: '/search/tag' },
-];
 
 export const SearchListOptions = {
   Popular: 'popular',
   Recent: 'recent',
 };
 
+export const BlogNavData: NavDataType = [
+  { name: '글', link: '/[userId]' },
+  { name: '픽스토리', link: '/[userId]/picstory' },
+  { name: '소개', link: '/[userId]/info' },
+];
+
+export const SearchNavData: NavDataType = [
+  { name: '글', link: '/search/post' },
+  { name: '작가', link: '/search/writer' },
+  { name: '픽스토리', link: '/search/picstory' },
+];
+
+interface PicstoryItem {
+  id: number;
+  title: string;
+  description: string;
+  postCount?: number;
+  likeCount?: number;
+  viewCount?: number;
+  ThumbnailImages?: any;
+  Posts?: any;
+}
+
+export type PicstoryDataType = PicstoryItem[];
+
+export const PicstoryData: PicstoryDataType = [
+  {
+    id: 1,
+    title: 'Summer',
+    description: '내가 기록한 여름',
+    likeCount: 33,
+    viewCount: 135,
+    ThumbnailImages: [
+      {
+        src:
+          'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1586902197503-e71026292412?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1498747946579-bde604cb8f44?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1459314079206-9970f36c7784?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fHN1bW1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+    ],
+    Posts: [
+      {
+        id: 1,
+        postImgUrl: 'https://source.unsplash.com/NQSWvyVRIJk/800x599',
+        title: '좋은 제목과 좋은 사진의 상관관계',
+        description:
+          '황금시대의 피부가 이상 두기 밝은 쓸쓸하랴? 풀이 놀이 용기가 황금시대다. 미묘한 품에 그들에게 귀는 관현악이며, 너의 타오르고 스며들어 듣는다. 것이다.보라, 그들의 풍부하게 끝까지 주는 그리하였는가?',
+        userName: '1번 작가',
+        avatarImgUrl:
+          'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
+        likeCount: 133,
+        viewCount: 214,
+        date: '2021.04.12',
+        picstoryTitle: '사진에 관한 좋은 이론 공부',
+      },
+      {
+        id: 2,
+        postImgUrl: 'https://source.unsplash.com/5P91SF0zNsI/740x494',
+        title: '좋은 제목과 좋은 사진의 상관관계',
+        description:
+          '황금시대의 피부가 이상 두기 밝은 쓸쓸하랴? 풀이 놀이 용기가 황금시대다. 미묘한 품에 그들에게 귀는 관현악이며, 너의 타오르고 스며들어 듣는다. 것이다.보라, 그들의 풍부하게 끝까지 주는 그리하였는가?',
+        userName: '2번 작가',
+        avatarImgUrl:
+          'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
+        likeCount: 133,
+        viewCount: 214,
+        date: '2021.04.12',
+        picstoryTitle: '사진에 관한 좋은 이론 공부',
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: 'Spring',
+    description: '내가 기록한 봄봄봄',
+    postCount: 23,
+    likeCount: 0,
+    viewCount: 222,
+    ThumbnailImages: [
+      {
+        src:
+          'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1586902197503-e71026292412?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1498747946579-bde604cb8f44?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1459314079206-9970f36c7784?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fHN1bW1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: '가을',
+    description: '가을가을',
+    postCount: 10,
+    likeCount: 33,
+    viewCount: 135,
+    ThumbnailImages: [
+      {
+        src:
+          'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1586902197503-e71026292412?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1498747946579-bde604cb8f44?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1459314079206-9970f36c7784?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fHN1bW1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: 'Summer',
+    description: '내가 기록한 여름',
+    postCount: 10,
+    likeCount: 33,
+    viewCount: 135,
+    ThumbnailImages: [
+      {
+        src:
+          'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1586902197503-e71026292412?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1498747946579-bde604cb8f44?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1459314079206-9970f36c7784?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fHN1bW1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: 'Summer',
+    description: '내가 기록한 여름',
+    postCount: 10,
+    likeCount: 33,
+    viewCount: 135,
+    ThumbnailImages: [
+      {
+        src:
+          'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1586902197503-e71026292412?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1498747946579-bde604cb8f44?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1459314079206-9970f36c7784?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fHN1bW1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: 'Summer',
+    description: '내가 기록한 여름',
+    postCount: 10,
+    likeCount: 33,
+    viewCount: 135,
+    ThumbnailImages: [
+      {
+        src:
+          'https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1586902197503-e71026292412?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1498747946579-bde604cb8f44?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1459314079206-9970f36c7784?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fHN1bW1lcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+      {
+        src:
+          'https://images.unsplash.com/photo-1572953745960-14685e3e9b49?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3VtbWVyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      },
+    ],
+  },
+];
+
 interface PostItem {
   id: number;
   postImgUrl: string;
   title: string;
   description: string;
-  userName: string;
-  avatarImgUrl: string;
-  likeCount: number;
-  viewCount: number;
+  userName?: string;
+  avatarImgUrl?: string;
+  likeCount?: number;
+  viewCount?: number;
+  date?: string;
+  picstoryTitle?: string;
 }
 export type PostDataType = PostItem[];
 
 export const PostData: PostDataType = [
   {
     id: 1,
-    postImgUrl:
-      'https://www.imgacademy.co.kr/themes/custom/imgacademy/images/helpbox-contact.jpg',
-    title: '윌리엄 진서가 자전적 글을 쓰는 방법을 말하는 책',
-    description: '진서는 "자서전, 회고록, 개인사·가족사 기록 등 형식과 관계없이 스스로의',
+    postImgUrl: 'https://source.unsplash.com/NQSWvyVRIJk/800x599',
+    title: '좋은 제목과 좋은 사진의 상관관계',
+    description:
+      '황금시대의 피부가 이상 두기 밝은 쓸쓸하랴? 풀이 놀이 용기가 황금시대다. 미묘한 품에 그들에게 귀는 관현악이며, 너의 타오르고 스며들어 듣는다. 것이다.보라, 그들의 풍부하게 끝까지 주는 그리하였는가?',
     userName: '1번 작가',
     avatarImgUrl:
       'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
     likeCount: 133,
     viewCount: 214,
+    date: '2021.04.12',
+    picstoryTitle: '사진에 관한 좋은 이론 공부',
   },
   {
     id: 2,
-    postImgUrl:
-      'https://i.pinimg.com/originals/eb/7b/0f/eb7b0fb988efb27a67e30eb0f1f07e4a.jpg',
-    title: '윌리엄 진서가 자전적 글을 쓰는 방법을 말하는 책',
-    description: '진서는 "자서전, 회고록, 개인사·가족사 기록 등 형식과 관계없이 스스로의',
+    postImgUrl: 'https://source.unsplash.com/5P91SF0zNsI/740x494',
+    title: '좋은 제목과 좋은 사진의 상관관계',
+    description:
+      '황금시대의 피부가 이상 두기 밝은 쓸쓸하랴? 풀이 놀이 용기가 황금시대다. 미묘한 품에 그들에게 귀는 관현악이며, 너의 타오르고 스며들어 듣는다. 것이다.보라, 그들의 풍부하게 끝까지 주는 그리하였는가?',
     userName: '2번 작가',
     avatarImgUrl:
       'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
     likeCount: 133,
     viewCount: 214,
+    date: '2021.04.12',
+    picstoryTitle: '사진에 관한 좋은 이론 공부',
   },
   {
     id: 3,
-    postImgUrl: 'https://i.pinimg.com/736x/02/ca/96/02ca9691718349ef90d7d252d61bc27f.jpg',
-    title: '윌리엄 진서가 자전적 글을 쓰는 방법을 말하는 책',
-    description: '진서는 "자서전, 회고록, 개인사·가족사 기록 등 형식과 관계없이 스스로의',
+    postImgUrl:
+      'https://images.unsplash.com/photo-1618118850468-71176468ef6b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=642&q=80',
+    title: '좋은 제목과 좋은 사진의 상관관계',
+    description:
+      '황금시대의 피부가 이상 두기 밝은 쓸쓸하랴? 풀이 놀이 용기가 황금시대다. 미묘한 품에 그들에게 귀는 관현악이며, 너의 타오르고 스며들어 듣는다. 것이다.보라, 그들의 풍부하게 끝까지 주는 그리하였는가?',
     userName: '3번 작가',
     avatarImgUrl:
       'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
     likeCount: 133,
     viewCount: 214,
+    date: '2021.04.12',
+    picstoryTitle: '사진에 관한 좋은 이론 공부',
   },
   {
     id: 4,
     postImgUrl:
-      'https://c4.wallpaperflare.com/wallpaper/868/284/966/matterhorn-lake-snow-landscape-wallpaper-thumb.jpg',
-    title: '윌리엄 진서가 자전적 글을 쓰는 방법을 말하는 책',
-    description: '진서는 "자서전, 회고록, 개인사·가족사 기록 등 형식과 관계없이 스스로의',
+      'https://images.unsplash.com/photo-1610752115639-9f563c566eda?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80',
+    title: '좋은 제목과 좋은 사진의 상관관계',
+    description:
+      '황금시대의 피부가 이상 두기 밝은 쓸쓸하랴? 풀이 놀이 용기가 황금시대다. 미묘한 품에 그들에게 귀는 관현악이며, 너의 타오르고 스며들어 듣는다. 것이다.보라, 그들의 풍부하게 끝까지 주는 그리하였는가?',
     userName: '4번 작가',
     avatarImgUrl:
       'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
     likeCount: 133,
     viewCount: 214,
+    date: '2021.04.12',
+    picstoryTitle: '사진에 관한 좋은 이론 공부',
   },
   {
     id: 5,
@@ -123,25 +392,35 @@ export interface UserItem {
   userName: string;
   avatarImgUrl: string;
   userIntro: string;
-  followerCount: number;
-  postCount: number;
-  imgUrl: string[];
+  followingCount?: number;
+  followerCount?: number;
+  postCount?: number;
+  recentPostImgUrl: string[];
+  BlogUserInfo?: any;
 }
 
 export type UserDataType = UserItem[];
 export const UserInfoData: UserDataType = [
   {
     id: 1,
-    userName: '1번 작가',
+    userName: '김리리',
     avatarImgUrl:
       'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png',
-    userIntro: 'CEO at ABC Corporation',
+    userIntro: '취미는 사진 취향도 사진 좋아하는 일을 좋아하기',
     followerCount: 198,
     postCount: 198,
-    imgUrl: [
+    recentPostImgUrl: [
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
+    ],
+    BlogUserInfo: [
+      {
+        info:
+          '황금시대의 피부가 이상 두기 밝은 쓸쓸하랴? 풀이 놀이 용기가 황금시대다. 미묘한 품에 그들에게 귀는 관현악이며, 너의 타오르고 스며들어 듣는다. 것이다.보라, 그들의 풍부하게 끝까지 주는 그리하였는가?',
+        mainEquipment: 'Canon AE-1',
+        website: 'www.myportfolio.com',
+      },
     ],
   },
   {
@@ -152,7 +431,7 @@ export const UserInfoData: UserDataType = [
     userIntro: 'CEO at ABC Corporation',
     followerCount: 198,
     postCount: 198,
-    imgUrl: [
+    recentPostImgUrl: [
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
@@ -166,7 +445,7 @@ export const UserInfoData: UserDataType = [
     userIntro: 'CEO at ABC Corporation',
     followerCount: 198,
     postCount: 198,
-    imgUrl: [
+    recentPostImgUrl: [
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
@@ -180,7 +459,7 @@ export const UserInfoData: UserDataType = [
     userIntro: 'CEO at ABC Corporation',
     followerCount: 198,
     postCount: 198,
-    imgUrl: [
+    recentPostImgUrl: [
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
@@ -194,7 +473,7 @@ export const UserInfoData: UserDataType = [
     userIntro: 'CEO at ABC Corporation',
     followerCount: 198,
     postCount: 198,
-    imgUrl: [
+    recentPostImgUrl: [
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
@@ -208,7 +487,7 @@ export const UserInfoData: UserDataType = [
     userIntro: 'CEO at ABC Corporation',
     followerCount: 198,
     postCount: 198,
-    imgUrl: [
+    recentPostImgUrl: [
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',
       'https://picsum.photos/130/100',

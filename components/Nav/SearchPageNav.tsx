@@ -7,6 +7,7 @@ import SearchInput from '../Input/SearchInput';
 import TitleLabel from '../Label/TitleLabel';
 import { PageWithNavContainer } from '../Layout/PageWithNavLayout';
 import { PageNavigationBox } from './styles';
+import { SearchNavData } from '../../utils/data';
 
 const SearchPageWithNavContainer = styled(PageWithNavContainer)``;
 
@@ -34,18 +35,24 @@ export default function SearchPageNav(): JSX.Element {
       <PageNavigationBox>
         <ul>
           <Link href={`/search/post?keyword=${router.query.keyword}`}>
-            <li className={router.pathname === '/search/post' ? 'nav--active' : ''}>
+            <li
+              className={router.pathname === SearchNavData[0].link ? 'nav--active' : ''}
+            >
               글
             </li>
           </Link>
           <Link href={`/search/writer?keyword=${router.query.keyword}`}>
-            <li className={router.pathname === '/search/writer' ? 'nav--active' : ''}>
+            <li
+              className={router.pathname === SearchNavData[1].link ? 'nav--active' : ''}
+            >
               작가
             </li>
           </Link>
-          <Link href={`/search/tag?keyword=${router.query.keyword}`}>
-            <li className={router.pathname === '/search/tag' ? 'nav--active' : ''}>
-              해시태그
+          <Link href={`/search/picstory?keyword=${router.query.keyword}`}>
+            <li
+              className={router.pathname === SearchNavData[2].link ? 'nav--active' : ''}
+            >
+              픽스토리
             </li>
           </Link>
         </ul>

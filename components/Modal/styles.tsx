@@ -106,7 +106,8 @@ export const ConfirmRemoveModalBox = styled(ModalBox)`
   form {
     padding: 50px 0 20px 0;
     & > span {
-      font-size: 20px;
+      font-size: 18px;
+      line-height: 1.5;
     }
     & > p {
       margin: 20px 0;

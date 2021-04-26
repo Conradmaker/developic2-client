@@ -197,3 +197,60 @@ export const UserMenuContainer = styled.div`
     }
   }
 `;
+
+export const BlogUserProfile = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+  font-size: ${({ theme }) => theme.fontSize.base};
+  .profile__top {
+    text-align: center;
+    margin-bottom: 30px;
+    img {
+      border-radius: 45px;
+      width: 90px;
+      height: 90px;
+      margin-bottom: 15px;
+    }
+    h1 {
+      margin-bottom: 25px;
+      font-weight: 600;
+      font-size: ${({ theme }) => theme.fontSize.medium};
+    }
+    p {
+      margin-bottom: 15px;
+    }
+  }
+  .profile__bottom {
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    strong {
+      margin-bottom: 5px;
+    }
+    span {
+    }
+    .follower {
+      margin-right: 60px;
+      strong {
+      }
+      span {
+      }
+    }
+    .following {
+      strong {
+      }
+      span {
+      }
+    }
+  }
+`;

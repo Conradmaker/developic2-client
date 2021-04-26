@@ -3,6 +3,7 @@ import SearchInput from '../Input/SearchInput';
 import { LoginModalBox, SearchModalbox, SearchModalLayout } from './styles';
 
 type LoginModalPropsType = {
+  onSearch: (keyword: string) => void;
   onClose: () => void;
   initial: string;
 };
@@ -16,14 +17,14 @@ export default function SearchModal({
       onClose();
     }
   };
-  const onSearch = keyword => {
+  const onSearch = (keyword) => {
     console.log(keyword);
   };
 
   return (
     <SearchModalLayout onClick={onClickBg} className="bg">
       <SearchModalbox>
-        <SearchInput searchAsYouType={true} onSearch={onSearch} initial={initial} />
+        <SearchInput onSearch={onSearch} initial={initial} />
       </SearchModalbox>
     </SearchModalLayout>
   );
