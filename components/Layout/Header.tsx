@@ -4,7 +4,7 @@ import { HeaderContainer } from './styles';
 import LoginModal from '../Modal/LoginModal';
 import { MdSearch } from 'react-icons/md';
 import UserMenu from './UserMenu';
-import SearchModal from '../Modal/SearchModal';
+// import SearchModal from '../Modal/SearchModal';
 
 export function Logo(): JSX.Element {
   return (
@@ -22,13 +22,13 @@ export default function Header(): JSX.Element {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
-  const [searchOpen, setSearchOpen] = useState(false);
+  // const [searchOpen, setSearchOpen] = useState(false);
 
   const toggleUserMenu = useCallback(() => setUserMenuOpen(!userMenuOpen), [
     userMenuOpen,
   ]);
   const toggleLoginModal = useCallback(() => setLoginOpen(!loginOpen), [loginOpen]);
-  const toggleSearchModal = useCallback(() => setSearchOpen(!searchOpen), [searchOpen]);
+  // const toggleSearchModal = useCallback(() => setSearchOpen(!searchOpen), [searchOpen]);
 
   return (
     <>
@@ -43,8 +43,8 @@ export default function Header(): JSX.Element {
               <Link href="/discovery">
                 <li>탐색</li>
               </Link>
-              <Link href="/exhibition">
-                <li>전시전보</li>
+              <Link href="/archive">
+                <li>전시정보</li>
               </Link>
               <Link href="/search/1">
                 <li>
@@ -69,7 +69,7 @@ export default function Header(): JSX.Element {
       </HeaderContainer>
       {loginOpen && <LoginModal onClose={toggleLoginModal} fakeLogin={toggleLogin} />}
       {userMenuOpen && <UserMenu onClose={toggleUserMenu} />}
-      {searchOpen && <SearchModal onClose={toggleSearchModal} />}
+      {/* {searchOpen && <SearchModal onClose={toggleSearchModal} />} */}
     </>
   );
 }

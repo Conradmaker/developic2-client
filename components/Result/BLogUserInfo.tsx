@@ -5,6 +5,7 @@ import { UserDataType } from '../../utils/data';
 import { RoundCornerBtnBox } from '../Button/styles';
 import { EmptyBlogUserInfoBox, BlogUserInfoBox } from './styles';
 
+// 스타일 파일 안으로 빼는게 좋을것 같아요.
 const CreateInfoButton = styled(RoundCornerBtnBox)``;
 
 type BlogUserInfoPropsType = {

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { CustomCheckBoxBox } from './styles';
 
 type CustomCheckBoxPropsType = {

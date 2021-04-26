@@ -121,7 +121,7 @@ const theme: ThemeType = {
       modal: '#FFFFFF',
     },
     textColor: {
-      initial: '#474A57',
+      initial: '#111',
       lighten: '#474a57',
       reverse: '#FCFCFC',
     },

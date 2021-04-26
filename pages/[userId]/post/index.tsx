@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import BlogWithNavLayout from '../../components/Layout/BlogWithNavLayout';
-import BlogPostList from '../../components/List/BlogPostList';
-import { PostData, UserInfoData } from '../../utils/data';
+import BlogWithNavLayout from '../../../components/Layout/BlogWithNavLayout';
+import BlogPostList from '../../../components/List/BlogPostList';
+import { PostData, UserInfoData } from '../../../utils/data';
 
 const BlogPostContainer = styled.section`
   min-height: 550px;

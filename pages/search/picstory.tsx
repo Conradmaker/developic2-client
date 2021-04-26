@@ -4,9 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import BlogPicstoryList from '../../components/List/BlogPicstoryList';
 import SearchPageNav from '../../components/Nav/SearchPageNav';
-import Incomplete from '../../components/Result/Incomplete';
 import SortTab from '../../components/Tab/SortTab';
-import { PicstoryData, PostData, SearchListOptions } from '../../utils/data';
+import { PicstoryData, SearchListOptions } from '../../utils/data';
 
 const SearchTagContainer = styled.section`
   width: 1150px;

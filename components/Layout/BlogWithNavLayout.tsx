@@ -64,7 +64,7 @@ export default function BlogWithNavLayout({
             </div>
           </BlogUserProfile>
           <BlogTabBox>
-            <Link href="/user123">
+            <Link href="/user123/post">
               <li
                 className={router.pathname === BlogNavData[0].link ? 'nav--active' : ''}
               >

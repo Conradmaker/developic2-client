@@ -7,10 +7,8 @@ import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 
 const ArchiveContainer = styled.div`
-  width: 1240px;
-  margin: 0 auto;
-  margin-top: 50px;
-  margin-bottom: 100px;
+  max-width: 1150px;
+  margin: 50px auto 100px auto;
   & > section {
     display: flex;
     justify-content: space-between;

@@ -7,9 +7,8 @@ import { ArchiveItemPropsType } from '.';
 import Link from 'next/link';
 
 const ArchiveDetailContainer = styled.div`
-  width: 900px;
-  margin: 0 auto;
-  margin-bottom: 100px;
+  max-width: 900px;
+  margin: 0 auto 100px auto;
   b {
     font-family: 'Montserrat';
   }
@@ -224,10 +223,9 @@ const archiveItem: ArchiveItemPropsType = {
   ),
 };
 export default function archiveId(): JSX.Element {
-  // const queryId = useRouter();
-  // const { archiveId } = queryId.query;
-  // console.log(archiveId);
-  // console.log(queryId.query);
+  // const router = useRouter();
+  // const { archiveId } = router.query;
+
   return (
     <Layout>
       <Head>

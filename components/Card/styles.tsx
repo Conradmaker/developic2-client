@@ -163,7 +163,7 @@ export const CommonPostCardBox = styled.li`
     }
     h3 {
       color: ${({ theme }) => theme.textColor.initial};
-      font-weight: 600;
+      font-weight: 400;
       font-size: ${({ theme }) => theme.fontSize.medium};
       margin: 0.857em 0 0.857em 0;
     }
