@@ -148,11 +148,11 @@ const hashTag: HashTagPropsType[] = [
   // { id: 6, name: '로로픽' },
   // { id: 7, name: '디벨디벨' },
 ];
-export default function blogId(): JSX.Element {
+export default function postId(): JSX.Element {
   return (
     <Layout>
       <Head>
-        <title>DEVELOPIC | blog</title>
+        <title>DEVELOPIC | post</title>
       </Head>
       <BlogContainer>
         <section className="blog__head">
