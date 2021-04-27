@@ -1,19 +1,19 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import React from 'react';
+import Link from 'next/link';
+import { BiRightArrow } from 'react-icons/bi';
 import CommonPostCard from '../../components/Card/CommonPostCard';
 import RecentUserCard from '../../components/Card/RecentUserCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import { discoveryData } from '../../utils/discoveryData';
 import { recentUsers } from '../../utils/data';
-import Link from 'next/link';
+import useFollowListModal from '../../hooks/useFollowListModal';
 
 const FeedContainer = styled.div`
-  width: 1150px;
-  margin: 0 auto;
-  margin-top: 50px;
-  margin-bottom: 100px;
+  max-width: 1150px;
+  margin: 50px auto 100px auto;
   .feed__users,
   .feed__posts {
     padding-top: 30px;
@@ -49,16 +49,8 @@ const FeedContainer = styled.div`
           justify-content: center;
           align-items: center;
           cursor: pointer;
-          i {
-            width: 12px;
-            height: 12px;
-            border-top: 2px solid ${({ theme }) => theme.textColor.lighten};
-            border-right: 2px solid ${({ theme }) => theme.textColor.lighten};
-            transform: translateX(-20%) rotate(45deg);
-          }
           &:hover {
-            border: 2px solid ${({ theme }) => theme.textColor.initial};
-            box-shadow: 0 0 3px ${({ theme }) => theme.textColor.lighten};
+            box-shadow: 0 0 3px ${({ theme }) => theme.grayScale[2]};
           }
         }
         p {
@@ -84,6 +76,7 @@ const FeedContainer = styled.div`
   }
 `;
 export default function index(): JSX.Element {
+  const [followListOpen, toggleFollowList, FollowListModal] = useFollowListModal();
   return (
     <Layout>
       <Head>
@@ -99,15 +92,11 @@ export default function index(): JSX.Element {
                 <RecentUserCard key={v.id} data={v} />
               </Link>
             ))}
-            <li className="more__recent__users">
-              <Link href="/feed">
-                <div>
-                  <i></i>
-                </div>
-              </Link>
-              <Link href="/feed">
-                <p>더 많은 작가</p>
-              </Link>
+            <li className="more__recent__users" onClick={toggleFollowList}>
+              <div>
+                <BiRightArrow />
+              </div>
+              <p>더 많은 작가</p>
             </li>
           </ul>
         </section>
@@ -120,6 +109,7 @@ export default function index(): JSX.Element {
           </ul>
         </section>
       </FeedContainer>
+      {followListOpen && <FollowListModal />}
     </Layout>
   );
 }
