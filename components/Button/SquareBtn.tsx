@@ -4,10 +4,16 @@ import { SquareBtnBox } from './styles';
 type SquareBtnPropsType = {
   children: React.ReactNode;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
 };
 export default function SquareBtn({
   children,
   onClick,
+  type = 'button',
 }: SquareBtnPropsType): JSX.Element {
-  return <SquareBtnBox onClick={onClick}>{children}</SquareBtnBox>;
+  return (
+    <SquareBtnBox type={type} onClick={onClick}>
+      {children}
+    </SquareBtnBox>
+  );
 }

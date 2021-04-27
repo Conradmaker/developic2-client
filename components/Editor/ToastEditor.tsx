@@ -44,7 +44,10 @@ export default function ToastEditor({
   const uploadImageToServer = async (image: Blob | File) => {
     const formData = new FormData();
     formData.append('image', image);
-    const res = await axios.post(`http://localhost:8000/upload/postimage/${1}`, formData);
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/postimage/${1}`,
+      formData
+    );
     setImageList(imageList.concat(res.data));
     return res.data;
   };
@@ -64,14 +67,17 @@ export default function ToastEditor({
       ISO: metaData.ISO,
       PostImageId,
     };
-    await axios.post('http://localhost:8000/upload/exif', computedMeta);
+    await axios.post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/exif`, computedMeta);
   };
 
   const onUpload = useCallback(async (image: Blob | File, callback) => {
     const data = await uploadImageToServer(image);
     await updateMetaData(image, data.imageId);
     EditorRef.current?.getInstance().moveCursorToEnd();
-    callback(`http://localhost:8000/image/post/${data.src}`, `${data.imageId}`);
+    callback(
+      `process.env.NEXT_PUBLIC_SERVER_HOST/image/post/${data.src}`,
+      `${data.imageId}`
+    );
   }, []);
   return (
     <>

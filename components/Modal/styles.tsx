@@ -72,6 +72,25 @@ export const LoginModalBox = styled(ModalBox)`
       margin: 0 auto;
       display: flex;
       flex-direction: column;
+      & > div {
+        margin-top: 30px;
+      }
+    }
+
+    .social__wrapper {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 70px;
+    }
+    .btn__wrapper {
+      display: flex;
+      margin-top: 70px;
+      button {
+        flex: 1;
+      }
+      button + button {
+        margin-left: 40px;
+      }
     }
   }
   .login--right {

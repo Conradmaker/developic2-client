@@ -223,7 +223,8 @@ export const ImageDropZoneContainer = styled.div<{
   ${({ background }) =>
     background &&
     css`
-      background-image: url('http://localhost:8000/image/thumbnail/${background}');
+      background-image: url('${process.env
+        .NEXT_PUBLIC_SERVER_HOST}/image/thumbnail/${background}');
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;

@@ -21,9 +21,11 @@ export default function ImageDropZone({
     }
     const formData = new FormData();
     formData.append('image', files[0]);
-    axios.post('http://localhost:8000/upload/thumbnail', formData).then(res => {
-      setImage(res.data);
-    });
+    axios
+      .post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/thumbnail`, formData)
+      .then(res => {
+        setImage(res.data);
+      });
   };
 
   return (

@@ -164,6 +164,23 @@ export const UserMenuContainer = styled.div`
         font-size: 20px;
       }
     }
+    & > p {
+      cursor: pointer;
+      display: flex;
+      width: 200px;
+      padding: 15px 0;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
+      svg {
+        transition: 0.3s;
+      }
+      &:hover {
+        svg {
+          transform: translateX(20px);
+        }
+      }
+    }
     & > ul {
       width: 200px;
       li {

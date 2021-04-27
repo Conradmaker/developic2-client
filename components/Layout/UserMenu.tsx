@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import { MdArrowForward } from 'react-icons/md';
 import { UserMenuContainer } from './styles';
 
 type navDataType = {
@@ -69,6 +70,11 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
           <br />
           <strong>누구누구</strong>님
         </h2>
+        <Link href="/">
+          <p>
+            <MdArrowForward /> <span>내 디벨로픽</span>
+          </p>
+        </Link>
         <ul>
           {navData.map(subMenuData => (
             <MenuNavItem data={subMenuData} key={subMenuData.title} />

@@ -11,7 +11,7 @@ export const getHashAPI = async (
   keyword: string
 ): Promise<{ id: number; name: string }[]> => {
   const res = await axios.get<{ id: number; name: string }[]>(
-    `http://localhost:8000/post/hashtag?keyword=${keyword}`
+    `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/hashtag?keyword=${keyword}`
   );
   return res.data;
 };

@@ -21,6 +21,16 @@ const Btn = styled.button`
   justify-content: center;
   cursor: pointer;
 `;
+export const RoundButtonBox = styled(Btn)`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 0.5px solid ${({ theme }) => theme.grayScale[2]};
+  font-size: 22px;
+  &:hover {
+    background-color: ${({ theme }) => theme.grayScale[4]};
+  }
+`;
 export const FloatingButtonBox = styled(Btn)`
   position: fixed;
   bottom: 50px;
