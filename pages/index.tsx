@@ -116,10 +116,14 @@ function Home(): JSX.Element {
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
   console.log('SSR시작');
-  const cookie = context.req ? context.req.headers.cookie : '';
-  axios.defaults.headers.Cookie = '';
+  console.log(context.req.headers);
+  //쿠키 전달
+  const cookie = context.req ? context.req.headers.cookie : ''; //이 안에 쿠키 들어있음.
+  //쿠키 공유 방지
+  axios.defaults.headers.Cookie = ''; //아닐때는 쿠키 제거
   if (context.req && cookie) {
-    axios.defaults.headers.Cookie = cookie;
+    //서버일때 & 쿠키가 있을때만
+    axios.defaults.headers.Cookie = cookie; //쿠키를 넣어주고
   }
   await context.store.dispatch(authAction(null));
   console.log('SSR끝');

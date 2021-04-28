@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { LoginPayload, LoginResponse, User } from './type';
+
+axios.defaults.withCredentials = true;
 
 interface MyKnownError {
   message: string;
@@ -15,8 +17,7 @@ export const loginAction = createAsyncThunk<
   try {
     const { data } = await axios.post<LoginResponse>(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/local`,
-      loginData,
-      { withCredentials: true }
+      loginData
     );
     return data;
   } catch (e) {
@@ -32,7 +33,9 @@ export const logOutAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/logout', async (_, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(`https://jsonplaceholder.typicode.com/posts/400`);
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/logout`
+    );
     return data;
   } catch (e) {
     console.error(e);

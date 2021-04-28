@@ -16,7 +16,7 @@ export interface User {
 export type UserState = {
   login: { loading: boolean; data: null | unknown; error: null | unknown };
   auth: { loading: boolean; data: null | unknown; error: null | unknown };
-  userData: User;
+  userData: User | null;
 };
 
 // 액션 Payload 타입

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MdArrowForward } from 'react-icons/md';
 import useUser from '../../modules/user/hooks';
 import { UserMenuContainer } from './styles';
@@ -15,7 +15,7 @@ const navData: navDataType[] = [
   {
     title: '집필',
     content: [
-      { name: '새 글 작성', link: '/' },
+      { name: '새 글 작성', link: '/edit/content/new' },
       { name: '임시저장 글', link: '/user/drawer/save' },
     ],
   },
@@ -58,12 +58,18 @@ type UserMenuPropsType = {
   onClose: () => void;
 };
 export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
-  const { userData } = useUser();
+  const { userData, logoutDispatch } = useUser();
   const closeMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) {
       onClose();
     }
   };
+  const onLogout = () => {
+    logoutDispatch();
+  };
+  useEffect(() => {
+    if (!userData) onClose();
+  }, [userData]);
   return (
     <UserMenuContainer onClick={closeMenu}>
       <div className="user-menu__drawer">
@@ -83,7 +89,7 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
           ))}
 
           <li>
-            <h3>로그아웃</h3>
+            <h3 onClick={onLogout}>로그아웃</h3>
           </li>
         </ul>
       </div>

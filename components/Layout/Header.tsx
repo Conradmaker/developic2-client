@@ -66,7 +66,7 @@ export default function Header(): JSX.Element {
         </div>
       </HeaderContainer>
       {loginOpen && <LoginModal onClose={toggleLoginModal} />}
-      {userMenuOpen && <UserMenu onClose={toggleUserMenu} />}
+      {userMenuOpen && userData && <UserMenu onClose={toggleUserMenu} />}
       {/* {searchOpen && <SearchModal onClose={toggleSearchModal} />} */}
     </>
   );

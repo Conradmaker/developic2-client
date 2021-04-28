@@ -46,6 +46,7 @@ const userSlice = createSlice({
         state.auth.loading = false;
         state.auth.data = null;
         state.auth.error = payload;
+        state.userData = null;
       })
       .addCase(logOutAction.pending, state => {
         state.login.loading = true;

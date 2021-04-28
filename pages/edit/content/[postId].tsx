@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import HashTagInstant from '../../../components/Editor/HashTagInstant';
 import TitleInput from '../../../components/Input/EditPageInput';
 import { getTempPostContent, postPreSave } from '../../../utils/fakeApi';
+import useUser from '../../../modules/user/hooks';
 const EditContainer = styled.div`
   max-width: 1100px;
   margin: 0 auto;
@@ -18,6 +19,7 @@ const ToastEditorWithNoSSR = dynamic(
   }
 );
 export default function edit(): JSX.Element {
+  const { userData } = useUser();
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [tagList, setTagList] = useState<{ id: number; name: string }[]>([]);
@@ -27,7 +29,7 @@ export default function edit(): JSX.Element {
       title,
       tagList: tagList.map(tag => tag.id),
       content: editorContent,
-      UserId: 1,
+      UserId: userData.id,
       PostId: router.query.postId === 'new' ? null : router.query.postId,
     });
     return result.postId;
@@ -41,6 +43,7 @@ export default function edit(): JSX.Element {
     setTagList(data.tagList);
   };
   useEffect(() => {
+    if (!userData.id) router.replace('/');
     if (router.query.postId === 'new') return; //새로만들때
     if (router.query.postId) {
       getTemp();
