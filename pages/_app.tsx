@@ -2,6 +2,7 @@ import { AppProps } from 'next/dist/next-server/lib/router/router';
 import '../styles/globals.css';
 import { Global, css } from '@emotion/react';
 import ModeProvider from '../hooks/ThemeContext';
+import wrapper from '../modules/store';
 
 const globalStyle = css`
   * {
@@ -22,4 +23,4 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

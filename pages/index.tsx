@@ -8,6 +8,11 @@ import PopularPostCard from '../components/Card/PopularPostCard';
 import UserProfileCard from '../components/Card/UserProfileCard';
 import Exhibition from '../components/Card/Exhibition';
 import { DarkModeBtn } from '../components/Button/FloatingBtn';
+import { useEffect } from 'react';
+import useUser from '../modules/user/hooks';
+import axios from 'axios';
+import wrapper from '../modules/store';
+import { loginAction } from '../modules/user';
 
 const MainContainer = styled.main`
   width: 1150px;
@@ -56,7 +61,11 @@ const MainContainer = styled.main`
     background-color: ${({ theme }) => theme.primary[2]};
   }
 `;
-export default function Home(): JSX.Element {
+function Home(): JSX.Element {
+  const { loginDispatch } = useUser();
+  useEffect(() => {
+    loginDispatch({ email: '213', password: '111' });
+  }, []);
   return (
     <Layout>
       <Head>
@@ -106,3 +115,15 @@ export default function Home(): JSX.Element {
     </Layout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  console.log('SSR시작');
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  await context.store.dispatch(loginAction({ email: '123', password: '12' }));
+  console.log('SSR끝');
+});
+export default Home;
