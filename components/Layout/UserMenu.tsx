@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { MdArrowForward } from 'react-icons/md';
+import useUser from '../../modules/user/hooks';
 import { UserMenuContainer } from './styles';
 
 type navDataType = {
@@ -57,6 +58,7 @@ type UserMenuPropsType = {
   onClose: () => void;
 };
 export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
+  const { userData } = useUser();
   const closeMenu = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) {
       onClose();
@@ -68,9 +70,9 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
         <h2>
           반가워요
           <br />
-          <strong>누구누구</strong>님
+          <strong>{userData.nickname}</strong>님
         </h2>
-        <Link href="/">
+        <Link href={`${userData.id}/post`}>
           <p>
             <MdArrowForward /> <span>내 디벨로픽</span>
           </p>

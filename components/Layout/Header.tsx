@@ -4,6 +4,7 @@ import { HeaderContainer } from './styles';
 import LoginModal from '../Modal/LoginModal';
 import { MdSearch } from 'react-icons/md';
 import UserMenu from './UserMenu';
+import useUser from '../../modules/user/hooks';
 // import SearchModal from '../Modal/SearchModal';
 
 export function Logo(): JSX.Element {
@@ -15,10 +16,7 @@ export function Logo(): JSX.Element {
 }
 
 export default function Header(): JSX.Element {
-  const [isLogin, setIsLogin] = useState(false);
-  const toggleLogin = () => {
-    setIsLogin(state => !state);
-  };
+  const { userData } = useUser();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
@@ -55,7 +53,7 @@ export default function Header(): JSX.Element {
             </ul>
           </div>
           <div className="header--right">
-            {isLogin ? (
+            {userData ? (
               <img
                 src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
                 alt=""
@@ -67,7 +65,7 @@ export default function Header(): JSX.Element {
           </div>
         </div>
       </HeaderContainer>
-      {loginOpen && <LoginModal onClose={toggleLoginModal} fakeLogin={toggleLogin} />}
+      {loginOpen && <LoginModal onClose={toggleLoginModal} />}
       {userMenuOpen && <UserMenu onClose={toggleUserMenu} />}
       {/* {searchOpen && <SearchModal onClose={toggleSearchModal} />} */}
     </>

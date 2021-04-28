@@ -82,6 +82,17 @@ export const LoginModalBox = styled(ModalBox)`
       justify-content: space-around;
       margin-top: 70px;
     }
+    .sign-up__wrapper {
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      strong {
+        text-indent: 10px;
+        text-decoration: underline;
+        cursor: pointer;
+        font-weight: bold;
+      }
+    }
     .btn__wrapper {
       display: flex;
       margin-top: 70px;

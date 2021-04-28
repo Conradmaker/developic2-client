@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import useUser from '../modules/user/hooks';
 import axios from 'axios';
 import wrapper from '../modules/store';
-import { loginAction } from '../modules/user';
+import { authAction, loginAction } from '../modules/user';
 
 const MainContainer = styled.main`
   width: 1150px;
@@ -63,9 +63,7 @@ const MainContainer = styled.main`
 `;
 function Home(): JSX.Element {
   const { loginDispatch } = useUser();
-  useEffect(() => {
-    loginDispatch({ email: '213', password: '111' });
-  }, []);
+  useEffect(() => {}, []);
   return (
     <Layout>
       <Head>
@@ -123,7 +121,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie;
   }
-  await context.store.dispatch(loginAction({ email: '123', password: '12' }));
+  await context.store.dispatch(authAction(null));
   console.log('SSR끝');
 });
 export default Home;

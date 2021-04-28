@@ -6,7 +6,7 @@ import { LoginPayload } from './type';
 
 // 커스텀 훅
 export default function useUser() {
-  const { isLoggedIn } = useAppSelector(state => state.user);
+  const { login, userData } = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
 
   const loginDispatch = useCallback((data: LoginPayload) => {
@@ -17,5 +17,5 @@ export default function useUser() {
     dispatch(logOutAction());
   }, []);
 
-  return { isLoggedIn, loginDispatch, logoutDispatch };
+  return { login, userData, loginDispatch, logoutDispatch };
 }

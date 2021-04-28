@@ -1,6 +1,8 @@
-import React from 'react';
+import Link from 'next/link';
+import React, { useEffect } from 'react';
 import { RiFacebookFill, RiGoogleFill, RiKakaoTalkFill } from 'react-icons/ri';
 import useInput from '../../hooks/useInput';
+import useUser from '../../modules/user/hooks';
 import RoundBtn from '../Button/RoundBtn';
 import SquareBtn from '../Button/SquareBtn';
 import CustomInput from '../Input/CustomInput';
@@ -9,12 +11,9 @@ import { LoginModalBox, ModalLayout } from './styles';
 
 type LoginModalPropsType = {
   onClose: () => void;
-  fakeLogin: () => void;
 };
-export default function LoginModal({
-  onClose,
-  fakeLogin,
-}: LoginModalPropsType): JSX.Element {
+export default function LoginModal({ onClose }: LoginModalPropsType): JSX.Element {
+  const { login, loginDispatch } = useUser();
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
   const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -22,9 +21,9 @@ export default function LoginModal({
       onClose();
     }
   };
-  const onClickLogin = () => {
-    onClose();
-    fakeLogin();
+  const onSubmitLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    loginDispatch({ email, password });
   };
   const onClickSocialLogin = (type: 'fb' | 'gg' | 'kk') => {
     switch (type) {
@@ -38,12 +37,17 @@ export default function LoginModal({
         break;
     }
   };
+  useEffect(() => {
+    if (login.data) {
+      onClose();
+    }
+  }, [login.data]);
   return (
     <ModalLayout onClick={onClickBg} className="bg">
       <LoginModalBox>
         <div className="login--left">
           <TitleLabel title="로그인" desc="login" />
-          <form>
+          <form onSubmit={onSubmitLogin}>
             <CustomInput
               title="이메일"
               value={email}
@@ -67,9 +71,15 @@ export default function LoginModal({
                 <RiGoogleFill />
               </RoundBtn>
             </div>
+            <div className="sign-up__wrapper">
+              <span>회원이 아니신가요?</span>
+              <Link href="/user/signup">
+                <strong>회원가입</strong>
+              </Link>
+            </div>
             <div className="btn__wrapper">
-              <SquareBtn onClick={onClickLogin}>닫기</SquareBtn>
-              <SquareBtn onClick={onClickLogin}>로그인</SquareBtn>
+              <SquareBtn onClick={onClose}>닫기</SquareBtn>
+              <SquareBtn type="submit">로그인</SquareBtn>
             </div>
           </form>
         </div>

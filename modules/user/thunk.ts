@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { LoginPayload, LoginResponse } from './type';
+import axios, { AxiosError } from 'axios';
+import { LoginPayload, LoginResponse, User } from './type';
 
 interface MyKnownError {
   message: string;
@@ -13,10 +13,26 @@ export const loginAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('user/login', async (loginData, { rejectWithValue }) => {
   try {
-    const { data } = await axios.post(
+    const { data } = await axios.post<LoginResponse>(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/local`,
-      loginData
+      loginData,
+      { withCredentials: true }
     );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+// 로그아웃
+export const logOutAction = createAsyncThunk<
+  unknown,
+  null,
+  { rejectValue: MyKnownError }
+>('user/logout', async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(`https://jsonplaceholder.typicode.com/posts/400`);
     return data;
   } catch (e) {
     console.error(e);
@@ -24,16 +40,16 @@ export const loginAction = createAsyncThunk<
   }
 });
 
-// 로그아웃
-export const logOutAction = createAsyncThunk(
-  'user/logOut',
+// 로그인 인증
+export const authAction = createAsyncThunk<User, null, { rejectValue: MyKnownError }>(
+  'user/auth',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`https://jsonplaceholder.typicode.com/posts/400`);
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth`);
       return data;
     } catch (e) {
       console.error(e);
-      return rejectWithValue({ message: e.message });
+      return rejectWithValue({ message: e.response.data });
     }
   }
 );
