@@ -1,10 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { HeaderContainer } from './styles';
 import LoginModal from '../Modal/LoginModal';
+import Toast from '../Result/ToastPopUp';
 import { MdSearch } from 'react-icons/md';
 import UserMenu from './UserMenu';
 import useUser from '../../modules/user/hooks';
+import useUI from '../../modules/ui/hooks';
 // import SearchModal from '../Modal/SearchModal';
 
 export function Logo(): JSX.Element {
@@ -16,7 +18,8 @@ export function Logo(): JSX.Element {
 }
 
 export default function Header(): JSX.Element {
-  const { userData } = useUser();
+  const { userData, logout } = useUser();
+  const { toastOpenDispatch, toastPopUp } = useUI();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
@@ -28,6 +31,11 @@ export default function Header(): JSX.Element {
   const toggleLoginModal = useCallback(() => setLoginOpen(!loginOpen), [loginOpen]);
   // const toggleSearchModal = useCallback(() => setSearchOpen(!searchOpen), [searchOpen]);
 
+  useEffect(() => {
+    if (logout.data) {
+      toastOpenDispatch('로그아웃 되었습니다.');
+    }
+  }, [logout.data]);
   return (
     <>
       <HeaderContainer>
@@ -68,6 +76,7 @@ export default function Header(): JSX.Element {
       {loginOpen && <LoginModal onClose={toggleLoginModal} />}
       {userMenuOpen && userData && <UserMenu onClose={toggleUserMenu} />}
       {/* {searchOpen && <SearchModal onClose={toggleSearchModal} />} */}
+      {toastPopUp.open && <Toast />}
     </>
   );
 }

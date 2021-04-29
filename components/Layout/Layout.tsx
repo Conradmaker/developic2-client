@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@emotion/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useThemeState } from '../../hooks/ThemeContext';
+import useUI from '../../modules/ui/hooks';
 import theme from '../../utils/theme';
 import { LayoutContainer } from './';
 import Footer from './Footer';
@@ -12,7 +13,6 @@ type LayoutPropsType = {
 
 export default function Layout({ children }: LayoutPropsType): JSX.Element {
   const currentTheme = useThemeState();
-
   return (
     <ThemeProvider theme={currentTheme === 'light' ? theme.light : theme.dark}>
       <LayoutContainer>

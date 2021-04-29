@@ -15,6 +15,7 @@ export interface User {
 }
 export type UserState = {
   login: { loading: boolean; data: null | unknown; error: null | unknown };
+  logout: { loading: boolean; data: null | unknown; error: null | unknown };
   auth: { loading: boolean; data: null | unknown; error: null | unknown };
   userData: User | null;
 };

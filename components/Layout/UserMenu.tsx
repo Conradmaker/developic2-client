@@ -66,10 +66,9 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
   };
   const onLogout = () => {
     logoutDispatch();
+    onClose();
   };
-  useEffect(() => {
-    if (!userData) onClose();
-  }, [userData]);
+  if (!userData) return <></>;
   return (
     <UserMenuContainer onClick={closeMenu}>
       <div className="user-menu__drawer">

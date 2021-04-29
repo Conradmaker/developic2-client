@@ -5,10 +5,12 @@ import { UserState } from './type';
 // 초기 상태
 const initialState: UserState = {
   login: { loading: false, data: null, error: null },
+  logout: { loading: false, data: null, error: null },
   auth: { loading: false, data: null, error: null },
   userData: null,
 };
 
+//data항목을 success:boolean으로 바꿀지 생각해보기. 성공여부만 나타내도록
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -49,20 +51,21 @@ const userSlice = createSlice({
         state.userData = null;
       })
       .addCase(logOutAction.pending, state => {
-        state.login.loading = true;
-        state.login.data = null;
-        state.login.error = null;
+        state.logout.loading = true;
+        state.logout.data = null;
+        state.logout.error = null;
       })
       .addCase(logOutAction.fulfilled, (state, { payload }) => {
-        state.login.loading = false;
-        state.login.data = payload;
-        state.login.error = null;
+        state.logout.loading = false;
+        state.logout.data = payload;
+        state.logout.error = null;
+        state.login.data = null;
         state.userData = null;
       })
       .addCase(logOutAction.rejected, (state, { payload }) => {
-        state.login.loading = false;
-        state.login.data = null;
-        state.login.error = payload;
+        state.logout.loading = false;
+        state.logout.data = null;
+        state.logout.error = payload;
       });
   },
 });

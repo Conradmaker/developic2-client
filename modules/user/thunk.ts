@@ -31,7 +31,7 @@ export const logOutAction = createAsyncThunk<
   unknown,
   null,
   { rejectValue: MyKnownError }
->('user/logout', async (_, { rejectWithValue }) => {
+>('user/logout', async (_, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/logout`
