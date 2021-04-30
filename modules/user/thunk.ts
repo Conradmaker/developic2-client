@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { LoginPayload, LoginResponse, User } from './type';
+import { LoginPayload, LoginResponse, User, SignupPayload } from './type';
 
 axios.defaults.withCredentials = true;
 
@@ -31,7 +31,7 @@ export const logOutAction = createAsyncThunk<
   unknown,
   null,
   { rejectValue: MyKnownError }
->('user/logout', async (_, { rejectWithValue, dispatch }) => {
+>('user/logout', async (_, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/logout`
@@ -56,3 +56,21 @@ export const authAction = createAsyncThunk<User, null, { rejectValue: MyKnownErr
     }
   }
 );
+
+//로컬회원가입
+export const signupAction = createAsyncThunk<
+  string,
+  SignupPayload,
+  { rejectValue: MyKnownError }
+>('user/signup', async (signupData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/signup`,
+      signupData
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});

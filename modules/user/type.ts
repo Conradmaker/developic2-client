@@ -16,6 +16,7 @@ export interface User {
 export type UserState = {
   login: { loading: boolean; data: null | unknown; error: null | unknown };
   logout: { loading: boolean; data: null | unknown; error: null | unknown };
+  signup: { loading: boolean; data: null | unknown; error: null | unknown };
   auth: { loading: boolean; data: null | unknown; error: null | unknown };
   userData: User | null;
 };
@@ -24,6 +25,12 @@ export type UserState = {
 export type LoginPayload = {
   email: string;
   password: string;
+};
+export type SignupPayload = {
+  email: string;
+  password: string;
+  name: string;
+  nickname: string;
 };
 
 //성공시 DataType

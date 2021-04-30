@@ -68,6 +68,7 @@ export const ButtonBox = styled.div<{
   bar: null | boolean;
 }>`
   button {
+    cursor: pointer;
     font-family: 'Noto Serif KR';
     width: ${props => (props.width ? `${props.width}` : '160px')};
     height: ${props => (props.height ? `${props.height}` : '35px')};
@@ -86,6 +87,7 @@ export const ButtonBox = styled.div<{
           width: ${props.width ? props.width : 'auto'};
           padding: 1px 10px;
           border: none;
+          border-radius: 0;
           border-bottom: 1px solid ${props.theme.textColor.initial};
           font-size: ${props.theme.fontSize.lg};
           &:active {

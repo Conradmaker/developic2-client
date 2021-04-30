@@ -29,7 +29,7 @@ export default function edit(): JSX.Element {
       title,
       tagList: tagList.map(tag => tag.id),
       content: editorContent,
-      UserId: userData.id,
+      UserId: userData ? userData.id : null,
       PostId: router.query.postId === 'new' ? null : router.query.postId,
     });
     return result.postId;
@@ -43,7 +43,7 @@ export default function edit(): JSX.Element {
     setTagList(data.tagList);
   };
   useEffect(() => {
-    if (!userData.id) router.replace('/');
+    if (!userData) router.replace('/');
     if (router.query.postId === 'new') return; //새로만들때
     if (router.query.postId) {
       getTemp();

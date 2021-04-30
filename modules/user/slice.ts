@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { authAction, loginAction, logOutAction } from './thunk';
+import { authAction, loginAction, logOutAction, signupAction } from './thunk';
 import { UserState } from './type';
 
 // 초기 상태
 const initialState: UserState = {
   login: { loading: false, data: null, error: null },
   logout: { loading: false, data: null, error: null },
+  signup: { loading: false, data: null, error: null },
   auth: { loading: false, data: null, error: null },
   userData: null,
 };
@@ -32,6 +33,21 @@ const userSlice = createSlice({
         state.login.loading = false;
         state.login.data = null;
         state.login.error = payload;
+      })
+      .addCase(signupAction.pending, state => {
+        state.signup.loading = true;
+        state.signup.data = null;
+        state.signup.error = null;
+      })
+      .addCase(signupAction.fulfilled, (state, { payload }) => {
+        state.signup.loading = false;
+        state.signup.data = payload;
+        state.signup.error = null;
+      })
+      .addCase(signupAction.rejected, (state, { payload }) => {
+        state.signup.loading = false;
+        state.signup.data = null;
+        state.signup.error = payload;
       })
       .addCase(authAction.pending, state => {
         state.auth.loading = true;
