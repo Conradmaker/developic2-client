@@ -16,7 +16,6 @@ export default function SignupAuthModal({
   email,
 }: SignupAuthModalPropsType): JSX.Element {
   const router = useRouter();
-  const { toastOpenDispatch } = useUI();
   const { verificationDispatch, verification } = useUser();
   const [authNum1, onChangeAuthNum1] = useInput('');
   const [authNum2, onChangeAuthNum2] = useInput('');
@@ -36,10 +35,7 @@ export default function SignupAuthModal({
   };
   useEffect(() => {
     if (verification.data) {
-      toastOpenDispatch('인증성공! 로그인해주세요.');
       router.replace('/');
-    } else if (verification.error) {
-      toastOpenDispatch('올바른 인증번호를 입력해주세요.');
     }
   }, [verification]);
   return (

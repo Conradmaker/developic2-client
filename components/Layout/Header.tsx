@@ -18,7 +18,7 @@ export function Logo(): JSX.Element {
 }
 
 export default function Header(): JSX.Element {
-  const { userData, logout, login } = useUser();
+  const { userData, logout, login, verification } = useUser();
   const { toastOpenDispatch, toastPopUp } = useUI();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
@@ -35,10 +35,15 @@ export default function Header(): JSX.Element {
     if (logout.data) {
       toastOpenDispatch('로그아웃 되었습니다.');
     }
-    if (login.data) {
+    if (userData) {
       toastOpenDispatch('로그인 되었습니다.');
     }
-  }, [logout.data, login.data]);
+    if (verification.data) {
+      toastOpenDispatch('인증성공! 로그인해주세요.');
+    } else if (verification.error) {
+      toastOpenDispatch('올바른 인증번호를 입력해주세요.');
+    }
+  }, [logout.data, login.data, userData]);
 
   return (
     <>
@@ -66,11 +71,7 @@ export default function Header(): JSX.Element {
           </div>
           <div className="header--right">
             {userData ? (
-              <img
-                src={`${process.env.NEXT_PUBLIC_SERVER_HOST}/image/avatar/${userData.avatar}`}
-                alt=""
-                onClick={toggleUserMenu}
-              ></img>
+              <img src={userData.avatar} alt="" onClick={toggleUserMenu}></img>
             ) : (
               <span onClick={toggleLoginModal}>로그인</span>
             )}

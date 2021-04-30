@@ -5,6 +5,8 @@ import {
   logOutAction,
   signupAction,
   verificationAction,
+  socialRequestAction,
+  socialLoginAction,
 } from './thunk';
 import { UserState } from './type';
 
@@ -13,6 +15,7 @@ const initialState: UserState = {
   login: { loading: false, data: null, error: null },
   logout: { loading: false, data: null, error: null },
   signup: { loading: false, data: null, error: null },
+  socialRequest: { loading: false, data: null, error: null },
   auth: { loading: false, data: null, error: null },
   verification: { loading: false, data: null, error: null },
   userData: null,
@@ -70,6 +73,38 @@ const userSlice = createSlice({
         state.verification.loading = false;
         state.verification.data = null;
         state.verification.error = payload;
+      })
+      .addCase(socialRequestAction.pending, state => {
+        state.socialRequest.loading = true;
+        state.socialRequest.data = null;
+        state.socialRequest.error = null;
+      })
+      .addCase(socialRequestAction.fulfilled, (state, { payload }) => {
+        state.socialRequest.loading = false;
+        state.socialRequest.data = payload;
+        state.socialRequest.error = null;
+        state.userData = payload;
+      })
+      .addCase(socialRequestAction.rejected, (state, { payload }) => {
+        state.socialRequest.loading = false;
+        state.socialRequest.data = null;
+        state.socialRequest.error = payload;
+      })
+      .addCase(socialLoginAction.pending, state => {
+        state.login.loading = true;
+        state.login.data = null;
+        state.login.error = null;
+      })
+      .addCase(socialLoginAction.fulfilled, (state, { payload }) => {
+        state.login.loading = false;
+        state.login.data = payload;
+        state.login.error = null;
+        state.userData = payload;
+      })
+      .addCase(socialLoginAction.rejected, (state, { payload }) => {
+        state.login.loading = false;
+        state.login.data = null;
+        state.login.error = payload;
       })
       .addCase(authAction.pending, state => {
         state.auth.loading = true;

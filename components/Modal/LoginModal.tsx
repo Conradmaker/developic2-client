@@ -13,7 +13,7 @@ type LoginModalPropsType = {
   onClose: () => void;
 };
 export default function LoginModal({ onClose }: LoginModalPropsType): JSX.Element {
-  const { login, loginDispatch } = useUser();
+  const { login, loginDispatch, socialRequestDispatch } = useUser();
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
   const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -25,17 +25,8 @@ export default function LoginModal({ onClose }: LoginModalPropsType): JSX.Elemen
     e.preventDefault();
     loginDispatch({ email, password });
   };
-  const onClickSocialLogin = (type: 'fb' | 'gg' | 'kk') => {
-    switch (type) {
-      case 'fb':
-        return console.log('페북로그인');
-      case 'kk':
-        return console.log('카카오로그인');
-      case 'gg':
-        return console.log('구글로그인');
-      default:
-        break;
-    }
+  const onClickSocialLogin = (type: 'kakao' | 'facebook' | 'google') => {
+    location.href = `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/${type}`;
   };
   useEffect(() => {
     if (login.data) {
@@ -61,13 +52,14 @@ export default function LoginModal({ onClose }: LoginModalPropsType): JSX.Elemen
               type="password"
             />
             <div className="social__wrapper">
-              <RoundBtn onClick={() => onClickSocialLogin('fb')}>
+              <a href={`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/google`}>페북</a>
+              <RoundBtn onClick={() => onClickSocialLogin('facebook')}>
                 <RiFacebookFill />
               </RoundBtn>
-              <RoundBtn onClick={() => onClickSocialLogin('kk')}>
+              <RoundBtn onClick={() => onClickSocialLogin('kakao')}>
                 <RiKakaoTalkFill />
               </RoundBtn>
-              <RoundBtn onClick={() => onClickSocialLogin('gg')}>
+              <RoundBtn onClick={() => onClickSocialLogin('google')}>
                 <RiGoogleFill />
               </RoundBtn>
             </div>

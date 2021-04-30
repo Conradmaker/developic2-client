@@ -6,6 +6,7 @@ import {
   User,
   SignupPayload,
   VerificationPayload,
+  SocialLoginPayload,
 } from './type';
 
 axios.defaults.withCredentials = true;
@@ -23,6 +24,41 @@ export const loginAction = createAsyncThunk<
   try {
     const { data } = await axios.post<LoginResponse>(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/local`,
+      loginData
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//소셜로그인요청
+export const socialRequestAction = createAsyncThunk<
+  null,
+  'kakao' | 'facebook' | 'google',
+  { rejectValue: MyKnownError }
+>('user/socialRequest', async (type, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/${type}`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//소셜로그인
+export const socialLoginAction = createAsyncThunk<
+  LoginResponse,
+  SocialLoginPayload,
+  { rejectValue: MyKnownError }
+>('user/socialLogin', async (loginData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post<LoginResponse>(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/retest`,
       loginData
     );
     return data;
@@ -81,7 +117,7 @@ export const signupAction = createAsyncThunk<
   }
 });
 
-//로컬회원가입
+//이메일 인증
 export const verificationAction = createAsyncThunk<
   string,
   VerificationPayload,

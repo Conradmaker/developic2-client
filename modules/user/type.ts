@@ -17,6 +17,7 @@ export type UserState = {
   login: { loading: boolean; data: null | unknown; error: null | unknown };
   logout: { loading: boolean; data: null | unknown; error: null | unknown };
   signup: { loading: boolean; data: null | unknown; error: null | unknown };
+  socialRequest: { loading: boolean; data: null | unknown; error: null | unknown };
   auth: { loading: boolean; data: null | unknown; error: null | unknown };
   verification: { loading: boolean; data: null | unknown; error: null | unknown };
   userData: User | null;
@@ -37,6 +38,9 @@ export type VerificationPayload = {
   email: string;
   code: string;
 };
-
+export type SocialLoginPayload = {
+  loginType: string;
+  email: string;
+};
 //성공시 DataType
 export type LoginResponse = User;

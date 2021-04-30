@@ -1,8 +1,15 @@
 import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
-import { loginAction, logOutAction, signupAction, verificationAction } from './thunk';
-import { LoginPayload } from './type';
+import {
+  loginAction,
+  logOutAction,
+  signupAction,
+  socialLoginAction,
+  socialRequestAction,
+  verificationAction,
+} from './thunk';
+import { LoginPayload, SocialLoginPayload } from './type';
 
 // 커스텀 훅
 export default function useUser() {
@@ -13,6 +20,14 @@ export default function useUser() {
 
   const loginDispatch = useCallback((data: LoginPayload) => {
     dispatch(loginAction(data));
+  }, []);
+
+  const socialRequestDispatch = useCallback((data: 'kakao' | 'facebook' | 'google') => {
+    dispatch(socialRequestAction(data));
+  }, []);
+
+  const socialLoginDispatch = useCallback((data: SocialLoginPayload) => {
+    dispatch(socialLoginAction(data));
   }, []);
 
   const logoutDispatch = useCallback(() => {
@@ -30,12 +45,14 @@ export default function useUser() {
   return {
     login,
     signup,
+    logout,
+    verification,
     userData,
     loginDispatch,
     logoutDispatch,
     signupDispatch,
     verificationDispatch,
-    logout,
-    verification,
+    socialLoginDispatch,
+    socialRequestDispatch,
   };
 }
