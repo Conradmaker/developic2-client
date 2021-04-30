@@ -188,7 +188,9 @@ export default function signup(): JSX.Element {
           </section>
         </div>
       </SignupContainer>
-      {authOpen && <SignupAuthModal onClose={() => setAuthOpen(!authOpen)} />}
+      {authOpen && (
+        <SignupAuthModal email={email} onClose={() => setAuthOpen(!authOpen)} />
+      )}
       {/* {authOpen && <SignupPenNameModal setModalOpen={setAuthOpen} />} */}
     </Layout>
   );

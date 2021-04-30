@@ -187,26 +187,18 @@ export const SignupAuthModalBox = styled(ModalBox)`
       margin-bottom: 40px;
       display: flex;
       justify-content: space-between;
-      span {
-        width: 50px;
-        height: 60px;
-        border: 2px solid ${({ theme }) => theme.textColor.initial};
-        border-radius: 5px;
-        background-color: ${({ theme }) => theme.textColor.initial};
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        input {
-          width: 40px;
-          height: 50px;
-          text-align: center;
-          font-size: ${({ theme }) => theme.fontSize.xxxl};
-          font-weight: 600;
-          color: ${({ theme }) => theme.primary[1]};
-          background: none;
-          outline: none;
-          border: none;
-        }
+      input {
+        width: 40px;
+        height: 50px;
+        text-align: center;
+        font-size: ${({ theme }) => theme.fontSize.xxxl};
+        font-weight: 600;
+        background-color: ${({ theme }) => theme.background.modal};
+        color: ${({ theme }) => theme.primary[1]};
+        background: none;
+        outline: none;
+        border: 0.5px solid ${({ theme }) => theme.textColor.initial};
+        border-radius: 4px;
       }
     }
     p {

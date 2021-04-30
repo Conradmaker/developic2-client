@@ -1,31 +1,47 @@
-import React, { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect } from 'react';
+import useInput from '../../hooks/useInput';
+import useUI from '../../modules/ui/hooks';
+import useUser from '../../modules/user/hooks';
 import Button from '../Button/Button';
-import AuthNumInput from '../Input/AuthNumInput';
 import TitleLabel from '../Label/TitleLabel';
 import { ModalLayout, SignupAuthModalBox } from './styles';
 
 type SignupAuthModalPropsType = {
-  setAuthOpen: (state: boolean | ((state: boolean) => boolean)) => void;
+  onClose: () => void;
+  email: string;
 };
 export default function SignupAuthModal({
-  setAuthOpen,
+  onClose,
+  email,
 }: SignupAuthModalPropsType): JSX.Element {
-  const [authNum1, setAuthNum1] = useState<string>('');
-  const [authNum2, setAuthNum2] = useState<string>('');
-  const [authNum3, setAuthNum3] = useState<string>('');
-  const [authNum4, setAuthNum4] = useState<string>('');
-  const [authNum5, setAuthNum5] = useState<string>('');
+  const router = useRouter();
+  const { toastOpenDispatch } = useUI();
+  const { verificationDispatch, verification } = useUser();
+  const [authNum1, onChangeAuthNum1] = useInput('');
+  const [authNum2, onChangeAuthNum2] = useInput('');
+  const [authNum3, onChangeAuthNum3] = useInput('');
+  const [authNum4, onChangeAuthNum4] = useInput('');
+  const [authNum5, onChangeAuthNum5] = useInput('');
+  const [authNum6, onChangeAuthNum6] = useInput('');
+
   const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onCloseModal();
-    }
+    if (e.target === e.currentTarget) onClose();
   };
-  const onCloseModal = () => {
-    setAuthOpen(state => !state);
-  };
-  const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }, []);
+    const code = authNum1 + authNum2 + authNum3 + authNum4 + authNum5;
+    console.log(code);
+    verificationDispatch({ email, code });
+  };
+  useEffect(() => {
+    if (verification.data) {
+      toastOpenDispatch('인증성공! 로그인해주세요.');
+      router.replace('/');
+    } else if (verification.error) {
+      toastOpenDispatch('올바른 인증번호를 입력해주세요.');
+    }
+  }, [verification]);
   return (
     <ModalLayout onClick={onClickBg}>
       <SignupAuthModalBox>
@@ -33,17 +49,18 @@ export default function SignupAuthModal({
         <form onSubmit={onSubmit}>
           <section className="auth__input">
             <div>
-              <AuthNumInput authNum={authNum1} setAuthNum={setAuthNum1} authIndex={1} />
-              <AuthNumInput authNum={authNum2} setAuthNum={setAuthNum2} authIndex={2} />
-              <AuthNumInput authNum={authNum3} setAuthNum={setAuthNum3} authIndex={3} />
-              <AuthNumInput authNum={authNum4} setAuthNum={setAuthNum4} authIndex={4} />
-              <AuthNumInput authNum={authNum5} setAuthNum={setAuthNum5} authIndex={5} />
+              <input maxLength={1} value={authNum1} onChange={onChangeAuthNum1} />
+              <input maxLength={1} value={authNum2} onChange={onChangeAuthNum2} />
+              <input maxLength={1} value={authNum3} onChange={onChangeAuthNum3} />
+              <input maxLength={1} value={authNum4} onChange={onChangeAuthNum4} />
+              <input maxLength={1} value={authNum5} onChange={onChangeAuthNum5} />
+              <input maxLength={1} value={authNum6} onChange={onChangeAuthNum6} />
             </div>
             <p>입력하신 이메일로 인증번호가 전송되었습니다.</p>
             <p>인증번호를 입력하여 회원가입을 완료해주세요.</p>
           </section>
           <section className="auth__btn">
-            <Button text="취소" type="close" onCloseModal={onCloseModal} bar />
+            <Button text="취소" type="close" onCloseModal={onClose} bar />
             <Button text="제출" type="submit" bar />
           </section>
         </form>

@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { LoginPayload, LoginResponse, User, SignupPayload } from './type';
+import {
+  LoginPayload,
+  LoginResponse,
+  User,
+  SignupPayload,
+  VerificationPayload,
+} from './type';
 
 axios.defaults.withCredentials = true;
 
@@ -67,6 +73,23 @@ export const signupAction = createAsyncThunk<
     const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/signup`,
       signupData
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//로컬회원가입
+export const verificationAction = createAsyncThunk<
+  string,
+  VerificationPayload,
+  { rejectValue: MyKnownError }
+>('user/verification', async (verifiPayload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/verification?email=${verifiPayload.email}&code=${verifiPayload.code}`
     );
     return data;
   } catch (e) {

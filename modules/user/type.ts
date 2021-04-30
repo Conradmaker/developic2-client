@@ -18,6 +18,7 @@ export type UserState = {
   logout: { loading: boolean; data: null | unknown; error: null | unknown };
   signup: { loading: boolean; data: null | unknown; error: null | unknown };
   auth: { loading: boolean; data: null | unknown; error: null | unknown };
+  verification: { loading: boolean; data: null | unknown; error: null | unknown };
   userData: User | null;
 };
 
@@ -31,6 +32,10 @@ export type SignupPayload = {
   password: string;
   name: string;
   nickname: string;
+};
+export type VerificationPayload = {
+  email: string;
+  code: string;
 };
 
 //성공시 DataType

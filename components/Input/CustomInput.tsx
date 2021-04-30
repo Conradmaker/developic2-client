@@ -4,7 +4,7 @@ import { CustomInputBox } from './styles';
 type CustomInputPropsType = {
   title: string;
   value: string;
-  onChange: (e: React.ChangeEvent) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   width?: number;
   type?: string;
 };
