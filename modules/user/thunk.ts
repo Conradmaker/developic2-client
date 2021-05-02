@@ -7,6 +7,8 @@ import {
   SignupPayload,
   VerificationPayload,
   SocialLoginPayload,
+  UserIntro,
+  UpdateUserIntroPayload,
 } from './type';
 
 axios.defaults.withCredentials = true;
@@ -126,6 +128,41 @@ export const verificationAction = createAsyncThunk<
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/verification?email=${verifiPayload.email}&code=${verifiPayload.code}`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//유저 상세정보 요청
+export const userDetailInfoAction = createAsyncThunk<
+  UserIntro,
+  { userId: string },
+  { rejectValue: MyKnownError }
+>('user/userIntro', async (userDetailPayload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/detail/${userDetailPayload.userId}`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//유저 소개 수정
+export const updateUserIntroAction = createAsyncThunk<
+  UserIntro,
+  UpdateUserIntroPayload,
+  { rejectValue: MyKnownError }
+>('user/updateIntro', async (updatedIntroPayload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/intro`,
+      updatedIntroPayload
     );
     return data;
   } catch (e) {

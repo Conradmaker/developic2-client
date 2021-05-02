@@ -4,14 +4,21 @@ export interface User {
   email: string;
   name: string;
   nickname: string;
-  refreshToken: null;
-  accessToken: null;
-  socialId: null;
-  gender: null;
-  birth: null;
-  introduce: null;
+  refreshToken: string;
+  accessToken: string;
+  socialId: string;
+  gender: string;
+  birth: string;
+  introduce: string;
   avatar: string;
-  lastLogin: null;
+  lastLogin: string;
+}
+export interface UserIntro {
+  id: number;
+  introduction: string;
+  website: string;
+  mostlyUseModel: string;
+  summary?: string;
 }
 export type UserState = {
   login: { loading: boolean; data: null | unknown; error: null | unknown };
@@ -20,6 +27,8 @@ export type UserState = {
   socialRequest: { loading: boolean; data: null | unknown; error: null | unknown };
   auth: { loading: boolean; data: null | unknown; error: null | unknown };
   verification: { loading: boolean; data: null | unknown; error: null | unknown };
+  userIntro: { loading: boolean; data: null | UserIntro; error: null | unknown };
+  updateUser: { loading: boolean; data: null | unknown; error: null | unknown };
   userData: User | null;
 };
 
@@ -41,6 +50,13 @@ export type VerificationPayload = {
 export type SocialLoginPayload = {
   loginType: string;
   email: string;
+};
+export type UpdateUserIntroPayload = {
+  UserId: number;
+  introduction: string;
+  mostlyUseModel: string;
+  website: string;
+  summary: string;
 };
 //성공시 DataType
 export type LoginResponse = User;

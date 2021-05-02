@@ -7,15 +7,23 @@ import {
   signupAction,
   socialLoginAction,
   socialRequestAction,
+  updateUserIntroAction,
+  userDetailInfoAction,
   verificationAction,
 } from './thunk';
-import { LoginPayload, SocialLoginPayload } from './type';
+import { LoginPayload, SocialLoginPayload, UpdateUserIntroPayload } from './type';
 
 // 커스텀 훅
 export default function useUser() {
-  const { login, signup, userData, logout, verification } = useAppSelector(
-    state => state.user
-  );
+  const {
+    login,
+    signup,
+    userData,
+    logout,
+    verification,
+    userIntro,
+    updateUser,
+  } = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
 
   const loginDispatch = useCallback((data: LoginPayload) => {
@@ -42,10 +50,20 @@ export default function useUser() {
     dispatch(verificationAction(data));
   }, []);
 
+  const getUserIntroDispatch = useCallback(data => {
+    dispatch(userDetailInfoAction(data));
+  }, []);
+
+  const updateUserIntroDispatch = useCallback((data: UpdateUserIntroPayload) => {
+    dispatch(updateUserIntroAction(data));
+  }, []);
+
   return {
+    updateUser,
     login,
     signup,
     logout,
+    userIntro,
     verification,
     userData,
     loginDispatch,
@@ -54,5 +72,7 @@ export default function useUser() {
     verificationDispatch,
     socialLoginDispatch,
     socialRequestDispatch,
+    getUserIntroDispatch,
+    updateUserIntroDispatch,
   };
 }

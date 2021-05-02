@@ -7,8 +7,10 @@ import {
   verificationAction,
   socialRequestAction,
   socialLoginAction,
+  userDetailInfoAction,
+  updateUserIntroAction,
 } from './thunk';
-import { UserState } from './type';
+import { User, UserState } from './type';
 
 // 초기 상태
 const initialState: UserState = {
@@ -18,6 +20,8 @@ const initialState: UserState = {
   socialRequest: { loading: false, data: null, error: null },
   auth: { loading: false, data: null, error: null },
   verification: { loading: false, data: null, error: null },
+  userIntro: { loading: false, data: null, error: null },
+  updateUser: { loading: false, data: null, error: null },
   userData: null,
 };
 
@@ -139,8 +143,40 @@ const userSlice = createSlice({
         state.logout.loading = false;
         state.logout.data = null;
         state.logout.error = payload;
+      })
+      .addCase(userDetailInfoAction.pending, state => {
+        state.userIntro.loading = true;
+        state.userIntro.data = null;
+        state.userIntro.error = null;
+      })
+      .addCase(userDetailInfoAction.fulfilled, (state, { payload }) => {
+        state.userIntro.loading = false;
+        state.userIntro.data = payload;
+        state.userIntro.error = null;
+      })
+      .addCase(userDetailInfoAction.rejected, (state, { payload }) => {
+        state.userIntro.loading = false;
+        state.userIntro.data = null;
+        state.userIntro.error = payload;
+      })
+      .addCase(updateUserIntroAction.pending, state => {
+        state.updateUser.loading = true;
+        state.updateUser.data = null;
+        state.updateUser.error = null;
+      })
+      .addCase(updateUserIntroAction.fulfilled, (state, { payload }) => {
+        state.updateUser.loading = false;
+        state.updateUser.data = 'success';
+        state.updateUser.error = null;
+        state.userIntro.data = payload;
+        (state.userData as User).introduce = payload.summary as string;
+      })
+      .addCase(updateUserIntroAction.rejected, (state, { payload }) => {
+        state.updateUser.loading = false;
+        state.updateUser.data = null;
+        state.updateUser.error = payload;
       });
   },
 });
-
+export const { resetState } = userSlice.actions;
 export default userSlice.reducer;

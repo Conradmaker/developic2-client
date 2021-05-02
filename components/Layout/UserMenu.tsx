@@ -30,9 +30,9 @@ const navData: navDataType[] = [
   {
     title: '설정',
     content: [
-      { name: '계정정보', link: '/user/drawer/binder' },
-      { name: '소개', link: '/user/drawer/binder' },
-      { name: '통계', link: '/user/drawer/binder' },
+      { name: '계정정보', link: '/user/setting/info' },
+      { name: '소개', link: '/user/setting/intro' },
+      { name: '통계', link: '/user/setting/stats' },
     ],
   },
 ];
