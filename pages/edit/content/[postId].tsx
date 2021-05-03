@@ -5,8 +5,8 @@ import Layout from '../../../components/Layout';
 import styled from '@emotion/styled';
 import HashTagInstant from '../../../components/Editor/HashTagInstant';
 import TitleInput from '../../../components/Input/EditPageInput';
-import { getTempPostContent, postPreSave } from '../../../utils/fakeApi';
 import useUser from '../../../modules/user/hooks';
+import usePost from '../../../modules/post/hooks';
 const EditContainer = styled.div`
   max-width: 1100px;
   margin: 0 auto;
@@ -19,36 +19,38 @@ const ToastEditorWithNoSSR = dynamic(
   }
 );
 export default function edit(): JSX.Element {
+  const { tempPost, preSavePost, postPreSaveDispatch, getTempPostDispatch } = usePost();
   const { userData } = useUser();
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [tagList, setTagList] = useState<{ id: number; name: string }[]>([]);
   const [content, setContent] = useState('글을 입력해주세요.');
   const temporarySave = async (editorContent: string) => {
-    const result = await postPreSave({
+    if (!userData) return;
+    const result = {
       title,
       tagList: tagList.map(tag => tag.id),
       content: editorContent,
-      UserId: userData ? userData.id : null,
-      PostId: router.query.postId === 'new' ? null : router.query.postId,
-    });
-    return result.postId;
+      UserId: userData.id,
+      PostId: router.query.postId === 'new' ? null : (router.query.postId as string),
+    };
+    postPreSaveDispatch(result);
   };
 
-  //NOTE:FAKE
-  const getTemp = async () => {
-    const data = await getTempPostContent(router.query.postId);
-    setTitle(data.title);
-    setContent(data.content);
-    setTagList(data.tagList);
-  };
   useEffect(() => {
     if (!userData) router.replace('/');
-    if (router.query.postId === 'new') return; //새로만들때
+    if (router.query.postId === 'new') return;
     if (router.query.postId) {
-      getTemp();
+      getTempPostDispatch(router.query.postId as string);
     }
-  }, [router]);
+  }, [router.query, userData]);
+
+  useEffect(() => {
+    if (!tempPost.data) return;
+    setTitle(tempPost.data.title);
+    setContent(tempPost.data.content);
+    setTagList(tempPost.data.tagList);
+  }, [tempPost.data]);
   return (
     <Layout>
       <EditContainer>

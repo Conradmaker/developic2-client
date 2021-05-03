@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { copyRightData } from '../../../utils/data';
-import { getTempPostContent, postSubmit } from '../../../utils/fakeApi';
+import { postSubmit } from '../../../utils/fakeApi';
 import styled from '@emotion/styled';
 import ImageDropZone from '../../../components/Input/ImageDropZone';
 import SquareBtn from '../../../components/Button/SquareBtn';
@@ -9,6 +9,8 @@ import PicstoryModal from '../../../components/Modal/PicstoryModal';
 import Layout from '../../../components/Layout';
 import { useRouter } from 'next/router';
 import useInput from '../../../hooks/useInput';
+import usePost from '../../../modules/post/hooks';
+import useUser from '../../../modules/user/hooks';
 
 export const InfoPostContainer = styled.div`
   max-width: 1000px;
@@ -67,45 +69,46 @@ export const InfoPostContainer = styled.div`
 `;
 
 export default function InfoPost(): JSX.Element {
+  const { tempPost, submitPostDispatch, submitPost } = usePost();
+  const { userData } = useUser();
+
   const router = useRouter();
   const [picstoryOpen, setPicstoryOpen] = useState(false);
   const [picstoryList, setPicstoryList] = useState<number[]>([]);
-  const [allowComment, setAllowComment] = useState(true);
-  const [summary, onChangeSummary, setSummary] = useInput('');
-  const [isPublic, setIsPublic] = useState(true);
-  const [copyRight, setCopyRight] = useState('Copyright © All Rights Reserved');
-  const [thumbnail, setThumbnail] = useState('');
+  const [allowComment, setAllowComment] = useState(tempPost.data?.allowComment === 1);
+  const [summary, onChangeSummary] = useInput(
+    tempPost.data?.summary ? tempPost.data.summary : ''
+  );
+  const [isPublic, setIsPublic] = useState(tempPost.data?.isPublic === 1);
+  const [copyRight, setCopyRight] = useState(
+    tempPost.data?.lisence ? tempPost.data.lisence : 'Copyright © All Rights Reserved'
+  );
+  const [thumbnail, setThumbnail] = useState(
+    tempPost.data?.thumbnail ? tempPost.data.thumbnail : ''
+  );
 
   const goBack = () => {
     router.replace(`/edit/content/${router.query.postId}`);
   };
-  const onSubmitPost = async () => {
+  const onSubmitPost = () => {
     const data = {
       allowComment: allowComment ? 1 : 0,
       isPublic: isPublic ? 1 : 0,
       thumbnail,
       summary,
       license: copyRight,
-      PostId: router.query.postId,
+      PostId: router.query.postId as string,
     };
-    await postSubmit(data);
+    submitPostDispatch(data);
   };
 
-  //NOTE:FAKE
-  const getTemp = async () => {
-    const data = await getTempPostContent(router.query.postId);
-    setAllowComment(data.allowComment);
-    setSummary(data.summary);
-    setIsPublic(data.isPublic);
-    setThumbnail(data.thumbnail);
-    setCopyRight(data.license);
-  };
   useEffect(() => {
-    if (router.query.postId === 'new') return; //새로만들때
-    if (router.query.postId) {
-      getTemp();
+    if (!userData) return;
+    if (submitPost.data) {
+      router.replace(`/${userData.id}/post`);
     }
-  }, [router]);
+  }, [submitPost.data]);
+
   return (
     <Layout>
       <InfoPostContainer>

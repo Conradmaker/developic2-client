@@ -16,15 +16,15 @@ export const getHashAPI = async (
   return res.data;
 };
 
-export const postPreSave = async data => {
-  const res = await axios.post('http://localhost:8000/post/presave', data);
-  return res.data;
-};
+// export const postPreSave = async data => {
+//   const res = await axios.post('http://localhost:8000/post/presave', data);
+//   return res.data;
+// };
 
-export const postSubmit = async data => {
-  const res = await axios.post('http://localhost:8000/post/submit', data);
-  return res.data;
-};
+// export const postSubmit = async data => {
+//   const res = await axios.post('http://localhost:8000/post/submit', data);
+//   return res.data;
+// };
 
 export const addPicstoryAPI = async data => {
   const res = await axios.post('http://localhost:8000/picstory/post', data);
@@ -47,7 +47,7 @@ export const getPicstoryList = async UserId => {
   return res.data;
 };
 
-export const getTempPostContent = async PostId => {
-  const res = await axios.get(`http://localhost:8000/post/temp/${PostId}`);
-  return res.data;
-};
+// export const getTempPostContent = async PostId => {
+//   const res = await axios.get(`http://localhost:8000/post/temp/${PostId}`);
+//   return res.data;
+// };

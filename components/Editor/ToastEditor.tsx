@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
@@ -8,6 +8,7 @@ import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
 import useConfirmModal from '../../hooks/useConfirmModal';
 import { useRouter } from 'next/router';
+import usePost from '../../modules/post/hooks';
 
 type ToastEditorPropsType = {
   content: string;
@@ -20,6 +21,7 @@ export default function ToastEditor({
   setContent,
   temporarySave,
 }: ToastEditorPropsType): JSX.Element {
+  const { preSavePost } = usePost();
   const router = useRouter();
   const [imageList, setImageList] = useState<{ id: number; src: string }[]>([]);
   const EditorRef = useRef<null | Editor>(null);
@@ -31,10 +33,7 @@ export default function ToastEditor({
   };
   const onFinalSubmit = async () => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);
-    const postId = await temporarySave(
-      EditorRef.current?.getInstance().getHtml() as string
-    );
-    router.push(`/edit/info/${postId}`);
+    temporarySave(EditorRef.current?.getInstance().getHtml() as string);
   };
   const [confirmModalOpen, toggleConfirmModal, ConfirmModal] = useConfirmModal(
     onTempSubmit,
@@ -79,6 +78,17 @@ export default function ToastEditor({
       `${data.imageId}`
     );
   }, []);
+
+  useEffect(() => {
+    console.log(content);
+    EditorRef.current?.getInstance().setHtml(content);
+  }, [content]);
+
+  useEffect(() => {
+    if (preSavePost.data?.postId) {
+      router.replace(`/edit/info/${preSavePost.data.postId}`);
+    }
+  }, [preSavePost.data]);
   return (
     <>
       <ToastEditorStyle>
