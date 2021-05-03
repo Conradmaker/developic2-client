@@ -29,6 +29,7 @@ export type UserState = {
   verification: { loading: boolean; data: null | unknown; error: null | unknown };
   userIntro: { loading: boolean; data: null | UserIntro; error: null | unknown };
   updateUser: { loading: boolean; data: null | unknown; error: null | unknown };
+  destroyUser: { loading: boolean; data: null | unknown; error: null | unknown };
   userData: User | null;
 };
 
@@ -63,6 +64,11 @@ export type UpdateUserInfoPayload = {
   nickname: string;
   birth: string;
   gender: string;
+};
+export type UpdatePasswordPayload = {
+  UserId: number;
+  currentPassword: string;
+  newPassword: string;
 };
 //성공시 DataType
 export type LoginResponse = User;

@@ -2,11 +2,13 @@ import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import {
+  destroyUserAction,
   loginAction,
   logOutAction,
   signupAction,
   socialLoginAction,
   socialRequestAction,
+  updatePasswordAction,
   updateUserInfoAction,
   updateUserIntroAction,
   userDetailInfoAction,
@@ -15,6 +17,7 @@ import {
 import {
   LoginPayload,
   SocialLoginPayload,
+  UpdatePasswordPayload,
   UpdateUserInfoPayload,
   UpdateUserIntroPayload,
 } from './type';
@@ -29,6 +32,7 @@ export default function useUser() {
     verification,
     userIntro,
     updateUser,
+    destroyUser,
   } = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
 
@@ -64,13 +68,22 @@ export default function useUser() {
     dispatch(updateUserInfoAction(data));
   }, []);
 
+  const updatePasswordDispatch = useCallback((data: UpdatePasswordPayload) => {
+    dispatch(updatePasswordAction(data));
+  }, []);
+
   const updateUserIntroDispatch = useCallback((data: UpdateUserIntroPayload) => {
     dispatch(updateUserIntroAction(data));
+  }, []);
+
+  const destroyUserDispatch = useCallback((UserId: number) => {
+    dispatch(destroyUserAction(UserId));
   }, []);
 
   return {
     updateUser,
     login,
+    destroyUser,
     signup,
     logout,
     userIntro,
@@ -85,5 +98,7 @@ export default function useUser() {
     getUserIntroDispatch,
     updateUserIntroDispatch,
     updateUserInfoDispatch,
+    updatePasswordDispatch,
+    destroyUserDispatch,
   };
 }

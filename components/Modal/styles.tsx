@@ -140,27 +140,33 @@ export const BinderEditModalBox = styled(ModalBox)`
   }
 `;
 
-export const ConfirmRemoveModalBox = styled(ModalBox)`
+export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
   min-height: 300px;
   font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
   form {
-    padding: 50px 0 20px 0;
+    padding: 20px 0 20px 0;
     & > span {
       font-size: 18px;
       line-height: 1.5;
+      font-weight: 300;
     }
     & > p {
       margin: 20px 0;
+      font-weight: 300;
       strong {
+        font-size: 18px;
         font-weight: 600;
       }
     }
     & > input {
+      background: none;
       width: 100%;
       padding: 5px 0;
       border: none;
       outline: none;
-      border-bottom: 1px solid #000;
+      color: ${({ theme }) => theme.textColor.initial};
+      border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
       font-size: 16px;
     }
     .btn__group {
@@ -172,6 +178,14 @@ export const ConfirmRemoveModalBox = styled(ModalBox)`
       }
     }
   }
+  ${props =>
+    props.valid ||
+    css`
+      form > .btn__group > button:nth-child(2) {
+        background-color: #c9c4c4;
+        cursor: not-allowed;
+      }
+    `}
 `;
 
 export const SignupAuthModalBox = styled(ModalBox)`

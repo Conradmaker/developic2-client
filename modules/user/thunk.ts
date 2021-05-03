@@ -10,6 +10,7 @@ import {
   UserIntro,
   UpdateUserIntroPayload,
   UpdateUserInfoPayload,
+  UpdatePasswordPayload,
 } from './type';
 
 axios.defaults.withCredentials = true;
@@ -164,6 +165,41 @@ export const updateUserInfoAction = createAsyncThunk<
     const { data } = await axios.patch(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/info`,
       updatedIntroPayload
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//비밀번호 수정
+export const updatePasswordAction = createAsyncThunk<
+  string,
+  UpdatePasswordPayload,
+  { rejectValue: MyKnownError }
+>('user/updatePassword', async (updatePasswordPayload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/password`,
+      updatePasswordPayload
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//유저 소개 수정
+export const destroyUserAction = createAsyncThunk<
+  string,
+  number,
+  { rejectValue: MyKnownError }
+>('user/destroy', async (UserId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.delete(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/${UserId}`
     );
     return data;
   } catch (e) {

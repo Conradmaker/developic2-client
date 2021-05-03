@@ -6,6 +6,7 @@ import CustomInput from '../../../components/Input/CustomInput';
 import CustomSelect from '../../../components/Input/CustomSelect';
 import PageLabel from '../../../components/Label/PageLabel';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
+import ConfirmRemoveModal from '../../../components/Modal/ConfirmRemoveModal';
 import useInput from '../../../hooks/useInput';
 import useUser from '../../../modules/user/hooks';
 import { SettingNavData } from '../../../utils/data';
@@ -72,7 +73,15 @@ const genderData = [
 ];
 export default function Info(): JSX.Element {
   const router = useRouter();
-  const { userData, updateUser, updateUserInfoDispatch } = useUser();
+  const {
+    userData,
+    updateUser,
+    destroyUser,
+    updateUserInfoDispatch,
+    updatePasswordDispatch,
+    destroyUserDispatch,
+  } = useUser();
+  const [userDestroyOpen, setUserDestroyOpen] = useState(false);
   const [nickname, onChangeNickname] = useInput(userData?.nickname);
   const [birth, onChangeBirth] = useInput(userData?.birth);
   const [gender, onChangeGender] = useInput(userData?.gender);
@@ -106,9 +115,27 @@ export default function Info(): JSX.Element {
     updateUserInfoDispatch({ UserId: userData.id, nickname, birth, gender });
   }, [nickname, birth, gender]);
 
+  const onUpdatePassword = useCallback(() => {
+    if (!userData) return;
+    updatePasswordDispatch({
+      UserId: userData.id,
+      currentPassword: passwords.currentPassword,
+      newPassword: passwords.password,
+    });
+  }, [passwords]);
+  const onDestroyUser = useCallback(() => {
+    if (!userData) return;
+    destroyUserDispatch(userData.id);
+  }, []);
   useEffect(() => {
+    if (updateUser.data === 'passwordSuccess') {
+      alert('성공적으로 비밀번호를 변경하였습니다.');
+    }
+  }, [updateUser]);
+  useEffect(() => {
+    if (destroyUser.data) alert('회원정보가 삭제 되었습니다.');
     if (!userData) router.replace('/');
-  }, [userData]);
+  }, [userData, destroyUser]);
   if (!userData) return <></>;
   return (
     <PageWithNavLayout pageName="설정" pageDesc="Settings" navData={SettingNavData}>
@@ -157,16 +184,28 @@ export default function Info(): JSX.Element {
               onChange={onChangePasswords}
             />
             <p>{passwordCheckError}</p>
-            <SquareBtn type="button">비밀번호 변경</SquareBtn>
+            <SquareBtn type="button" onClick={onUpdatePassword}>
+              비밀번호 변경
+            </SquareBtn>
             <div className="btn__group">
               <button type="button" onClick={onUpdateInfo}>
                 저장
               </button>
-              <button type="button">회원탈퇴</button>
+              <button type="button" onClick={() => setUserDestroyOpen(true)}>
+                회원탈퇴
+              </button>
             </div>
           </form>
         </div>
       </InfoContainer>
+      {userDestroyOpen && (
+        <ConfirmRemoveModal
+          onClose={() => setUserDestroyOpen(false)}
+          title="회원탈퇴"
+          description="삭제된 회원 정보는 복구되지 않습니다."
+          onConfirm={onDestroyUser}
+        />
+      )}
     </PageWithNavLayout>
   );
 }

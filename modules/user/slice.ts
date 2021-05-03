@@ -10,6 +10,8 @@ import {
   userDetailInfoAction,
   updateUserIntroAction,
   updateUserInfoAction,
+  updatePasswordAction,
+  destroyUserAction,
 } from './thunk';
 import { User, UserState } from './type';
 
@@ -23,6 +25,7 @@ const initialState: UserState = {
   verification: { loading: false, data: null, error: null },
   userIntro: { loading: false, data: null, error: null },
   updateUser: { loading: false, data: null, error: null },
+  destroyUser: { loading: false, data: null, error: null },
   userData: null,
 };
 
@@ -178,6 +181,21 @@ const userSlice = createSlice({
         state.updateUser.data = null;
         state.updateUser.error = payload;
       })
+      .addCase(updatePasswordAction.pending, state => {
+        state.updateUser.loading = true;
+        state.updateUser.data = null;
+        state.updateUser.error = null;
+      })
+      .addCase(updatePasswordAction.fulfilled, (state, { payload }) => {
+        state.updateUser.loading = false;
+        state.updateUser.data = payload;
+        state.updateUser.error = null;
+      })
+      .addCase(updatePasswordAction.rejected, (state, { payload }) => {
+        state.updateUser.loading = false;
+        state.updateUser.data = null;
+        state.updateUser.error = payload;
+      })
       .addCase(updateUserIntroAction.pending, state => {
         state.updateUser.loading = true;
         state.updateUser.data = null;
@@ -194,6 +212,22 @@ const userSlice = createSlice({
         state.updateUser.loading = false;
         state.updateUser.data = null;
         state.updateUser.error = payload;
+      })
+      .addCase(destroyUserAction.pending, state => {
+        state.destroyUser.loading = true;
+        state.destroyUser.data = null;
+        state.destroyUser.error = null;
+      })
+      .addCase(destroyUserAction.fulfilled, (state, { payload }) => {
+        state.destroyUser.loading = false;
+        state.destroyUser.data = payload;
+        state.destroyUser.error = null;
+        state.userData = null;
+      })
+      .addCase(destroyUserAction.rejected, (state, { payload }) => {
+        state.destroyUser.loading = false;
+        state.destroyUser.data = null;
+        state.destroyUser.error = payload;
       });
   },
 });
