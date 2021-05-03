@@ -58,5 +58,11 @@ export type UpdateUserIntroPayload = {
   website: string;
   summary: string;
 };
+export type UpdateUserInfoPayload = {
+  UserId: number;
+  nickname: string;
+  birth: string;
+  gender: string;
+};
 //성공시 DataType
 export type LoginResponse = User;

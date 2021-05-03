@@ -9,6 +9,7 @@ import {
   SocialLoginPayload,
   UserIntro,
   UpdateUserIntroPayload,
+  UpdateUserInfoPayload,
 } from './type';
 
 axios.defaults.withCredentials = true;
@@ -145,6 +146,24 @@ export const userDetailInfoAction = createAsyncThunk<
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/detail/${userDetailPayload.userId}`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//유저 계정정보 수정
+export const updateUserInfoAction = createAsyncThunk<
+  UpdateUserInfoPayload,
+  UpdateUserInfoPayload,
+  { rejectValue: MyKnownError }
+>('user/updateInfo', async (updatedIntroPayload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/info`,
+      updatedIntroPayload
     );
     return data;
   } catch (e) {

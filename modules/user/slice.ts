@@ -9,6 +9,7 @@ import {
   socialLoginAction,
   userDetailInfoAction,
   updateUserIntroAction,
+  updateUserInfoAction,
 } from './thunk';
 import { User, UserState } from './type';
 
@@ -159,6 +160,24 @@ const userSlice = createSlice({
         state.userIntro.data = null;
         state.userIntro.error = payload;
       })
+      .addCase(updateUserInfoAction.pending, state => {
+        state.updateUser.loading = true;
+        state.updateUser.data = null;
+        state.updateUser.error = null;
+      })
+      .addCase(updateUserInfoAction.fulfilled, (state, { payload }) => {
+        state.updateUser.loading = false;
+        state.updateUser.data = 'success';
+        state.updateUser.error = null;
+        (state.userData as User).nickname = payload.nickname;
+        (state.userData as User).gender = payload.gender;
+        (state.userData as User).birth = payload.birth;
+      })
+      .addCase(updateUserInfoAction.rejected, (state, { payload }) => {
+        state.updateUser.loading = false;
+        state.updateUser.data = null;
+        state.updateUser.error = payload;
+      })
       .addCase(updateUserIntroAction.pending, state => {
         state.updateUser.loading = true;
         state.updateUser.data = null;
@@ -178,5 +197,4 @@ const userSlice = createSlice({
       });
   },
 });
-export const { resetState } = userSlice.actions;
 export default userSlice.reducer;

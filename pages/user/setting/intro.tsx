@@ -8,8 +8,6 @@ import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import useUser from '../../../modules/user/hooks';
 import { SettingNavData } from '../../../utils/data';
 import useInput from '../../../hooks/useInput';
-import { resetState } from '../../../modules/user/slice';
-import { useAppDispatch } from '../../../hooks/useDispatch';
 
 const InfoContainer = styled.section`
   display: flex;
@@ -91,7 +89,6 @@ export default function Intro(): JSX.Element {
   const [intro, onChangeIntro, setIntro] = useInput('');
   const [model, onChangeModel, setModel] = useInput('');
 
-  const dispatch = useAppDispatch();
   const onUpdateUserIntro = () => {
     if (!userData) return;
     updateUserIntroDispatch({

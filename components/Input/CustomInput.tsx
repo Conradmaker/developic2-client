@@ -6,12 +6,14 @@ type CustomInputPropsType = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   width?: number;
+  name?: string;
   type?: string;
 };
 export default function CustomInput({
   title,
   width = 0,
   value = '',
+  name,
   onChange,
   type = 'text',
 }: CustomInputPropsType): JSX.Element {
@@ -20,7 +22,7 @@ export default function CustomInput({
     <CustomInputBox width={width}>
       <div className="line"></div>
       {title && <span onClick={() => inputEl.current?.focus()}>{title}</span>}
-      <input type={type} ref={inputEl} value={value} onChange={onChange} />
+      <input type={type} ref={inputEl} value={value} onChange={onChange} name={name} />
     </CustomInputBox>
   );
 }

@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useState } from 'react';
 import SquareBtn from '../../../components/Button/SquareBtn';
 import CustomInput from '../../../components/Input/CustomInput';
 import CustomSelect from '../../../components/Input/CustomSelect';
 import PageLabel from '../../../components/Label/PageLabel';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
+import useInput from '../../../hooks/useInput';
+import useUser from '../../../modules/user/hooks';
 import { SettingNavData } from '../../../utils/data';
 
 const InfoContainer = styled.section`
@@ -26,7 +29,13 @@ const InfoContainer = styled.section`
       width: 450px;
       justify-content: flex-end;
       & > div {
-        margin-bottom: 30px;
+        margin-bottom: 15px;
+      }
+      & > p {
+        margin: 0 0 20px 0;
+        font-size: 14px;
+        color: #b92961;
+        text-align: right;
       }
       & > button {
         width: 100%;
@@ -56,33 +65,104 @@ const InfoContainer = styled.section`
     }
   }
 `;
-
+const genderData = [
+  { id: 1, value: '' },
+  { id: 2, value: '남성' },
+  { id: 3, value: '여성' },
+];
 export default function Info(): JSX.Element {
+  const router = useRouter();
+  const { userData, updateUser, updateUserInfoDispatch } = useUser();
+  const [nickname, onChangeNickname] = useInput(userData?.nickname);
+  const [birth, onChangeBirth] = useInput(userData?.birth);
+  const [gender, onChangeGender] = useInput(userData?.gender);
+  const [passwords, setPasswords] = useState({
+    currentPassword: '',
+    password: '',
+    passwordCheck: '',
+  });
+  const [passwordError, setPasswordError] = useState<string | boolean>(true);
+  const [passwordCheckError, setPasswordCheckError] = useState<string | boolean>(true);
+
+  const onChangePasswords = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value, name } = e.target;
+      setPasswords({ ...passwords, [name]: value });
+      if (name === 'password') {
+        !/^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]|.*[0-9]).{8,24}$/.test(value)
+          ? setPasswordError('8~24자 영문대소문자, 숫자, 특수문자 혼합해주세요.')
+          : setPasswordError('');
+      } else if (name === 'passwordCheck') {
+        value === passwords.password
+          ? setPasswordCheckError('')
+          : setPasswordCheckError('비밀번호와 동일하게 입력해주세요.');
+      }
+    },
+    [passwords]
+  );
+
+  const onUpdateInfo = useCallback(() => {
+    if (!userData) return;
+    updateUserInfoDispatch({ UserId: userData.id, nickname, birth, gender });
+  }, [nickname, birth, gender]);
+
+  useEffect(() => {
+    if (!userData) router.replace('/');
+  }, [userData]);
+  if (!userData) return <></>;
   return (
     <PageWithNavLayout pageName="설정" pageDesc="Settings" navData={SettingNavData}>
       <InfoContainer>
         <div className="cs__left">
           <PageLabel
             width={300}
-            text={`반가워요. ${'naasdasdme'}님`}
+            text={`${userData?.nickname}님`}
             desc="작가님의 소중한 정보."
           />
           <form>
-            <CustomInput title="이메일" value="yhg0337@gmail.com" />
-            <CustomInput title="이름" value="dnjs" />
-            <CustomInput title="필명" />
-            <CustomInput title="생년월일" />
-            <CustomSelect title="성별" />
+            <CustomInput title="이메일" value={userData.email} onChange={e => null} />
+            <CustomInput title="이름" value={userData.name} onChange={e => null} />
+            <CustomInput title="필명" value={nickname} onChange={onChangeNickname} />
+            <CustomInput title="생년월일" value={birth} onChange={onChangeBirth} />
+            <CustomSelect
+              title="성별"
+              value={gender}
+              data={genderData}
+              onChange={onChangeGender}
+            />
           </form>
         </div>
         <div className="cs__right">
           <form>
-            <CustomInput title="비밀번호 변경" />
-            <CustomInput title="비밀번호 확인" />
-            <SquareBtn>비밀번호 변경</SquareBtn>
+            <CustomInput
+              title="현재 비밀번호"
+              type="password"
+              value={passwords.currentPassword}
+              name="currentPassword"
+              onChange={onChangePasswords}
+            />
+            <CustomInput
+              title="비밀번호 변경"
+              type="password"
+              value={passwords.password}
+              name="password"
+              onChange={onChangePasswords}
+            />
+            <p>{passwordError}</p>
+            <CustomInput
+              title="비밀번호 확인"
+              type="password"
+              name="passwordCheck"
+              value={passwords.passwordCheck}
+              onChange={onChangePasswords}
+            />
+            <p>{passwordCheckError}</p>
+            <SquareBtn type="button">비밀번호 변경</SquareBtn>
             <div className="btn__group">
-              <button>저장</button>
-              <button type="reset">회원탈퇴</button>
+              <button type="button" onClick={onUpdateInfo}>
+                저장
+              </button>
+              <button type="button">회원탈퇴</button>
             </div>
           </form>
         </div>

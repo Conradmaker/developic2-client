@@ -7,11 +7,17 @@ import {
   signupAction,
   socialLoginAction,
   socialRequestAction,
+  updateUserInfoAction,
   updateUserIntroAction,
   userDetailInfoAction,
   verificationAction,
 } from './thunk';
-import { LoginPayload, SocialLoginPayload, UpdateUserIntroPayload } from './type';
+import {
+  LoginPayload,
+  SocialLoginPayload,
+  UpdateUserInfoPayload,
+  UpdateUserIntroPayload,
+} from './type';
 
 // 커스텀 훅
 export default function useUser() {
@@ -54,6 +60,10 @@ export default function useUser() {
     dispatch(userDetailInfoAction(data));
   }, []);
 
+  const updateUserInfoDispatch = useCallback((data: UpdateUserInfoPayload) => {
+    dispatch(updateUserInfoAction(data));
+  }, []);
+
   const updateUserIntroDispatch = useCallback((data: UpdateUserIntroPayload) => {
     dispatch(updateUserIntroAction(data));
   }, []);
@@ -74,5 +84,6 @@ export default function useUser() {
     socialRequestDispatch,
     getUserIntroDispatch,
     updateUserIntroDispatch,
+    updateUserInfoDispatch,
   };
 }

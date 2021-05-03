@@ -3,13 +3,15 @@ import { CustomSelectBox } from './styles';
 
 type CustomSelectPropsType = {
   title: string;
-  values: string[];
-  onChange: string;
+  value: string;
+  onChange: (e: React.ChangeEvent) => void;
   width?: number;
+  data: { id: number; value: string }[];
 };
 export default function CustomSelect({
   title,
-  values,
+  data,
+  value,
   onChange,
   width = 0,
 }: CustomSelectPropsType): JSX.Element {
@@ -18,9 +20,12 @@ export default function CustomSelect({
     <CustomSelectBox width={width}>
       <div className="line"></div>
       <label htmlFor={randomId}>{title}</label>
-      <select name="" id={randomId}>
-        <option value="1"> </option>
-        <option value="1">불만</option>
+      <select name="" id={randomId} value={value} onChange={onChange}>
+        {data.map(opt => (
+          <option value={opt.value} id={opt.id + 'check'}>
+            {opt.value}
+          </option>
+        ))}
       </select>
     </CustomSelectBox>
   );
