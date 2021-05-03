@@ -38,14 +38,14 @@ export const destroyPicstoryAPI = async PicstoryId => {
   const res = await axios.delete(`http://localhost:8000/picstory/${PicstoryId}`);
   return res.data;
 };
-export const createPicstory = async data => {
-  const res = await axios.post('http://localhost:8000/picstory', data);
-  return res.data;
-};
-export const getPicstoryList = async UserId => {
-  const res = await axios.get(`http://localhost:8000/picstory/${UserId}`);
-  return res.data;
-};
+// export const createPicstory = async data => {
+//   const res = await axios.post('http://localhost:8000/picstory', data);
+//   return res.data;
+// };
+// export const getPicstoryList = async UserId => {
+//   const res = await axios.get(`http://localhost:8000/picstory/${UserId}`);
+//   return res.data;
+// };
 
 // export const getTempPostContent = async PostId => {
 //   const res = await axios.get(`http://localhost:8000/post/temp/${PostId}`);

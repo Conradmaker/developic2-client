@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { MdCancel, MdCheck } from 'react-icons/md';
 import useInput from '../../hooks/useInput';
+import { Picstory } from '../../modules/picstory';
+import usePicstory from '../../modules/picstory/hooks';
+import useUser from '../../modules/user/hooks';
 import {
-  createPicstory,
-  getPicstoryList,
   destroyPicstoryAPI,
   removePicstoryAPI,
   addPicstoryAPI,
@@ -51,12 +53,15 @@ export default function PicstoryModal({
   picstoryList,
   setPicstoryList,
 }: PicstoryModalPropsType): JSX.Element {
-  const [usersPicstoryList, setUsersPicstoryList] = useState<
-    {
-      id: number;
-      title: string;
-    }[]
-  >([]);
+  const { userData } = useUser();
+  const router = useRouter();
+  const {
+    getPicstoryList,
+    getPicstoryListDispatch,
+    createPicstory,
+    createPicstoryDispatch,
+  } = usePicstory();
+  const [usersPicstoryList, setUsersPicstoryList] = useState<Picstory[]>([]);
   const [title, onChangeTitle, setTitle] = useInput('');
   const [desc, onChangeDesc, setDesc] = useInput('');
   const [thumbnail, setThumbnail] = useState('');
@@ -79,33 +84,40 @@ export default function PicstoryModal({
     //
     setUsersPicstoryList(usersPicstoryList.filter(pic => pic.id !== id));
   };
+
   const onCreatePicstory = async () => {
+    if (!userData) return;
     if (!title.trim()) return alert('제목을 입력해주세요.');
     if (!thumbnail.trim()) return alert('썸네일 이미지를 등록해주세요.');
-    //리덕스로
-    const newPic = await createPicstory({
+    createPicstoryDispatch({
       title,
       thumbnail,
       description: desc,
-      UserId: 1,
+      UserId: userData.id,
     });
-    //
-    setTitle('');
-    setThumbnail('');
-    setDesc('');
-    setUsersPicstoryList([...usersPicstoryList, newPic]);
-  };
-
-  //NOTE: FAKE
-  const getList = async () => {
-    const res = await getPicstoryList(1); //UserId
-    setUsersPicstoryList(res);
   };
 
   useEffect(() => {
-    //리덕스로
-    getList();
-  }, []);
+    if (!userData) {
+      router.replace('/');
+    } else {
+      getPicstoryListDispatch(userData.id);
+    }
+  }, [userData]);
+  useEffect(() => {
+    if (getPicstoryList.data) {
+      setUsersPicstoryList(getPicstoryList.data);
+    }
+  }, [getPicstoryList.data]);
+  useEffect(() => {
+    if (createPicstory.data) {
+      setTitle('');
+      setThumbnail('');
+      setDesc('');
+      setUsersPicstoryList([...usersPicstoryList, createPicstory.data]);
+    }
+  }, [createPicstory.data]);
+
   return (
     <ModalLayout onClick={onClickBG}>
       <PicstoryModalBox width={800} height={600}>
