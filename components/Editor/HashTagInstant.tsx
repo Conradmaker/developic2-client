@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import _debounce from 'lodash/debounce';
-import { addHashAPI, getHashAPI } from '../../utils/fakeApi';
 import { HashInputContainer } from '../Input/EditPageInput';
 import { HashTagSearchContainer } from './styles';
+import { Hashtag } from '../../modules/post';
+import usePost from '../../modules/post/hooks';
 
 type SearchListPropsType = {
   resultList: { id: number; name: string }[];
@@ -21,18 +22,8 @@ function SearchList({ resultList, addTagList }: SearchListPropsType) {
 }
 
 type HashTagInstantPropsType = {
-  setTagList: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: number;
-        name: string;
-      }[]
-    >
-  >;
-  tagList: {
-    id: number;
-    name: string;
-  }[];
+  setTagList: React.Dispatch<React.SetStateAction<Hashtag[]>>;
+  tagList: Hashtag[];
 };
 export default function HashTagInstant({
   tagList,
@@ -40,8 +31,12 @@ export default function HashTagInstant({
 }: HashTagInstantPropsType): JSX.Element {
   const [instantMode, setInstantMode] = useState(false);
   const [tagValue, setTagValue] = useState('');
-  const [searchResult, setSearchResult] = useState<{ id: number; name: string }[]>([]);
-
+  const {
+    searchHashtagDispatch,
+    hashtagSearch,
+    createHashtag,
+    createHashtagDispatch,
+  } = usePost();
   const onChangeTagValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTagValue(e.target.value);
     debouncedSearch(e.target.value);
@@ -49,8 +44,7 @@ export default function HashTagInstant({
 
   const debouncedSearch = useCallback(
     _debounce(async (keyword: string) => {
-      const resultData = await getHashAPI(keyword.replace('#', ''));
-      setSearchResult(resultData);
+      searchHashtagDispatch(keyword.replace('#', ''));
     }, 500),
     []
   );
@@ -58,9 +52,7 @@ export default function HashTagInstant({
   const onAddTag = async () => {
     if (tagList.findIndex(tag => tag.name === tagValue.replace('#', '')) !== -1)
       return window.alert('이미 적용된 태그입니다.');
-
-    const tag = await addHashAPI(tagValue.replace('#', ''));
-    setTagList(tagList.concat(tag));
+    createHashtagDispatch(tagValue.replace('#', ''));
     setTagValue('');
   };
 
@@ -84,6 +76,12 @@ export default function HashTagInstant({
     setTagValue('');
     setInstantMode(false);
   };
+
+  useEffect(() => {
+    if (createHashtag.data) {
+      setTagList([...tagList, createHashtag.data]);
+    }
+  }, [createHashtag.data]);
 
   useEffect(() => {
     const clickEvent = (e: MouseEvent) => {
@@ -111,7 +109,7 @@ export default function HashTagInstant({
           onKeyPress={onKeypress}
         />
         {instantMode && (
-          <SearchList resultList={searchResult} addTagList={onClickAddTag} />
+          <SearchList resultList={hashtagSearch.data || []} addTagList={onClickAddTag} />
         )}
       </HashInputContainer>
       <ul>

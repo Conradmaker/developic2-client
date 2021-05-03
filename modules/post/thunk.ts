@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { PreSavePayload, SubmitPostPayload } from './types';
+import { Hashtag, PreSavePayload, SubmitPostPayload } from './types';
 
 axios.defaults.withCredentials = true;
 
@@ -50,6 +50,43 @@ export const getTempPostAction = createAsyncThunk<
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/temp/${postId}`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//해시태그추가
+export const createHashtagAction = createAsyncThunk<
+  Hashtag,
+  string,
+  { rejectValue: MyKnownError }
+>('post/createTag', async (tagName, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/hashtag`,
+      {
+        name: tagName,
+      }
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//해시태그 인스턴트 검색
+export const searchHashtagAction = createAsyncThunk<
+  Hashtag[],
+  string,
+  { rejectValue: MyKnownError }
+>('post/searchTags', async (keyword, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/hashtag?keyword=${keyword}`
     );
     return data;
   } catch (e) {

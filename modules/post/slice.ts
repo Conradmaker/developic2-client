@@ -1,11 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { PostState } from './index';
-import { getTempPostAction, postPreSaveAction, submitPostAction } from './thunk';
+import {
+  createHashtagAction,
+  getTempPostAction,
+  postPreSaveAction,
+  searchHashtagAction,
+  submitPostAction,
+} from './thunk';
 
 const initialState: PostState = {
   tempPost: { loading: false, data: null, error: null },
   preSavePost: { loading: false, data: null, error: null },
   submitPost: { loading: false, data: null, error: null },
+  hashtagSearch: { loading: false, data: null, error: null },
+  createHashtag: { loading: false, data: null, error: null },
 };
 
 const postSlice = createSlice({
@@ -58,6 +66,36 @@ const postSlice = createSlice({
         state.submitPost.loading = false;
         state.submitPost.data = null;
         state.submitPost.error = payload;
+      })
+      .addCase(searchHashtagAction.pending, state => {
+        state.hashtagSearch.loading = true;
+        state.hashtagSearch.data = null;
+        state.hashtagSearch.error = null;
+      })
+      .addCase(searchHashtagAction.fulfilled, (state, { payload }) => {
+        state.hashtagSearch.loading = false;
+        state.hashtagSearch.data = payload;
+        state.hashtagSearch.error = null;
+      })
+      .addCase(searchHashtagAction.rejected, (state, { payload }) => {
+        state.hashtagSearch.loading = false;
+        state.hashtagSearch.data = null;
+        state.hashtagSearch.error = payload;
+      })
+      .addCase(createHashtagAction.pending, state => {
+        state.createHashtag.loading = true;
+        state.createHashtag.data = null;
+        state.createHashtag.error = null;
+      })
+      .addCase(createHashtagAction.fulfilled, (state, { payload }) => {
+        state.createHashtag.loading = false;
+        state.createHashtag.data = payload;
+        state.createHashtag.error = null;
+      })
+      .addCase(createHashtagAction.rejected, (state, { payload }) => {
+        state.createHashtag.loading = false;
+        state.createHashtag.data = null;
+        state.createHashtag.error = payload;
       });
   },
 });
