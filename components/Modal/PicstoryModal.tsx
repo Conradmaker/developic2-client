@@ -5,11 +5,6 @@ import useInput from '../../hooks/useInput';
 import { Picstory } from '../../modules/picstory';
 import usePicstory from '../../modules/picstory/hooks';
 import useUser from '../../modules/user/hooks';
-import {
-  destroyPicstoryAPI,
-  removePicstoryAPI,
-  addPicstoryAPI,
-} from '../../utils/fakeApi';
 import SquareBtn from '../Button/SquareBtn';
 import CustomInput from '../Input/CustomInput';
 import ImageDropZone from '../Input/ImageDropZone';
@@ -46,12 +41,10 @@ function PicstoryListItem({
 type PicstoryModalPropsType = {
   onClose: () => void;
   picstoryList: number[];
-  setPicstoryList: React.Dispatch<React.SetStateAction<number[]>>;
 };
 export default function PicstoryModal({
   onClose,
   picstoryList,
-  setPicstoryList,
 }: PicstoryModalPropsType): JSX.Element {
   const { userData } = useUser();
   const router = useRouter();
@@ -60,6 +53,9 @@ export default function PicstoryModal({
     getPicstoryListDispatch,
     createPicstory,
     createPicstoryDispatch,
+    removePicstoryDispatch,
+    addPicPostDispatch,
+    removePicPostDispatch,
   } = usePicstory();
   const [usersPicstoryList, setUsersPicstoryList] = useState<Picstory[]>([]);
   const [title, onChangeTitle, setTitle] = useInput('');
@@ -68,21 +64,20 @@ export default function PicstoryModal({
   const onClickBG = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) onClose();
   };
-  const addPicstory = async (id: number) => {
+  const addPicstory = (id: number) => {
     const isExist = picstoryList.findIndex(picid => picid === id) !== -1;
-    if (isExist) {
-      const res = await removePicstoryAPI({ PostId: 1, PicstoryId: id });
-      setPicstoryList(picstoryList.filter(picid => picid !== res.id));
+    if (!isExist) {
+      addPicPostDispatch({ PostId: 1, PicstoryId: id });
+      // const res = await removePicstoryAPI({ PostId: 1, PicstoryId: id });
+      // setPicstoryList(picstoryList.filter(picid => picid !== res.id));
     } else {
-      const res = await addPicstoryAPI({ PostId: 1, PicstoryId: id });
-      setPicstoryList([...picstoryList, res.id]);
+      removePicPostDispatch({ PostId: 1, PicstoryId: id });
+      // const res = await addPicstoryAPI({ PostId: 1, PicstoryId: id });
+      // setPicstoryList([...picstoryList, res.id]);
     }
   };
-  const destroyPicstory = async (id: number) => {
-    //리덕스로
-    await destroyPicstoryAPI(id);
-    //
-    setUsersPicstoryList(usersPicstoryList.filter(pic => pic.id !== id));
+  const destroyPicstory = (id: number) => {
+    removePicstoryDispatch(id);
   };
 
   const onCreatePicstory = async () => {

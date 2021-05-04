@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { addPicPostAction, removePicPostAction } from '../picstory';
 import { PostState } from './index';
 import {
   createHashtagAction,
@@ -7,6 +8,7 @@ import {
   searchHashtagAction,
   submitPostAction,
 } from './thunk';
+import { PostContent } from './types';
 
 const initialState: PostState = {
   tempPost: { loading: false, data: null, error: null },
@@ -96,6 +98,16 @@ const postSlice = createSlice({
         state.createHashtag.loading = false;
         state.createHashtag.data = null;
         state.createHashtag.error = payload;
+      })
+      .addCase(addPicPostAction.fulfilled, (state, { payload }) => {
+        (state.tempPost.data as PostContent).PicStories = ((state.tempPost
+          .data as PostContent).PicStories as number[]).concat(payload.id);
+      })
+      .addCase(removePicPostAction.fulfilled, (state, { payload }) => {
+        (state.tempPost.data as PostContent).PicStories = ((state.tempPost
+          .data as PostContent).PicStories as number[]).filter(
+          picId => picId !== payload.id
+        );
       });
   },
 });

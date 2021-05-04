@@ -13,6 +13,7 @@ export type PostContent = {
   lisence: string;
   UserId: number;
   PostId: null | string;
+  PicStories?: number[];
 };
 
 export type PreSavePayload = {

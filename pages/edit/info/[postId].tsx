@@ -74,7 +74,6 @@ export default function InfoPost(): JSX.Element {
 
   const router = useRouter();
   const [picstoryOpen, setPicstoryOpen] = useState(false);
-  const [picstoryList, setPicstoryList] = useState<number[]>([]);
   const [allowComment, setAllowComment] = useState(tempPost.data?.allowComment === 1);
   const [summary, onChangeSummary] = useInput(
     tempPost.data?.summary ? tempPost.data.summary : ''
@@ -172,8 +171,7 @@ export default function InfoPost(): JSX.Element {
       {picstoryOpen && (
         <PicstoryModal
           onClose={() => setPicstoryOpen(false)}
-          picstoryList={picstoryList}
-          setPicstoryList={setPicstoryList}
+          picstoryList={tempPost.data?.PicStories as number[]}
         />
       )}
     </Layout>
