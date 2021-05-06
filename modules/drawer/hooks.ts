@@ -1,11 +1,18 @@
 import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
-import { getLikeListAction, removeLikePostAction } from './thunk';
+import {
+  getLikeListAction,
+  getTempListAction,
+  removeLikePostAction,
+  removeTempPostAction,
+} from './thunk';
 import { RemoveLikesPayload } from './types';
 
 export default function useDrawer() {
-  const { getLikeList, removeLikeItem } = useAppSelector(state => state.drawer);
+  const { getLikeList, removeLikeItem, getTempList, removeTempPost } = useAppSelector(
+    state => state.drawer
+  );
   const dispatch = useAppDispatch();
 
   const getLikeListDispatch = useCallback((userId: number) => {
@@ -16,5 +23,22 @@ export default function useDrawer() {
     dispatch(removeLikePostAction(data));
   }, []);
 
-  return { getLikeList, removeLikeItem, getLikeListDispatch, removeLikeItemDispatch };
+  const getTempListDispatch = useCallback((data: number) => {
+    dispatch(getTempListAction(data));
+  }, []);
+
+  const removeTempPostDispatch = useCallback((data: number) => {
+    dispatch(removeTempPostAction(data));
+  }, []);
+
+  return {
+    getLikeList,
+    removeLikeItem,
+    getTempList,
+    removeTempPost,
+    getLikeListDispatch,
+    removeLikeItemDispatch,
+    getTempListDispatch,
+    removeTempPostDispatch,
+  };
 }

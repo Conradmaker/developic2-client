@@ -1,22 +1,33 @@
+import Link from 'next/link';
 import React from 'react';
+import { TempItemType } from '../../modules/drawer';
+import useDrawer from '../../modules/drawer/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import { UnfinishedPostCardContainer } from './styles';
 
-export default function UnfinishedPostCard(): JSX.Element {
+type UnfinishedPostCardPropsType = {
+  id: number;
+  tempPostData: TempItemType;
+};
+export default function UnfinishedPostCard({
+  tempPostData,
+}: UnfinishedPostCardPropsType): JSX.Element {
+  const { removeTempPostDispatch } = useDrawer();
+  const onDeleteTempPost = () => {
+    removeTempPostDispatch(tempPostData.id);
+  };
   return (
     <UnfinishedPostCardContainer>
       <article>
-        <h2>아직 끝내지 못한 글</h2>
-        <p>
-          진서는 "자서전, 회고록, 개인사·가족사 기록 등 형식과 관계없이 스스로의 삶에 대한
-          기록을 남기는 것은 인간의 본능적인 행동"이라고 말한다. 꼭 책으로 펴내지 않더라도
-          삶을 글로 정리하고 보존하는 것은 개인적인 만족감을 준다. ...
-        </p>
-        <span>2021.03.19 수정</span>
+        <h2>{tempPostData.title}</h2>
+        <p dangerouslySetInnerHTML={{ __html: tempPostData.content }}></p>
+        <span>{tempPostData.updatedAt} 수정</span>
       </article>
       <div className="btn__group">
-        <SquareBtn>이어작성</SquareBtn>
-        <SquareBtn>삭제</SquareBtn>
+        <Link href={`/edit/content/${tempPostData.id}`}>
+          <SquareBtn>이어작성</SquareBtn>
+        </Link>
+        <SquareBtn onClick={onDeleteTempPost}>삭제</SquareBtn>
       </div>
     </UnfinishedPostCardContainer>
   );

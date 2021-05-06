@@ -9,6 +9,16 @@ export type DrawerState = {
     data: null | { postId: number };
     error: null | unknown;
   };
+  getTempList: {
+    loading: boolean;
+    data: null | TempItemType[];
+    error: null | unknown;
+  };
+  removeTempPost: {
+    loading: boolean;
+    data: null | { postId: number };
+    error: null | unknown;
+  };
 };
 
 export type LikeListItemType = {
@@ -19,6 +29,13 @@ export type LikeListItemType = {
   thumbnail: string;
   updatedAt: Date;
   User: { id: number; nickname: string; avatar: string };
+};
+
+export type TempItemType = {
+  id: number;
+  content: string;
+  title: string;
+  updatedAt: string;
 };
 
 export type RemoveLikesPayload = {

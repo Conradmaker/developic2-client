@@ -1,11 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { stat } from 'node:fs';
 import { DrawerState } from './';
-import { getLikeListAction, removeLikePostAction } from './thunk';
-import { LikeListItemType } from './types';
+import {
+  getLikeListAction,
+  getTempListAction,
+  removeLikePostAction,
+  removeTempPostAction,
+} from './thunk';
+import { LikeListItemType, TempItemType } from './types';
 
 const initialState: DrawerState = {
   getLikeList: { loading: false, data: null, error: null },
   removeLikeItem: { loading: false, data: null, error: null },
+  getTempList: { loading: false, data: null, error: null },
+  removeTempPost: { loading: false, data: null, error: null },
 };
 
 const drawerSlice = createSlice({
@@ -46,6 +54,39 @@ const drawerSlice = createSlice({
         state.removeLikeItem.loading = false;
         state.removeLikeItem.data = null;
         state.removeLikeItem.error = payload;
+      })
+      .addCase(getTempListAction.pending, state => {
+        state.getTempList.loading = true;
+        state.getTempList.data = null;
+        state.getTempList.error = null;
+      })
+      .addCase(getTempListAction.fulfilled, (state, { payload }) => {
+        state.getTempList.loading = false;
+        state.getTempList.data = payload;
+        state.getTempList.error = null;
+      })
+      .addCase(getTempListAction.rejected, (state, { payload }) => {
+        state.getTempList.loading = false;
+        state.getTempList.data = null;
+        state.getTempList.error = payload;
+      })
+      .addCase(removeTempPostAction.pending, state => {
+        state.removeTempPost.loading = true;
+        state.removeTempPost.data = null;
+        state.removeTempPost.error = null;
+      })
+      .addCase(removeTempPostAction.fulfilled, (state, { payload }) => {
+        state.removeTempPost.loading = false;
+        state.removeTempPost.data = payload;
+        state.removeTempPost.error = null;
+        state.getTempList.data = (state.getTempList.data as TempItemType[]).filter(
+          tempPost => tempPost.id !== payload.postId
+        );
+      })
+      .addCase(removeTempPostAction.rejected, (state, { payload }) => {
+        state.removeTempPost.loading = false;
+        state.removeTempPost.data = null;
+        state.removeTempPost.error = payload;
       });
   },
 });
