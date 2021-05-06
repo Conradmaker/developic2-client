@@ -8,6 +8,7 @@ import {
   removePicstoryAction,
 } from './thunk';
 import { Picstory } from './types';
+
 const initialState: PicstoryState = {
   getPicstoryList: { loading: false, data: null, error: null },
   createPicstory: { loading: false, data: null, error: null },

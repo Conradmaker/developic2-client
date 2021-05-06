@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import LikeList from '../../../components/List/LikeList';
+import useDrawer from '../../../modules/drawer/hooks';
+import useUser from '../../../modules/user/hooks';
 import { DrawerNavData } from '../../../utils/data';
 
 const LikeListContainer = styled.section`
@@ -9,6 +11,13 @@ const LikeListContainer = styled.section`
 `;
 
 export default function like(): JSX.Element {
+  const { userData } = useUser();
+  const { getLikeListDispatch } = useDrawer();
+  useEffect(() => {
+    if (!userData) return;
+    getLikeListDispatch(userData.id);
+  }, [userData]);
+
   return (
     <PageWithNavLayout pageName="내 서랍" pageDesc="My Drawer" navData={DrawerNavData}>
       <LikeListContainer>

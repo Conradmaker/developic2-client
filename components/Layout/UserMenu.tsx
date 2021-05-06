@@ -15,7 +15,7 @@ const navData: navDataType[] = [
   {
     title: '집필',
     content: [
-      { name: '새 글 작성', link: '/edit/content/1' },
+      { name: '새 글 작성', link: '/edit/content/new' },
       { name: '임시저장 글', link: '/user/drawer/save' },
     ],
   },

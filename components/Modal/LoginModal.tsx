@@ -13,7 +13,7 @@ type LoginModalPropsType = {
   onClose: () => void;
 };
 export default function LoginModal({ onClose }: LoginModalPropsType): JSX.Element {
-  const { login, loginDispatch, socialRequestDispatch } = useUser();
+  const { login, loginDispatch } = useUser();
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
   const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {

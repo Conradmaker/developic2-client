@@ -304,6 +304,7 @@ export const DrawerPostCardContainer = styled.li`
   & > img {
     width: 100%;
     height: 147px;
+    object-fit: cover;
   }
   .content {
     background-color: ${({ theme }) => theme.background.modal};

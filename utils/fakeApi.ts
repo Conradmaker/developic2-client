@@ -26,19 +26,19 @@ import axios from 'axios';
 //   return res.data;
 // };
 
-export const addPicstoryAPI = async data => {
-  const res = await axios.post('http://localhost:8000/picstory/post', data);
-  return res.data;
-};
-export const removePicstoryAPI = async data => {
-  const res = await axios.patch('http://localhost:8000/picstory/post', data);
-  return res.data;
-};
-export const destroyPicstoryAPI = async PicstoryId => {
-  const res = await axios.delete(`http://localhost:8000/picstory/${PicstoryId}`);
-  return res.data;
-};
-// export const createPicstory = async data => {
+// export const addPicstoryAPI = async data => {
+//   const res = await axios.post('http://localhost:8000/picstory/post', data);
+//   return res.data;
+// };
+// export const removePicstoryAPI = async data => {
+//   const res = await axios.patch('http://localhost:8000/picstory/post', data);
+//   return res.data;
+// };
+// export const destroyPicstoryAPI = async PicstoryId => {
+//   const res = await axios.delete(`http://localhost:8000/picstory/${PicstoryId}`);
+//   return res.data;
+// };
+// // export const createPicstory = async data => {
 //   const res = await axios.post('http://localhost:8000/picstory', data);
 //   return res.data;
 // };
