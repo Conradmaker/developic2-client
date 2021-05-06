@@ -1,19 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { stat } from 'node:fs';
 import { DrawerState } from './';
 import {
   getLikeListAction,
+  getRecentViewsAction,
   getTempListAction,
   removeLikePostAction,
+  removeRecentViewAction,
   removeTempPostAction,
 } from './thunk';
-import { LikeListItemType, TempItemType } from './types';
+import { LikeListItemType, RecentViewType, TempItemType } from './types';
 
 const initialState: DrawerState = {
   getLikeList: { loading: false, data: null, error: null },
   removeLikeItem: { loading: false, data: null, error: null },
   getTempList: { loading: false, data: null, error: null },
   removeTempPost: { loading: false, data: null, error: null },
+  getRecentList: { loading: false, data: null, error: null },
+  removeRecentView: { loading: false, data: null, error: null },
 };
 
 const drawerSlice = createSlice({
@@ -87,6 +90,39 @@ const drawerSlice = createSlice({
         state.removeTempPost.loading = false;
         state.removeTempPost.data = null;
         state.removeTempPost.error = payload;
+      })
+      .addCase(getRecentViewsAction.pending, state => {
+        state.getRecentList.loading = true;
+        state.getRecentList.data = null;
+        state.getRecentList.error = null;
+      })
+      .addCase(getRecentViewsAction.fulfilled, (state, { payload }) => {
+        state.getRecentList.loading = false;
+        state.getRecentList.data = payload;
+        state.getRecentList.error = null;
+      })
+      .addCase(getRecentViewsAction.rejected, (state, { payload }) => {
+        state.getRecentList.loading = false;
+        state.getRecentList.data = null;
+        state.getRecentList.error = payload;
+      })
+      .addCase(removeRecentViewAction.pending, state => {
+        state.removeRecentView.loading = true;
+        state.removeRecentView.data = null;
+        state.removeRecentView.error = null;
+      })
+      .addCase(removeRecentViewAction.fulfilled, (state, { payload }) => {
+        state.removeRecentView.loading = false;
+        state.removeRecentView.data = payload;
+        state.removeRecentView.error = null;
+        state.getRecentList.data = (state.getRecentList.data as RecentViewType[]).filter(
+          viewItem => viewItem.id !== payload.recentId
+        );
+      })
+      .addCase(removeRecentViewAction.rejected, (state, { payload }) => {
+        state.removeRecentView.loading = false;
+        state.removeRecentView.data = null;
+        state.removeRecentView.error = payload;
       });
   },
 });

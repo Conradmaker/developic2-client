@@ -1,6 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { LikeListItemType, RemoveLikesPayload, TempItemType } from './types';
+import {
+  LikeListItemType,
+  RecentViewType,
+  RemoveLikesPayload,
+  TempItemType,
+} from './types';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_HOST;
@@ -59,6 +64,35 @@ export const removeTempPostAction = createAsyncThunk<
 >('drawer/removeTempPost', async (postId, { rejectWithValue }) => {
   try {
     const { data } = await axios.delete(`/drawer/saves/${postId}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//최근 본글 조회
+export const getRecentViewsAction = createAsyncThunk<
+  RecentViewType[],
+  number,
+  { rejectValue: MyKnownError }
+>('drawer/getRecentList', async (userId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(`/drawer/recents/${userId}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+//최근 본글 삭제
+export const removeRecentViewAction = createAsyncThunk<
+  { recentId: number },
+  number,
+  { rejectValue: MyKnownError }
+>('drawer/removeRecentItem', async (recentId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.delete(`/drawer/recents/${recentId}`);
     return data;
   } catch (e) {
     console.error(e);

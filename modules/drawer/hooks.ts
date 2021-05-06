@@ -3,16 +3,23 @@ import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import {
   getLikeListAction,
+  getRecentViewsAction,
   getTempListAction,
   removeLikePostAction,
+  removeRecentViewAction,
   removeTempPostAction,
 } from './thunk';
 import { RemoveLikesPayload } from './types';
 
 export default function useDrawer() {
-  const { getLikeList, removeLikeItem, getTempList, removeTempPost } = useAppSelector(
-    state => state.drawer
-  );
+  const {
+    getLikeList,
+    removeLikeItem,
+    getTempList,
+    removeTempPost,
+    getRecentList,
+    removeRecentView,
+  } = useAppSelector(state => state.drawer);
   const dispatch = useAppDispatch();
 
   const getLikeListDispatch = useCallback((userId: number) => {
@@ -31,14 +38,26 @@ export default function useDrawer() {
     dispatch(removeTempPostAction(data));
   }, []);
 
+  const getRecentViewsDispatch = useCallback((data: number) => {
+    dispatch(getRecentViewsAction(data));
+  }, []);
+
+  const removeRecentViewDispatch = useCallback((data: number) => {
+    dispatch(removeRecentViewAction(data));
+  }, []);
+
   return {
     getLikeList,
     removeLikeItem,
     getTempList,
     removeTempPost,
+    getRecentList,
+    removeRecentView,
     getLikeListDispatch,
     removeLikeItemDispatch,
     getTempListDispatch,
     removeTempPostDispatch,
+    getRecentViewsDispatch,
+    removeRecentViewDispatch,
   };
 }

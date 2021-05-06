@@ -19,6 +19,16 @@ export type DrawerState = {
     data: null | { postId: number };
     error: null | unknown;
   };
+  getRecentList: {
+    loading: boolean;
+    data: null | RecentViewType[];
+    error: null | unknown;
+  };
+  removeRecentView: {
+    loading: boolean;
+    data: null | { recentId: number };
+    error: null | unknown;
+  };
 };
 
 export type LikeListItemType = {
@@ -36,6 +46,11 @@ export type TempItemType = {
   content: string;
   title: string;
   updatedAt: string;
+};
+export type RecentViewType = {
+  id: number;
+  date: Date;
+  Post: LikeListItemType;
 };
 
 export type RemoveLikesPayload = {
