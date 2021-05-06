@@ -1,27 +1,19 @@
 import React from 'react';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import { BlogPost } from '../../modules/blog';
+import { formatDate } from '../../utils/utils';
 import { BlogPostCardBox } from './styles';
 
 type BlogPostCardPropsType = {
-  data: {
-    id: number;
-    postImgUrl: string;
-    title: string;
-    description: string;
-    userName: string;
-    avatarImgUrl: string;
-    likeCount: number;
-    viewCount: number;
-    date: string;
-    picstoryTitle: string;
-  };
+  data: BlogPost;
 };
+
 export default function BlogPostCard({ data }: BlogPostCardPropsType): JSX.Element {
   return (
     <BlogPostCardBox>
       <article>
         <div className="img__wrapper">
-          <img src={data.postImgUrl} alt="postImg" />
+          <img src={data.thumbnail} alt="post-thumbnail" />
           {/* <div className="img__description">
             <div className="post__info">
               <div className="post__stats">
@@ -39,9 +31,9 @@ export default function BlogPostCard({ data }: BlogPostCardPropsType): JSX.Eleme
           </div> */}
         </div>
         <div className="post__description">
-          {data.picstoryTitle && <span>{data.picstoryTitle}</span>}
+          {/* {data.picstoryTitle && <span>{data.picstoryTitle}</span>} */}
           <h3>{data.title}</h3>
-          <p>{data.description}</p>
+          <p>{data.summary}</p>
         </div>
         <div className="post__info">
           <div className="post__stats">
@@ -51,10 +43,10 @@ export default function BlogPostCard({ data }: BlogPostCardPropsType): JSX.Eleme
             </div>
             <div>
               <MdRemoveRedEye />
-              <span>{data.viewCount}</span>
+              <span>{data.hits}</span>
             </div>
           </div>
-          <div className="post__date">{data.date}</div>
+          <div className="post__date">{formatDate(`${data.updatedAt}`)}</div>
         </div>
       </article>
     </BlogPostCardBox>

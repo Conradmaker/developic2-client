@@ -1,22 +1,23 @@
 import Link from 'next/link';
 import React from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
-import PicstoryDetailList from '../List/PicstoryDetailList';
+import { BlogPicstory, Post } from '../../modules/blog';
+import { CountSum } from '../../utils/utils';
 import { BlogPicstoryCardBox } from './styles';
 
 type PicstoryCardPropsType = {
-  data: {
-    id: number;
-    title: string;
-    description: string;
-    postCount?: number;
-    likeCount?: number;
-    viewCount?: number;
-    ThumbnailImages?: any;
-    Posts?: any;
-  };
+  data: BlogPicstory;
 };
+
 export default function BlogPistoryCard({ data }: PicstoryCardPropsType): JSX.Element {
+  const posts = data.Posts;
+
+  const likeCounts = posts.map((post: Post) => post.likers);
+  const likeCountSum = likeCounts.length;
+
+  const hits = posts.map((post: Post) => post.hits);
+  const viewCountSum = CountSum(hits);
+
   return (
     <Link href="/user123/picstory/1">
       <BlogPicstoryCardBox>
@@ -26,24 +27,24 @@ export default function BlogPistoryCard({ data }: PicstoryCardPropsType): JSX.El
             <div className="picstory__stats">
               <div>
                 <MdBook />
-                <span>{data.postCount ? data.postCount : 0}</span>
+                <span>{data.Posts && data.Posts.length}</span>
               </div>
               <div>
                 <MdFavorite />
-                <span>{data.likeCount ? data.likeCount : 0}</span>
+                <span>{likeCountSum && likeCountSum}</span>
               </div>
               <div>
                 <MdRemoveRedEye />
-                <span>{data.viewCount ? data.viewCount : 0}</span>
+                <span>{viewCountSum && viewCountSum}</span>
               </div>
             </div>
           </div>
           <p>{data.description}</p>
           <ul className="picstory__recent-img">
-            {data.ThumbnailImages &&
-              data.ThumbnailImages.map(picstoryImgItem => (
+            {posts &&
+              posts.map((picstoryImgItem: { thumbnail: string }) => (
                 <li className="img__box">
-                  <img src={picstoryImgItem.src} alt="picstory__recent-img" />
+                  <img src={picstoryImgItem.thumbnail} alt="picstory-thumbnail" />
                 </li>
               ))}
           </ul>

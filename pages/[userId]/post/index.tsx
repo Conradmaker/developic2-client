@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import BlogWithNavLayout from '../../../components/Layout/BlogWithNavLayout';
 import BlogPostList from '../../../components/List/BlogPostList';
-import { PostData, UserInfoData } from '../../../utils/data';
+import useBlog from '../../../modules/blog/hooks';
 
 const BlogPostContainer = styled.section`
   min-height: 550px;
@@ -11,10 +12,19 @@ const BlogPostContainer = styled.section`
 `;
 
 export default function BlogPost(): JSX.Element {
+  const { blogPostListData, loadBlogPostListDispatch } = useBlog();
+  const router = useRouter();
+  const { userId } = router.query;
+  useEffect(() => {
+    if (userId) {
+      loadBlogPostListDispatch(userId);
+    }
+  }, [userId]);
+
   return (
-    <BlogWithNavLayout data={UserInfoData}>
+    <BlogWithNavLayout>
       <BlogPostContainer>
-        <BlogPostList data={PostData} />
+        <BlogPostList blogPostListData={blogPostListData} />
       </BlogPostContainer>
     </BlogWithNavLayout>
   );

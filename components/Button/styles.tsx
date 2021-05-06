@@ -164,3 +164,5 @@ export const RoundCornerBtnBox = styled.button<{
     }
   }}
 `;
+
+export const CreateInfoButton = styled(RoundCornerBtnBox)``;

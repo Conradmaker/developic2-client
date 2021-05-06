@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import BlogWithNavLayout from '../../../components/Layout/BlogWithNavLayout';
 import BlogPicstoryList from '../../../components/List/BlogPicstoryList';
-import { PicstoryData, UserInfoData } from '../../../utils/data';
+import useBlog from '../../../modules/blog/hooks';
 
 const BlogPicstoryContainer = styled.section`
   min-height: 550px;
@@ -11,10 +12,22 @@ const BlogPicstoryContainer = styled.section`
 `;
 
 export default function Picstory(): JSX.Element {
+  const { blogPicstoryListData, loadBlogPicstoryListDispatch } = useBlog();
+  const router = useRouter();
+  const { userId } = router.query;
+
+  useEffect(() => {
+    if (userId) {
+      loadBlogPicstoryListDispatch(userId);
+
+      console.log(blogPicstoryListData);
+    }
+  }, [userId]);
+
   return (
-    <BlogWithNavLayout data={UserInfoData}>
+    <BlogWithNavLayout>
       <BlogPicstoryContainer>
-        <BlogPicstoryList data={PicstoryData} />
+        <BlogPicstoryList blogPicstoryListData={blogPicstoryListData} />
       </BlogPicstoryContainer>
     </BlogWithNavLayout>
   );

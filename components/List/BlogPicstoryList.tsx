@@ -1,14 +1,21 @@
 import React from 'react';
-import { PicstoryDataType } from '../../utils/data';
+import { BlogPicstory, BlogPicstoryListData } from '../../modules/blog';
 import BlogPistoryCard from '../Card/BlogPistoryCard';
 import { BlogPicstoryListContainer } from './styles';
 
-type PicstoryListPropsType = { data: PicstoryDataType };
-export default function BlogPicstoryList({ data }: PicstoryListPropsType): JSX.Element {
+type PicstoryListPropsType = {
+  blogPicstoryListData: BlogPicstoryListData['blogPicstories'];
+};
+export default function BlogPicstoryList({
+  blogPicstoryListData,
+}: PicstoryListPropsType): JSX.Element {
   return (
     <BlogPicstoryListContainer>
-      {data &&
-        data.map(picstoryItem => (
+      <div className="empty_Content">
+        {blogPicstoryListData.length < 1 && '등록된 픽스토리가 없습니다.'}
+      </div>
+      {blogPicstoryListData &&
+        blogPicstoryListData.map((picstoryItem: BlogPicstory) => (
           <BlogPistoryCard key={picstoryItem.id} data={picstoryItem} />
         ))}
     </BlogPicstoryListContainer>

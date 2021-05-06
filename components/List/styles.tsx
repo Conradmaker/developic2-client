@@ -205,9 +205,15 @@ export const ImgItemBox = styled.div<{ selected: boolean }>`
 
 export const BlogPicstoryListContainer = styled.ul`
   margin-bottom: 100px;
+  .empty_content {
+    text-align: center;
+  }
 `;
 export const BlogPostListContainer = styled.ul`
   margin-bottom: 100px;
+  .empty_content {
+    text-align: center;
+  }
   .my-masonry-grid {
     display: -webkit-box; /* Not needed if autoprefixing */
     display: -ms-flexbox; /* Not needed if autoprefixing */
