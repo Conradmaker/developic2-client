@@ -3,13 +3,13 @@ import { CustomTextareaBox } from './styles';
 
 type CustomTextareaPropsType = {
   title: string;
-  values: string;
-  onChange: string;
+  value: string;
+  onChange: (e: React.ChangeEvent) => void;
   width?: number;
 };
 export default function CustomTextarea({
   title,
-  values,
+  value,
   onChange,
   width = 0,
 }: CustomTextareaPropsType): JSX.Element {
@@ -18,7 +18,7 @@ export default function CustomTextarea({
     <CustomTextareaBox width={width}>
       <div className="line"></div>
       <span onClick={() => textareaRef.current?.focus()}>{title}</span>
-      <textarea ref={textareaRef}></textarea>
+      <textarea value={value} onChange={onChange} ref={textareaRef}></textarea>
     </CustomTextareaBox>
   );
 }

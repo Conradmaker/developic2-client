@@ -3,13 +3,16 @@ import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import {
   getLikeListAction,
+  getPhotoBinderDetailAction,
+  getPhotoBinderListAction,
   getRecentViewsAction,
   getTempListAction,
   removeLikePostAction,
   removeRecentViewAction,
   removeTempPostAction,
+  updatePhotoBinderDetailAction,
 } from './thunk';
-import { RemoveLikesPayload } from './types';
+import { RemoveLikesPayload, UpdatePhotoBinderPayload } from './types';
 
 export default function useDrawer() {
   const {
@@ -19,6 +22,9 @@ export default function useDrawer() {
     removeTempPost,
     getRecentList,
     removeRecentView,
+    getBinderList,
+    getBinderDetail,
+    updateBinderDetail,
   } = useAppSelector(state => state.drawer);
   const dispatch = useAppDispatch();
 
@@ -46,6 +52,19 @@ export default function useDrawer() {
     dispatch(removeRecentViewAction(data));
   }, []);
 
+  const getPhotoBinderListDispatch = useCallback((data: number) => {
+    dispatch(getPhotoBinderListAction(data));
+  }, []);
+
+  const getPhotoBinderDetailDispatch = useCallback((data: number) => {
+    dispatch(getPhotoBinderDetailAction(data));
+  }, []);
+  const updatePhotoBinderDetailDispatch = useCallback(
+    (data: UpdatePhotoBinderPayload) => {
+      dispatch(updatePhotoBinderDetailAction(data));
+    },
+    []
+  );
   return {
     getLikeList,
     removeLikeItem,
@@ -53,11 +72,17 @@ export default function useDrawer() {
     removeTempPost,
     getRecentList,
     removeRecentView,
+    getBinderList,
+    getBinderDetail,
+    updateBinderDetail,
     getLikeListDispatch,
     removeLikeItemDispatch,
     getTempListDispatch,
     removeTempPostDispatch,
     getRecentViewsDispatch,
     removeRecentViewDispatch,
+    getPhotoBinderListDispatch,
+    getPhotoBinderDetailDispatch,
+    updatePhotoBinderDetailDispatch,
   };
 }

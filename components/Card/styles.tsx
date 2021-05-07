@@ -470,8 +470,9 @@ export const PhotoBinderCardBox = styled.div`
       overflow: hidden;
       & > img {
         transition: 0.3s;
-        min-width: 100%;
-        min-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
     & > div:nth-child(1) {

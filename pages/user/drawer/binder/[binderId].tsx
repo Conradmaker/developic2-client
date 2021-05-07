@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
-import React, { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useState } from 'react';
 import SquareBtn from '../../../../components/Button/SquareBtn';
 import PageWithNavLayout from '../../../../components/Layout/PageWithNavLayout';
 import PhotoBinderGallery from '../../../../components/List/PhotoBinderGallery';
 import BinderEditModal from '../../../../components/Modal/BinderModal';
 import ConfirmRemoveModal from '../../../../components/Modal/ConfirmRemoveModal';
+import useDrawer from '../../../../modules/drawer/hooks';
 import { DrawerNavData, photos } from '../../../../utils/data';
 const BinderDetailContainer = styled.div`
   display: flex;
@@ -47,6 +49,8 @@ const BinderDetailContainer = styled.div`
   }
 `;
 export default function binderId(): JSX.Element {
+  const router = useRouter();
+  const { getPhotoBinderDetailDispatch, getBinderDetail } = useDrawer();
   const [fakePhotos, setFakePhotos] = useState(photos);
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -76,17 +80,19 @@ export default function binderId(): JSX.Element {
     });
     setFakePhotos(newPhotoList);
   };
+
+  useEffect(() => {
+    getPhotoBinderDetailDispatch(+(router.query.binderId as string));
+  }, [router.query]);
+  if (!getBinderDetail.data) return <></>;
   return (
     <PageWithNavLayout pageName="내 서랍" pageDesc="My Drawer" navData={DrawerNavData}>
       <BinderDetailContainer>
         <div className="left__section">
           <article>
-            <h2>첫번째 바인더</h2>
-            <p>
-              이 바인더는 어쩌구 정리하고 보존하는 것은 개인적인 만족감을 준다. 이
-              바인더는 어쩌구 정리하고 보존하는 것은 개인적인 만족감을 준다.
-            </p>
-            <span>23개의 사진</span>
+            <h2>{getBinderDetail.data.title}</h2>
+            <p>{getBinderDetail.data.description}</p>
+            <span>{getBinderDetail.data.PostImages.length}개의 사진</span>
             <div className="btn__group">
               <SquareBtn onClick={onToggleEditModal}>편집</SquareBtn>
               <SquareBtn onClick={removePhotos}>선택삭제</SquareBtn>

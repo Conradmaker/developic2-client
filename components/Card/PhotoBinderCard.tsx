@@ -1,34 +1,35 @@
 import Link from 'next/link';
 import React from 'react';
+import { PhotoBinderType } from '../../modules/drawer';
 import { PhotoBinderCardBox } from './styles';
 
-export default function PhotoBinderCard(): JSX.Element {
+type PhotoBinderCardPropsType = {
+  id: number;
+  binderData: PhotoBinderType;
+};
+export default function PhotoBinderCard({
+  binderData,
+}: PhotoBinderCardPropsType): JSX.Element {
   return (
-    <Link href="/user/drawer/binder/1">
+    <Link href={`/user/drawer/binder/${binderData.id}`}>
       <PhotoBinderCardBox>
         <div className="img__box">
-          <div className="img__box__item">
-            <img src="https://picsum.photos/200/300" alt="" />
-          </div>
-          <div className="img__box__item">
-            <img src="https://picsum.photos/300/300" alt="" />
-          </div>
-          <div className="img__box__item">
-            <img src="https://picsum.photos/400/300" alt="" />
-          </div>
-          <div className="img__box__item">
-            <img src="https://picsum.photos/200/310" alt="" />
-          </div>
-          <div className="img__box__item">
-            <img src="https://picsum.photos/100/200" alt="" />
-          </div>
+          {binderData.PostImages.map((photo, index) => {
+            if (index < 6) {
+              return (
+                <div className="img__box__item" id={photo.id + ''}>
+                  <img src={photo.src} alt="" />
+                </div>
+              );
+            }
+          })}
         </div>
         <article>
           <div className="left">
-            <h3>Ideate</h3>
-            <p>Turn your idea from concept to MVP</p>
+            <h3>{binderData.title}</h3>
+            <p>{binderData.description}</p>
           </div>
-          <p>4개의 사진</p>
+          <p>{binderData.PostImages.length}개의 사진</p>
         </article>
       </PhotoBinderCardBox>
     </Link>

@@ -2,9 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {
   LikeListItemType,
+  PhotoBinderType,
   RecentViewType,
   RemoveLikesPayload,
   TempItemType,
+  UpdatePhotoBinderPayload,
 } from './types';
 
 axios.defaults.withCredentials = true;
@@ -93,6 +95,51 @@ export const removeRecentViewAction = createAsyncThunk<
 >('drawer/removeRecentItem', async (recentId, { rejectWithValue }) => {
   try {
     const { data } = await axios.delete(`/drawer/recents/${recentId}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//포토바인더 리스트 조회
+export const getPhotoBinderListAction = createAsyncThunk<
+  PhotoBinderType[],
+  number,
+  { rejectValue: MyKnownError }
+>('drawer/getBinderList', async (userId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(`/drawer/binder/${userId}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//포토바인더 디테일 조회
+export const getPhotoBinderDetailAction = createAsyncThunk<
+  PhotoBinderType,
+  number,
+  { rejectValue: MyKnownError }
+>('drawer/getBinderDetail', async (binderId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(`/drawer/binder/detail/${binderId}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//포토바인더 정보 수정
+export const updatePhotoBinderDetailAction = createAsyncThunk<
+  UpdatePhotoBinderPayload,
+  UpdatePhotoBinderPayload,
+  { rejectValue: MyKnownError }
+>('drawer/updateBinderDetail', async (binderData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.patch(`/drawer/binder/detail`, binderData);
     return data;
   } catch (e) {
     console.error(e);

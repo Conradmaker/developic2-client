@@ -29,6 +29,21 @@ export type DrawerState = {
     data: null | { recentId: number };
     error: null | unknown;
   };
+  getBinderList: {
+    loading: boolean;
+    data: PhotoBinderType[] | null;
+    error: null | unknown;
+  };
+  getBinderDetail: {
+    loading: boolean;
+    data: PhotoBinderType | null;
+    error: null | unknown;
+  };
+  updateBinderDetail: {
+    loading: boolean;
+    data: UpdatePhotoBinderPayload | null;
+    error: null | unknown;
+  };
 };
 
 export type LikeListItemType = {
@@ -52,8 +67,21 @@ export type RecentViewType = {
   date: Date;
   Post: LikeListItemType;
 };
-
+export type PhotoBinderType = {
+  id: number;
+  title: string;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
+  UserId: number;
+  PostImages: { id: number; src: string }[];
+};
 export type RemoveLikesPayload = {
   userId: number;
   postId: number;
+};
+export type UpdatePhotoBinderPayload = {
+  title: string;
+  description: string;
+  BinderId: number;
 };

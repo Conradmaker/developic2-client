@@ -2,13 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 import { DrawerState } from './';
 import {
   getLikeListAction,
+  getPhotoBinderDetailAction,
+  getPhotoBinderListAction,
   getRecentViewsAction,
   getTempListAction,
   removeLikePostAction,
   removeRecentViewAction,
   removeTempPostAction,
+  updatePhotoBinderDetailAction,
 } from './thunk';
-import { LikeListItemType, RecentViewType, TempItemType } from './types';
+import { LikeListItemType, PhotoBinderType, RecentViewType, TempItemType } from './types';
 
 const initialState: DrawerState = {
   getLikeList: { loading: false, data: null, error: null },
@@ -17,6 +20,9 @@ const initialState: DrawerState = {
   removeTempPost: { loading: false, data: null, error: null },
   getRecentList: { loading: false, data: null, error: null },
   removeRecentView: { loading: false, data: null, error: null },
+  getBinderList: { loading: false, data: null, error: null },
+  getBinderDetail: { loading: false, data: null, error: null },
+  updateBinderDetail: { loading: false, data: null, error: null },
 };
 
 const drawerSlice = createSlice({
@@ -123,6 +129,56 @@ const drawerSlice = createSlice({
         state.removeRecentView.loading = false;
         state.removeRecentView.data = null;
         state.removeRecentView.error = payload;
+      })
+      .addCase(getPhotoBinderListAction.pending, state => {
+        state.getBinderList.loading = true;
+        state.getBinderList.data = null;
+        state.getBinderList.error = null;
+      })
+      .addCase(getPhotoBinderListAction.fulfilled, (state, { payload }) => {
+        state.getBinderList.loading = false;
+        state.getBinderList.data = payload;
+        state.getBinderList.error = null;
+      })
+      .addCase(getPhotoBinderListAction.rejected, (state, { payload }) => {
+        state.getBinderList.loading = false;
+        state.getBinderList.data = null;
+        state.getBinderList.error = payload;
+      })
+      .addCase(getPhotoBinderDetailAction.pending, state => {
+        state.getBinderDetail.loading = true;
+        state.getBinderDetail.data = null;
+        state.getBinderDetail.error = null;
+      })
+      .addCase(getPhotoBinderDetailAction.fulfilled, (state, { payload }) => {
+        state.getBinderDetail.loading = false;
+        state.getBinderDetail.data = payload;
+        state.getBinderDetail.error = null;
+      })
+      .addCase(getPhotoBinderDetailAction.rejected, (state, { payload }) => {
+        state.getBinderDetail.loading = false;
+        state.getBinderDetail.data = null;
+        state.getBinderDetail.error = payload;
+      })
+      .addCase(updatePhotoBinderDetailAction.pending, state => {
+        state.updateBinderDetail.loading = true;
+        state.updateBinderDetail.data = null;
+        state.updateBinderDetail.error = null;
+      })
+      .addCase(updatePhotoBinderDetailAction.fulfilled, (state, { payload }) => {
+        state.updateBinderDetail.loading = false;
+        state.updateBinderDetail.data = payload;
+        state.updateBinderDetail.error = null;
+        state.getBinderDetail.data = {
+          ...(state.getBinderDetail.data as PhotoBinderType),
+          description: payload.description,
+          title: payload.title,
+        };
+      })
+      .addCase(updatePhotoBinderDetailAction.rejected, (state, { payload }) => {
+        state.updateBinderDetail.loading = false;
+        state.updateBinderDetail.data = null;
+        state.updateBinderDetail.error = payload;
       });
   },
 });
