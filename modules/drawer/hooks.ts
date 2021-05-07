@@ -7,6 +7,7 @@ import {
   getPhotoBinderListAction,
   getRecentViewsAction,
   getTempListAction,
+  removeBinderPhotoAction,
   removeLikePostAction,
   removeRecentViewAction,
   removeTempPostAction,
@@ -25,6 +26,7 @@ export default function useDrawer() {
     getBinderList,
     getBinderDetail,
     updateBinderDetail,
+    removeBinderPhoto,
   } = useAppSelector(state => state.drawer);
   const dispatch = useAppDispatch();
 
@@ -65,6 +67,13 @@ export default function useDrawer() {
     },
     []
   );
+
+  const removeBinderPhotoDispatch = useCallback(
+    (data: { photoIdArr: number[]; BinderId: number }) => {
+      dispatch(removeBinderPhotoAction(data));
+    },
+    []
+  );
   return {
     getLikeList,
     removeLikeItem,
@@ -75,6 +84,7 @@ export default function useDrawer() {
     getBinderList,
     getBinderDetail,
     updateBinderDetail,
+    removeBinderPhoto,
     getLikeListDispatch,
     removeLikeItemDispatch,
     getTempListDispatch,
@@ -84,5 +94,6 @@ export default function useDrawer() {
     getPhotoBinderListDispatch,
     getPhotoBinderDetailDispatch,
     updatePhotoBinderDetailDispatch,
+    removeBinderPhotoDispatch,
   };
 }

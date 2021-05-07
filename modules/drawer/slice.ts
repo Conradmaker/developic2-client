@@ -6,6 +6,7 @@ import {
   getPhotoBinderListAction,
   getRecentViewsAction,
   getTempListAction,
+  removeBinderPhotoAction,
   removeLikePostAction,
   removeRecentViewAction,
   removeTempPostAction,
@@ -23,6 +24,7 @@ const initialState: DrawerState = {
   getBinderList: { loading: false, data: null, error: null },
   getBinderDetail: { loading: false, data: null, error: null },
   updateBinderDetail: { loading: false, data: null, error: null },
+  removeBinderPhoto: { loading: false, data: null, error: null },
 };
 
 const drawerSlice = createSlice({
@@ -179,6 +181,24 @@ const drawerSlice = createSlice({
         state.updateBinderDetail.loading = false;
         state.updateBinderDetail.data = null;
         state.updateBinderDetail.error = payload;
+      })
+      .addCase(removeBinderPhotoAction.pending, state => {
+        state.removeBinderPhoto.loading = true;
+        state.removeBinderPhoto.data = null;
+        state.removeBinderPhoto.error = null;
+      })
+      .addCase(removeBinderPhotoAction.fulfilled, (state, { payload }) => {
+        let newPhotos = [...(state.getBinderDetail.data as PhotoBinderType).PostImages];
+        payload.forEach(id => (newPhotos = newPhotos.filter(photo => photo.id !== id)));
+        state.removeBinderPhoto.loading = false;
+        state.removeBinderPhoto.data = payload;
+        state.removeBinderPhoto.error = null;
+        (state.getBinderDetail.data as PhotoBinderType).PostImages = newPhotos;
+      })
+      .addCase(removeBinderPhotoAction.rejected, (state, { payload }) => {
+        state.removeBinderPhoto.loading = false;
+        state.removeBinderPhoto.data = null;
+        state.removeBinderPhoto.error = payload;
       });
   },
 });

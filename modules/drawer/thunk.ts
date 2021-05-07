@@ -146,3 +146,18 @@ export const updatePhotoBinderDetailAction = createAsyncThunk<
     return rejectWithValue({ message: e.response.data });
   }
 });
+
+//포토바인더 선택 사진들 삭제
+export const removeBinderPhotoAction = createAsyncThunk<
+  number[],
+  { photoIdArr: number[]; BinderId: number },
+  { rejectValue: MyKnownError }
+>('drawer/removeBinderPhoto', async (photoData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.patch(`/drawer/binder/photo`, photoData);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});

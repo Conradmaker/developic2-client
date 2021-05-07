@@ -7,7 +7,7 @@ import PhotoBinderGallery from '../../../../components/List/PhotoBinderGallery';
 import BinderEditModal from '../../../../components/Modal/BinderModal';
 import ConfirmRemoveModal from '../../../../components/Modal/ConfirmRemoveModal';
 import useDrawer from '../../../../modules/drawer/hooks';
-import { DrawerNavData, photos } from '../../../../utils/data';
+import { DrawerNavData } from '../../../../utils/data';
 const BinderDetailContainer = styled.div`
   display: flex;
   .left__section {
@@ -50,8 +50,12 @@ const BinderDetailContainer = styled.div`
 `;
 export default function binderId(): JSX.Element {
   const router = useRouter();
-  const { getPhotoBinderDetailDispatch, getBinderDetail } = useDrawer();
-  const [fakePhotos, setFakePhotos] = useState(photos);
+  const {
+    getPhotoBinderDetailDispatch,
+    getBinderDetail,
+    removeBinderPhotoDispatch,
+  } = useDrawer();
+  // const [fakePhotos, setFakePhotos] = useState(photos);
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [removeModalOpen, setRemoveModalOpen] = useState(false);
@@ -74,16 +78,17 @@ export default function binderId(): JSX.Element {
     [selectedPhotos]
   );
   const removePhotos = () => {
-    let newPhotoList = [...fakePhotos];
-    selectedPhotos.forEach(id => {
-      newPhotoList = newPhotoList.filter(v => v.id !== id);
+    if (!getBinderDetail.data) return;
+    removeBinderPhotoDispatch({
+      BinderId: getBinderDetail.data.id,
+      photoIdArr: selectedPhotos,
     });
-    setFakePhotos(newPhotoList);
   };
 
   useEffect(() => {
     getPhotoBinderDetailDispatch(+(router.query.binderId as string));
   }, [router.query]);
+
   if (!getBinderDetail.data) return <></>;
   return (
     <PageWithNavLayout pageName="내 서랍" pageDesc="My Drawer" navData={DrawerNavData}>
@@ -101,7 +106,7 @@ export default function binderId(): JSX.Element {
         </div>
         <div className="binder__detail__img__list">
           <PhotoBinderGallery
-            photos={fakePhotos}
+            photos={getBinderDetail.data.PostImages}
             selectedPhotos={selectedPhotos}
             onToggleSelectPhoto={onToggleSelectPhoto}
           />
