@@ -1,9 +1,11 @@
 import React from 'react';
+import useUser from '../../modules/user/hooks';
 import EmptyBlogUserInfo from './EmptyBlogUserInfo';
 import { BlogUserInfoBox } from './styles';
 
 type BlogUserInfoPropsType = {
   blogUserInfoData: {
+    id: number;
     introduction?: string;
     website?: string;
     mostlyUseModel?: string;
@@ -12,13 +14,20 @@ type BlogUserInfoPropsType = {
 export default function BlogUserInfo({
   blogUserInfoData,
 }: BlogUserInfoPropsType): JSX.Element {
+  const { userData } = useUser();
+
   if (
     !blogUserInfoData ||
     (!blogUserInfoData.introduction &&
       !blogUserInfoData.mostlyUseModel &&
       !blogUserInfoData.website)
   )
-    return <EmptyBlogUserInfo />;
+    return (
+      <EmptyBlogUserInfo
+        blogUserId={blogUserInfoData && blogUserInfoData.id}
+        userId={userData && userData.id}
+      />
+    );
   return (
     <>
       <BlogUserInfoBox>
