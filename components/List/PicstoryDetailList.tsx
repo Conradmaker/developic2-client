@@ -1,12 +1,12 @@
 import React from 'react';
 import Masonry from 'react-masonry-css';
-import { PicstoryDataType } from '../../utils/data';
+import { BlogPicstory, blogPicstoryDetailData, BlogPost } from '../../modules/blog';
 import BlogPostCard from '../Card/BlogPostCard';
 import { BlogPostListContainer } from './styles';
 
-type BlogPostCardListPropsType = { data: PicstoryDataType };
+type BlogPostCardListPropsType = { picstoryDetailPostData: blogPicstoryDetailData };
 export default function PicstoryDetailList({
-  data,
+  picstoryDetailPostData,
 }: BlogPostCardListPropsType): JSX.Element {
   return (
     <>
@@ -16,8 +16,8 @@ export default function PicstoryDetailList({
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {data[0].Posts &&
-            data[0].Posts.map(blogPostItem => (
+          {picstoryDetailPostData &&
+            picstoryDetailPostData.Posts.map((blogPostItem: BlogPost) => (
               <BlogPostCard key={blogPostItem.id} data={blogPostItem} />
             ))}
         </Masonry>

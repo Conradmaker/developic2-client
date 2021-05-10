@@ -19,8 +19,6 @@ export default function Picstory(): JSX.Element {
   useEffect(() => {
     if (userId) {
       loadBlogPicstoryListDispatch(userId);
-
-      console.log(blogPicstoryListData);
     }
   }, [userId]);
 

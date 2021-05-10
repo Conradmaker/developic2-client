@@ -1,3 +1,5 @@
+import { User } from '../user';
+
 export type BlogUserData = {
   id: number;
   email: string;
@@ -19,11 +21,13 @@ export interface BlogPostListData {
 export interface BlogPost {
   id: number;
   title: string;
-  summary: string;
+  summary?: string;
   thumbnail: string;
   hits: number;
-  likeCount: number;
+  likeCount?: number;
+  likers?: Liker[];
   updatedAt: Date;
+  UserId?: number;
 }
 
 export interface BlogPicstoryListData {
@@ -35,17 +39,18 @@ export interface BlogPicstory {
   title: string;
   description: string;
   thumbnail: string;
-  updatedAt: Date;
-  Posts: Post[] | [];
+  updatedAt?: Date;
+  Posts: BlogPost[] | [];
 }
 
-export interface Post {
+export type blogPicstoryDetailData = {
   id: number;
   title: string;
+  description: string;
   thumbnail: string;
-  hits: number;
-  likers: Liker[];
-}
+  updatedAt?: Date;
+  Posts: BlogPost[] | [];
+};
 
 export interface Liker {
   id: number;
@@ -55,9 +60,14 @@ export type BlogState = {
   loadBlogUser: { loading: boolean; done: boolean; error: null | unknown };
   loadBlogPostList: { loading: boolean; done: boolean; error: null | unknown };
   loadBlogPicstoryList: { loading: boolean; done: boolean; error: null | unknown };
+  loadBlogPicstoryDetail: { loading: boolean; done: boolean; error: null | unknown };
   blogUserData: BlogUserData | null;
   blogPostListData: BlogPostListData['blogPosts'] | [];
   blogPicstoryListData: BlogPicstoryListData['blogPicstories'] | [];
+  blogPicstoryDetailData: BlogPicstory | null;
+  userData: User | null;
+  addBlogFollow: { loading: false; done: false; error: null };
+  removeBlogFollow: { loading: false; done: false; error: null };
 };
 
 export type BlogPayload = {
@@ -67,3 +77,4 @@ export type BlogPayload = {
 export type LoadBlogUserResponse = BlogUserData;
 export type LoadBlogPostListResponse = BlogPostListData['blogPosts'];
 export type LoadBlogPicstoryListResponse = BlogPicstoryListData['blogPicstories'];
+export type LoadBlogPicstoryDetailResponse = blogPicstoryDetailData;

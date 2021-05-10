@@ -2,6 +2,7 @@ import {
   loadBlogPostListAction,
   loadBlogUserAction,
   loadBlogPicstoryListAction,
+  loadBlogPicstoryDetailAction,
 } from './thunk';
 import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
@@ -13,6 +14,7 @@ export default function useBlog() {
     loadBlogUser,
     blogPostListData,
     blogPicstoryListData,
+    blogPicstoryDetailData,
   } = useAppSelector(state => state.blog);
   const dispatch = useAppDispatch();
 
@@ -28,13 +30,19 @@ export default function useBlog() {
     dispatch(loadBlogPicstoryListAction(userId));
   }, []);
 
+  const loadBlogPicstoryDetailDispatch = useCallback(picstoryId => {
+    dispatch(loadBlogPicstoryDetailAction(picstoryId));
+  }, []);
+
   return {
     loadBlogUser,
     blogUserData,
     blogPostListData,
     blogPicstoryListData,
+    blogPicstoryDetailData,
     loadBlogUserDispatch,
     loadBlogPostListDispatch,
     loadBlogPicstoryListDispatch,
+    loadBlogPicstoryDetailDispatch,
   };
 }

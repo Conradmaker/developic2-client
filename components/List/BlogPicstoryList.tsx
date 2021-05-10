@@ -11,12 +11,12 @@ export default function BlogPicstoryList({
 }: PicstoryListPropsType): JSX.Element {
   return (
     <BlogPicstoryListContainer>
-      <div className="empty_Content">
+      <div className="empty_content">
         {blogPicstoryListData.length < 1 && '등록된 픽스토리가 없습니다.'}
       </div>
       {blogPicstoryListData &&
         blogPicstoryListData.map((picstoryItem: BlogPicstory) => (
-          <BlogPistoryCard key={picstoryItem.id} data={picstoryItem} />
+          <BlogPistoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
         ))}
     </BlogPicstoryListContainer>
   );

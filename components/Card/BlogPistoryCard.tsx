@@ -1,33 +1,39 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { BlogPicstory, Post } from '../../modules/blog';
-import { CountSum } from '../../utils/utils';
+import { countSum } from '../../utils/utils';
 import { BlogPicstoryCardBox } from './styles';
 
 type PicstoryCardPropsType = {
-  data: BlogPicstory;
+  picstoryData: BlogPicstory;
 };
 
-export default function BlogPistoryCard({ data }: PicstoryCardPropsType): JSX.Element {
-  const posts = data.Posts;
+export default function BlogPistoryCard({
+  picstoryData,
+}: PicstoryCardPropsType): JSX.Element {
+  const router = useRouter();
+  const { userId } = router.query;
 
-  const likeCounts = posts.map((post: Post) => post.likers);
-  const likeCountSum = likeCounts.length;
+  const posts = picstoryData.Posts;
+
+  const likeCounts = posts.map((post: Post) => post.likers?.length);
+  const likeCountSum = countSum(likeCounts as number[]);
 
   const hits = posts.map((post: Post) => post.hits);
-  const viewCountSum = CountSum(hits);
+  const viewCountSum = countSum(hits);
 
   return (
-    <Link href="/user123/picstory/1">
+    <Link href={`/${userId}/picstory/${picstoryData.id}`}>
       <BlogPicstoryCardBox>
         <article>
           <div className="picstory__description">
-            <h3>{data.title}</h3>
+            <h3>{picstoryData.title}</h3>
             <div className="picstory__stats">
               <div>
                 <MdBook />
-                <span>{data.Posts && data.Posts.length}</span>
+                <span>{picstoryData.Posts && picstoryData.Posts.length}</span>
               </div>
               <div>
                 <MdFavorite />
@@ -39,7 +45,7 @@ export default function BlogPistoryCard({ data }: PicstoryCardPropsType): JSX.El
               </div>
             </div>
           </div>
-          <p>{data.description}</p>
+          <p>{picstoryData.description}</p>
           <ul className="picstory__recent-img">
             {posts &&
               posts.map((picstoryImgItem: { thumbnail: string }) => (

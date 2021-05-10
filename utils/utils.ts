@@ -7,7 +7,7 @@ export const formatDate = (date: string): string => {
   return formatDateResult;
 };
 
-export const CountSum = (arrayData: number[]): number => {
+export const countSum = (arrayData: number[]): number => {
   const countSumData = arrayData.reduce((acc, cur) => acc + cur, 0);
   return countSumData;
 };
