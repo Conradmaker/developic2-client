@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { LoginPayload, LoginResponse, User } from './type';
+import { blogFollowPayload, LoginPayload, LoginResponse, User } from './type';
 
 axios.defaults.withCredentials = true;
 
@@ -56,3 +56,33 @@ export const authAction = createAsyncThunk<User, null, { rejectValue: MyKnownErr
     }
   }
 );
+
+// 블로그 유저 팔로우
+export const addBlogFollowAction = createAsyncThunk<
+  { writerId: number },
+  blogFollowPayload,
+  { rejectValue: MyKnownError }
+>('blog/addBlogFollow', async (addBlogFollowData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(`/user/subscribe/add`, addBlogFollowData);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+// 블로그 유저 팔로우 취소
+export const removeBlogFollowAction = createAsyncThunk<
+  { writerId: number },
+  blogFollowPayload,
+  { rejectValue: MyKnownError }
+>('blog/removeBlogFollow', async (removeBlogFollowData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(`/user/subscribe/remove`, removeBlogFollowData);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});

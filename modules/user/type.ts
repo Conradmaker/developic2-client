@@ -12,18 +12,32 @@ export interface User {
   introduce: null;
   avatar: string;
   lastLogin: null;
+  subscribers?: Subscriber[];
+  writers?: Subscriber[];
 }
+
+export interface Subscriber {
+  id: number;
+}
+
 export type UserState = {
   login: { loading: boolean; data: null | unknown; error: null | unknown };
   logout: { loading: boolean; data: null | unknown; error: null | unknown };
   auth: { loading: boolean; data: null | unknown; error: null | unknown };
   userData: User | null;
+  addBlogFollow: { loading: boolean; done: boolean; error: null | unknown };
+  removeBlogFollow: { loading: boolean; done: boolean; error: null | unknown };
 };
 
 // 액션 Payload 타입
 export type LoginPayload = {
   email: string;
   password: string;
+};
+
+export type blogFollowPayload = {
+  subscriberId: number | undefined;
+  writerId: number;
 };
 
 //성공시 DataType

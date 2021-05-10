@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Layout from './Layout';
 import styled from '@emotion/styled';
 import Link from 'next/link';
@@ -8,7 +8,8 @@ import { BlogTabBox } from '../Tab/styles';
 import FollowBtn from '../Button/FollowBtn';
 import { BlogUserProfile } from './styles';
 import useBlog from '../../modules/blog/hooks';
-
+import useUser from '../../modules/user/hooks';
+import { UpdateInfoButton } from '../Button/styles';
 const BlogwithProfileContainer = styled.main`
   margin: 40px auto;
   width: 850px;
@@ -28,6 +29,9 @@ export default function BlogWithNavLayout({
   const router = useRouter();
   const { userId } = router.query;
   const { loadBlogUserDispatch, blogUserData } = useBlog();
+  const { userData, addBlogFollowDispatch, removeBlogFollowDispatch } = useUser();
+
+  const blogUserId = blogUserData?.id;
 
   useEffect(() => {
     if (userId) {
@@ -35,11 +39,19 @@ export default function BlogWithNavLayout({
     }
   }, [userId]);
 
-  const [isFollow, setIsFollow] = useState(false);
+  const isFollowing = userData?.writers?.find(
+    following => following.id === blogUserData?.id
+  ); // 구독 여부, 일치하면 isFollowing
 
   const onFollowToggle = useCallback(() => {
-    setIsFollow(!isFollow);
-  }, [isFollow]);
+    if (!userData) return console.log('로그인해주세요');
+    // 로그인모달창 띄우기(모달창 띄우는 함수 만들기)
+    if (userData && isFollowing && blogUserId) {
+      removeBlogFollowDispatch({ writerId: blogUserId, subscriberId: userData?.id });
+    } else if (userData && !isFollowing && blogUserId) {
+      addBlogFollowDispatch({ writerId: blogUserId, subscriberId: userData?.id });
+    }
+  }, [userData, isFollowing]);
 
   return (
     <Layout>
@@ -53,11 +65,18 @@ export default function BlogWithNavLayout({
               />
               <h1>{blogUserData && blogUserData.nickname}</h1>
               <p>{blogUserData && blogUserData.introduce}</p>
-              <FollowBtn
-                isFollow={isFollow}
-                text={isFollow ? '구독해지' : '구독'}
-                onClick={onFollowToggle}
-              ></FollowBtn>
+              {blogUserId !== userData?.id && (
+                <FollowBtn
+                  isFollow={isFollowing && isFollowing}
+                  text={isFollowing ? '구독해지' : '구독'}
+                  onClick={onFollowToggle}
+                ></FollowBtn>
+              )}
+              {blogUserId === userData?.id && (
+                <Link href="/user/setting/info">
+                  <UpdateInfoButton>프로필 수정</UpdateInfoButton>
+                </Link>
+              )}
             </div>
             <div className="profile__bottom">
               <div className="follower">

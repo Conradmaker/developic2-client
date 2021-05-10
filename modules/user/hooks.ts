@@ -1,8 +1,13 @@
 import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
-import { loginAction, logOutAction } from './thunk';
-import { LoginPayload } from './type';
+import {
+  addBlogFollowAction,
+  loginAction,
+  logOutAction,
+  removeBlogFollowAction,
+} from './thunk';
+import { blogFollowPayload, LoginPayload } from './type';
 
 // 커스텀 훅
 export default function useUser() {
@@ -17,5 +22,21 @@ export default function useUser() {
     dispatch(logOutAction(null));
   }, []);
 
-  return { login, userData, loginDispatch, logoutDispatch, logout };
+  const addBlogFollowDispatch = useCallback((data: blogFollowPayload) => {
+    dispatch(addBlogFollowAction(data));
+  }, []);
+
+  const removeBlogFollowDispatch = useCallback((data: blogFollowPayload) => {
+    dispatch(removeBlogFollowAction(data));
+  }, []);
+
+  return {
+    login,
+    userData,
+    loginDispatch,
+    logoutDispatch,
+    logout,
+    addBlogFollowDispatch,
+    removeBlogFollowDispatch,
+  };
 }
