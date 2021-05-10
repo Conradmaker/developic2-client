@@ -271,3 +271,96 @@ export const BlogUserProfile = styled.div`
     }
   }
 `;
+export const PostDetailContainer = styled.div`
+  width: 900px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+  .blog__head {
+    color: ${({ theme }) => theme.textColor.initial};
+    font-family: 'Noto Serif KR';
+    padding-top: 150px;
+    & > h1 {
+      font-size: ${({ theme }) => theme.fontSize.titleSize};
+    }
+    & > article {
+      display: flex;
+      align-items: center;
+      margin-top: 40px;
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      strong {
+        font-size: ${({ theme }) => theme.fontSize.xl};
+        font-weight: ${({ theme }) => theme.fontWeight.medium};
+        margin-left: 10px;
+      }
+      span {
+        font-size: ${({ theme }) => theme.fontSize.base};
+        color: ${({ theme }) => theme.textColor.lighten};
+        transform: translateY(3px);
+        margin-left: 10px;
+      }
+    }
+    & > div {
+      display: flex;
+      justify-content: space-between;
+      & > ul {
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        min-height: 70px;
+        align-items: flex-end;
+        padding-top: 30px;
+      }
+      & > article {
+        width: 250px;
+        margin-left: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        p {
+          text-align: end;
+          color: ${({ theme }) => theme.textColor.lighten};
+          font-size: ${({ theme }) => theme.fontSize.base};
+        }
+        ul {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 20px;
+          font-size: ${({ theme }) => theme.fontSize.base};
+          li {
+            display: flex;
+            align-items: center;
+            padding: 5px 0 5px 15px;
+            line-height: 15px;
+            svg {
+              margin-right: 10px;
+            }
+          }
+          li + li {
+            border-left: 1px solid ${({ theme }) => theme.textColor.initial};
+          }
+        }
+      }
+    }
+  }
+  .blog__posting {
+    margin-top: 35px;
+    & > img {
+      width: 900px;
+      height: 450px;
+      object-fit: cover;
+    }
+    & > article {
+      width: 800px;
+      margin: 0 auto;
+      margin-bottom: 100px;
+      color: ${({ theme }) => theme.textColor.initial};
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
+  }
+`;

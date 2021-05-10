@@ -1,22 +1,21 @@
 import React from 'react';
-import { CommentsPropstype } from '../../utils/data';
+import { Comment } from '../../modules/post';
 import { BlogCommentCardBox } from './styles';
 
 type BlogCommentCardPropsType = {
-  data: CommentsPropstype;
+  commentData: Comment;
 };
-export default function BlogCommentCard({ data }: BlogCommentCardPropsType): JSX.Element {
+export default function BlogCommentCard({
+  commentData,
+}: BlogCommentCardPropsType): JSX.Element {
   return (
     <BlogCommentCardBox>
       <section>
         <article>
-          <img
-            src="https://cdn.crowdpic.net/list-thumb/thumb_l_D033E20FA5FA98C38CBB08013031FFA1.jpg"
-            alt="userImage"
-          />
+          <img src={commentData.User.avatar} alt="user_avatar" />
           <div>
-            <strong>{data.name}</strong>
-            <p>{data.date}</p>
+            <strong>{commentData.User.nickname}</strong>
+            <p>{commentData.updatedAt}</p>
           </div>
         </article>
         <div>
@@ -25,7 +24,7 @@ export default function BlogCommentCard({ data }: BlogCommentCardPropsType): JSX
           {/* <span>신고</span> */}
         </div>
       </section>
-      <article>{data.text}</article>
+      <article>{commentData.content}</article>
     </BlogCommentCardBox>
   );
 }

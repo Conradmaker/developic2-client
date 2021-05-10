@@ -225,3 +225,37 @@ export const BlogPostListContainer = styled.ul`
     margin-bottom: 50px;
   }
 `;
+
+export const PostCommentListContainer = styled.div`
+  width: 1150px;
+  margin: 0 auto;
+  padding: 50px 175px 0 175px;
+  border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
+  & > p {
+    color: ${({ theme }) => theme.textColor.initial};
+    font-family: 'Noto Serif KR';
+  }
+  & > form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    textarea {
+      resize: none;
+      border: none;
+      outline: none;
+      width: 800px;
+      height: 95px;
+      margin-top: 10px;
+      padding: 10px;
+      line-height: 24px;
+      font-family: 'Noto Serif KR';
+      font-size: ${({ theme }) => theme.fontSize.base};
+      font-weight: ${({ theme }) => theme.fontWeight.regular};
+    }
+    button {
+    }
+  }
+  & > ul {
+    margin-bottom: 100px;
+  }
+`;

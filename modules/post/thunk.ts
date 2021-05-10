@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Hashtag, PreSavePayload, SubmitPostPayload } from './types';
+import { Hashtag, PostData, PreSavePayload, SubmitPostPayload } from './types';
 
 axios.defaults.withCredentials = true;
 
@@ -87,6 +87,23 @@ export const searchHashtagAction = createAsyncThunk<
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/hashtag?keyword=${keyword}`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//게시글 디테일 조회
+export const getPostDetailAction = createAsyncThunk<
+  PostData,
+  number,
+  { rejectValue: MyKnownError }
+>('post/getPostDetail', async (postId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/${postId}`
     );
     return data;
   } catch (e) {
