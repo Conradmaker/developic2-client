@@ -54,6 +54,7 @@ export default function binderId(): JSX.Element {
     getPhotoBinderDetailDispatch,
     getBinderDetail,
     removeBinderPhotoDispatch,
+    removePhotoBinderDispatch,
   } = useDrawer();
   // const [fakePhotos, setFakePhotos] = useState(photos);
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([]);
@@ -85,6 +86,12 @@ export default function binderId(): JSX.Element {
     });
   };
 
+  const removeBinder = () => {
+    if (!getBinderDetail.data) return;
+    removePhotoBinderDispatch(getBinderDetail.data.id);
+    router.back();
+  };
+
   useEffect(() => {
     getPhotoBinderDetailDispatch(+(router.query.binderId as string));
   }, [router.query]);
@@ -113,10 +120,22 @@ export default function binderId(): JSX.Element {
         </div>
       </BinderDetailContainer>
       {editModalOpen && (
-        <BinderEditModal onClose={onToggleEditModal} onRemove={onToggleRemoveModal} />
+        <BinderEditModal
+          binderData={{
+            title: getBinderDetail.data.title,
+            description: getBinderDetail.data.description,
+          }}
+          onClose={onToggleEditModal}
+          onRemove={onToggleRemoveModal}
+        />
       )}
       {removeModalOpen && (
-        <ConfirmRemoveModal sectionTitle="바인더를" onClose={onToggleRemoveModal} />
+        <ConfirmRemoveModal
+          title="바인더 삭제"
+          description="포토바인더를 삭제 하시겠습니까?"
+          onConfirm={removeBinder}
+          onClose={onToggleRemoveModal}
+        />
       )}
     </PageWithNavLayout>
   );

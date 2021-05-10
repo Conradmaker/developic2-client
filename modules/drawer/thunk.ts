@@ -161,3 +161,18 @@ export const removeBinderPhotoAction = createAsyncThunk<
     return rejectWithValue({ message: e.response.data });
   }
 });
+
+//포토바인더 삭제
+export const removePhotoBinderAction = createAsyncThunk<
+  { binderId: number },
+  number,
+  { rejectValue: MyKnownError }
+>('drawer/removeBinder', async (binderId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.delete(`/drawer/binder/${binderId}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});

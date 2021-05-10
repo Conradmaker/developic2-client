@@ -44,6 +44,11 @@ export type DrawerState = {
     data: UpdatePhotoBinderPayload | null;
     error: null | unknown;
   };
+  removeBinder: {
+    loading: boolean;
+    data: null | { binderId: number };
+    error: null | unknown;
+  };
   removeBinderPhoto: {
     loading: boolean;
     data: number[] | null | { id: number; src: string }[];

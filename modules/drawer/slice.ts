@@ -8,6 +8,7 @@ import {
   getTempListAction,
   removeBinderPhotoAction,
   removeLikePostAction,
+  removePhotoBinderAction,
   removeRecentViewAction,
   removeTempPostAction,
   updatePhotoBinderDetailAction,
@@ -25,6 +26,7 @@ const initialState: DrawerState = {
   getBinderDetail: { loading: false, data: null, error: null },
   updateBinderDetail: { loading: false, data: null, error: null },
   removeBinderPhoto: { loading: false, data: null, error: null },
+  removeBinder: { loading: false, data: null, error: null },
 };
 
 const drawerSlice = createSlice({
@@ -181,6 +183,21 @@ const drawerSlice = createSlice({
         state.updateBinderDetail.loading = false;
         state.updateBinderDetail.data = null;
         state.updateBinderDetail.error = payload;
+      })
+      .addCase(removePhotoBinderAction.pending, state => {
+        state.removeBinder.loading = true;
+        state.removeBinder.data = null;
+        state.removeBinder.error = null;
+      })
+      .addCase(removePhotoBinderAction.fulfilled, (state, { payload }) => {
+        state.removeBinder.loading = false;
+        state.removeBinder.data = payload;
+        state.removeBinder.error = null;
+      })
+      .addCase(removePhotoBinderAction.rejected, (state, { payload }) => {
+        state.removeBinder.loading = false;
+        state.removeBinder.data = null;
+        state.removeBinder.error = payload;
       })
       .addCase(removeBinderPhotoAction.pending, state => {
         state.removeBinderPhoto.loading = true;

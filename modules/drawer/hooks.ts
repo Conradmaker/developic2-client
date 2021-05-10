@@ -9,6 +9,7 @@ import {
   getTempListAction,
   removeBinderPhotoAction,
   removeLikePostAction,
+  removePhotoBinderAction,
   removeRecentViewAction,
   removeTempPostAction,
   updatePhotoBinderDetailAction,
@@ -61,12 +62,17 @@ export default function useDrawer() {
   const getPhotoBinderDetailDispatch = useCallback((data: number) => {
     dispatch(getPhotoBinderDetailAction(data));
   }, []);
+
   const updatePhotoBinderDetailDispatch = useCallback(
     (data: UpdatePhotoBinderPayload) => {
       dispatch(updatePhotoBinderDetailAction(data));
     },
     []
   );
+
+  const removePhotoBinderDispatch = useCallback((data: number) => {
+    dispatch(removePhotoBinderAction(data));
+  }, []);
 
   const removeBinderPhotoDispatch = useCallback(
     (data: { photoIdArr: number[]; BinderId: number }) => {
@@ -95,5 +101,6 @@ export default function useDrawer() {
     getPhotoBinderDetailDispatch,
     updatePhotoBinderDetailDispatch,
     removeBinderPhotoDispatch,
+    removePhotoBinderDispatch,
   };
 }

@@ -10,14 +10,19 @@ import { BinderEditModalBox, ModalLayout } from './styles';
 type BinderEditModalPropsType = {
   onClose: () => void;
   onRemove: () => void;
+  binderData: {
+    title: string;
+    description: string;
+  };
 };
 export default function BinderEditModal({
   onClose,
   onRemove,
+  binderData,
 }: BinderEditModalPropsType): JSX.Element {
   const { getBinderDetail, updatePhotoBinderDetailDispatch } = useDrawer();
-  const [title, onChangeTitle] = useInput('');
-  const [description, onChangeDescription] = useInput('');
+  const [title, onChangeTitle] = useInput(binderData.title);
+  const [description, onChangeDescription] = useInput(binderData.description);
   const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
