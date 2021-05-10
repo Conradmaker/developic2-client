@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const slideToLeft = keyframes`
@@ -354,13 +354,23 @@ export const PostDetailContainer = styled.div`
       width: 900px;
       height: 450px;
       object-fit: cover;
-    }
-    & > article {
-      width: 800px;
-      margin: 0 auto;
-      margin-bottom: 100px;
-      color: ${({ theme }) => theme.textColor.initial};
-      font-size: ${({ theme }) => theme.fontSize.base};
+      margin-bottom: 50px;
     }
   }
+`;
+
+export const ScrollBar = styled.div<{ width: number }>`
+  position: fixed;
+  height: 5px;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 0;
+  background-color: ${({ theme }) => theme.primary[1]};
+  transition: 0.4s;
+  ${({ width }) =>
+    width &&
+    css`
+      width: ${width}%;
+    `}
 `;
