@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsExclamationTriangle } from 'react-icons/bs';
 import { IoMdHeartEmpty, IoMdShare } from 'react-icons/io';
+import { RiEditLine } from 'react-icons/ri';
 import { PostData } from '../../modules/post';
 import HashTag from '../Button/HashTag';
 import PostContentViewer from '../Editor/PostContentViewer';
@@ -26,7 +27,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
               <HashTag key={tag.id} name={tag.name} />
             ))}
           </ul>
-          <article>
+          <div className="post__menu">
             <p>{postData.updatedAt} 작성.</p>
             <ul>
               <li>
@@ -39,8 +40,11 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
               <li>
                 <BsExclamationTriangle /> 신고
               </li>
+              <li>
+                <RiEditLine /> 수정
+              </li>
             </ul>
-          </article>
+          </div>
         </div>
       </section>
       <section className="blog__posting">

@@ -436,8 +436,77 @@ export const FollowListModalBox = styled(ModalBox)`
   }
 `;
 
-export const PhotoDetailBox = styled.div`
-  color: #fff;
-  h2 {
+export const PhotoDetailBox = styled.div<{ infoOpen: boolean }>`
+  position: relative;
+  width: 90vh;
+  height: 70vh;
+  perspective: 2100px;
+  .front,
+  .back {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 100%;
+    backface-visibility: hidden;
+    transition: 0.5s;
+    position: absolute;
+  }
+  .front {
+    transform: rotateY(0deg);
+  }
+  .back {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: ${({ theme }) => theme.background.initial};
+    color: ${({ theme }) => theme.textColor.initial};
+    font-family: 'Noto Serif KR';
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 1.5;
+    transform: rotateY(-180deg);
+  }
+
+  ${({ infoOpen }) =>
+    infoOpen &&
+    css`
+      .front {
+        transform: rotateY(180deg);
+      }
+      .back {
+        transform: rotateY(0deg);
+      }
+    `}
+`;
+export const PhotoModalBtnBox = styled.div`
+  position: fixed;
+  top: 25px;
+  right: 40px;
+  width: 110px;
+  height: 35px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 50px;
+  box-shadow: 0 1px 5px #eee;
+  i {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    &:hover {
+      background-color: #eee;
+    }
   }
 `;

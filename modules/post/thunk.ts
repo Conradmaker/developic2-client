@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Hashtag, PostData, PreSavePayload, SubmitPostPayload } from './types';
+import {
+  Hashtag,
+  PhotoDetail,
+  PostData,
+  PreSavePayload,
+  SubmitPostPayload,
+} from './types';
 
 axios.defaults.withCredentials = true;
 
@@ -114,7 +120,7 @@ export const getPostDetailAction = createAsyncThunk<
 
 //사진 상세조회
 export const getPhotoDetailAction = createAsyncThunk<
-  PostData,
+  PhotoDetail,
   number,
   { rejectValue: MyKnownError }
 >('post/getPhotoDetail', async (photoId, { rejectWithValue }) => {

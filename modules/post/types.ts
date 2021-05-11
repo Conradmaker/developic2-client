@@ -9,7 +9,7 @@ export type PostState = {
   hashtagSearch: { loading: boolean; data: null | Hashtag[]; error: null | unknown };
   createHashtag: { loading: boolean; data: null | Hashtag; error: null | unknown };
   getPostDetail: { loading: boolean; data: null | PostData; error: null | unknown };
-  getPhotoDetail: { loading: boolean; data: null | PostData; error: null | unknown };
+  getPhotoDetail: { loading: boolean; data: null | PhotoDetail; error: null | unknown };
 };
 
 export type Hashtag = {
@@ -72,6 +72,33 @@ export type PreSavePayload = {
   PostId: null | string;
   imageList: number[];
 };
+
+export type PhotoDetail = {
+  id: number;
+  src: string;
+  updatedAt: Date;
+  UserId: number;
+  PostId: number;
+  User: PostUser;
+  MetaDatum: MetaData;
+  PhotoBinders: { id: number; UserId: number }[];
+};
+
+export type MetaData = {
+  id: number;
+  manufacturer: string;
+  model: string;
+  fValue: string;
+  resolutionX: number;
+  resolutionY: number;
+  location: string;
+  exposureTime: string;
+  size: string;
+  shutterSpeed: string;
+  ISO: number;
+  PostImageId: number;
+};
+
 export type SubmitPostPayload = {
   allowComment: number;
   isPublic: number;

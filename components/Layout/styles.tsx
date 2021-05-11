@@ -315,8 +315,7 @@ export const PostDetailContainer = styled.div`
         align-items: flex-end;
         padding-top: 30px;
       }
-      & > article {
-        width: 250px;
+      & > .post__menu {
         margin-left: 50px;
         display: flex;
         flex-direction: column;
@@ -333,12 +332,12 @@ export const PostDetailContainer = styled.div`
           margin-top: 20px;
           font-size: ${({ theme }) => theme.fontSize.base};
           li {
+            cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 5px 0 5px 15px;
-            line-height: 15px;
+            padding: 5px 10px 5px 10px;
             svg {
-              margin-right: 10px;
+              margin-right: 5px;
             }
           }
           li + li {
