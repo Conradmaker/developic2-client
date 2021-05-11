@@ -5,6 +5,7 @@ import CommentList from '../../../components/List/CommentList';
 import PostDetailLayout from '../../../components/Layout/PostDetailLayout';
 import usePost from '../../../modules/post/hooks';
 import { useRouter } from 'next/router';
+import ScrollIndicator from '../../../components/Layout/ScrollIndicator';
 
 export default function postId(): JSX.Element {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function postId(): JSX.Element {
       </Head>
       <PostDetailLayout postData={getPostDetail.data} />
       <CommentList commentsData={getPostDetail.data.Comments} />
+      <ScrollIndicator />
     </Layout>
   );
 }

@@ -9,10 +9,12 @@ import { ToastEditorStyle } from './styles';
 import useConfirmModal from '../../hooks/useConfirmModal';
 import { useRouter } from 'next/router';
 import usePost from '../../modules/post/hooks';
+import useUser from '../../modules/user/hooks';
 
 type ToastEditorPropsType = {
   content: string;
   setContent: React.Dispatch<React.SetStateAction<string>>;
+  setImageList: React.Dispatch<React.SetStateAction<{ imageId: number; src: string }[]>>;
   temporarySave: (editorContent: string) => void;
 };
 
@@ -20,10 +22,11 @@ export default function ToastEditor({
   content,
   setContent,
   temporarySave,
+  setImageList,
 }: ToastEditorPropsType): JSX.Element {
+  const { userData } = useUser();
   const { preSavePost } = usePost();
   const router = useRouter();
-  const [imageList, setImageList] = useState<{ id: number; src: string }[]>([]);
   const EditorRef = useRef<null | Editor>(null);
 
   const onTempSubmit = async () => {
@@ -41,13 +44,14 @@ export default function ToastEditor({
   );
 
   const uploadImageToServer = async (image: Blob | File) => {
+    if (!userData) return;
     const formData = new FormData();
     formData.append('image', image);
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/postimage/${1}`,
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/postimage/${userData.id}`,
       formData
     );
-    setImageList(imageList.concat(res.data));
+    setImageList(current => current.concat(res.data));
     return res.data;
   };
 
@@ -73,14 +77,10 @@ export default function ToastEditor({
     const data = await uploadImageToServer(image);
     await updateMetaData(image, data.imageId);
     EditorRef.current?.getInstance().moveCursorToEnd();
-    callback(
-      `process.env.NEXT_PUBLIC_SERVER_HOST/image/post/${data.src}`,
-      `${data.imageId}`
-    );
+    callback(`${data.src}`, `${data.imageId}`);
   }, []);
 
   useEffect(() => {
-    console.log(content);
     EditorRef.current?.getInstance().setHtml(content);
   }, [content]);
 

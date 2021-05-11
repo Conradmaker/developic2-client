@@ -435,3 +435,9 @@ export const FollowListModalBox = styled(ModalBox)`
     justify-content: flex-end;
   }
 `;
+
+export const PhotoDetailBox = styled.div`
+  color: #fff;
+  h2 {
+  }
+`;

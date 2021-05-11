@@ -3,6 +3,8 @@ import { BsExclamationTriangle } from 'react-icons/bs';
 import { IoMdHeartEmpty, IoMdShare } from 'react-icons/io';
 import { PostData } from '../../modules/post';
 import HashTag from '../Button/HashTag';
+import PostContentViewer from '../Editor/PostContentViewer';
+import ToastViewer from '../Editor/ToastViewer';
 import { PostDetailContainer } from './styles';
 
 type PostDetaulLayout = {
@@ -43,7 +45,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
       </section>
       <section className="blog__posting">
         <img src={postData.thumbnail} alt="thumbnail" />
-        <article>{postData.content}</article>
+        <PostContentViewer content={postData.content} />
       </section>
     </PostDetailContainer>
   );

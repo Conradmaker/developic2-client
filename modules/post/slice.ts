@@ -3,6 +3,7 @@ import { addPicPostAction, removePicPostAction } from '../picstory';
 import { PostState } from './index';
 import {
   createHashtagAction,
+  getPhotoDetailAction,
   getPostDetailAction,
   getTempPostAction,
   postPreSaveAction,
@@ -18,6 +19,7 @@ const initialState: PostState = {
   hashtagSearch: { loading: false, data: null, error: null },
   createHashtag: { loading: false, data: null, error: null },
   getPostDetail: { loading: false, data: null, error: null },
+  getPhotoDetail: { loading: false, data: null, error: null },
 };
 
 const postSlice = createSlice({
@@ -85,6 +87,21 @@ const postSlice = createSlice({
         state.getPostDetail.loading = false;
         state.getPostDetail.data = null;
         state.getPostDetail.error = payload;
+      })
+      .addCase(getPhotoDetailAction.pending, state => {
+        state.getPhotoDetail.loading = true;
+        state.getPhotoDetail.data = null;
+        state.getPhotoDetail.error = null;
+      })
+      .addCase(getPhotoDetailAction.fulfilled, (state, { payload }) => {
+        state.getPhotoDetail.loading = false;
+        state.getPhotoDetail.data = payload;
+        state.getPhotoDetail.error = null;
+      })
+      .addCase(getPhotoDetailAction.rejected, (state, { payload }) => {
+        state.getPhotoDetail.loading = false;
+        state.getPhotoDetail.data = null;
+        state.getPhotoDetail.error = payload;
       })
       .addCase(searchHashtagAction.pending, state => {
         state.hashtagSearch.loading = true;

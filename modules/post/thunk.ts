@@ -111,3 +111,20 @@ export const getPostDetailAction = createAsyncThunk<
     return rejectWithValue({ message: e.response.data });
   }
 });
+
+//사진 상세조회
+export const getPhotoDetailAction = createAsyncThunk<
+  PostData,
+  number,
+  { rejectValue: MyKnownError }
+>('post/getPhotoDetail', async (photoId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/photo/${photoId}`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});

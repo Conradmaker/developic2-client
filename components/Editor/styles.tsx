@@ -110,3 +110,22 @@ export const HashTagSearchContainer = styled.div`
     color: ${({ theme }) => theme.grayScale[2]};
   }
 `;
+
+export const PostContentViewerContainer = styled.article`
+  width: 800px;
+  margin: 0 auto;
+  margin-bottom: 100px;
+  color: ${({ theme }) => theme.textColor.initial};
+  font-size: ${({ theme }) => theme.fontSize.base};
+  img {
+    max-height: 440px;
+    object-fit: contain;
+    margin: 20px auto;
+    cursor: pointer;
+    display: block;
+    transition: 0.3s;
+    &:hover {
+      box-shadow: 0 0 10px ${({ theme }) => theme.grayScale[2]};
+    }
+  }
+`;

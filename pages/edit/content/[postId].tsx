@@ -19,12 +19,14 @@ const ToastEditorWithNoSSR = dynamic(
   }
 );
 export default function edit(): JSX.Element {
-  const { tempPost, preSavePost, postPreSaveDispatch, getTempPostDispatch } = usePost();
+  const { tempPost, postPreSaveDispatch, getTempPostDispatch } = usePost();
   const { userData } = useUser();
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [tagList, setTagList] = useState<{ id: number; name: string }[]>([]);
+  const [imageList, setImageList] = useState<{ imageId: number; src: string }[]>([]);
   const [content, setContent] = useState('글을 입력해주세요.');
+  console.log(imageList);
   const temporarySave = async (editorContent: string) => {
     if (!userData) return;
     const result = {
@@ -33,6 +35,7 @@ export default function edit(): JSX.Element {
       content: editorContent,
       UserId: userData.id,
       PostId: router.query.postId === 'new' ? null : (router.query.postId as string),
+      imageList: imageList.map(image => image.imageId),
     };
     postPreSaveDispatch(result);
   };
@@ -59,6 +62,7 @@ export default function edit(): JSX.Element {
         <ToastEditorWithNoSSR
           content={content}
           setContent={setContent}
+          setImageList={setImageList}
           temporarySave={temporarySave}
         />
       </EditContainer>

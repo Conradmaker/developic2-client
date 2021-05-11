@@ -9,6 +9,7 @@ export type PostState = {
   hashtagSearch: { loading: boolean; data: null | Hashtag[]; error: null | unknown };
   createHashtag: { loading: boolean; data: null | Hashtag; error: null | unknown };
   getPostDetail: { loading: boolean; data: null | PostData; error: null | unknown };
+  getPhotoDetail: { loading: boolean; data: null | PostData; error: null | unknown };
 };
 
 export type Hashtag = {
@@ -69,6 +70,7 @@ export type PreSavePayload = {
   content: string;
   UserId: number;
   PostId: null | string;
+  imageList: number[];
 };
 export type SubmitPostPayload = {
   allowComment: number;

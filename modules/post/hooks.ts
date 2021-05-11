@@ -3,6 +3,7 @@ import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import {
   createHashtagAction,
+  getPhotoDetailAction,
   getPostDetailAction,
   getTempPostAction,
   postPreSaveAction,
@@ -19,6 +20,7 @@ export default function usePost() {
     hashtagSearch,
     createHashtag,
     getPostDetail,
+    getPhotoDetail,
   } = useAppSelector(state => state.post);
   const dispatch = useAppDispatch();
 
@@ -46,6 +48,10 @@ export default function usePost() {
     dispatch(getPostDetailAction(data));
   }, []);
 
+  const getPhotoDetailDispatch = useCallback((data: number) => {
+    dispatch(getPhotoDetailAction(data));
+  }, []);
+
   return {
     hashtagSearch,
     createHashtag,
@@ -53,11 +59,13 @@ export default function usePost() {
     submitPost,
     tempPost,
     getPostDetail,
+    getPhotoDetail,
     postPreSaveDispatch,
     getTempPostDispatch,
     submitPostDispatch,
     createHashtagDispatch,
     searchHashtagDispatch,
     getPostDetailDispatch,
+    getPhotoDetailDispatch,
   };
 }
