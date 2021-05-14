@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '../../components/Button/Button';
 import Layout from '../../components/Layout';
-import { ArchiveItemPropsType } from '.';
 import Link from 'next/link';
+import useArchive from '../../modules/archive/hooks';
+import { useRouter } from 'next/router';
 
 const ArchiveDetailContainer = styled.div`
   max-width: 900px;
-  margin: 0 auto 100px auto;
+  margin: 40px auto 100px auto;
   b {
     font-family: 'Montserrat';
   }
@@ -26,13 +27,12 @@ const ArchiveDetailContainer = styled.div`
     }
   }
   .detail__summary {
-    margin-top: 50px;
+    margin-top: 60px;
     border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
     font-family: 'Noto Serif KR';
     color: ${({ theme }) => theme.textColor.initial};
     h1 {
-      margin-top: 38px;
-      margin-bottom: 25px;
+      margin: 40px 0 30px 0;
       font-size: ${({ theme }) => theme.fontSize.titleSize};
       font-weight: 500;
       line-height: 60px;
@@ -120,19 +120,13 @@ const ArchiveDetailContainer = styled.div`
       line-height: 35px;
       word-break: keep-all;
       padding: 10px;
-      h1 {
-        font-size: ${({ theme }) => theme.fontSize.xxxl};
-        color: ${({ theme }) => theme.textColor.initial};
-        font-weight: 600;
-      }
-      h2 {
-        font-size: ${({ theme }) => theme.fontSize.xxl};
-        color: ${({ theme }) => theme.textColor.initial};
-      }
+      text-align: center;
+      color: ${({ theme }) => theme.textColor.initial};
       p {
+        display: inline-block;
         font-size: ${({ theme }) => theme.fontSize.lg};
-        color: ${({ theme }) => theme.textColor.initial};
         font-weight: 500;
+        word-break: break-word;
       }
     }
   }
@@ -142,6 +136,9 @@ const ArchiveDetailContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    button {
+      cursor: pointer;
+    }
     li {
       display: flex;
       position: relative;
@@ -173,59 +170,18 @@ const ArchiveDetailContainer = styled.div`
     }
   }
 `;
-const archiveItem: ArchiveItemPropsType = {
-  id: 1,
-  price: '무료관람',
-  title: '퓰리처상 사진전 - SHOOTING THE PULITZER',
-  by: [
-    { id: 1, name: '누구누구' },
-    { id: 2, name: '자까' },
-    { id: 3, name: '풔뤄그뤠풔' },
-  ],
-  date: ['2021.03.01', '2021.04.09'],
-  place: '한가람디자인미술관',
-  src: 'https://www.m-i.kr/news/photo/202009/748842_528632_4051.jpg',
-  url: 'www.naver.com',
-  manager: '김담당',
-  phone: '010-1212-3434',
-  email: 'damdang_k@naver.com',
-  info: (
-    <>
-      <h1>윌리엄 진서가 자전적 글을 쓰는 방법을 말하는 책</h1>
-      <br />
-      <h2>
-        스스로의 회고록은 글쓰기 고전으로 펴아받는 글쓰기 생각쓰기의 저자 윌리엄 진서가
-        자전적 글을 쓰는 방법을 말하는 책이다.
-      </h2>
-      <br />
-      <p>
-        진서는 자서전, 회ㅗ록, 개인사 가족사 기록 등 형식과 관계없ㅇ 스스로의 삶에 대한
-        기록을 남기는 것은 인간의 본능적인 행동이라고 말한다. 꼭 책으ㅗㄹ 펴내지 않더라도
-        삶을 글로 정리하고 보존하는 것은 개인적인 만족감을 준다.
-      </p>
-      <br />
-      <p>
-        자전적 글쓰기의 요령은 일반적인 글쓰기 방법ㅂ과는 다소 다르다. 책은 글이 무엇에
-        대한 것인지 섣불리 정하지 말라고 말한다. 글을 쓰기도 전에 글의 구성과 주제에 대해
-        미리 정하지 말고 어떤 모습으로 완성될지도 미리 상상하지 말라고한다. 기억이 하나씩
-        되살아나면서 전혀 생각지 못했던 옛날 기억이 모습을 드러낼 수 있는 만큼 그때그때
-        흥미가 느껴지는 소재에 대해 글을 쓰면 된다는 이야기다.
-      </p>
-      <br />
-      <p>
-        자전적 글쓰기의 요령은 일반적인 글쓰기 방법ㅂ과는 다소 다르다. 책은 글이 무엇에
-        대한 것인지 섣불리 정하지 말라고 말한다. 글을 쓰기도 전에 글의 구성과 주제에 대해
-        미리 정하지 말고 어떤 모습으로 완성될지도 미리 상상하지 말라고한다. 기억이 하나씩
-        되살아나면서 전혀 생각지 못했던 옛날 기억이 모습을 드러낼 수 있는 만큼 그때그때
-        흥미가 느껴지는 소재에 대해 글을 쓰면 된다는 이야기다.
-      </p>
-    </>
-  ),
-};
 export default function archiveId(): JSX.Element {
-  // const router = useRouter();
-  // const { archiveId } = router.query;
-
+  const router = useRouter();
+  const { exhibitionId } = router.query;
+  const { getArchiveDetail, getArchiveDetailDispatch } = useArchive();
+  useEffect(() => {
+    if (exhibitionId) {
+      getArchiveDetailDispatch(parseInt(exhibitionId as string));
+    }
+  }, [exhibitionId]);
+  if (getArchiveDetail.loading) return <div>로딩중</div>;
+  if (getArchiveDetail.error) return <div></div>;
+  if (getArchiveDetail.data === null) return <div></div>;
   return (
     <Layout>
       <Head>
@@ -233,34 +189,31 @@ export default function archiveId(): JSX.Element {
       </Head>
       <ArchiveDetailContainer>
         <div className="detail__poster__wrapper">
-          <img
-            src="https://www.m-i.kr/news/photo/202009/748842_528632_4051.jpg"
-            alt="poster"
-          />
+          <img src={getArchiveDetail.data.poster} alt="poster" />
         </div>
         <section className="detail__summary">
-          <h1>{archiveItem.title}</h1>
+          <h1>{getArchiveDetail.data.title}</h1>
           <p>
-            <b>{`${archiveItem.date[0]} - ${archiveItem.date[1]}`}</b>
+            <b>{`${getArchiveDetail.data.startDate} - ${getArchiveDetail.data.endDate}`}</b>
           </p>
-          <p>{archiveItem.place}</p>
+          <p>{getArchiveDetail.data.address}</p>
           <div>
             <ul>
               <li className="detail__by">
                 <span>By</span>
                 <ul>
-                  {archiveItem.by.map(v => (
-                    <li key={v.id}>{v.name}</li>
+                  {getArchiveDetail.data.author.split(',').map(name => (
+                    <li key={name}>{name}</li>
                   ))}
                 </ul>
               </li>
-              <Link href={`http://${archiveItem.url}`}>
+              <Link href={`${getArchiveDetail.data.webPage}`}>
                 <li className="detail__link">사이트로 이동</li>
               </Link>
               <li>
-                {archiveItem.price === '무료관람'
-                  ? archiveItem.price
-                  : `₩ ${parseInt(archiveItem.price).toLocaleString()}`}
+                {getArchiveDetail.data.cost === 0
+                  ? '무료관람'
+                  : `₩ ${getArchiveDetail.data.cost.toLocaleString()}`}
               </li>
             </ul>
           </div>
@@ -268,24 +221,30 @@ export default function archiveId(): JSX.Element {
         <section className="detail__contact">
           <p>전시지원</p>
           <ul>
-            <li>{archiveItem.manager}</li>
-            <li>{archiveItem.phone}</li>
+            <li>{getArchiveDetail.data.User.name}</li>
+            <li>{getArchiveDetail.data.contact}</li>
             <li>
-              <b>{archiveItem.email}</b>
+              <b>{getArchiveDetail.data.email}</b>
             </li>
           </ul>
         </section>
         <section className="detail__info">
           <p>Info</p>
-          <article className="infoinfo">{archiveItem.info}</article>
+          <article
+            dangerouslySetInnerHTML={{ __html: getArchiveDetail.data.description }}
+          ></article>
         </section>
         <ul>
-          <li className="list__btn">
-            <Button text="목록" bar width="100px" />
-          </li>
-          <li className="edit__btn">
-            <Button text="수정요청" bar width="100px" />
-          </li>
+          <Link href="/archive">
+            <li className="list__btn">
+              <Button text="목록" bar width="100px" />
+            </li>
+          </Link>
+          <Link href="/cs/inquery">
+            <li className="edit__btn">
+              <Button text="수정요청" bar width="100px" />
+            </li>
+          </Link>
         </ul>
       </ArchiveDetailContainer>
     </Layout>

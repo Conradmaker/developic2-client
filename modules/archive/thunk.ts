@@ -22,3 +22,17 @@ export const getArchiveListAction = createAsyncThunk<
     return rejectWithValue({ message: e.response.data });
   }
 });
+
+export const getArchiveDetailAction = createAsyncThunk<
+  Archive,
+  number,
+  { rejectValue: MyKnownError }
+>('archive/getArchiveDetail', async (archiveId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get(`/exhibition/${archiveId}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
