@@ -36,7 +36,7 @@ export default function PhotoDetailModal({
   } = usePost();
   const [infoOpen, setInfoOpen] = useState(false);
   const [binderSetOpen, setBinderSetOpen] = useState(false);
-  const toggleBinderSet = (e: React.MouseEvent) => {
+  const toggleBinderSet = (e?: React.MouseEvent) => {
     e.stopPropagation();
     if (!userData) {
       return alert('로그인해주세요.');
@@ -84,7 +84,9 @@ export default function PhotoDetailModal({
           </i>
         </PhotoModalBtnBox>
       </ModalLayout>
-      {binderSetOpen && <MakeBinderModal onClose={toggleBinderSet} />}
+      {binderSetOpen && (
+        <MakeBinderModal onClose={toggleBinderSet} photoId={photoData.id} />
+      )}
     </>
   );
 }

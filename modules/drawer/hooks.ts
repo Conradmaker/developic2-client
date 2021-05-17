@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import {
+  addBinderPhotoAction,
   getLikeListAction,
   getPhotoBinderDetailAction,
   getPhotoBinderListAction,
@@ -80,6 +81,14 @@ export default function useDrawer() {
     },
     []
   );
+
+  const addBinderPhotoDispatch = useCallback(
+    (data: { photoIdArr: number[]; BinderId: number }) => {
+      dispatch(addBinderPhotoAction(data));
+    },
+    []
+  );
+
   return {
     getLikeList,
     removeLikeItem,
@@ -102,5 +111,6 @@ export default function useDrawer() {
     updatePhotoBinderDetailDispatch,
     removeBinderPhotoDispatch,
     removePhotoBinderDispatch,
+    addBinderPhotoDispatch,
   };
 }

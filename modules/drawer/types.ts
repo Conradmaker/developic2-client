@@ -51,7 +51,18 @@ export type DrawerState = {
   };
   removeBinderPhoto: {
     loading: boolean;
-    data: number[] | null | { id: number; src: string }[];
+    data:
+      | { photoIdArr: number[]; BinderId: number }
+      | null
+      | { id: number; src: string }[];
+    error: null | unknown;
+  };
+  addBinderPhoto: {
+    loading: boolean;
+    data:
+      | { photoIdArr: number[]; BinderId: number }
+      | null
+      | { id: number; src: string }[];
     error: null | unknown;
   };
 };
@@ -94,4 +105,10 @@ export type UpdatePhotoBinderPayload = {
   title: string;
   description: string;
   BinderId: number;
+};
+
+export const isPhotoBinderArr = (
+  target: PhotoBinderType[] | null
+): target is PhotoBinderType[] => {
+  return (target as PhotoBinderType[]).concat !== undefined;
 };

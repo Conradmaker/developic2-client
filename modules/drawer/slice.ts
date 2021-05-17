@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { DrawerState } from './';
 import {
+  addBinderPhotoAction,
   getLikeListAction,
   getPhotoBinderDetailAction,
   getPhotoBinderListAction,
@@ -13,7 +14,13 @@ import {
   removeTempPostAction,
   updatePhotoBinderDetailAction,
 } from './thunk';
-import { LikeListItemType, PhotoBinderType, RecentViewType, TempItemType } from './types';
+import {
+  LikeListItemType,
+  PhotoBinderType,
+  RecentViewType,
+  TempItemType,
+  isPhotoBinderArr,
+} from './types';
 
 const initialState: DrawerState = {
   getLikeList: { loading: false, data: null, error: null },
@@ -25,6 +32,7 @@ const initialState: DrawerState = {
   getBinderList: { loading: false, data: null, error: null },
   getBinderDetail: { loading: false, data: null, error: null },
   updateBinderDetail: { loading: false, data: null, error: null },
+  addBinderPhoto: { loading: false, data: null, error: null },
   removeBinderPhoto: { loading: false, data: null, error: null },
   removeBinder: { loading: false, data: null, error: null },
 };
@@ -205,17 +213,53 @@ const drawerSlice = createSlice({
         state.removeBinderPhoto.error = null;
       })
       .addCase(removeBinderPhotoAction.fulfilled, (state, { payload }) => {
-        let newPhotos = [...(state.getBinderDetail.data as PhotoBinderType).PostImages];
-        payload.forEach(id => (newPhotos = newPhotos.filter(photo => photo.id !== id)));
         state.removeBinderPhoto.loading = false;
         state.removeBinderPhoto.data = payload;
         state.removeBinderPhoto.error = null;
-        (state.getBinderDetail.data as PhotoBinderType).PostImages = newPhotos;
+        if (state.getBinderDetail.data) {
+          let newPhotos = [...(state.getBinderDetail.data as PhotoBinderType).PostImages];
+          payload.photoIdArr.forEach(
+            id => (newPhotos = newPhotos.filter(photo => photo.id !== id))
+          );
+          (state.getBinderDetail.data as PhotoBinderType).PostImages = newPhotos;
+        }
+
+        if (isPhotoBinderArr(state.getBinderList.data)) {
+          const binderIndex = state.getBinderList.data.findIndex(
+            binder => binder.id === payload.BinderId
+          );
+          state.getBinderList.data[binderIndex].PostImages = state.getBinderList.data[
+            binderIndex
+          ].PostImages.filter(image => !payload.photoIdArr.includes(image.id));
+        }
       })
       .addCase(removeBinderPhotoAction.rejected, (state, { payload }) => {
         state.removeBinderPhoto.loading = false;
         state.removeBinderPhoto.data = null;
         state.removeBinderPhoto.error = payload;
+      })
+      .addCase(addBinderPhotoAction.pending, state => {
+        state.addBinderPhoto.loading = true;
+        state.addBinderPhoto.data = null;
+        state.addBinderPhoto.error = null;
+      })
+      .addCase(addBinderPhotoAction.fulfilled, (state, { payload }) => {
+        state.addBinderPhoto.loading = false;
+        state.addBinderPhoto.data = payload;
+        state.addBinderPhoto.error = null;
+        if (isPhotoBinderArr(state.getBinderList.data)) {
+          const binderIndex = state.getBinderList.data.findIndex(
+            binder => binder.id === payload.BinderId
+          );
+          state.getBinderList.data[binderIndex].PostImages = state.getBinderList.data[
+            binderIndex
+          ].PostImages.concat(payload.photoIdArr.map(id => ({ id, src: '' })));
+        }
+      })
+      .addCase(addBinderPhotoAction.rejected, (state, { payload }) => {
+        state.addBinderPhoto.loading = false;
+        state.addBinderPhoto.data = null;
+        state.addBinderPhoto.error = payload;
       });
   },
 });
