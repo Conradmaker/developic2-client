@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {
+  CreatePhotoBinderPayload,
   LikeListItemType,
   PhotoBinderType,
   RecentViewType,
@@ -169,6 +170,21 @@ export const addBinderPhotoAction = createAsyncThunk<
 >('drawer/addBinderPhoto', async (photoData, { rejectWithValue }) => {
   try {
     const { data } = await axios.post(`/drawer/binder/photo`, photoData);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//포토바인더 생성
+export const createPhotoBinderAction = createAsyncThunk<
+  PhotoBinderType,
+  CreatePhotoBinderPayload,
+  { rejectValue: MyKnownError }
+>('drawer/createBinder', async (binderData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(`/drawer/binder`, binderData);
     return data;
   } catch (e) {
     console.error(e);

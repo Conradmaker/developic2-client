@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { DrawerState } from './';
 import {
   addBinderPhotoAction,
+  createPhotoBinderAction,
   getLikeListAction,
   getPhotoBinderDetailAction,
   getPhotoBinderListAction,
@@ -34,6 +35,7 @@ const initialState: DrawerState = {
   updateBinderDetail: { loading: false, data: null, error: null },
   addBinderPhoto: { loading: false, data: null, error: null },
   removeBinderPhoto: { loading: false, data: null, error: null },
+  createBinder: { loading: false, data: null, error: null },
   removeBinder: { loading: false, data: null, error: null },
 };
 
@@ -191,6 +193,24 @@ const drawerSlice = createSlice({
         state.updateBinderDetail.loading = false;
         state.updateBinderDetail.data = null;
         state.updateBinderDetail.error = payload;
+      })
+      .addCase(createPhotoBinderAction.pending, state => {
+        state.createBinder.loading = true;
+        state.createBinder.data = null;
+        state.createBinder.error = null;
+      })
+      .addCase(createPhotoBinderAction.fulfilled, (state, { payload }) => {
+        state.createBinder.loading = false;
+        state.createBinder.data = payload;
+        state.createBinder.error = null;
+        if (isPhotoBinderArr(state.getBinderList.data)) {
+          state.getBinderList.data = state.getBinderList.data.concat(payload);
+        }
+      })
+      .addCase(createPhotoBinderAction.rejected, (state, { payload }) => {
+        state.createBinder.loading = false;
+        state.createBinder.data = null;
+        state.createBinder.error = payload;
       })
       .addCase(removePhotoBinderAction.pending, state => {
         state.removeBinder.loading = true;

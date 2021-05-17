@@ -3,6 +3,7 @@ import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import {
   addBinderPhotoAction,
+  createPhotoBinderAction,
   getLikeListAction,
   getPhotoBinderDetailAction,
   getPhotoBinderListAction,
@@ -15,7 +16,11 @@ import {
   removeTempPostAction,
   updatePhotoBinderDetailAction,
 } from './thunk';
-import { RemoveLikesPayload, UpdatePhotoBinderPayload } from './types';
+import {
+  CreatePhotoBinderPayload,
+  RemoveLikesPayload,
+  UpdatePhotoBinderPayload,
+} from './types';
 
 export default function useDrawer() {
   const {
@@ -71,6 +76,10 @@ export default function useDrawer() {
     []
   );
 
+  const createPhotoBinderDispatch = useCallback((data: CreatePhotoBinderPayload) => {
+    dispatch(createPhotoBinderAction(data));
+  }, []);
+
   const removePhotoBinderDispatch = useCallback((data: number) => {
     dispatch(removePhotoBinderAction(data));
   }, []);
@@ -112,5 +121,6 @@ export default function useDrawer() {
     removeBinderPhotoDispatch,
     removePhotoBinderDispatch,
     addBinderPhotoDispatch,
+    createPhotoBinderDispatch,
   };
 }

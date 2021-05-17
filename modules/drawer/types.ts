@@ -44,6 +44,11 @@ export type DrawerState = {
     data: UpdatePhotoBinderPayload | null;
     error: null | unknown;
   };
+  createBinder: {
+    loading: boolean;
+    data: null | PhotoBinderType;
+    error: null | unknown;
+  };
   removeBinder: {
     loading: boolean;
     data: null | { binderId: number };
@@ -106,7 +111,13 @@ export type UpdatePhotoBinderPayload = {
   description: string;
   BinderId: number;
 };
+export type CreatePhotoBinderPayload = {
+  title: string;
+  description: string;
+  UserId: number;
+};
 
+//NOTE: TYPE GUARD
 export const isPhotoBinderArr = (
   target: PhotoBinderType[] | null
 ): target is PhotoBinderType[] => {

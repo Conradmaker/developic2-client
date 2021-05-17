@@ -9,25 +9,40 @@ import CustomInput from '../Input/CustomInput';
 import CustomTextarea from '../Input/CustomTextarea';
 import TitleLabel from '../Label/TitleLabel';
 import { MakeBinderModalMox, ModalLayout } from './styles';
-function MakeBinderForm(): JSX.Element {
-  const [newTitle, onChangeNewTitle] = useInput('');
-  const [newDesc, onChangeNewDesc] = useInput('');
+
+function MakeBinderForm({ userId }: { userId: number }): JSX.Element {
+  const { createPhotoBinderDispatch } = useDrawer();
+  const [newTitle, onChangeNewTitle, setNewTitle] = useInput('');
+  const [newDesc, onChangeNewDesc, setNewDesc] = useInput('');
+  const onCreate = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      createPhotoBinderDispatch({
+        title: newTitle,
+        description: newDesc,
+        UserId: userId,
+      });
+      setNewTitle('');
+      setNewDesc('');
+    },
+    [newTitle, newDesc]
+  );
   return (
-    <div className="section__right">
+    <form className="section__right" onSubmit={onCreate}>
       <h5>포토바인더 생성</h5>
       <CustomInput title="제목" value={newTitle} onChange={onChangeNewTitle} />
-      <CustomTextarea value={newDesc} title="asd" onChange={onChangeNewDesc} />
-      <SquareBtn>생성</SquareBtn>
-    </div>
+      <CustomTextarea value={newDesc} title="요약" onChange={onChangeNewDesc} />
+      <SquareBtn type="submit">생성</SquareBtn>
+    </form>
   );
 }
 
 type UsersBinderListPropsType = {
   photoId: number;
+  userId: number;
 };
-function UsersBinderList({ photoId }: UsersBinderListPropsType) {
+function UsersBinderList({ photoId, userId }: UsersBinderListPropsType) {
   const { getPhotoBinderListDispatch, getBinderList } = useDrawer();
-  const { userData } = useUser();
   const { addBinderPhotoDispatch, removeBinderPhotoDispatch } = useDrawer();
 
   const makeBinderItem = (binder: PhotoBinderType) => {
@@ -53,8 +68,7 @@ function UsersBinderList({ photoId }: UsersBinderListPropsType) {
   };
 
   useEffect(() => {
-    if (!userData) return;
-    getPhotoBinderListDispatch(userData.id);
+    getPhotoBinderListDispatch(userId);
   }, []);
   if (!getBinderList.data) return <></>;
   return <ul>{getBinderList.data.map(binder => makeBinderItem(binder))}</ul>;
@@ -68,6 +82,8 @@ export default function MakeBinderModal({
   photoId,
   onClose,
 }: MakeBinderModalPropsType): JSX.Element {
+  const { userData } = useUser();
+  if (!userData) return <></>;
   return (
     <ModalLayout>
       <MakeBinderModalMox>
@@ -75,9 +91,9 @@ export default function MakeBinderModal({
         <div className="double__section">
           <div className="section__left">
             <h5>회원님의 포토바인더</h5>
-            <UsersBinderList photoId={photoId} />
+            <UsersBinderList photoId={photoId} userId={userData.id} />
           </div>
-          <MakeBinderForm />
+          <MakeBinderForm userId={userData.id} />
         </div>
         <SquareBtn onClick={onClose}>적용</SquareBtn>
       </MakeBinderModalMox>
