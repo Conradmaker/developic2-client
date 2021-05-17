@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { blogFollowPayload } from '../user';
+
 import {
   LoadBlogUserResponse,
   LoadBlogPostListResponse,
   LoadBlogPicstoryListResponse,
   LoadBlogPicstoryDetailResponse,
+  LoadBlogListPayload,
 } from './type';
 
 axios.defaults.withCredentials = true;
@@ -34,15 +35,32 @@ export const loadBlogUserAction = createAsyncThunk<
   }
 });
 
-// 블로그 글목록 로드
+// 블로그 초기 글목록 로드
 export const loadBlogPostListAction = createAsyncThunk<
   LoadBlogPostListResponse,
-  UserId,
+  LoadBlogListPayload,
   { rejectValue: MyKnownError }
->('blog/loadBlogPostList', async (userId, { rejectWithValue }) => {
+>('blog/loadBlogPostList', async (LoadBlogPostListPayload, { rejectWithValue }) => {
   try {
     const { data } = await axios.get<LoadBlogPostListResponse>(
-      `/blog/post/${userId}?limit=12&offset=0`
+      `/blog/post/${LoadBlogPostListPayload.userId}?limit=12`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+// 블로그 글목록 추가 로드
+export const loadMoreBlogPostListAction = createAsyncThunk<
+  LoadBlogPostListResponse,
+  LoadBlogListPayload,
+  { rejectValue: MyKnownError }
+>('blog/loadMoreBlogPostList', async (LoadBlogPostListPayload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get<LoadBlogPostListResponse>(
+      `/blog/post/${LoadBlogPostListPayload.userId}?limit=12&offset=${LoadBlogPostListPayload.offset}`
     );
     return data;
   } catch (e) {
@@ -59,7 +77,24 @@ export const loadBlogPicstoryListAction = createAsyncThunk<
 >('blog/loadBlogPicstoryList', async (userId, { rejectWithValue }) => {
   try {
     const { data } = await axios.get<LoadBlogPicstoryListResponse>(
-      `/blog/picstory/${userId}`
+      `/blog/picstory/${userId}?limit=12`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+// 픽스토리 추가 목록 로드
+export const loadMoreBlogPicstoryListAction = createAsyncThunk<
+  LoadBlogPicstoryListResponse,
+  LoadBlogListPayload,
+  { rejectValue: MyKnownError }
+>('blog/loadMoreBlogPicstoryList', async (LoadBlogListPayload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.get<LoadBlogPicstoryListResponse>(
+      `/blog/picstory/${LoadBlogListPayload.userId}?limit=12&offset=${LoadBlogListPayload.offset}`
     );
     return data;
   } catch (e) {

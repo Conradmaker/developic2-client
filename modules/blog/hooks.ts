@@ -3,13 +3,19 @@ import {
   loadBlogUserAction,
   loadBlogPicstoryListAction,
   loadBlogPicstoryDetailAction,
+  loadMoreBlogPostListAction,
+  loadMoreBlogPicstoryListAction,
 } from './thunk';
 import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from './../../hooks/useSelector';
+import { LoadBlogListPayload } from './type';
 
 export default function useBlog() {
   const {
+    hasMoreBlogLists,
+    loadBlogPostList,
+    loadBlogPicstoryList,
     blogUserData,
     loadBlogUser,
     blogPostListData,
@@ -22,12 +28,20 @@ export default function useBlog() {
     dispatch(loadBlogUserAction(userId));
   }, []);
 
-  const loadBlogPostListDispatch = useCallback(userId => {
-    dispatch(loadBlogPostListAction(userId));
+  const loadBlogPostListDispatch = useCallback((data: LoadBlogListPayload) => {
+    dispatch(loadBlogPostListAction(data));
+  }, []);
+
+  const loadMoreBlogPostListDispatch = useCallback((data: LoadBlogListPayload) => {
+    dispatch(loadMoreBlogPostListAction(data));
   }, []);
 
   const loadBlogPicstoryListDispatch = useCallback(userId => {
     dispatch(loadBlogPicstoryListAction(userId));
+  }, []);
+
+  const loadMoreBlogPicstoryListDispatch = useCallback((data: LoadBlogListPayload) => {
+    dispatch(loadMoreBlogPicstoryListAction(data));
   }, []);
 
   const loadBlogPicstoryDetailDispatch = useCallback(picstoryId => {
@@ -35,6 +49,9 @@ export default function useBlog() {
   }, []);
 
   return {
+    hasMoreBlogLists,
+    loadBlogPostList,
+    loadBlogPicstoryList,
     loadBlogUser,
     blogUserData,
     blogPostListData,
@@ -42,7 +59,9 @@ export default function useBlog() {
     blogPicstoryDetailData,
     loadBlogUserDispatch,
     loadBlogPostListDispatch,
+    loadMoreBlogPostListDispatch,
     loadBlogPicstoryListDispatch,
+    loadMoreBlogPicstoryListDispatch,
     loadBlogPicstoryDetailDispatch,
   };
 }

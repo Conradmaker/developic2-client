@@ -5,17 +5,22 @@ import {
   loadBlogPostListAction,
   loadBlogPicstoryListAction,
   loadBlogPicstoryDetailAction,
+  loadMoreBlogPostListAction,
+  loadMoreBlogPicstoryListAction,
 } from './thunk';
-import { BlogState } from './type';
+import { BlogPicstory, BlogPost, BlogState } from './type';
 
 const initialState: BlogState = {
   blogUserData: null,
+  hasMoreBlogLists: true,
   blogPostListData: [],
   blogPicstoryListData: [],
   blogPicstoryDetailData: null,
   loadBlogUser: { loading: false, done: false, error: null },
   loadBlogPostList: { loading: false, done: false, error: null },
+  loadMoreBlogPostList: { loading: false, done: false, error: null },
   loadBlogPicstoryList: { loading: false, done: false, error: null },
+
   loadBlogPicstoryDetail: { loading: false, done: false, error: null },
   userData: null,
   addBlogFollow: { loading: false, done: false, error: null },
@@ -54,11 +59,29 @@ const blogSlice = createSlice({
         state.loadBlogPostList.done = true;
         state.loadBlogPostList.error = null;
         state.blogPostListData = payload;
+        state.hasMoreBlogLists = payload.length === 12;
       })
       .addCase(loadBlogPostListAction.rejected, (state, { payload }) => {
         state.loadBlogPostList.loading = false;
         state.loadBlogPostList.done = false;
         state.loadBlogPostList.error = payload;
+      }) // 블로그 글 목록 추가 로드
+      .addCase(loadMoreBlogPostListAction.pending, state => {
+        state.loadMoreBlogPostList.loading = true;
+        state.loadMoreBlogPostList.done = false;
+        state.loadMoreBlogPostList.error = null;
+      })
+      .addCase(loadMoreBlogPostListAction.fulfilled, (state, { payload }) => {
+        state.loadMoreBlogPostList.loading = false;
+        state.loadMoreBlogPostList.done = true;
+        state.loadMoreBlogPostList.error = null;
+        state.blogPostListData = (state.blogPostListData as BlogPost[]).concat(payload);
+        state.hasMoreBlogLists = payload.length === 12;
+      })
+      .addCase(loadMoreBlogPostListAction.rejected, (state, { payload }) => {
+        state.loadMoreBlogPostList.loading = false;
+        state.loadMoreBlogPostList.done = false;
+        state.loadMoreBlogPostList.error = payload;
       })
       .addCase(loadBlogPicstoryListAction.pending, state => {
         state.loadBlogPicstoryList.loading = true;
@@ -75,6 +98,26 @@ const blogSlice = createSlice({
         state.loadBlogPicstoryList.loading = false;
         state.loadBlogPicstoryList.done = false;
         state.loadBlogPicstoryList.error = payload;
+      })
+      // 픽스토리 목록 추가 로드
+      .addCase(loadMoreBlogPicstoryListAction.pending, state => {
+        state.loadMoreBlogPicstoryList.loading = true;
+        state.loadMoreBlogPicstoryList.done = false;
+        state.loadMoreBlogPicstoryList.error = null;
+      })
+      .addCase(loadMoreBlogPicstoryListAction.fulfilled, (state, { payload }) => {
+        state.loadMoreBlogPicstoryList.loading = false;
+        state.loadMoreBlogPicstoryList.done = true;
+        state.loadMoreBlogPicstoryList.error = null;
+        state.blogPicstoryListData = (state.blogPicstoryListData as BlogPicstory[]).concat(
+          payload
+        );
+        state.hasMoreBlogLists = payload.length === 12;
+      })
+      .addCase(loadMoreBlogPicstoryListAction.rejected, (state, { payload }) => {
+        state.loadMoreBlogPicstoryList.loading = false;
+        state.loadMoreBlogPicstoryList.done = false;
+        state.loadMoreBlogPicstoryList.error = payload;
       })
       .addCase(loadBlogPicstoryDetailAction.pending, state => {
         state.loadBlogPicstoryDetail.loading = true;
