@@ -510,3 +510,44 @@ export const PhotoModalBtnBox = styled.div`
     }
   }
 `;
+
+export const MakeBinderModalMox = styled(ModalBox)`
+  .double__section {
+    display: flex;
+    padding-top: 20px;
+    height: 320px;
+    font-family: 'Noto Serif KR';
+    h5 {
+      margin: 5px 0 10px 0;
+    }
+    .section__left {
+      width: 300px;
+      border-right: 1px solid ${({ theme }) => theme.textColor.initial};
+      padding-right: 30px;
+      ul {
+        li {
+          margin: 10px 0;
+        }
+      }
+    }
+    .section__right {
+      width: 300px;
+      padding-left: 30px;
+      div:nth-child(3) {
+        margin-top: 10px;
+      }
+      textarea {
+        height: 150px;
+      }
+      & > button {
+        margin-top: 10px;
+        width: 100%;
+      }
+    }
+  }
+  & > button {
+    width: 110px;
+    display: block;
+    margin: 30px 0 0 auto;
+  }
+`;

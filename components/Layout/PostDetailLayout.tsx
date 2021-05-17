@@ -3,15 +3,16 @@ import { BsExclamationTriangle } from 'react-icons/bs';
 import { IoMdHeartEmpty, IoMdShare } from 'react-icons/io';
 import { RiEditLine } from 'react-icons/ri';
 import { PostData } from '../../modules/post';
+import useUser from '../../modules/user/hooks';
 import HashTag from '../Button/HashTag';
 import PostContentViewer from '../Editor/PostContentViewer';
-import ToastViewer from '../Editor/ToastViewer';
 import { PostDetailContainer } from './styles';
 
 type PostDetaulLayout = {
   postData: PostData;
 };
 export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.Element {
+  const { userData } = useUser();
   return (
     <PostDetailContainer>
       <section className="blog__head">
@@ -40,9 +41,18 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
               <li>
                 <BsExclamationTriangle /> 신고
               </li>
-              <li>
-                <RiEditLine /> 수정
-              </li>
+              {userData ? (
+                userData.id === postData.UserId ? (
+                  <>
+                    <li>
+                      <IoMdShare /> 삭제
+                    </li>
+                    <li>
+                      <RiEditLine /> 수정
+                    </li>
+                  </>
+                ) : null
+              ) : null}
             </ul>
           </div>
         </div>
