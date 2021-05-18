@@ -26,4 +26,21 @@ export interface Archive {
 export type ArchiveState = {
   getArchiveList: { loading: boolean; data: null | Archive[]; error: null | unknown };
   getArchiveDetail: { loading: boolean; data: null | Archive; error: null | unknown };
+  addArchive: { loading: boolean; data: null | Archive; error: null | unknown };
+};
+
+export type AddArchivePayload = {
+  cost: number;
+  webPage: string;
+  contact: string;
+  email: string;
+  title: string;
+  author: string;
+  address: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  poster: string;
+  UserId: number;
+  imageList: number[];
 };

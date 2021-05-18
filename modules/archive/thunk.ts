@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Archive } from './type';
+import { AddArchivePayload, Archive } from './type';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_HOST;
@@ -30,6 +30,20 @@ export const getArchiveDetailAction = createAsyncThunk<
 >('archive/getArchiveDetail', async (archiveId, { rejectWithValue }) => {
   try {
     const { data } = await axios.get(`/exhibition/${archiveId}`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+export const addArchiveAction = createAsyncThunk<
+  Archive,
+  AddArchivePayload,
+  { rejectValue: MyKnownError }
+>('archive/addArchive', async (archiveData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(`/exhibition`, archiveData);
     return data;
   } catch (e) {
     console.error(e);

@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getArchiveListAction, getArchiveDetailAction } from './thunk';
+import { getArchiveListAction, getArchiveDetailAction, addArchiveAction } from './thunk';
 import { ArchiveState } from './type';
 
 const initialState: ArchiveState = {
   getArchiveList: { loading: false, data: null, error: null },
   getArchiveDetail: { loading: false, data: null, error: null },
+  addArchive: { loading: false, data: null, error: null },
 };
 
 const archiveSlice = createSlice({
@@ -42,6 +43,21 @@ const archiveSlice = createSlice({
         state.getArchiveDetail.loading = false;
         state.getArchiveDetail.data = null;
         state.getArchiveDetail.error = payload;
+      })
+      .addCase(addArchiveAction.pending, state => {
+        state.addArchive.loading = true;
+        state.addArchive.data = null;
+        state.addArchive.error = null;
+      })
+      .addCase(addArchiveAction.fulfilled, (state, { payload }) => {
+        state.addArchive.loading = false;
+        state.addArchive.data = payload;
+        state.addArchive.error = null;
+      })
+      .addCase(addArchiveAction.rejected, (state, { payload }) => {
+        state.addArchive.loading = false;
+        state.addArchive.data = null;
+        state.addArchive.error = payload;
       });
   },
 });
