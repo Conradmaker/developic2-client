@@ -119,14 +119,19 @@ const ArchiveDetailContainer = styled.div`
       margin-top: 50px;
       line-height: 35px;
       word-break: keep-all;
-      padding: 10px;
+      padding: 0 50px;
       text-align: center;
       color: ${({ theme }) => theme.textColor.initial};
-      p {
+      & > p {
         display: inline-block;
         font-size: ${({ theme }) => theme.fontSize.lg};
         font-weight: 500;
         word-break: break-word;
+        img {
+          width: 100%;
+          height: 450px;
+          object-fit: contain;
+        }
       }
     }
   }
