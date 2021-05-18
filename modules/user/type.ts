@@ -25,8 +25,8 @@ export type UserState = {
   logout: { loading: boolean; data: null | unknown; error: null | unknown };
   auth: { loading: boolean; data: null | unknown; error: null | unknown };
   userData: User | null;
-  addBlogFollow: { loading: boolean; done: boolean; error: null | unknown };
-  removeBlogFollow: { loading: boolean; done: boolean; error: null | unknown };
+  addBlogFollow: { loading: boolean; data: null | unknown ; error: null | unknown };
+  removeBlogFollow: { loading: boolean; data: null | unknown ; error: null | unknown };
 };
 
 // 액션 Payload 타입

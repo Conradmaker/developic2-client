@@ -14,8 +14,8 @@ const initialState: UserState = {
   logout: { loading: false, data: null, error: null },
   auth: { loading: false, data: null, error: null },
   userData: null,
-  addBlogFollow: { loading: false, done: false, error: null },
-  removeBlogFollow: { loading: false, done: false, error: null },
+  addBlogFollow: { loading: false, data: null, error: null },
+  removeBlogFollow: { loading: false, data: null, error: null },
 };
 
 //data항목을 success:boolean으로 바꿀지 생각해보기. 성공여부만 나타내도록
@@ -77,12 +77,12 @@ const userSlice = createSlice({
       })
       .addCase(addBlogFollowAction.pending, state => {
         state.addBlogFollow.loading = true;
-        state.addBlogFollow.done = false;
+        state.addBlogFollow.data = null;
         state.addBlogFollow.error = null;
       })
       .addCase(addBlogFollowAction.fulfilled, (state, { payload }) => {
         state.addBlogFollow.loading = false;
-        state.addBlogFollow.done = true;
+        state.addBlogFollow.data = payload;
         state.addBlogFollow.error = null;
         if (state.userData) {
           state.userData.writers?.push({ id: payload.writerId });
@@ -90,17 +90,17 @@ const userSlice = createSlice({
       })
       .addCase(addBlogFollowAction.rejected, (state, { payload }) => {
         state.addBlogFollow.loading = false;
-        state.addBlogFollow.done = false;
+        state.addBlogFollow.data = null;
         state.addBlogFollow.error = payload;
       })
       .addCase(removeBlogFollowAction.pending, state => {
         state.removeBlogFollow.loading = true;
-        state.removeBlogFollow.done = false;
+        state.removeBlogFollow.data = null;
         state.removeBlogFollow.error = null;
       })
       .addCase(removeBlogFollowAction.fulfilled, (state, { payload }) => {
         state.removeBlogFollow.loading = false;
-        state.removeBlogFollow.done = true;
+        state.removeBlogFollow.data = payload;
         state.removeBlogFollow.error = null;
         if (state.userData) {
           state.userData.writers = state.userData.writers?.filter(
@@ -110,7 +110,7 @@ const userSlice = createSlice({
       })
       .addCase(removeBlogFollowAction.rejected, (state, { payload }) => {
         state.removeBlogFollow.loading = false;
-        state.removeBlogFollow.done = false;
+        state.removeBlogFollow.data = null;
         state.removeBlogFollow.error = payload;
       });
   },

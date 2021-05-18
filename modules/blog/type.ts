@@ -26,7 +26,7 @@ export interface BlogPost {
   hits: number;
   likeCount?: number;
   likers?: Liker[];
-  updatedAt: Date;
+  createdAt: Date;
   UserId?: number;
 }
 
@@ -39,7 +39,7 @@ export interface BlogPicstory {
   title: string;
   description: string;
   thumbnail: string;
-  updatedAt?: Date;
+  createdAt?: Date;
   Posts: BlogPost[] | [];
 }
 
@@ -48,7 +48,7 @@ export type blogPicstoryDetailData = {
   title: string;
   description: string;
   thumbnail: string;
-  updatedAt?: Date;
+  createdAt?: Date;
   Posts: BlogPost[] | [];
 };
 
@@ -57,19 +57,27 @@ export interface Liker {
 }
 
 export type BlogState = {
-  loadBlogUser: { loading: boolean; done: boolean; error: null | unknown };
-  loadBlogPostList: { loading: boolean; done: boolean; error: null | unknown };
-  loadMoreBlogPostList: { loading: boolean; done: boolean; error: null | unknown };
-  loadBlogPicstoryList: { loading: boolean; done: boolean; error: null | unknown };
-  loadMoreBlogPicstoryList: { loading: boolean; done: boolean; error: null | unknown };
-  loadBlogPicstoryDetail: { loading: boolean; done: boolean; error: null | unknown };
+  loadBlogUser: { loading: boolean; data: null | unknown; error: null | unknown };
+  loadBlogPostList: { loading: boolean; data: null | unknown; error: null | unknown };
+  loadMoreBlogPostList: { loading: boolean; data: null | unknown; error: null | unknown };
+  loadBlogPicstoryList: { loading: boolean; data: null | unknown; error: null | unknown };
+  loadMoreBlogPicstoryList: {
+    loading: boolean;
+    data: null | unknown;
+    error: null | unknown;
+  };
+  loadBlogPicstoryDetail: {
+    loading: boolean;
+    data: null | unknown;
+    error: null | unknown;
+  };
   blogUserData: BlogUserData | null;
   blogPostListData: BlogPostListData['blogPosts'] | [];
   blogPicstoryListData: BlogPicstoryListData['blogPicstories'] | [];
   blogPicstoryDetailData: BlogPicstory | null;
   userData: User | null;
-  addBlogFollow: { loading: boolean; done: boolean; error: null };
-  removeBlogFollow: { loading: boolean; done: boolean; error: null };
+  addBlogFollow: { loading: boolean; data: null | unknown; error: null };
+  removeBlogFollow: { loading: boolean; data: null | unknown; error: null };
   hasMoreBlogLists: boolean;
 };
 
