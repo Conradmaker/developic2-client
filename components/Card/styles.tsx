@@ -638,6 +638,7 @@ export const BlogCommentCardBox = styled.li`
     height: 56px;
     & > article {
       img {
+        cursor: pointer;
         position: absolute;
         margin: 0 auto;
         top: 30px;

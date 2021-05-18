@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import Link from 'next/link';
 import React from 'react';
 import { Comment } from '../../modules/post';
 import { BlogCommentCardBox } from './styles';
@@ -12,10 +14,12 @@ export default function BlogCommentCard({
     <BlogCommentCardBox>
       <section>
         <article>
-          <img src={commentData.User.avatar} alt="user_avatar" />
+          <Link href={`/${commentData.User.id}/post`}>
+            <img src={commentData.User.avatar} alt="user_avatar" />
+          </Link>
           <div>
             <strong>{commentData.User.nickname}</strong>
-            <p>{commentData.updatedAt}</p>
+            <p>{dayjs(commentData.updatedAt).format('YYYY년 MM월 DD일')}</p>
           </div>
         </article>
         <div>

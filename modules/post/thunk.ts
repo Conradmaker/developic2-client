@@ -1,11 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {
+  CreateCommentPayload,
   Hashtag,
   PhotoDetail,
   PostData,
   PreSavePayload,
   SubmitPostPayload,
+  Comment,
 } from './types';
 
 axios.defaults.withCredentials = true;
@@ -127,6 +129,24 @@ export const getPhotoDetailAction = createAsyncThunk<
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/photo/${photoId}`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//댓글 작성
+export const createCommentAction = createAsyncThunk<
+  Comment,
+  CreateCommentPayload,
+  { rejectValue: MyKnownError }
+>('post/createComment', async (commentData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment`,
+      commentData
     );
     return data;
   } catch (e) {

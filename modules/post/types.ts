@@ -10,6 +10,7 @@ export type PostState = {
   createHashtag: { loading: boolean; data: null | Hashtag; error: null | unknown };
   getPostDetail: { loading: boolean; data: null | PostData; error: null | unknown };
   getPhotoDetail: { loading: boolean; data: null | PhotoDetail; error: null | unknown };
+  createComment: { loading: boolean; data: null | Comment; error: null | unknown };
 };
 
 export type Hashtag = {
@@ -57,7 +58,7 @@ export type PostData = {
 export interface Comment {
   id: number;
   content: string;
-  mentionedUser: string;
+  mentionedUser: string | null;
   createdAt: Date;
   updatedAt: Date;
   UserId: number;
@@ -106,4 +107,11 @@ export type SubmitPostPayload = {
   summary: string;
   license: string;
   PostId: string;
+};
+
+export type CreateCommentPayload = {
+  UserId: number;
+  PostId: number;
+  content: string;
+  mentionedUser: null | string;
 };

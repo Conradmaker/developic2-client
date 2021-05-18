@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
@@ -73,9 +74,11 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
                     <li>
                       <AiOutlineDelete /> 삭제
                     </li>
-                    <li>
-                      <RiEditLine /> 수정
-                    </li>
+                    <Link href={`/edit/content/${postData.id}`}>
+                      <li>
+                        <RiEditLine /> 수정
+                      </li>
+                    </Link>
                   </>
                 ) : (
                   <li>

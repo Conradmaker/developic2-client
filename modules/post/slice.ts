@@ -3,6 +3,7 @@ import { addPicPostAction, removePicPostAction } from '../picstory';
 import { addPostLikeAction, removePostLikeAction } from '../user';
 import { PostState } from './index';
 import {
+  createCommentAction,
   createHashtagAction,
   getPhotoDetailAction,
   getPostDetailAction,
@@ -21,6 +22,7 @@ const initialState: PostState = {
   createHashtag: { loading: false, data: null, error: null },
   getPostDetail: { loading: false, data: null, error: null },
   getPhotoDetail: { loading: false, data: null, error: null },
+  createComment: { loading: false, data: null, error: null },
 };
 
 const postSlice = createSlice({
@@ -133,6 +135,23 @@ const postSlice = createSlice({
         state.createHashtag.loading = false;
         state.createHashtag.data = null;
         state.createHashtag.error = payload;
+      })
+      .addCase(createCommentAction.pending, state => {
+        state.createComment.loading = true;
+        state.createComment.data = null;
+        state.createComment.error = null;
+      })
+      .addCase(createCommentAction.fulfilled, (state, { payload }) => {
+        state.createComment.loading = false;
+        state.createComment.data = payload;
+        state.createComment.error = null;
+        (state.getPostDetail.data as PostData).Comments = (state.getPostDetail
+          .data as PostData).Comments.concat(payload);
+      })
+      .addCase(createCommentAction.rejected, (state, { payload }) => {
+        state.createComment.loading = false;
+        state.createComment.data = null;
+        state.createComment.error = payload;
       })
       .addCase(addPicPostAction.fulfilled, (state, { payload }) => {
         (state.tempPost.data as PostContent).PicStories = ((state.tempPost

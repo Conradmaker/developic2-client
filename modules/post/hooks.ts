@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import {
+  createCommentAction,
   createHashtagAction,
   getPhotoDetailAction,
   getPostDetailAction,
@@ -10,7 +11,7 @@ import {
   searchHashtagAction,
   submitPostAction,
 } from './thunk';
-import { PreSavePayload, SubmitPostPayload } from './types';
+import { CreateCommentPayload, PreSavePayload, SubmitPostPayload } from './types';
 
 export default function usePost() {
   const {
@@ -52,6 +53,9 @@ export default function usePost() {
     dispatch(getPhotoDetailAction(data));
   }, []);
 
+  const createCommentDispatch = useCallback((data: CreateCommentPayload) => {
+    dispatch(createCommentAction(data));
+  }, []);
   return {
     hashtagSearch,
     createHashtag,
@@ -67,5 +71,6 @@ export default function usePost() {
     searchHashtagDispatch,
     getPostDetailDispatch,
     getPhotoDetailDispatch,
+    createCommentDispatch,
   };
 }
