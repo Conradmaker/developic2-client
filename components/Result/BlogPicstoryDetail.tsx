@@ -8,6 +8,7 @@ import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
 import PicstoryEditModal from '../Modal/PicstoryModal';
+import { v4 as uuidv4 } from 'uuid';
 
 const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
   border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
@@ -81,7 +82,7 @@ export default function BlogPicstoryDetailBox({
         <ul className="picstory__recent-img">
           {posts &&
             posts.slice(0, 6).map(picstoryImgItem => (
-              <li className="img__box">
+              <li className="img__box" key={uuidv4()}>
                 <img src={picstoryImgItem.thumbnail} alt="picstory__recent-img" />
               </li>
             ))}
