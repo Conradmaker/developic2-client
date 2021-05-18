@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addPicPostAction, removePicPostAction } from '../picstory';
+import { addPostLikeAction, removePostLikeAction } from '../user';
 import { PostState } from './index';
 import {
   createHashtagAction,
@@ -10,7 +11,7 @@ import {
   searchHashtagAction,
   submitPostAction,
 } from './thunk';
-import { PostContent } from './types';
+import { PostContent, PostData } from './types';
 
 const initialState: PostState = {
   tempPost: { loading: false, data: null, error: null },
@@ -142,6 +143,14 @@ const postSlice = createSlice({
           .data as PostContent).PicStories as number[]).filter(
           picId => picId !== payload.id
         );
+      })
+      .addCase(addPostLikeAction.fulfilled, (state, { payload }) => {
+        (state.getPostDetail.data as PostData).likers = (state.getPostDetail
+          .data as PostData).likers.concat({ id: payload.UserId });
+      })
+      .addCase(removePostLikeAction.fulfilled, (state, { payload }) => {
+        (state.getPostDetail.data as PostData).likers = (state.getPostDetail
+          .data as PostData).likers.filter(liker => liker.id !== payload.UserId);
       });
   },
 });

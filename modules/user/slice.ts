@@ -12,6 +12,8 @@ import {
   updateUserInfoAction,
   updatePasswordAction,
   destroyUserAction,
+  addPostLikeAction,
+  removePostLikeAction,
 } from './thunk';
 import { User, UserState } from './type';
 
@@ -26,6 +28,8 @@ const initialState: UserState = {
   userIntro: { loading: false, data: null, error: null },
   updateUser: { loading: false, data: null, error: null },
   destroyUser: { loading: false, data: null, error: null },
+  addPostLike: { loading: false, data: null, error: null },
+  removePostLike: { loading: false, data: null, error: null },
   userData: null,
 };
 
@@ -228,6 +232,42 @@ const userSlice = createSlice({
         state.destroyUser.loading = false;
         state.destroyUser.data = null;
         state.destroyUser.error = payload;
+      })
+      .addCase(addPostLikeAction.pending, state => {
+        state.addPostLike.loading = true;
+        state.addPostLike.data = null;
+        state.addPostLike.error = null;
+      })
+      .addCase(addPostLikeAction.fulfilled, (state, { payload }) => {
+        state.addPostLike.loading = false;
+        state.addPostLike.data = payload;
+        state.addPostLike.error = null;
+        (state.userData as User).likedPosts = (state.userData as User).likedPosts.concat({
+          id: payload.PostId,
+        });
+      })
+      .addCase(addPostLikeAction.rejected, (state, { payload }) => {
+        state.addPostLike.loading = false;
+        state.addPostLike.data = null;
+        state.addPostLike.error = payload;
+      })
+      .addCase(removePostLikeAction.pending, state => {
+        state.removePostLike.loading = true;
+        state.removePostLike.data = null;
+        state.removePostLike.error = null;
+      })
+      .addCase(removePostLikeAction.fulfilled, (state, { payload }) => {
+        state.removePostLike.loading = false;
+        state.removePostLike.data = payload;
+        state.removePostLike.error = null;
+        (state.userData as User).likedPosts = (state.userData as User).likedPosts.filter(
+          post => post.id !== payload.PostId
+        );
+      })
+      .addCase(removePostLikeAction.rejected, (state, { payload }) => {
+        state.removePostLike.loading = false;
+        state.removePostLike.data = null;
+        state.removePostLike.error = payload;
       });
   },
 });

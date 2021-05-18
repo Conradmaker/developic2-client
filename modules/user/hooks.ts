@@ -2,9 +2,11 @@ import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import {
+  addPostLikeAction,
   destroyUserAction,
   loginAction,
   logOutAction,
+  removePostLikeAction,
   signupAction,
   socialLoginAction,
   socialRequestAction,
@@ -15,6 +17,7 @@ import {
   verificationAction,
 } from './thunk';
 import {
+  LikePostPayload,
   LoginPayload,
   SocialLoginPayload,
   UpdatePasswordPayload,
@@ -80,6 +83,14 @@ export default function useUser() {
     dispatch(destroyUserAction(UserId));
   }, []);
 
+  const addPostLikeDispatch = useCallback((data: LikePostPayload) => {
+    dispatch(addPostLikeAction(data));
+  }, []);
+
+  const removePostLikeDispatch = useCallback((data: LikePostPayload) => {
+    dispatch(removePostLikeAction(data));
+  }, []);
+
   return {
     updateUser,
     login,
@@ -100,5 +111,7 @@ export default function useUser() {
     updateUserInfoDispatch,
     updatePasswordDispatch,
     destroyUserDispatch,
+    addPostLikeDispatch,
+    removePostLikeDispatch,
   };
 }

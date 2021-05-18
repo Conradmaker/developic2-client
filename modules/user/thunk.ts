@@ -11,6 +11,7 @@ import {
   UpdateUserIntroPayload,
   UpdateUserInfoPayload,
   UpdatePasswordPayload,
+  LikePostPayload,
 } from './type';
 
 axios.defaults.withCredentials = true;
@@ -218,6 +219,42 @@ export const updateUserIntroAction = createAsyncThunk<
     const { data } = await axios.patch(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/intro`,
       updatedIntroPayload
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//좋아요 추가
+export const addPostLikeAction = createAsyncThunk<
+  LikePostPayload,
+  LikePostPayload,
+  { rejectValue: MyKnownError }
+>('user/addPostLike', async (addLikePayload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/like/post`,
+      addLikePayload
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//좋아요 취소
+export const removePostLikeAction = createAsyncThunk<
+  LikePostPayload,
+  LikePostPayload,
+  { rejectValue: MyKnownError }
+>('user/removePostLike', async (removeLikePayload, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/like/post`,
+      removeLikePayload
     );
     return data;
   } catch (e) {

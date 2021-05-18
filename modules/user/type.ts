@@ -12,6 +12,10 @@ export interface User {
   introduce: string;
   avatar: string;
   lastLogin: string;
+  subscribers: { id: number }[];
+  writers: { id: number }[];
+  likedPosts: { id: number }[];
+  likedComments: { id: number }[];
 }
 export interface UserIntro {
   id: number;
@@ -30,6 +34,12 @@ export type UserState = {
   userIntro: { loading: boolean; data: null | UserIntro; error: null | unknown };
   updateUser: { loading: boolean; data: null | unknown; error: null | unknown };
   destroyUser: { loading: boolean; data: null | unknown; error: null | unknown };
+  addPostLike: { loading: boolean; data: null | LikePostPayload; error: null | unknown };
+  removePostLike: {
+    loading: boolean;
+    data: null | LikePostPayload;
+    error: null | unknown;
+  };
   userData: User | null;
 };
 
@@ -69,6 +79,10 @@ export type UpdatePasswordPayload = {
   UserId: number;
   currentPassword: string;
   newPassword: string;
+};
+export type LikePostPayload = {
+  UserId: number;
+  PostId: number;
 };
 //성공시 DataType
 export type LoginResponse = User;

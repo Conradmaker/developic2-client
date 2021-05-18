@@ -272,10 +272,12 @@ export const BlogUserProfile = styled.div`
   }
 `;
 export const PostDetailContainer = styled.div`
-  width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   margin-bottom: 100px;
   .blog__head {
+    width: 900px;
+    margin: 0 auto;
     color: ${({ theme }) => theme.textColor.initial};
     font-family: 'Noto Serif KR';
     padding-top: 150px;
@@ -327,7 +329,7 @@ export const PostDetailContainer = styled.div`
         }
         ul {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-end;
           align-items: center;
           margin-top: 20px;
           font-size: ${({ theme }) => theme.fontSize.base};
@@ -349,7 +351,10 @@ export const PostDetailContainer = styled.div`
   }
   .blog__posting {
     margin-top: 35px;
+    position: relative;
     & > img {
+      display: block;
+      margin: 0 auto;
       width: 900px;
       height: 450px;
       object-fit: cover;

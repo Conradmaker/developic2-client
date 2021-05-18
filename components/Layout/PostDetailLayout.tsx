@@ -1,9 +1,13 @@
-import React from 'react';
+import dayjs from 'dayjs';
+import { useRouter } from 'next/router';
+import React, { useCallback } from 'react';
+import { AiOutlineDelete } from 'react-icons/ai';
 import { BsExclamationTriangle } from 'react-icons/bs';
-import { IoMdHeartEmpty, IoMdShare } from 'react-icons/io';
+import { IoMdHeart, IoMdHeartEmpty, IoMdShare } from 'react-icons/io';
 import { RiEditLine } from 'react-icons/ri';
 import { PostData } from '../../modules/post';
 import useUser from '../../modules/user/hooks';
+import { LikeBtn } from '../Button/FloatingBtn';
 import HashTag from '../Button/HashTag';
 import PostContentViewer from '../Editor/PostContentViewer';
 import { PostDetailContainer } from './styles';
@@ -12,7 +16,31 @@ type PostDetaulLayout = {
   postData: PostData;
 };
 export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.Element {
-  const { userData } = useUser();
+  const { userData, addPostLikeDispatch, removePostLikeDispatch } = useUser();
+  const router = useRouter();
+  const onCopy = () => {
+    const tempElem = document.createElement('textarea');
+    document.body.appendChild(tempElem);
+    console.log(router.asPath);
+    tempElem.value = `${process.env.NEXT_PUBLIC_CLIENT_HOST}${router.asPath}`;
+    tempElem.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempElem);
+    if (window) {
+      alert('클립보드에 복사되었습니다.');
+    }
+  };
+  const isLike = useCallback(() => {
+    if (!userData) return false;
+    return (
+      userData.likedPosts.findIndex(likedPost => likedPost.id === postData.id) !== -1
+    );
+  }, [userData?.likedPosts]);
+  const onToggleLike = useCallback(() => {
+    if (!userData) return alert('로그인을 먼저 해주세요.');
+    const payload = { UserId: userData.id, PostId: postData.id };
+    isLike() ? removePostLikeDispatch(payload) : addPostLikeDispatch(payload);
+  }, [userData]);
   return (
     <PostDetailContainer>
       <section className="blog__head">
@@ -29,29 +57,31 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
             ))}
           </ul>
           <div className="post__menu">
-            <p>{postData.updatedAt} 작성.</p>
+            <p>{dayjs(postData.updatedAt).format('YYYY년 MM월 DD일')} 작성.</p>
+
             <ul>
               <li>
-                {/* <IoMdHeart /> */}
-                <IoMdHeartEmpty /> 좋아요
+                {isLike() ? <IoMdHeart /> : <IoMdHeartEmpty />} {postData.likers.length}
               </li>
-              <li>
+              <li onClick={onCopy}>
                 <IoMdShare /> 공유
               </li>
-              <li>
-                <BsExclamationTriangle /> 신고
-              </li>
+
               {userData ? (
                 userData.id === postData.UserId ? (
                   <>
                     <li>
-                      <IoMdShare /> 삭제
+                      <AiOutlineDelete /> 삭제
                     </li>
                     <li>
                       <RiEditLine /> 수정
                     </li>
                   </>
-                ) : null
+                ) : (
+                  <li>
+                    <BsExclamationTriangle /> 신고
+                  </li>
+                )
               ) : null}
             </ul>
           </div>
@@ -60,6 +90,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
       <section className="blog__posting">
         <img src={postData.thumbnail} alt="thumbnail" />
         <PostContentViewer content={postData.content} />
+        <LikeBtn isLike={isLike} onToggleLike={onToggleLike} />
       </section>
     </PostDetailContainer>
   );

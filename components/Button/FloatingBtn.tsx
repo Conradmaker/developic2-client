@@ -1,7 +1,8 @@
 import React from 'react';
+import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io';
 import { RiSunFill, RiMoonClearFill } from 'react-icons/ri';
 import { useThemeState, useToggleTheme } from '../../hooks/ThemeContext';
-import { DarkModeBox, FloatingButtonBox } from './styles';
+import { DarkModeBox, FloatingButtonBox, LikeFltBox } from './styles';
 
 export function DarkModeBtn(): JSX.Element {
   const currentTheme = useThemeState();
@@ -10,6 +11,28 @@ export function DarkModeBtn(): JSX.Element {
     <DarkModeBox onClick={toggleTheme}>
       {currentTheme === 'light' ? <RiSunFill /> : <RiMoonClearFill />}
     </DarkModeBox>
+  );
+}
+
+type LikeBtnPropsType = {
+  isLike: () => boolean;
+  onToggleLike: () => void;
+};
+export function LikeBtn({ isLike, onToggleLike }: LikeBtnPropsType): JSX.Element {
+  return (
+    <LikeFltBox onClick={onToggleLike}>
+      {isLike() ? (
+        <>
+          <IoMdHeart />
+          <span>unlike</span>
+        </>
+      ) : (
+        <>
+          <IoMdHeartEmpty />
+          <span>like</span>
+        </>
+      )}
+    </LikeFltBox>
   );
 }
 

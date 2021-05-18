@@ -51,7 +51,33 @@ export const DarkModeBox = styled(FloatingButtonBox)`
     animation: ${slideUp} 0.3s;
   }
 `;
-
+export const LikeFltBox = styled(FloatingButtonBox)`
+  cursor: pointer;
+  height: 60px;
+  width: 40px;
+  border-radius: 30px;
+  font-size: 20px;
+  position: sticky;
+  padding: 0;
+  bottom: 30px;
+  left: 3000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: 1px solid ${({ theme }) => theme.grayScale[4]};
+  color: ${({ theme }) => theme.grayScale[1]};
+  svg {
+    animation: ${slideUp} 0.3s;
+  }
+  span {
+    font-size: 11px;
+  }
+  &:hover {
+    background: ${({ theme }) => theme.grayScale[4]};
+  }
+`;
 export const SquareBtnBox = styled(Btn)`
   display: inline-block;
   padding: 3px 20px;
