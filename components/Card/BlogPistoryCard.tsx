@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
-import { BlogPicstory, Post } from '../../modules/blog';
+import { BlogPicstory, BlogPost } from '../../modules/blog';
 import { countSum } from '../../utils/utils';
 import { BlogPicstoryCardBox } from './styles';
 
@@ -18,10 +18,10 @@ export default function BlogPistoryCard({
 
   const posts = picstoryData.Posts;
 
-  const likeCounts = posts.map((post: Post) => post.likers?.length);
+  const likeCounts = posts.map((post: BlogPost) => post.likers?.length);
   const likeCountSum = countSum(likeCounts as number[]);
 
-  const hits = posts.map((post: Post) => post.hits);
+  const hits = posts.map((post: BlogPost) => post.hits);
   const viewCountSum = countSum(hits);
 
   return (
@@ -48,7 +48,7 @@ export default function BlogPistoryCard({
           <p>{picstoryData.description}</p>
           <ul className="picstory__recent-img">
             {posts &&
-              posts.map((picstoryImgItem: { thumbnail: string }) => (
+              posts.slice(0, 6).map((picstoryImgItem: { thumbnail: string }) => (
                 <li className="img__box">
                   <img src={picstoryImgItem.thumbnail} alt="picstory-thumbnail" />
                 </li>

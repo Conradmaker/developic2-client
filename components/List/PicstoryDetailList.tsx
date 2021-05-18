@@ -1,6 +1,6 @@
 import React from 'react';
 import Masonry from 'react-masonry-css';
-import { BlogPicstory, blogPicstoryDetailData, BlogPost } from '../../modules/blog';
+import { blogPicstoryDetailData, BlogPost } from '../../modules/blog';
 import BlogPostCard from '../Card/BlogPostCard';
 import { BlogPostListContainer } from './styles';
 

@@ -43,7 +43,7 @@ export const loadBlogPostListAction = createAsyncThunk<
 >('blog/loadBlogPostList', async (LoadBlogPostListPayload, { rejectWithValue }) => {
   try {
     const { data } = await axios.get<LoadBlogPostListResponse>(
-      `/blog/post/${LoadBlogPostListPayload.userId}?limit=12`
+      `/blog/post/${LoadBlogPostListPayload.userId}?limit=10`
     );
     return data;
   } catch (e) {
@@ -60,7 +60,7 @@ export const loadMoreBlogPostListAction = createAsyncThunk<
 >('blog/loadMoreBlogPostList', async (LoadBlogPostListPayload, { rejectWithValue }) => {
   try {
     const { data } = await axios.get<LoadBlogPostListResponse>(
-      `/blog/post/${LoadBlogPostListPayload.userId}?limit=12&offset=${LoadBlogPostListPayload.offset}`
+      `/blog/post/${LoadBlogPostListPayload.userId}?limit=10&offset=${LoadBlogPostListPayload.offset}`
     );
     return data;
   } catch (e) {
@@ -77,7 +77,7 @@ export const loadBlogPicstoryListAction = createAsyncThunk<
 >('blog/loadBlogPicstoryList', async (userId, { rejectWithValue }) => {
   try {
     const { data } = await axios.get<LoadBlogPicstoryListResponse>(
-      `/blog/picstory/${userId}?limit=12`
+      `/blog/picstory/${userId}?limit=10`
     );
     return data;
   } catch (e) {
@@ -94,7 +94,7 @@ export const loadMoreBlogPicstoryListAction = createAsyncThunk<
 >('blog/loadMoreBlogPicstoryList', async (LoadBlogListPayload, { rejectWithValue }) => {
   try {
     const { data } = await axios.get<LoadBlogPicstoryListResponse>(
-      `/blog/picstory/${LoadBlogListPayload.userId}?limit=12&offset=${LoadBlogListPayload.offset}`
+      `/blog/picstory/${LoadBlogListPayload.userId}?limit=10&offset=${LoadBlogListPayload.offset}`
     );
     return data;
   } catch (e) {

@@ -33,7 +33,7 @@ export default function Picstory(): JSX.Element {
     ([{ isIntersecting, target }], observer) => {
       if (
         blogPicstoryListData &&
-        blogPicstoryListData.length >= 12 &&
+        blogPicstoryListData.length >= 10 &&
         userId &&
         isIntersecting &&
         !loadBlogPicstoryList.loading &&

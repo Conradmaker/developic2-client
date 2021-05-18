@@ -34,7 +34,7 @@ export default function BlogPosts(): JSX.Element {
     ([{ isIntersecting, target }], observer) => {
       if (
         blogPostListData &&
-        blogPostListData.length >= 12 &&
+        blogPostListData.length >= 10 &&
         userId &&
         isIntersecting &&
         !loadBlogPostList.loading &&

@@ -80,7 +80,7 @@ export default function BlogPicstoryDetailBox({
 
         <ul className="picstory__recent-img">
           {posts &&
-            posts.map((picstoryImgItem: { thumbnail: string | undefined }) => (
+            posts.slice(0, 6).map(picstoryImgItem => (
               <li className="img__box">
                 <img src={picstoryImgItem.thumbnail} alt="picstory__recent-img" />
               </li>

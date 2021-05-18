@@ -53,7 +53,7 @@ export default function BlogPostCard({ data }: BlogPostCardPropsType): JSX.Eleme
                 <span>{data.hits}</span>
               </div>
             </div>
-            <div className="post__date">{formatDate(`${data.updatedAt}`)}</div>
+            <div className="post__date">{formatDate(`${data.createdAt}`)}</div>
           </div>
         </article>
       </BlogPostCardBox>
