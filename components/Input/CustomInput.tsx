@@ -4,9 +4,10 @@ import { CustomInputBox } from './styles';
 type CustomInputPropsType = {
   title: string;
   value: string;
-  onChange: (e: React.ChangeEvent) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   width?: number;
   type?: string;
+  placeholder?: string;
 };
 export default function CustomInput({
   title,
@@ -14,13 +15,14 @@ export default function CustomInput({
   value = '',
   onChange,
   type = 'text',
+  ...rest
 }: CustomInputPropsType): JSX.Element {
   const inputEl = useRef<null | HTMLInputElement>(null);
   return (
     <CustomInputBox width={width}>
       <div className="line"></div>
       {title && <span onClick={() => inputEl.current?.focus()}>{title}</span>}
-      <input type={type} ref={inputEl} value={value} onChange={onChange} />
+      <input type={type} ref={inputEl} value={value} onChange={onChange} {...rest} />
     </CustomInputBox>
   );
 }

@@ -3,6 +3,9 @@ import { MentionsInput } from 'react-mentions';
 
 export const ToastEditorStyle = styled.div`
   z-index: 0;
+  .tui-editor-contents {
+    font-family: 'Noto Serif KR';
+  }
   .btn_group {
     margin: 30px 0 60px 0;
     width: 100%;

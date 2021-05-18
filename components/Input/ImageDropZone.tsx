@@ -8,12 +8,14 @@ type ImageDropZonePropsType = {
   height?: number;
   setImage: React.Dispatch<React.SetStateAction<string>>;
   image: string;
+  axiosPath?: string;
 };
 export default function ImageDropZone({
   image,
   setImage,
   width,
   height,
+  axiosPath = 'thumbnail',
 }: ImageDropZonePropsType): JSX.Element {
   const onDrop = (files: File[]) => {
     if (files.length > 1) {
@@ -22,8 +24,9 @@ export default function ImageDropZone({
     const formData = new FormData();
     formData.append('image', files[0]);
     axios
-      .post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/thumbnail`, formData)
+      .post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/${axiosPath}`, formData)
       .then(res => {
+        console.log(res.data);
         setImage(res.data);
       });
   };
