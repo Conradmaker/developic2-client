@@ -11,6 +11,8 @@ export type PostState = {
   getPostDetail: { loading: boolean; data: null | PostData; error: null | unknown };
   getPhotoDetail: { loading: boolean; data: null | PhotoDetail; error: null | unknown };
   createComment: { loading: boolean; data: null | Comment; error: null | unknown };
+  updateComment: { loading: boolean; data: null | Comment; error: null | unknown };
+  removeComment: { loading: boolean; data: null | Comment; error: null | unknown };
 };
 
 export type Hashtag = {
@@ -112,6 +114,12 @@ export type SubmitPostPayload = {
 export type CreateCommentPayload = {
   UserId: number;
   PostId: number;
+  content: string;
+  mentionedUser: null | string;
+};
+
+export type UpdateCommentPayload = {
+  CommentId: number;
   content: string;
   mentionedUser: null | string;
 };

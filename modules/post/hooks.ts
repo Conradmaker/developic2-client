@@ -8,10 +8,17 @@ import {
   getPostDetailAction,
   getTempPostAction,
   postPreSaveAction,
+  removeCommentAction,
   searchHashtagAction,
   submitPostAction,
+  updateCommentAction,
 } from './thunk';
-import { CreateCommentPayload, PreSavePayload, SubmitPostPayload } from './types';
+import {
+  CreateCommentPayload,
+  PreSavePayload,
+  SubmitPostPayload,
+  UpdateCommentPayload,
+} from './types';
 
 export default function usePost() {
   const {
@@ -56,6 +63,15 @@ export default function usePost() {
   const createCommentDispatch = useCallback((data: CreateCommentPayload) => {
     dispatch(createCommentAction(data));
   }, []);
+
+  const updateCommentDispatch = useCallback((data: UpdateCommentPayload) => {
+    dispatch(updateCommentAction(data));
+  }, []);
+
+  const removeCommentDispatch = useCallback((data: number) => {
+    dispatch(removeCommentAction(data));
+  }, []);
+
   return {
     hashtagSearch,
     createHashtag,
@@ -72,5 +88,7 @@ export default function usePost() {
     getPostDetailDispatch,
     getPhotoDetailDispatch,
     createCommentDispatch,
+    updateCommentDispatch,
+    removeCommentDispatch,
   };
 }

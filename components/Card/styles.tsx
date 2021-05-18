@@ -1,4 +1,4 @@
-import { css, keyframes } from '@emotion/react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const PopularPostCardBox = styled.div`
@@ -672,9 +672,26 @@ export const BlogCommentCardBox = styled.li`
       }
     }
   }
-  & > article {
+  & > p {
     margin-top: 15px;
     line-height: 25px;
+  }
+  & > .edit__form {
+    textarea {
+      font-family: 'san-serif';
+      margin-top: 15px;
+      width: 100%;
+      height: 40px;
+      resize: none;
+      outline: none;
+      border: 1px solid ${({ theme }) => theme.grayScale[1]};
+    }
+    & > span {
+      display: block;
+      text-align: right;
+      font-size: 12px;
+      color: ${({ theme }) => theme.grayScale[1]};
+    }
   }
 `;
 
@@ -861,52 +878,5 @@ export const BlogPostCardBox = styled.li`
       .post__date {
       }
     }
-  /* }
-    .post__info {
-      font-family: 'Montserrat';
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 1.786em;
-      font-size: ${({ theme }) => theme.fontSize.medium};
-      .post__stats {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        div:nth-of-type(1) {
-          span {
-            margin-right: 1.2em;
-          }
-        }
-        div {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          svg {
-            color: #fff;
-            margin-right: 0.25em;
-            font-size: ${({ theme }) => theme.fontSize.lg};
-          }
-        }
-      }
-      .post__date:before {
-        content: '';
-        display: block;
-        margin: 0 auto;
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 110px;
-        height: 1px;
-        margin: 15px 0;
-        text-align: center;
-        background-color: #fff;
-      }
-      .post__date {
-        text-align: center;
-      }
-    }
-  } */
+  }
 `;

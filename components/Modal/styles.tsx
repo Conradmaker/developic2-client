@@ -144,7 +144,7 @@ export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
   min-height: 300px;
   font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
-  form {
+  & > .modal__content {
     padding: 20px 0 20px 0;
     & > span {
       font-size: 18px;
@@ -181,7 +181,7 @@ export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
   ${props =>
     props.valid ||
     css`
-      form > .btn__group > button:nth-child(2) {
+      .modal__content > .btn__group > button:nth-child(2) {
         background-color: #c9c4c4;
         cursor: not-allowed;
       }

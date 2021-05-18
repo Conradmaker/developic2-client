@@ -8,6 +8,7 @@ import {
   PreSavePayload,
   SubmitPostPayload,
   Comment,
+  UpdateCommentPayload,
 } from './types';
 
 axios.defaults.withCredentials = true;
@@ -147,6 +148,41 @@ export const createCommentAction = createAsyncThunk<
     const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment`,
       commentData
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//댓글 수정
+export const updateCommentAction = createAsyncThunk<
+  Comment,
+  UpdateCommentPayload,
+  { rejectValue: MyKnownError }
+>('post/updateComment', async (commentData, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.patch(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment`,
+      commentData
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
+//댓글 삭제
+export const removeCommentAction = createAsyncThunk<
+  Comment,
+  number,
+  { rejectValue: MyKnownError }
+>('post/removeComment', async (commentId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.delete(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment/${commentId}`
     );
     return data;
   } catch (e) {

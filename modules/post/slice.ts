@@ -9,8 +9,10 @@ import {
   getPostDetailAction,
   getTempPostAction,
   postPreSaveAction,
+  removeCommentAction,
   searchHashtagAction,
   submitPostAction,
+  updateCommentAction,
 } from './thunk';
 import { PostContent, PostData } from './types';
 
@@ -23,6 +25,8 @@ const initialState: PostState = {
   getPostDetail: { loading: false, data: null, error: null },
   getPhotoDetail: { loading: false, data: null, error: null },
   createComment: { loading: false, data: null, error: null },
+  updateComment: { loading: false, data: null, error: null },
+  removeComment: { loading: false, data: null, error: null },
 };
 
 const postSlice = createSlice({
@@ -152,6 +156,42 @@ const postSlice = createSlice({
         state.createComment.loading = false;
         state.createComment.data = null;
         state.createComment.error = payload;
+      })
+      .addCase(updateCommentAction.pending, state => {
+        state.updateComment.loading = true;
+        state.updateComment.data = null;
+        state.updateComment.error = null;
+      })
+      .addCase(updateCommentAction.fulfilled, (state, { payload }) => {
+        const commentIndex = (state.getPostDetail.data as PostData).Comments.findIndex(
+          comm => comm.id === payload.id
+        );
+        state.updateComment.loading = false;
+        state.updateComment.data = payload;
+        state.updateComment.error = null;
+        (state.getPostDetail.data as PostData).Comments[commentIndex] = payload;
+      })
+      .addCase(updateCommentAction.rejected, (state, { payload }) => {
+        state.updateComment.loading = false;
+        state.updateComment.data = null;
+        state.updateComment.error = payload;
+      })
+      .addCase(removeCommentAction.pending, state => {
+        state.removeComment.loading = true;
+        state.removeComment.data = null;
+        state.removeComment.error = null;
+      })
+      .addCase(removeCommentAction.fulfilled, (state, { payload }) => {
+        state.removeComment.loading = false;
+        state.removeComment.data = payload;
+        state.removeComment.error = null;
+        (state.getPostDetail.data as PostData).Comments = (state.getPostDetail
+          .data as PostData).Comments.filter(comm => comm.id !== payload.id);
+      })
+      .addCase(removeCommentAction.rejected, (state, { payload }) => {
+        state.removeComment.loading = false;
+        state.removeComment.data = null;
+        state.removeComment.error = payload;
       })
       .addCase(addPicPostAction.fulfilled, (state, { payload }) => {
         (state.tempPost.data as PostContent).PicStories = ((state.tempPost

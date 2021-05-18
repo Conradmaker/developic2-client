@@ -30,7 +30,7 @@ export default function ConfirmRemoveModal({
     <ModalLayout onClick={onClickBg} className="bg">
       <ConfirmRemoveModalBox valid={validation === '삭제'}>
         <TitleLabel title={title} desc="Confirm Remove" />
-        <form>
+        <div className="modal__content">
           <span>
             <br />
             {description}
@@ -47,7 +47,7 @@ export default function ConfirmRemoveModal({
               삭제
             </SquareBtn>
           </div>
-        </form>
+        </div>
       </ConfirmRemoveModalBox>
     </ModalLayout>
   );
