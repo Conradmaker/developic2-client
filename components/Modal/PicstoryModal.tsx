@@ -57,6 +57,7 @@ export default function PicstoryModal({
     addPicPostDispatch,
     removePicPostDispatch,
   } = usePicstory();
+  console.log(picstoryList, 'piclist');
   const [usersPicstoryList, setUsersPicstoryList] = useState<Picstory[]>([]);
   const [title, onChangeTitle, setTitle] = useInput('');
   const [desc, onChangeDesc, setDesc] = useInput('');
@@ -68,12 +69,8 @@ export default function PicstoryModal({
     const isExist = picstoryList.findIndex(picid => picid === id) !== -1;
     if (!isExist) {
       addPicPostDispatch({ PostId: 1, PicstoryId: id });
-      // const res = await removePicstoryAPI({ PostId: 1, PicstoryId: id });
-      // setPicstoryList(picstoryList.filter(picid => picid !== res.id));
     } else {
       removePicPostDispatch({ PostId: 1, PicstoryId: id });
-      // const res = await addPicstoryAPI({ PostId: 1, PicstoryId: id });
-      // setPicstoryList([...picstoryList, res.id]);
     }
   };
   const destroyPicstory = (id: number) => {
@@ -120,15 +117,16 @@ export default function PicstoryModal({
           <TitleLabel title="픽스토리" desc="Picstory" />
           <h4>내 픽스토리</h4>
           <ul>
-            {usersPicstoryList.map(picstory => (
-              <PicstoryListItem
-                key={picstory.id}
-                checked={picstoryList.findIndex(pic => picstory.id === pic) !== -1}
-                addPicstory={addPicstory}
-                picstoryData={picstory}
-                removePicstory={destroyPicstory}
-              />
-            ))}
+            {usersPicstoryList &&
+              usersPicstoryList.map(picstory => (
+                <PicstoryListItem
+                  key={picstory.id}
+                  checked={picstoryList.findIndex(pic => picstory.id === pic) !== -1}
+                  addPicstory={addPicstory}
+                  picstoryData={picstory}
+                  removePicstory={destroyPicstory}
+                />
+              ))}
           </ul>
         </div>
         <div className="modal__right">

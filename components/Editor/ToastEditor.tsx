@@ -85,7 +85,7 @@ export default function ToastEditor({
   }, [content]);
 
   useEffect(() => {
-    if (preSavePost.data?.postId) {
+    if (preSavePost.data && router.query.postId === 'new') {
       router.replace(`/edit/info/${preSavePost.data.postId}`);
     }
   }, [preSavePost.data]);

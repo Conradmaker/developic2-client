@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { copyRightData } from '../../../utils/data';
-import { postSubmit } from '../../../utils/fakeApi';
 import styled from '@emotion/styled';
 import ImageDropZone from '../../../components/Input/ImageDropZone';
 import SquareBtn from '../../../components/Button/SquareBtn';
@@ -69,7 +68,7 @@ export const InfoPostContainer = styled.div`
 `;
 
 export default function InfoPost(): JSX.Element {
-  const { tempPost, submitPostDispatch, submitPost } = usePost();
+  const { tempPost, submitPostDispatch, getTempPostDispatch, submitPost } = usePost();
   const { userData } = useUser();
 
   const router = useRouter();
@@ -103,11 +102,15 @@ export default function InfoPost(): JSX.Element {
 
   useEffect(() => {
     if (!userData) return;
-    if (submitPost.data) {
+    if (submitPost.data && submitPost.data.id === +(router.query.postId as string)) {
+      console.log(submitPost.data.id, router.query.postId);
       router.replace(`/${userData.id}/post`);
     }
-  }, [submitPost.data]);
-
+  }, [submitPost.data, router.query]);
+  useEffect(() => {
+    getTempPostDispatch(router.query.postId as string);
+  }, [router.query]);
+  if (!tempPost.data) return <></>;
   return (
     <Layout>
       <InfoPostContainer>
@@ -171,7 +174,7 @@ export default function InfoPost(): JSX.Element {
       {picstoryOpen && (
         <PicstoryModal
           onClose={() => setPicstoryOpen(false)}
-          picstoryList={tempPost.data?.PicStories as number[]}
+          picstoryList={tempPost.data.PicStories as number[]}
         />
       )}
     </Layout>

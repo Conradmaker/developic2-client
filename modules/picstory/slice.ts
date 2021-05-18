@@ -47,6 +47,8 @@ const picstorySlice = createSlice({
         state.createPicstory.loading = false;
         state.createPicstory.data = payload;
         state.createPicstory.error = null;
+        (state.getPicstoryList.data as Picstory[]) = (state.getPicstoryList
+          .data as Picstory[]).concat(payload);
       })
       .addCase(createPicstoryAction.rejected, (state, { payload }) => {
         state.createPicstory.loading = false;

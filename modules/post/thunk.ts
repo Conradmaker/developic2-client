@@ -32,7 +32,7 @@ export const postPreSaveAction = createAsyncThunk<
 });
 
 export const submitPostAction = createAsyncThunk<
-  unknown,
+  { id: number },
   SubmitPostPayload,
   { rejectValue: MyKnownError }
 >('post/submit', async (postData, { rejectWithValue }) => {
