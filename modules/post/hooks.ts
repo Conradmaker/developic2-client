@@ -9,6 +9,7 @@ import {
   getTempPostAction,
   postPreSaveAction,
   removeCommentAction,
+  removePostAction,
   searchHashtagAction,
   submitPostAction,
   updateCommentAction,
@@ -25,6 +26,7 @@ export default function usePost() {
     tempPost,
     preSavePost,
     submitPost,
+    removePost,
     hashtagSearch,
     createHashtag,
     getPostDetail,
@@ -38,6 +40,10 @@ export default function usePost() {
 
   const submitPostDispatch = useCallback((data: SubmitPostPayload) => {
     dispatch(submitPostAction(data));
+  }, []);
+
+  const removePostDispatch = useCallback((data: number) => {
+    dispatch(removePostAction(data));
   }, []);
 
   const getTempPostDispatch = useCallback((data: string) => {
@@ -80,9 +86,11 @@ export default function usePost() {
     tempPost,
     getPostDetail,
     getPhotoDetail,
+    removePost,
     postPreSaveDispatch,
     getTempPostDispatch,
     submitPostDispatch,
+    removePostDispatch,
     createHashtagDispatch,
     searchHashtagDispatch,
     getPostDetailDispatch,

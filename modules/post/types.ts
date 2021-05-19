@@ -6,6 +6,7 @@ export type PostState = {
     error: null | unknown;
   };
   submitPost: { loading: boolean; data: null | { id: number }; error: null | unknown };
+  removePost: { loading: boolean; data: null | PostData; error: null | unknown };
   hashtagSearch: { loading: boolean; data: null | Hashtag[]; error: null | unknown };
   createHashtag: { loading: boolean; data: null | Hashtag; error: null | unknown };
   getPostDetail: { loading: boolean; data: null | PostData; error: null | unknown };

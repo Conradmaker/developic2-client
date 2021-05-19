@@ -10,6 +10,7 @@ import {
   getTempPostAction,
   postPreSaveAction,
   removeCommentAction,
+  removePostAction,
   searchHashtagAction,
   submitPostAction,
   updateCommentAction,
@@ -20,6 +21,7 @@ const initialState: PostState = {
   tempPost: { loading: false, data: null, error: null },
   preSavePost: { loading: false, data: null, error: null },
   submitPost: { loading: false, data: null, error: null },
+  removePost: { loading: false, data: null, error: null },
   hashtagSearch: { loading: false, data: null, error: null },
   createHashtag: { loading: false, data: null, error: null },
   getPostDetail: { loading: false, data: null, error: null },
@@ -79,6 +81,21 @@ const postSlice = createSlice({
         state.submitPost.loading = false;
         state.submitPost.data = null;
         state.submitPost.error = payload;
+      })
+      .addCase(removePostAction.pending, state => {
+        state.removePost.loading = true;
+        state.removePost.data = null;
+        state.removePost.error = null;
+      })
+      .addCase(removePostAction.fulfilled, (state, { payload }) => {
+        state.removePost.loading = false;
+        state.removePost.data = payload;
+        state.removePost.error = null;
+      })
+      .addCase(removePostAction.rejected, (state, { payload }) => {
+        state.removePost.loading = false;
+        state.removePost.data = null;
+        state.removePost.error = payload;
       })
       .addCase(getPostDetailAction.pending, state => {
         state.getPostDetail.loading = true;

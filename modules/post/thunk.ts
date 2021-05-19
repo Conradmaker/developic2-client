@@ -67,6 +67,23 @@ export const getTempPostAction = createAsyncThunk<
   }
 });
 
+//게시글 삭제
+export const removePostAction = createAsyncThunk<
+  PostData,
+  number,
+  { rejectValue: MyKnownError }
+>('post/removePost', async (postId, { rejectWithValue }) => {
+  try {
+    const { data } = await axios.delete(
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/${postId}`
+    );
+    return data;
+  } catch (e) {
+    console.error(e);
+    return rejectWithValue({ message: e.response.data });
+  }
+});
+
 //해시태그추가
 export const createHashtagAction = createAsyncThunk<
   Hashtag,
