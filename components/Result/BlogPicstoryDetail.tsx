@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
 import React, { useCallback, useState } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
-import { BlogPicstory, blogPicstoryDetailData, Post } from '../../modules/blog';
-import { PicstoryDataType } from '../../utils/data';
+import { blogPicstoryDetailData, BlogPost } from '../../modules/blog';
 import { countSum } from '../../utils/utils';
 import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
 import PicstoryEditModal from '../Modal/PicstoryModal';
-import { v4 as uuidv4 } from 'uuid';
 
 const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
   border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
@@ -37,10 +35,10 @@ export default function BlogPicstoryDetailBox({
 
   const posts = picstoryDetailData.Posts;
 
-  const likeCounts = posts.map((post: Post) => post.likeCount);
+  const likeCounts = posts.map((post: BlogPost) => post.likeCount);
   const likeCountSum = countSum(likeCounts as number[]);
 
-  const hits = posts.map((post: Post) => post.hits);
+  const hits = posts.map((post: BlogPost) => post.hits);
   const viewCountSum = countSum(hits);
 
   const onToggleEditModal = useCallback(() => {
@@ -82,7 +80,7 @@ export default function BlogPicstoryDetailBox({
         <ul className="picstory__recent-img">
           {posts &&
             posts.slice(0, 6).map(picstoryImgItem => (
-              <li className="img__box" key={uuidv4()}>
+              <li className="img__box" key={picstoryImgItem.id}>
                 <img src={picstoryImgItem.thumbnail} alt="picstory__recent-img" />
               </li>
             ))}

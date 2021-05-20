@@ -5,7 +5,6 @@ import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
 import { countSum } from '../../utils/utils';
 import { BlogPicstoryCardBox } from './styles';
-import { v4 as uuidv4 } from 'uuid';
 
 type PicstoryCardPropsType = {
   picstoryData: BlogPicstory;
@@ -49,8 +48,8 @@ export default function BlogPistoryCard({
           <p>{picstoryData.description}</p>
           <ul className="picstory__recent-img">
             {posts &&
-              posts.slice(0, 6).map((picstoryImgItem: { thumbnail: string }) => (
-                <li className="img__box" key={uuidv4()}>
+              posts.slice(0, 6).map(picstoryImgItem => (
+                <li className="img__box" key={picstoryImgItem.id}>
                   <img src={picstoryImgItem.thumbnail} alt="picstory-thumbnail" />
                 </li>
               ))}
