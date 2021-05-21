@@ -41,7 +41,7 @@ const SignupContainer = styled.div`
       article {
         display: flex;
         justify-content: center;
-        align-content: center;
+        align-items: center;
         div {
           width: auto;
         }

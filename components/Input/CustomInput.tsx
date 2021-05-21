@@ -8,6 +8,7 @@ type CustomInputPropsType = {
   width?: number;
   name?: string;
   type?: string;
+  placeholder?: string;
 };
 export default function CustomInput({
   title,
@@ -16,13 +17,21 @@ export default function CustomInput({
   name,
   onChange,
   type = 'text',
+  placeholder,
 }: CustomInputPropsType): JSX.Element {
   const inputEl = useRef<null | HTMLInputElement>(null);
   return (
     <CustomInputBox width={width}>
       <div className="line"></div>
       {title && <span onClick={() => inputEl.current?.focus()}>{title}</span>}
-      <input type={type} ref={inputEl} value={value} onChange={onChange} name={name} />
+      <input
+        type={type}
+        ref={inputEl}
+        value={value}
+        onChange={onChange}
+        name={name}
+        placeholder={placeholder}
+      />
     </CustomInputBox>
   );
 }

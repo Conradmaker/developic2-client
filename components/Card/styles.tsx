@@ -533,6 +533,7 @@ export const PhotoBinderCardBox = styled.div`
 `;
 
 export const ArchiveItemContainer = styled.li<{
+  length: number | undefined;
   posterId: number;
   currentTheme: null | string;
 }>`
@@ -542,6 +543,17 @@ export const ArchiveItemContainer = styled.li<{
   display: flex;
   align-items: center;
   ${props =>
+    props.length &&
+    props.length % 2 === 0 &&
+    props.posterId % 2 !== 0 &&
+    css`
+      & {
+        flex-direction: row-reverse;
+      }
+    `};
+  ${props =>
+    props.length &&
+    props.length % 2 !== 0 &&
     props.posterId % 2 === 0 &&
     css`
       & {
@@ -594,9 +606,9 @@ export const ArchiveItemContainer = styled.li<{
     }
     h2 {
       font-weight: 500;
-      font-size: ${({ theme }) => theme.fontSize.xxl};
+      font-size: ${({ theme }) => theme.fontSize.xxxl};
       color: ${({ theme }) => theme.textColor.initial};
-      margin-top: 28px;
+      margin-top: 35px;
       line-height: 33px;
       cursor: pointer;
       &:hover {
@@ -604,7 +616,7 @@ export const ArchiveItemContainer = styled.li<{
       }
     }
     h2 + p {
-      margin-top: 28px;
+      margin-top: 35px;
     }
     p {
       font-size: ${({ theme }) => theme.fontSize.lg};

@@ -12,6 +12,7 @@ export const CustomInputBox = styled.div<{ width?: number }>`
   color: ${({ theme }) => theme.textColor.initial};
   span {
     width: 100px;
+    font-family: 'Noto Serif KR', serif;
   }
   input {
     border: none;
@@ -23,6 +24,7 @@ export const CustomInputBox = styled.div<{ width?: number }>`
     padding: 5px 10px;
     border-radius: 0;
     color: ${({ theme }) => theme.textColor.initial};
+    font-family: 'Noto Serif KR', serif;
   }
 
   .line {
@@ -40,6 +42,19 @@ export const CustomInputBox = styled.div<{ width?: number }>`
     .line {
       transform: translateX(100px);
     }
+  }
+`;
+
+export const CustomDateInputBox = styled.div`
+  input {
+    font-family: 'Noto Serif KR', serif;
+    border: none;
+    border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
+    outline: none;
+    background: none;
+    font-size: 15px;
+    padding: 5px 5px;
+    color: ${({ theme }) => theme.textColor.initial};
   }
 `;
 
