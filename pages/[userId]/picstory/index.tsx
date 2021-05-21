@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect } from 'react';
 import BlogWithNavLayout from '../../../components/Layout/BlogWithNavLayout';
 import BlogPicstoryList from '../../../components/List/BlogPicstoryList';
-import { PicstoryData, UserInfoData } from '../../../utils/data';
+import useBlog from '../../../modules/blog/hooks';
+import { useInfiniteScroll } from '../../../utils/utils';
 
 const BlogPicstoryContainer = styled.section`
   min-height: 550px;
@@ -11,10 +13,48 @@ const BlogPicstoryContainer = styled.section`
 `;
 
 export default function Picstory(): JSX.Element {
+  const {
+    blogPicstoryListData,
+    loadBlogPicstoryListDispatch,
+    hasMoreBlogLists,
+    loadBlogPicstoryList,
+    loadMoreBlogPicstoryListDispatch,
+  } = useBlog();
+  const router = useRouter();
+  const { userId } = router.query;
+
+  useEffect(() => {
+    if (userId) {
+      loadBlogPicstoryListDispatch(userId);
+    }
+  }, [userId]);
+
+  const onIntersect = useCallback(
+    ([{ isIntersecting, target }], observer) => {
+      if (
+        blogPicstoryListData &&
+        blogPicstoryListData.length >= 10 &&
+        userId &&
+        isIntersecting &&
+        !loadBlogPicstoryList.loading &&
+        hasMoreBlogLists
+      ) {
+        loadMoreBlogPicstoryListDispatch({ userId, offset: blogPicstoryListData.length });
+        observer.unobserve(target);
+      }
+    },
+    [blogPicstoryListData, userId, hasMoreBlogLists]
+  );
+
+  const [setTarget] = useInfiniteScroll({
+    onIntersect,
+  });
+
   return (
-    <BlogWithNavLayout data={UserInfoData}>
+    <BlogWithNavLayout>
       <BlogPicstoryContainer>
-        <BlogPicstoryList data={PicstoryData} />
+        <BlogPicstoryList blogPicstoryListData={blogPicstoryListData} />
+        <div ref={setTarget} className="last-Item"></div>
       </BlogPicstoryContainer>
     </BlogWithNavLayout>
   );

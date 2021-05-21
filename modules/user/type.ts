@@ -23,7 +23,15 @@ export interface UserIntro {
   website: string;
   mostlyUseModel: string;
   summary?: string;
+  lastLogin: null;
+  subscribers?: Subscriber[];
+  writers?: Subscriber[];
 }
+
+export interface Subscriber {
+  id: number;
+}
+
 export type UserState = {
   login: { loading: boolean; data: null | unknown; error: null | unknown };
   logout: { loading: boolean; data: null | unknown; error: null | unknown };
@@ -41,6 +49,8 @@ export type UserState = {
     error: null | unknown;
   };
   userData: User | null;
+  addBlogFollow: { loading: boolean; data: null | unknown; error: null | unknown };
+  removeBlogFollow: { loading: boolean; data: null | unknown; error: null | unknown };
 };
 
 // 액션 Payload 타입
@@ -84,5 +94,11 @@ export type LikePostPayload = {
   UserId: number;
   PostId: number;
 };
+
+export type blogFollowPayload = {
+  subscriberId: number | undefined;
+  writerId: number;
+};
+
 //성공시 DataType
 export type LoginResponse = User;

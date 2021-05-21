@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import React, { useCallback, useState } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
-import { PicstoryDataType } from '../../utils/data';
+import { blogPicstoryDetailData, BlogPost } from '../../modules/blog';
+import { countSum } from '../../utils/utils';
 import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
@@ -24,13 +25,21 @@ const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
 `;
 
 type PicstoryCardPropsType = {
-  data: PicstoryDataType;
+  picstoryDetailData: blogPicstoryDetailData;
 };
 export default function BlogPicstoryDetailBox({
-  data,
+  picstoryDetailData,
 }: PicstoryCardPropsType): JSX.Element {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [removeModalOpen, setRemoveModalOpen] = useState(false);
+
+  const posts = picstoryDetailData.Posts;
+
+  const likeCounts = posts.map((post: BlogPost) => post.likeCount);
+  const likeCountSum = countSum(likeCounts as number[]);
+
+  const hits = posts.map((post: BlogPost) => post.hits);
+  const viewCountSum = countSum(hits);
 
   const onToggleEditModal = useCallback(() => {
     setEditModalOpen(state => !state);
@@ -44,33 +53,35 @@ export default function BlogPicstoryDetailBox({
     <BlogPicstoryDetailContainer>
       <article>
         <div className="picstory__description">
-          <h2>{data[0].title}</h2>
+          <h2>{picstoryDetailData.title}</h2>
           <div className="picstory__stats">
             <div>
               <MdBook />
-              <span>{data[0].postCount ? data[0].postCount : 0}</span>
+              <span>
+                {picstoryDetailData.Posts ? picstoryDetailData.Posts.length : 0}
+              </span>
             </div>
             <div>
               <MdFavorite />
-              <span>{data[0].likeCount ? data[0].likeCount : 0}</span>
+              <span>{likeCountSum && likeCountSum}</span>
             </div>
             <div>
               <MdRemoveRedEye />
-              <span>{data[0].viewCount ? data[0].viewCount : 0}</span>
+              <span>{viewCountSum && viewCountSum}</span>
             </div>
           </div>
         </div>
-        <p>{data[0].description}</p>
+        <p>{picstoryDetailData.description}</p>
         <div className="picstory__btn">
           <SquareBtn onClick={onToggleEditModal}>편집</SquareBtn>
           <SquareBtn onClick={onToggleRemoveModal}>삭제</SquareBtn>
         </div>
 
         <ul className="picstory__recent-img">
-          {data[0].ThumbnailImages &&
-            data[0].ThumbnailImages.map(picstoryImgItem => (
-              <li className="img__box">
-                <img src={picstoryImgItem.src} alt="picstory__recent-img" />
+          {posts &&
+            posts.slice(0, 6).map(picstoryImgItem => (
+              <li className="img__box" key={picstoryImgItem.id}>
+                <img src={picstoryImgItem.thumbnail} alt="picstory__recent-img" />
               </li>
             ))}
         </ul>

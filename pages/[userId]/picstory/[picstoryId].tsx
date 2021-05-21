@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import Layout from '../../../components/Layout';
 import PicstoryDetailList from '../../../components/List/PicstoryDetailList';
 import BlogPicstoryDetailBox from '../../../components/Result/BlogPicstoryDetail';
-import { PicstoryData } from '../../../utils/data';
+import useBlog from '../../../modules/blog/hooks';
 
 const PicstoryDetailContainer = styled.section`
   min-height: 550px;
@@ -18,17 +19,39 @@ const PicstoryDetailContainer = styled.section`
     margin-bottom: 25px;
     cursor: pointer;
   }
+  .empty_content {
+    text-align: center;
+  }
 `;
 
 export default function PicstoryId(): JSX.Element {
+  const router = useRouter();
+  const { picstoryId } = router.query;
+  const { userId } = router.query;
+
+  const { blogPicstoryDetailData, loadBlogPicstoryDetailDispatch } = useBlog();
+
+  useEffect(() => {
+    if (picstoryId) {
+      loadBlogPicstoryDetailDispatch(picstoryId);
+    }
+  }, [picstoryId]);
+
   return (
     <Layout>
       <PicstoryDetailContainer>
-        <Link href="/user123/picstory">
+        <Link href={`/${userId}/picstory`}>
           <h1>Picstory</h1>
         </Link>
-        <BlogPicstoryDetailBox data={PicstoryData} />
-        <PicstoryDetailList data={PicstoryData} />
+        <div className="empty_content">
+          {!blogPicstoryDetailData && '픽스토리 정보가 없습니다.'}
+        </div>
+        {blogPicstoryDetailData && (
+          <BlogPicstoryDetailBox picstoryDetailData={blogPicstoryDetailData} />
+        )}
+        {blogPicstoryDetailData && (
+          <PicstoryDetailList picstoryDetailPostData={blogPicstoryDetailData} />
+        )}
       </PicstoryDetailContainer>
     </Layout>
   );

@@ -14,6 +14,8 @@ import {
   destroyUserAction,
   addPostLikeAction,
   removePostLikeAction,
+  removeBlogFollowAction,
+  addBlogFollowAction,
 } from './thunk';
 import { User, UserState } from './type';
 
@@ -31,6 +33,8 @@ const initialState: UserState = {
   addPostLike: { loading: false, data: null, error: null },
   removePostLike: { loading: false, data: null, error: null },
   userData: null,
+  addBlogFollow: { loading: false, data: null, error: null },
+  removeBlogFollow: { loading: false, data: null, error: null },
 };
 
 //data항목을 success:boolean으로 바꿀지 생각해보기. 성공여부만 나타내도록
@@ -268,6 +272,44 @@ const userSlice = createSlice({
         state.removePostLike.loading = false;
         state.removePostLike.data = null;
         state.removePostLike.error = payload;
+      })
+      .addCase(addBlogFollowAction.pending, state => {
+        state.addBlogFollow.loading = true;
+        state.addBlogFollow.data = null;
+        state.addBlogFollow.error = null;
+      })
+      .addCase(addBlogFollowAction.fulfilled, (state, { payload }) => {
+        state.addBlogFollow.loading = false;
+        state.addBlogFollow.data = payload;
+        state.addBlogFollow.error = null;
+        if (state.userData) {
+          state.userData.writers?.push({ id: payload.writerId });
+        }
+      })
+      .addCase(addBlogFollowAction.rejected, (state, { payload }) => {
+        state.addBlogFollow.loading = false;
+        state.addBlogFollow.data = null;
+        state.addBlogFollow.error = payload;
+      })
+      .addCase(removeBlogFollowAction.pending, state => {
+        state.removeBlogFollow.loading = true;
+        state.removeBlogFollow.data = null;
+        state.removeBlogFollow.error = null;
+      })
+      .addCase(removeBlogFollowAction.fulfilled, (state, { payload }) => {
+        state.removeBlogFollow.loading = false;
+        state.removeBlogFollow.data = payload;
+        state.removeBlogFollow.error = null;
+        if (state.userData) {
+          state.userData.writers = state.userData.writers?.filter(
+            writer => writer.id !== payload.writerId
+          );
+        }
+      })
+      .addCase(removeBlogFollowAction.rejected, (state, { payload }) => {
+        state.removeBlogFollow.loading = false;
+        state.removeBlogFollow.data = null;
+        state.removeBlogFollow.error = payload;
       });
   },
 });
