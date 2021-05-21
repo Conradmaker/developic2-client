@@ -29,7 +29,7 @@ export default function BlogWithNavLayout({
   const router = useRouter();
   const { userId } = router.query;
   const { loadBlogUserDispatch, blogUserData } = useBlog();
-  const { userData, addBlogFollowDispatch, removeBlogFollowDispatch } = useUser();
+  const { userData, subscribeDispatch, unSubscribeDispatch } = useUser();
 
   const blogUserId = blogUserData?.id;
 
@@ -47,9 +47,9 @@ export default function BlogWithNavLayout({
     if (!userData) return console.log('로그인해주세요');
     // 로그인모달창 띄우기(모달창 띄우는 함수 만들기)
     if (userData && isFollowing && blogUserId) {
-      removeBlogFollowDispatch({ writerId: blogUserId, subscriberId: userData?.id });
+      unSubscribeDispatch({ writerId: blogUserId, subscriberId: userData.id });
     } else if (userData && !isFollowing && blogUserId) {
-      addBlogFollowDispatch({ writerId: blogUserId, subscriberId: userData?.id });
+      subscribeDispatch({ writerId: blogUserId, subscriberId: userData.id });
     }
   }, [userData, isFollowing]);
 

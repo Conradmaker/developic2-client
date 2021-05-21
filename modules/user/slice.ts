@@ -14,8 +14,8 @@ import {
   destroyUserAction,
   addPostLikeAction,
   removePostLikeAction,
-  removeBlogFollowAction,
-  addBlogFollowAction,
+  unSubscribeAction,
+  subscribeAction,
 } from './thunk';
 import { User, UserState } from './type';
 
@@ -273,12 +273,12 @@ const userSlice = createSlice({
         state.removePostLike.data = null;
         state.removePostLike.error = payload;
       })
-      .addCase(addBlogFollowAction.pending, state => {
+      .addCase(subscribeAction.pending, state => {
         state.addBlogFollow.loading = true;
         state.addBlogFollow.data = null;
         state.addBlogFollow.error = null;
       })
-      .addCase(addBlogFollowAction.fulfilled, (state, { payload }) => {
+      .addCase(subscribeAction.fulfilled, (state, { payload }) => {
         state.addBlogFollow.loading = false;
         state.addBlogFollow.data = payload;
         state.addBlogFollow.error = null;
@@ -286,17 +286,17 @@ const userSlice = createSlice({
           state.userData.writers?.push({ id: payload.writerId });
         }
       })
-      .addCase(addBlogFollowAction.rejected, (state, { payload }) => {
+      .addCase(subscribeAction.rejected, (state, { payload }) => {
         state.addBlogFollow.loading = false;
         state.addBlogFollow.data = null;
         state.addBlogFollow.error = payload;
       })
-      .addCase(removeBlogFollowAction.pending, state => {
+      .addCase(unSubscribeAction.pending, state => {
         state.removeBlogFollow.loading = true;
         state.removeBlogFollow.data = null;
         state.removeBlogFollow.error = null;
       })
-      .addCase(removeBlogFollowAction.fulfilled, (state, { payload }) => {
+      .addCase(unSubscribeAction.fulfilled, (state, { payload }) => {
         state.removeBlogFollow.loading = false;
         state.removeBlogFollow.data = payload;
         state.removeBlogFollow.error = null;
@@ -306,7 +306,7 @@ const userSlice = createSlice({
           );
         }
       })
-      .addCase(removeBlogFollowAction.rejected, (state, { payload }) => {
+      .addCase(unSubscribeAction.rejected, (state, { payload }) => {
         state.removeBlogFollow.loading = false;
         state.removeBlogFollow.data = null;
         state.removeBlogFollow.error = payload;

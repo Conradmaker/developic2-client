@@ -63,11 +63,13 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
     <PostDetailContainer>
       <section className="blog__head">
         <h1>{postData.title}</h1>
-        <article>
-          <img src={postData.User.avatar} alt="user_avatar" />
-          <strong>{postData.User.nickname}</strong>
-          <span>님의 글</span>
-        </article>
+        <Link href={`/${postData.User.id}/post`}>
+          <article>
+            <img src={postData.User.avatar} alt="user_avatar" />
+            <strong>{postData.User.nickname}</strong>
+            <span>님의 글</span>
+          </article>
+        </Link>
         <div>
           <ul>
             {postData.HashTags.map(tag => (

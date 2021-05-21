@@ -40,7 +40,7 @@ export interface BlogPicstory {
   description: string;
   thumbnail: string;
   createdAt?: Date;
-  Posts: BlogPost[] | [];
+  Posts: BlogPost[];
 }
 
 export type blogPicstoryDetailData = {
@@ -49,7 +49,7 @@ export type blogPicstoryDetailData = {
   description: string;
   thumbnail: string;
   createdAt?: Date;
-  Posts: BlogPost[] | [];
+  Posts: BlogPost[];
 };
 
 export interface Liker {
@@ -72,8 +72,8 @@ export type BlogState = {
     error: null | unknown;
   };
   blogUserData: BlogUserData | null;
-  blogPostListData: BlogPostListData['blogPosts'] | [];
-  blogPicstoryListData: BlogPicstoryListData['blogPicstories'] | [];
+  blogPostListData: BlogPostListData['blogPosts'];
+  blogPicstoryListData: BlogPicstoryListData['blogPicstories'];
   blogPicstoryDetailData: BlogPicstory | null;
   userData: User | null;
   addBlogFollow: { loading: boolean; data: null | unknown; error: null };

@@ -115,11 +115,13 @@ export const HashTagSearchContainer = styled.div`
 `;
 
 export const PostContentViewerContainer = styled.article`
-  width: 800px;
+  width: 770px;
   margin: 0 auto;
   margin-bottom: 100px;
   color: ${({ theme }) => theme.textColor.initial};
   font-size: ${({ theme }) => theme.fontSize.base};
+  text-align: center;
+  line-height: 1.5;
   img {
     max-height: 440px;
     object-fit: contain;

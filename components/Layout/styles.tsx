@@ -285,7 +285,8 @@ export const PostDetailContainer = styled.div`
       font-size: ${({ theme }) => theme.fontSize.titleSize};
     }
     & > article {
-      display: flex;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
       margin-top: 40px;
       img {

@@ -64,9 +64,11 @@ const picstorySlice = createSlice({
         state.removePicstory.loading = false;
         state.removePicstory.data = payload;
         state.removePicstory.error = null;
-        state.getPicstoryList.data = (state.getPicstoryList.data as Picstory[]).filter(
-          picstory => picstory.id !== parseInt(payload.id)
-        );
+        if (state.getPicstoryList.data) {
+          state.getPicstoryList.data = (state.getPicstoryList.data as Picstory[]).filter(
+            picstory => picstory.id !== parseInt(payload.id)
+          );
+        }
       })
       .addCase(removePicstoryAction.rejected, (state, { payload }) => {
         state.removePicstory.loading = false;

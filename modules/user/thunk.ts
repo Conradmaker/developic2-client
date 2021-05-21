@@ -265,7 +265,7 @@ export const removePostLikeAction = createAsyncThunk<
 });
 
 // 블로그 유저 팔로우
-export const addBlogFollowAction = createAsyncThunk<
+export const subscribeAction = createAsyncThunk<
   { writerId: number },
   blogFollowPayload,
   { rejectValue: MyKnownError }
@@ -280,7 +280,7 @@ export const addBlogFollowAction = createAsyncThunk<
 });
 
 // 블로그 유저 팔로우 취소
-export const removeBlogFollowAction = createAsyncThunk<
+export const unSubscribeAction = createAsyncThunk<
   { writerId: number },
   blogFollowPayload,
   { rejectValue: MyKnownError }

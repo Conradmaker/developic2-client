@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addBlogFollowAction, removeBlogFollowAction } from '../user';
+import { subscribeAction, unSubscribeAction } from '../user';
 import {
   loadBlogUserAction,
   loadBlogPostListAction,
@@ -136,14 +136,14 @@ const blogSlice = createSlice({
         state.loadBlogPicstoryDetail.data = null;
         state.loadBlogPicstoryDetail.error = payload;
       })
-      .addCase(addBlogFollowAction.fulfilled, state => {
+      .addCase(subscribeAction.fulfilled, state => {
         state.addBlogFollow.loading = false;
         state.addBlogFollow.error = null;
         if (state.blogUserData?.suberCount) {
           state.blogUserData.suberCount += 1;
         }
       })
-      .addCase(removeBlogFollowAction.fulfilled, state => {
+      .addCase(unSubscribeAction.fulfilled, state => {
         state.addBlogFollow.loading = false;
         state.addBlogFollow.error = null;
         if (state.blogUserData?.suberCount) {

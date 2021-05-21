@@ -15,8 +15,8 @@ import {
   updateUserIntroAction,
   userDetailInfoAction,
   verificationAction,
-  addBlogFollowAction,
-  removeBlogFollowAction,
+  subscribeAction,
+  unSubscribeAction,
 } from './thunk';
 import {
   LikePostPayload,
@@ -94,12 +94,12 @@ export default function useUser() {
     dispatch(removePostLikeAction(data));
   }, []);
 
-  const addBlogFollowDispatch = useCallback((data: blogFollowPayload) => {
-    dispatch(addBlogFollowAction(data));
+  const subscribeDispatch = useCallback((data: blogFollowPayload) => {
+    dispatch(subscribeAction(data));
   }, []);
 
-  const removeBlogFollowDispatch = useCallback((data: blogFollowPayload) => {
-    dispatch(removeBlogFollowAction(data));
+  const unSubscribeDispatch = useCallback((data: blogFollowPayload) => {
+    dispatch(unSubscribeAction(data));
   }, []);
 
   return {
@@ -124,7 +124,7 @@ export default function useUser() {
     destroyUserDispatch,
     addPostLikeDispatch,
     removePostLikeDispatch,
-    addBlogFollowDispatch,
-    removeBlogFollowDispatch,
+    subscribeDispatch,
+    unSubscribeDispatch,
   };
 }

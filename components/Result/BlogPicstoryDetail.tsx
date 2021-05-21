@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import React, { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useMemo, useState } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { blogPicstoryDetailData, BlogPost } from '../../modules/blog';
-import { countSum } from '../../utils/utils';
+import usePicstory from '../../modules/picstory/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
-import PicstoryEditModal from '../Modal/PicstoryModal';
 
 const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
   border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
@@ -23,6 +23,11 @@ const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
     }
   }
 `;
+const countTotal = {
+  like: (list: BlogPost[]) =>
+    list.reduce((acc, cur) => acc + (cur.likeCount as number), 0),
+  hit: (list: BlogPost[]) => list.reduce((acc, cur) => acc + cur.hits, 0),
+};
 
 type PicstoryCardPropsType = {
   picstoryDetailData: blogPicstoryDetailData;
@@ -30,25 +35,22 @@ type PicstoryCardPropsType = {
 export default function BlogPicstoryDetailBox({
   picstoryDetailData,
 }: PicstoryCardPropsType): JSX.Element {
-  const [editModalOpen, setEditModalOpen] = useState(false);
+  const { removePicstoryDispatch } = usePicstory();
+  const router = useRouter();
   const [removeModalOpen, setRemoveModalOpen] = useState(false);
-
   const posts = picstoryDetailData.Posts;
 
-  const likeCounts = posts.map((post: BlogPost) => post.likeCount);
-  const likeCountSum = countSum(likeCounts as number[]);
-
-  const hits = posts.map((post: BlogPost) => post.hits);
-  const viewCountSum = countSum(hits);
-
-  const onToggleEditModal = useCallback(() => {
-    setEditModalOpen(state => !state);
-  }, []);
+  const likeCountTotal = useMemo(() => countTotal.like(posts), [posts]);
+  const viewCountTotal = useMemo(() => countTotal.hit(posts), [posts]);
 
   const onToggleRemoveModal = useCallback(() => {
-    setRemoveModalOpen(state => !state);
+    setRemoveModalOpen(current => !current);
   }, []);
 
+  const onRemovePicstory = useCallback(() => {
+    removePicstoryDispatch(picstoryDetailData.id);
+    router.back();
+  }, []);
   return (
     <BlogPicstoryDetailContainer>
       <article>
@@ -63,17 +65,17 @@ export default function BlogPicstoryDetailBox({
             </div>
             <div>
               <MdFavorite />
-              <span>{likeCountSum && likeCountSum}</span>
+              <span>{likeCountTotal && likeCountTotal}</span>
             </div>
             <div>
               <MdRemoveRedEye />
-              <span>{viewCountSum && viewCountSum}</span>
+              <span>{viewCountTotal && viewCountTotal}</span>
             </div>
           </div>
         </div>
         <p>{picstoryDetailData.description}</p>
         <div className="picstory__btn">
-          <SquareBtn onClick={onToggleEditModal}>편집</SquareBtn>
+          <SquareBtn onClick={() => alert('준비중')}>편집</SquareBtn>
           <SquareBtn onClick={onToggleRemoveModal}>삭제</SquareBtn>
         </div>
 
@@ -86,14 +88,12 @@ export default function BlogPicstoryDetailBox({
             ))}
         </ul>
       </article>
-      {editModalOpen && (
-        <PicstoryEditModal onClose={onToggleEditModal} onRemove={onToggleRemoveModal} />
-      )}
       {removeModalOpen && (
         <ConfirmRemoveModal
-          sectionTitle="픽스토리를"
+          title="픽스토리를"
           description="픽스토리에 포함된 글은 삭제되지 않습니다."
           onClose={onToggleRemoveModal}
+          onConfirm={onRemovePicstory}
         />
       )}
     </BlogPicstoryDetailContainer>
