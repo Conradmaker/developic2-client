@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import useInput from '../../hooks/useInput';
-import useUI from '../../modules/ui/hooks';
 import useUser from '../../modules/user/hooks';
 import Button from '../Button/Button';
 import TitleLabel from '../Label/TitleLabel';
@@ -30,7 +29,6 @@ export default function SignupAuthModal({
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const code = authNum1 + authNum2 + authNum3 + authNum4 + authNum5;
-    console.log(code);
     verificationDispatch({ email, code });
   };
   useEffect(() => {

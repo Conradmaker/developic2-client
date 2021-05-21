@@ -27,7 +27,6 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
   const onCopy = () => {
     const tempElem = document.createElement('textarea');
     document.body.appendChild(tempElem);
-    console.log(router.asPath);
     tempElem.value = `${process.env.NEXT_PUBLIC_CLIENT_HOST}${router.asPath}`;
     tempElem.select();
     document.execCommand('copy');

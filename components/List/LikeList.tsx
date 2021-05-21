@@ -24,7 +24,7 @@ export default function LikeList(): JSX.Element {
       <ul>
         {getLikeList.data.map(likeItem => (
           <DrawerPostCard
-            id={likeItem.id}
+            key={likeItem.id}
             postData={likeItem}
             onDeleteCb={makeDeleteFn(likeItem.id)}
           />

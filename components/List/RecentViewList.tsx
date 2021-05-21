@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import _forEachRight from 'lodash/forEachRight';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { RecentViewType } from '../../modules/drawer';
@@ -11,7 +12,7 @@ type ComputedListType = { [key: string]: RecentViewType[] };
 
 const sortByDate = (list: RecentViewType[]) => {
   const sections: ComputedListType = {};
-  list.forEach(v => {
+  _forEachRight(list, v => {
     const date = dayjs(v.date).format('YYYY.MM.DD');
     if (Array.isArray(sections[date])) {
       sections[date].push(v);
@@ -19,6 +20,7 @@ const sortByDate = (list: RecentViewType[]) => {
       sections[date] = [v];
     }
   });
+
   return sections;
 };
 
@@ -37,22 +39,22 @@ export default function RecentViewList(): JSX.Element {
   useEffect(() => {
     if (getRecentList.data) {
       setComputedRecents(sortByDate(getRecentList.data));
-      console.log(sortByDate(getRecentList.data));
     }
   }, [getRecentList.data]);
   if (!getRecentList.data) return <></>;
+  if (!computedRecents) return <></>;
   return (
     <RecentViewListContainer>
       {Object.entries(computedRecents).map(([date, list]) => {
         return (
-          <li>
+          <li key={date}>
             <div className="date">
               <span>{date}</span>
             </div>
             <ul>
               {list.map(viewData => (
                 <DrawerPostCard
-                  id={viewData.Post.id}
+                  key={viewData.id}
                   postData={viewData.Post}
                   onDeleteCb={() => removeRecentViewDispatch(viewData.id)}
                 />

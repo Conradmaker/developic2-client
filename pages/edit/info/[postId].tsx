@@ -103,7 +103,6 @@ export default function InfoPost(): JSX.Element {
   useEffect(() => {
     if (!userData) return;
     if (submitPost.data && submitPost.data.id === +(router.query.postId as string)) {
-      console.log(submitPost.data.id, router.query.postId);
       router.replace(`/${userData.id}/post`);
     }
   }, [submitPost.data, router.query]);
@@ -175,6 +174,7 @@ export default function InfoPost(): JSX.Element {
         <PicstoryModal
           onClose={() => setPicstoryOpen(false)}
           picstoryList={tempPost.data.PicStories as number[]}
+          postId={tempPost.data.id as number}
         />
       )}
     </Layout>

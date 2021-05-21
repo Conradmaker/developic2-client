@@ -16,7 +16,6 @@ export default function PostContentViewer({
   };
   const onClickImage = (e: React.MouseEvent<HTMLElement>) => {
     if (e.target.localName === 'img') {
-      console.log(+e.target.alt);
       setCurrentImageId(+(e.target.alt as string));
     }
   };
@@ -26,7 +25,6 @@ export default function PostContentViewer({
   useEffect(() => {
     if (!contentRef.current) return;
     imageArrRef.current = contentRef.current.querySelectorAll('img');
-    console.log(imageArrRef.current);
   }, [contentRef.current]);
   return (
     <>

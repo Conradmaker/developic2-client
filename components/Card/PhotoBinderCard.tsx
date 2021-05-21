@@ -17,7 +17,7 @@ export default function PhotoBinderCard({
           {binderData.PostImages.map((photo, index) => {
             if (index < 6) {
               return (
-                <div className="img__box__item" id={photo.id + ''}>
+                <div className="img__box__item" key={photo.id}>
                   <img src={photo.src} alt="" />
                 </div>
               );

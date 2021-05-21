@@ -41,10 +41,12 @@ function PicstoryListItem({
 type PicstoryModalPropsType = {
   onClose: () => void;
   picstoryList: number[];
+  postId: number;
 };
 export default function PicstoryModal({
   onClose,
   picstoryList,
+  postId,
 }: PicstoryModalPropsType): JSX.Element {
   const { userData } = useUser();
   const router = useRouter();
@@ -57,7 +59,7 @@ export default function PicstoryModal({
     addPicPostDispatch,
     removePicPostDispatch,
   } = usePicstory();
-  console.log(picstoryList, 'piclist');
+
   const [usersPicstoryList, setUsersPicstoryList] = useState<Picstory[]>([]);
   const [title, onChangeTitle, setTitle] = useInput('');
   const [desc, onChangeDesc, setDesc] = useInput('');
@@ -68,9 +70,9 @@ export default function PicstoryModal({
   const addPicstory = (id: number) => {
     const isExist = picstoryList.findIndex(picid => picid === id) !== -1;
     if (!isExist) {
-      addPicPostDispatch({ PostId: 1, PicstoryId: id });
+      addPicPostDispatch({ PostId: postId, PicstoryId: id });
     } else {
-      removePicPostDispatch({ PostId: 1, PicstoryId: id });
+      removePicPostDispatch({ PostId: postId, PicstoryId: id });
     }
   };
   const destroyPicstory = (id: number) => {

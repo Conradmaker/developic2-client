@@ -5,6 +5,7 @@ import CustomSelect from '../../components/Input/CustomSelect';
 import CustomTextarea from '../../components/Input/CustomTextarea';
 import PageLabel from '../../components/Label/PageLabel';
 import PageWithNavLayout from '../../components/Layout/PageWithNavLayout';
+import useInput from '../../hooks/useInput';
 import { CSNavData } from '../../utils/data';
 
 const InqueryContainer = styled.section`
@@ -46,7 +47,14 @@ const InqueryContainer = styled.section`
   }
 `;
 
+const inquiryType = [
+  { id: 1, value: '1번유형' },
+  { id: 2, value: '2번유형' },
+];
 export default function Inquery(): JSX.Element {
+  const [email, onChangeEmail] = useInput('');
+  const [phone, onChangePhone] = useInput('');
+  const [content, onChangeContent] = useInput('');
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <InqueryContainer>
@@ -60,10 +68,15 @@ export default function Inquery(): JSX.Element {
         </div>
         <div className="cs__right">
           <form>
-            <CustomInput title="이메일" />
-            <CustomInput title="연락처" />
-            <CustomSelect title="문의유형" />
-            <CustomTextarea title="문의내용" />
+            <CustomInput title="이메일" value={email} onChange={onChangeEmail} />
+            <CustomInput title="연락처" value={phone} onChange={onChangePhone} />
+            <CustomSelect
+              title="문의유형"
+              value={inquiryType[1].value}
+              onChange={() => null}
+              data={inquiryType}
+            />
+            <CustomTextarea title="문의내용" value={content} onChange={onChangeContent} />
             <div className="btn__group">
               <button>전송</button>
               <button type="reset">초기화</button>

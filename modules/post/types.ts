@@ -27,6 +27,7 @@ export type PostUser = {
   introduce: null;
 };
 export type PostContent = {
+  id: number;
   title: string;
   tagList: Hashtag[];
   content: string;

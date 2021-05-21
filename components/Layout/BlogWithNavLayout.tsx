@@ -53,16 +53,14 @@ export default function BlogWithNavLayout({
     }
   }, [userData, isFollowing]);
 
+  if (!blogUserData) return <></>;
   return (
     <Layout>
       <BlogwithProfileContainer>
         <UserProfileWithTabContainer>
           <BlogUserProfile>
             <div className="profile__top">
-              <img
-                src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
-                alt="profile"
-              />
+              <img src={blogUserData?.avatar} alt="profile" />
               <h1>{blogUserData && blogUserData.nickname}</h1>
               <p>{blogUserData && blogUserData.introduce}</p>
               {blogUserId !== userData?.id && (

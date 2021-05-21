@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MdArrowForward } from 'react-icons/md';
 import useUser from '../../modules/user/hooks';
 import { UserMenuContainer } from './styles';
@@ -77,7 +77,7 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
           <br />
           <strong>{userData.nickname}</strong>님
         </h2>
-        <Link href={`${userData.id}/post`}>
+        <Link href={`/${userData.id}/post`}>
           <p>
             <MdArrowForward /> <span>내 디벨로픽</span>
           </p>

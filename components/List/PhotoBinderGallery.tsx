@@ -4,7 +4,6 @@ import { RiCheckFill } from 'react-icons/ri';
 import { ImgItemBox, PhotoBinderGalleryContainer } from './styles';
 
 type ImgItemPropsType = {
-  id: number;
   data: { src: string; id: number };
   onToggleSelectPhoto: (id: string | number) => void;
   selected: boolean;
@@ -49,7 +48,7 @@ export default function PhotoBinderGallery({
       >
         {photos.map(v => (
           <ImgItem
-            id={v.id}
+            key={v.id}
             data={v}
             onToggleSelectPhoto={onToggleSelectPhoto}
             selected={-1 !== selectedPhotos.findIndex(j => j === v.id)}

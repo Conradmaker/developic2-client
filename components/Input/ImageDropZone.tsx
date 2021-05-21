@@ -26,7 +26,6 @@ export default function ImageDropZone({
     axios
       .post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/${axiosPath}`, formData)
       .then(res => {
-        console.log(res.data);
         setImage(res.data);
       });
   };

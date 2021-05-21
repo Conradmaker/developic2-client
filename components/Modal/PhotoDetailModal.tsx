@@ -37,7 +37,7 @@ export default function PhotoDetailModal({
   const [infoOpen, setInfoOpen] = useState(false);
   const [binderSetOpen, setBinderSetOpen] = useState(false);
   const toggleBinderSet = (e?: React.MouseEvent) => {
-    e.stopPropagation();
+    (e as React.MouseEvent).stopPropagation();
     if (!userData) {
       return alert('로그인해주세요.');
     }
@@ -63,7 +63,7 @@ export default function PhotoDetailModal({
             {Object.entries(computeMetaData(photoData.MetaDatum)).map(([key, value]) => {
               return (
                 value && (
-                  <div>
+                  <div key={key + value}>
                     {key}&nbsp;: &nbsp;{value}
                   </div>
                 )

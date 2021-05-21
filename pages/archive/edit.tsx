@@ -267,7 +267,6 @@ export default function edit(): JSX.Element {
             <article>
               <ArchiveEditorWithNoSSR
                 content={description}
-                setContent={setDescription}
                 setImageList={setImageList}
                 onSubmit={onSubmit}
               />

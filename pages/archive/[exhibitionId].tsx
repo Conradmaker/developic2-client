@@ -185,12 +185,12 @@ export default function archiveId(): JSX.Element {
     }
   }, [exhibitionId]);
   if (getArchiveDetail.loading) return <div>로딩중</div>;
-  if (getArchiveDetail.error) return <div></div>;
-  if (getArchiveDetail.data === null) return <div></div>;
+  if (getArchiveDetail.error) return <></>;
+  if (!getArchiveDetail.data) return <></>;
   return (
     <Layout>
       <Head>
-        <title>DEVELOPIC | archive</title>
+        <title>ARCHIVE | {getArchiveDetail.data.title}</title>
       </Head>
       <ArchiveDetailContainer>
         <div className="detail__poster__wrapper">
@@ -212,9 +212,12 @@ export default function archiveId(): JSX.Element {
                   ))}
                 </ul>
               </li>
-              <Link href={`${getArchiveDetail.data.webPage}`}>
-                <li className="detail__link">사이트로 이동</li>
-              </Link>
+              <li
+                className="detail__link"
+                onClick={() => window.open(`https://${getArchiveDetail.data.webPage}`)}
+              >
+                사이트로 이동
+              </li>
               <li>
                 {getArchiveDetail.data.cost === 0
                   ? '무료관람'

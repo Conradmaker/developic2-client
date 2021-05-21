@@ -57,7 +57,7 @@ function UsersBinderList({ photoId, userId }: UsersBinderListPropsType) {
         : addBinderPhotoDispatch(dispatchData);
     };
     return (
-      <li>
+      <li key={binder.id}>
         <CustomCheckBox
           title={binder.title as string}
           value={checked}

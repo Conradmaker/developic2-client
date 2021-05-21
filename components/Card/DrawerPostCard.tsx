@@ -4,7 +4,6 @@ import { RiArrowRightSLine } from 'react-icons/ri';
 import { LikeListItemType } from '../../modules/drawer';
 import Link from 'next/link';
 type DrawerPostCardPropsType = {
-  id: number;
   postData: LikeListItemType;
   onDeleteCb: () => void;
 };

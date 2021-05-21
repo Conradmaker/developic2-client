@@ -2,20 +2,18 @@ import { Editor } from '@toast-ui/react-editor';
 import axios from 'axios';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import useUser from '../../modules/user/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
 
 type ArchiveEditorPropsType = {
   content: string;
-  setContent: React.Dispatch<React.SetStateAction<string>>;
   setImageList: React.Dispatch<React.SetStateAction<{ imageId: number; src: string }[]>>;
   onSubmit: (content: string) => void;
 };
 export default function ArchiveEditor({
   content,
-  setContent,
   setImageList,
   onSubmit,
 }: ArchiveEditorPropsType): JSX.Element {
