@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import useUser from '../modules/user/hooks';
 import axios from 'axios';
 import wrapper from '../modules/store';
-import { authAction, loginAction } from '../modules/user';
+import { authAction } from '../modules/user';
 
 const MainContainer = styled.main`
   width: 1150px;
@@ -62,8 +62,6 @@ const MainContainer = styled.main`
   }
 `;
 function Home(): JSX.Element {
-  const { loginDispatch } = useUser();
-  useEffect(() => {}, []);
   return (
     <Layout>
       <Head>
@@ -125,7 +123,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
     //서버일때 & 쿠키가 있을때만
     axios.defaults.headers.Cookie = cookie; //쿠키를 넣어주고
   }
-  await context.store.dispatch(authAction(null));
+  await context.store.dispatch(authAction());
   console.log('SSR끝');
 });
 export default Home;

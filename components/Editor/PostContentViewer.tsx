@@ -14,9 +14,9 @@ export default function PostContentViewer({
     e.preventDefault();
     alert('우클릭이 방지되었습니다.');
   };
-  const onClickImage = (e: React.MouseEvent<HTMLElement>) => {
-    if (e.target.localName === 'img') {
-      setCurrentImageId(+(e.target.alt as string));
+  const onClickImage = (e: React.MouseEvent<HTMLImageElement>) => {
+    if ((e.target as HTMLImageElement).localName === 'img') {
+      setCurrentImageId(+((e.target as HTMLImageElement).alt as string));
     }
   };
   const onCloseImage = () => {

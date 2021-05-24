@@ -11,7 +11,7 @@ export default function useArchive() {
   const dispatch = useAppDispatch();
 
   const getArchiveListDispatch = useCallback(() => {
-    dispatch(getArchiveListAction(null));
+    dispatch(getArchiveListAction());
   }, []);
 
   const getArchiveDetailDispatch = useCallback((archiveId: number) => {
