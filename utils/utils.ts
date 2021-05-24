@@ -26,7 +26,7 @@ type useInfiniteScrollProps = {
 export const useInfiniteScroll = ({
   root = null,
   threshold = 0.1,
-  rootMargin = '0px',
+  rootMargin = '100px',
   onIntersect,
 }: useInfiniteScrollProps): React.Dispatch<React.SetStateAction<Element | null>>[] => {
   const [target, setTarget] = useState<Element | null>(null);
