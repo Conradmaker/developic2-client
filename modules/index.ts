@@ -7,7 +7,7 @@ import picstory, { PicstoryState } from './picstory';
 import drawer, { DrawerState } from './drawer';
 import blog, { BlogState } from './blog';
 import archive, { ArchiveState } from './archive';
-import { ListState } from './list';
+import list, { ListState } from './list';
 
 type State = {
   user: UserState;

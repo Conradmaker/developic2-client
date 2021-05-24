@@ -70,27 +70,37 @@ export const UserProfileCardBox = styled.div`
 `;
 
 export const RecentUserCardCardBox = styled.li`
-  width: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 50%;
-    cursor: pointer;
-    &:hover {
-      box-shadow: 0 0 10px ${({ theme }) => theme.textColor.lighten};
-      & + p {
-        color: ${({ theme }) => theme.primary[1]};
+  div {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.25s;
+      &:hover {
+        transform: scale(1.04);
+        box-shadow: 0 0 10px ${({ theme }) => theme.grayScale[3]};
+        & + p {
+          color: ${({ theme }) => theme.primary[1]};
+        }
       }
     }
+    p {
+      color: ${({ theme }) => theme.textColor.initial};
+      font-size: ${({ theme }) => theme.fontSize.base};
+      margin-top: 10px;
+    }
   }
-  p {
-    color: ${({ theme }) => theme.textColor.initial};
-    font-size: ${({ theme }) => theme.fontSize.base};
+  & > p {
+    text-align: center;
     margin-top: 10px;
+    font-size: 12px;
+    color: ${({ theme }) => theme.grayScale[1]};
   }
 `;
 
@@ -157,6 +167,7 @@ export const CommonPostCardBox = styled.li`
     cursor: pointer;
     width: 100%;
     & > img {
+      display: block;
       width: 100%;
       height: 160px;
       object-fit: cover;
