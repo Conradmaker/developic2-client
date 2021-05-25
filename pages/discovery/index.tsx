@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CommonPostCard from '../../components/Card/CommonPostCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
+import { DiscoverPageDataType } from '../../modules/list';
+import useList from '../../modules/list/hooks';
 import { discoveryData } from '../../utils/discoveryData';
 import { hashTag } from '../../utils/hashTagData';
 
@@ -63,18 +65,25 @@ const DiscoveryContainer = styled.div`
     }
   }
 `;
-type CurrentTagPropsType = {
-  id: string;
-  name: string;
-};
 export default function discovery(): JSX.Element {
-  const [currentTag, setCurrentTag] = useState<CurrentTagPropsType | null>(null);
-  const onClickHashTag = (state: CurrentTagPropsType): void => {
-    setCurrentTag(state);
-  };
-  // if(currentTag !== null){
-  //   dispatch();
-  // }
+  const {
+    pageData,
+    getTaggedPostListDispatch,
+    getHashtagListDispatch,
+    getPostListDispatch,
+  } = useList();
+  const [currentTag, setCurrentTag] = useState<null | { id: number; name: string }>(null);
+  useEffect(() => {
+    getHashtagListDispatch({ sort: 'popular', term: 'month' });
+  }, []);
+  useEffect(() => {
+    if (!currentTag) {
+      getPostListDispatch({ sort: 'popular', term: 'month', limit: 12 });
+    } else {
+      getTaggedPostListDispatch({ HashtagId: currentTag.id });
+    }
+  }, [currentTag]);
+  if (!(pageData as DiscoverPageDataType).hashtag || !pageData.post) return <></>;
   return (
     <Layout>
       <Head>DEVELOPIC | discovery</Head>
@@ -82,16 +91,16 @@ export default function discovery(): JSX.Element {
         <section className="discovery__head">
           <TitleLabel title="인기태그" desc="Popular Tags" />
           <ul>
-            {hashTag.map(v => (
-              <li key={v.id} onClick={() => onClickHashTag(v)}>{`# ${v.name}`}</li>
+            {(pageData as DiscoverPageDataType).hashtag.map(tag => (
+              <li key={tag.id} onClick={() => setCurrentTag(tag)}>{`# ${tag.name}`}</li>
             ))}
           </ul>
         </section>
         <section className="discovery__main">
           <h1>{currentTag === null ? '인기글' : `# ${currentTag.name}`}</h1>
           <ul>
-            {discoveryData.map(v => (
-              <CommonPostCard key={v.id} data={v} />
+            {pageData.post.map(post => (
+              <CommonPostCard key={post.id} postData={post} />
             ))}
           </ul>
         </section>

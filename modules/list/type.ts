@@ -1,5 +1,5 @@
 export type ListState = {
-  pageData: null | FeedPageDataType;
+  pageData: Record<string, never> | FeedPageDataType | DiscoverPageDataType;
   loadSearchPostList: { loading: boolean; data: null | unknown; error: null | unknown };
   loadMoreSearchPostList: {
     loading: boolean;
@@ -8,6 +8,9 @@ export type ListState = {
   };
   getFeedList: { loading: boolean; data: null | unknown; error: null | unknown };
   getWriterList: { loading: boolean; data: null | unknown; error: null | unknown };
+  getHashtagList: { loading: boolean; data: null | unknown; error: null | unknown };
+  getTaggedPostList: { loading: boolean; data: null | unknown; error: null | unknown };
+  getPostList: { loading: boolean; data: null | unknown; error: null | unknown };
 };
 export type PostUser = {
   id: number;
@@ -27,13 +30,40 @@ export type PostType = {
   User: PostUser;
   likers?: { id: number }[];
 };
-
+export type HashtagType = {
+  id: number;
+  name: string;
+};
 export type FeedPageDataType = {
   writer: PostUser[];
+  post: PostType[];
+};
+export type DiscoverPageDataType = {
+  hashtag: HashtagType[];
   post: PostType[];
 };
 export type GetWriterListPayload = {
   type: 'suber' | 'all';
   limit?: number;
   userId?: number;
+};
+export type GetHashTagListPayload = {
+  sort?: 'recent' | 'popular';
+  term?: 'month' | 'day';
+  limit?: number;
+  offset?: number;
+};
+
+export type GetTaggedPostListPayload = {
+  sort?: 'recent' | 'popular';
+  limit?: number;
+  offset?: number;
+  HashtagId: number;
+};
+
+export type GetPostListPayload = {
+  sort?: 'recent' | 'popular';
+  term?: 'month' | 'day';
+  limit?: number;
+  offset?: number;
 };

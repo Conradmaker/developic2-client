@@ -26,7 +26,7 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
           <div className="stats">
             <p>
               <MdFavorite />
-              <span>{postData.likers.length}</span>
+              <span>{postData.likers?.length}</span>
             </p>
             <p>
               <MdRemoveRedEye />
