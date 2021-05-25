@@ -78,7 +78,7 @@ function Home(): JSX.Element {
               <TitleLabel title="피드" desc="Posts by you’r followers" />
             </li>
           </Link>
-          <Link href="/feed">
+          <Link href="/discovery">
             <li>
               <TitleLabel title="탐색" desc="Discover interesting posts" />
             </li>

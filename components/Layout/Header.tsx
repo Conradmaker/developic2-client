@@ -1,13 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
 import { HeaderContainer } from './styles';
 import LoginModal from '../Modal/LoginModal';
-import Toast from '../Result/ToastPopUp';
 import { MdSearch } from 'react-icons/md';
 import UserMenu from './UserMenu';
 import useUser from '../../modules/user/hooks';
-import useUI from '../../modules/ui/hooks';
-// import SearchModal from '../Modal/SearchModal';
 
 export function Logo(): JSX.Element {
   return (
@@ -23,13 +20,10 @@ export default function Header(): JSX.Element {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
-  // const [searchOpen, setSearchOpen] = useState(false);
-
   const toggleUserMenu = useCallback(() => setUserMenuOpen(!userMenuOpen), [
     userMenuOpen,
   ]);
   const toggleLoginModal = useCallback(() => setLoginOpen(!loginOpen), [loginOpen]);
-  // const toggleSearchModal = useCallback(() => setSearchOpen(!searchOpen), [searchOpen]);
 
   // useEffect(() => {
   //   if (logout.data) {

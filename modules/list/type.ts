@@ -58,7 +58,8 @@ export type GetTaggedPostListPayload = {
   sort?: 'recent' | 'popular';
   limit?: number;
   offset?: number;
-  HashtagId: number;
+  HashtagId?: number;
+  HashtagName?: string;
 };
 
 export type GetPostListPayload = {

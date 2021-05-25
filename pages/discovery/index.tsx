@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import CommonPostCard from '../../components/Card/CommonPostCard';
 import TitleLabel from '../../components/Label/TitleLabel';
@@ -72,7 +73,8 @@ export default function discovery(): JSX.Element {
     getHashtagListDispatch,
     getPostListDispatch,
   } = useList();
-  const [currentTag, setCurrentTag] = useState<null | { id: number; name: string }>(null);
+  const router = useRouter();
+  const currentTag = router.query.tag;
   useEffect(() => {
     getHashtagListDispatch({ sort: 'popular', term: 'month' });
   }, []);
@@ -80,7 +82,7 @@ export default function discovery(): JSX.Element {
     if (!currentTag) {
       getPostListDispatch({ sort: 'popular', term: 'month', limit: 12 });
     } else {
-      getTaggedPostListDispatch({ HashtagId: currentTag.id });
+      getTaggedPostListDispatch({ HashtagName: currentTag as string });
     }
   }, [currentTag]);
   if (!(pageData as DiscoverPageDataType).hashtag || !pageData.post) return <></>;
@@ -92,12 +94,15 @@ export default function discovery(): JSX.Element {
           <TitleLabel title="인기태그" desc="Popular Tags" />
           <ul>
             {(pageData as DiscoverPageDataType).hashtag.map(tag => (
-              <li key={tag.id} onClick={() => setCurrentTag(tag)}>{`# ${tag.name}`}</li>
+              <li
+                key={tag.id}
+                onClick={() => router.push(`/discovery?tag=${tag.name}`)}
+              >{`# ${tag.name}`}</li>
             ))}
           </ul>
         </section>
         <section className="discovery__main">
-          <h1>{currentTag === null ? '인기글' : `# ${currentTag.name}`}</h1>
+          <h1>{!currentTag ? '인기글' : `# ${currentTag}`}</h1>
           <ul>
             {pageData.post.map(post => (
               <CommonPostCard key={post.id} postData={post} />
