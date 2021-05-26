@@ -113,9 +113,13 @@ export const ExhibitionCardBox = styled.div`
   cursor: pointer;
   font-family: 'Noto Serif KR';
   width: 233px;
+  & + & {
+    margin-left: 20px;
+  }
   img {
     width: 100%;
     height: 330px;
+    object-fit: contain;
   }
   article {
     margin-top: 10px;

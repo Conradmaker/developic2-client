@@ -13,6 +13,7 @@ import useUser from '../modules/user/hooks';
 import axios from 'axios';
 import wrapper from '../modules/store';
 import { authAction } from '../modules/user';
+import useList from '../modules/list/hooks';
 
 const MainContainer = styled.main`
   width: 1150px;
@@ -49,6 +50,11 @@ const MainContainer = styled.main`
       font-size: 30px;
       margin-bottom: 40px;
     }
+    & > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .circle {
     position: absolute;
@@ -62,6 +68,11 @@ const MainContainer = styled.main`
   }
 `;
 function Home(): JSX.Element {
+  const { pageData, getArchiveListDispatch } = useList();
+  useEffect(() => {
+    getArchiveListDispatch();
+  }, []);
+  if (!pageData.archive) return <></>;
   return (
     <Layout>
       <Head>
@@ -75,7 +86,7 @@ function Home(): JSX.Element {
         <ul className="main__nav">
           <Link href="/feed">
             <li>
-              <TitleLabel title="피드" desc="Posts by you’r followers" />
+              <TitleLabel title="피드" desc="Posts by your followers" />
             </li>
           </Link>
           <Link href="/feed">
@@ -96,15 +107,23 @@ function Home(): JSX.Element {
         </ul>
         <section>
           <h3>전시 아카이브</h3>
-          <Exhibition />
+          <div>
+            {pageData?.archive.map(v => (
+              <Exhibition key={v.id} data={v} />
+            ))}
+          </div>
         </section>
         <section>
           <h3>추천작가</h3>
-          <UserProfileCard />
+          <div>
+            <UserProfileCard />
+          </div>
         </section>
         <section>
           <h3>인기글</h3>
-          <PopularPostCard />
+          <div>
+            <PopularPostCard />
+          </div>
         </section>
       </MainContainer>
       <DarkModeBtn />
