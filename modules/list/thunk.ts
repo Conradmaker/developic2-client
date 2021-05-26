@@ -88,9 +88,9 @@ export const getTaggedPostListAction = createAsyncThunk<
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/post/tag/${payloadData.HashtagId}?${
         payloadData.sort ? '&sort=' + payloadData.sort : ''
-      }${payloadData.limit ? 'limit=' + payloadData.limit : ''}${
-        payloadData.offset ? '&offset=' + payloadData.offset : ''
-      }`
+      }${payloadData.HashtagName ? 'HashtagName=' + payloadData.HashtagName : ''}${
+        payloadData.limit ? 'limit=' + payloadData.limit : ''
+      }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
     );
     return data;
   } catch (e) {

@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CommonPostCard from '../../components/Card/CommonPostCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import { DiscoverPageDataType } from '../../modules/list';
 import useList from '../../modules/list/hooks';
-import { discoveryData } from '../../utils/discoveryData';
-import { hashTag } from '../../utils/hashTagData';
 
 const DiscoveryContainer = styled.div`
   width: 1150px;
@@ -29,6 +27,13 @@ const DiscoveryContainer = styled.div`
       flex-wrap: wrap;
       width: auto;
       font-family: 'Noto Serif KR';
+      li:first-child {
+        color: #522424;
+        font-weight: 600;
+      }
+      li.tag--active {
+        text-decoration: underline;
+      }
       li {
         color: ${({ theme }) => theme.textColor.initial};
         font-size: ${({ theme }) => theme.fontSize.xl};
@@ -88,14 +93,21 @@ export default function discovery(): JSX.Element {
   if (!(pageData as DiscoverPageDataType).hashtag || !pageData.post) return <></>;
   return (
     <Layout>
-      <Head>DEVELOPIC | discovery</Head>
+      <Head>DEVELOPIC | DISCOVER</Head>
       <DiscoveryContainer>
         <section className="discovery__head">
           <TitleLabel title="인기태그" desc="Popular Tags" />
           <ul>
+            <li
+              className={!currentTag ? 'tag--active' : ''}
+              onClick={() => router.push('/discovery')}
+            >
+              인기글
+            </li>
             {(pageData as DiscoverPageDataType).hashtag.map(tag => (
               <li
                 key={tag.id}
+                className={tag.name === currentTag ? 'tag--active' : ''}
                 onClick={() => router.push(`/discovery?tag=${tag.name}`)}
               >{`# ${tag.name}`}</li>
             ))}

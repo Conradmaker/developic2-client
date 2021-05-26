@@ -1,18 +1,16 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 import { BiRightArrow } from 'react-icons/bi';
 import CommonPostCard from '../../components/Card/CommonPostCard';
 import RecentUserCard from '../../components/Card/RecentUserCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
-import { discoveryData } from '../../utils/discoveryData';
-import { recentUsers } from '../../utils/data';
 import useFollowListModal from '../../hooks/useFollowListModal';
 import useList from '../../modules/list/hooks';
 import useUser from '../../modules/user/hooks';
 import { useRouter } from 'next/router';
+import { FeedPageDataType } from '../../modules/list';
 
 const FeedContainer = styled.div`
   max-width: 1150px;
@@ -90,7 +88,7 @@ export default function index(): JSX.Element {
       getWriterListDispatch({ userId: userData.id, type: 'suber' });
     }
   }, [userData]);
-  if (!pageData) return <></>;
+  if (!pageData.post || !(pageData as FeedPageDataType).writer) return <></>;
   return (
     <Layout>
       <Head>
@@ -99,9 +97,9 @@ export default function index(): JSX.Element {
       <FeedContainer>
         <TitleLabel title="피드" desc="Posts by your followers" />
         <section className="feed__users">
-          <h1>최근 활동 작가</h1>
+          <h1>최근 활동 구독작가</h1>
           <ul>
-            {pageData.writer.map(user => (
+            {(pageData as FeedPageDataType).writer.map(user => (
               <RecentUserCard key={user.id} userData={user} />
             ))}
             <li className="more__recent__users" onClick={toggleFollowList}>
