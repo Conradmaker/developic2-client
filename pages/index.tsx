@@ -52,8 +52,10 @@ const MainContainer = styled.main`
     }
     & > div {
       display: flex;
-      justify-content: center;
       align-items: center;
+    }
+    & > .post__section {
+      flex-wrap: wrap;
     }
   }
   .circle {
@@ -68,11 +70,20 @@ const MainContainer = styled.main`
   }
 `;
 function Home(): JSX.Element {
-  const { pageData, getArchiveListDispatch } = useList();
+  const {
+    pageData,
+    getArchiveListDispatch,
+    getWriterListDispatch,
+    getPostListDispatch,
+  } = useList();
   useEffect(() => {
-    getArchiveListDispatch();
+    getArchiveListDispatch({ limit: 5 });
+    getWriterListDispatch({ type: 'all', limit: 5 });
+    getPostListDispatch({ sort: 'popular', term: 'month', limit: 10 });
   }, []);
   if (!(pageData as MainPageDataType).archive) return <></>;
+  if (!(pageData as MainPageDataType).writer) return <></>;
+  if (!(pageData as MainPageDataType).post) return <></>;
   return (
     <Layout>
       <Head>
@@ -116,13 +127,17 @@ function Home(): JSX.Element {
         <section>
           <h3>추천작가</h3>
           <div>
-            <UserProfileCard />
+            {(pageData as MainPageDataType).writer.map(v => (
+              <UserProfileCard key={v.id} data={v} />
+            ))}
           </div>
         </section>
         <section>
           <h3>인기글</h3>
-          <div>
-            <PopularPostCard />
+          <div className="post__section">
+            {(pageData as MainPageDataType).post.map(v => (
+              <PopularPostCard key={v.id} data={v} />
+            ))}
           </div>
         </section>
       </MainContainer>

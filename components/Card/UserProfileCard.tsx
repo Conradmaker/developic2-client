@@ -1,15 +1,16 @@
 import React from 'react';
+import { PostUser } from '../../modules/list';
 import { UserProfileCardBox } from './styles';
 
-export default function UserProfileCard(): JSX.Element {
+interface UserProfileCarePropsType {
+  data: PostUser;
+}
+export default function UserProfileCard({ data }: UserProfileCarePropsType): JSX.Element {
   return (
     <UserProfileCardBox>
-      <img
-        src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
-        alt="avatar"
-      />
-      <p>첫번째 유저</p>
-      <span>CEO at ABC Corporation</span>
+      <img src={data.avatar} alt="avatar" />
+      <p>{data.nickname}</p>
+      <span>{data.introduce}</span>
     </UserProfileCardBox>
   );
 }

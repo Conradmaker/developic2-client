@@ -14,6 +14,7 @@ import {
   GetHashTagListPayload,
   GetTaggedPostListPayload,
   GetPostListPayload,
+  GetArchiveListPayload,
 } from './type';
 
 export default function useList() {
@@ -38,8 +39,8 @@ export default function useList() {
   const getPostListDispatch = useCallback((data: GetPostListPayload) => {
     dispatch(getPostListAction(data));
   }, []);
-  const getArchiveListDispatch = useCallback(() => {
-    dispatch(getArchiveListAction(null));
+  const getArchiveListDispatch = useCallback((data: GetArchiveListPayload) => {
+    dispatch(getArchiveListAction(data));
   }, []);
   return {
     pageData,

@@ -9,6 +9,7 @@ import {
   PostType,
   PostUser,
   ArchiveDataType,
+  GetArchiveListPayload,
 } from './type';
 
 axios.defaults.withCredentials = true;
@@ -21,11 +22,15 @@ interface MyKnownError {
 // 전시회 리스트 가져오기
 export const getArchiveListAction = createAsyncThunk<
   ArchiveDataType[],
-  null,
+  GetArchiveListPayload,
   { rejectValue: MyKnownError }
->('list/getArchiveList', async (_, { rejectWithValue }) => {
+>('list/getArchiveList', async (payLoadData, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(`/list/exhibition?limit=5`);
+    const { data } = await axios.get(
+      `/list/exhibition?${payLoadData.limit ? '&limit=' + payLoadData.limit : ''}${
+        payLoadData.offset ? '&offset=' + payLoadData.offset : ''
+      }`
+    );
     return data;
   } catch (e) {
     console.error(e);
@@ -42,7 +47,7 @@ export const getFeedPostAction = createAsyncThunk<
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/feed/${payloadData.UserId}?${
-        payloadData.limit ? 'limit=' + payloadData.limit : ''
+        payloadData.limit ? '&limit=' + payloadData.limit : ''
       }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
     );
     return data;
@@ -62,7 +67,7 @@ export const getWriterListAction = createAsyncThunk<
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/writer?${
         payloadData.type ? '&type=' + payloadData.type : ''
-      }${payloadData.limit ? 'limit=' + payloadData.limit : ''}${
+      }${payloadData.limit ? '&limit=' + payloadData.limit : ''}${
         payloadData.userId ? '&userId=' + payloadData.userId : ''
       }`
     );

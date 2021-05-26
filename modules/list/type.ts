@@ -96,3 +96,8 @@ export type GetPostListPayload = {
   limit?: number;
   offset?: number;
 };
+
+export type GetArchiveListPayload = {
+  limit?: number;
+  offset?: number;
+}

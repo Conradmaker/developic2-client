@@ -4,6 +4,9 @@ import styled from '@emotion/styled';
 export const PopularPostCardBox = styled.div`
   display: inline-block;
   cursor: pointer;
+  margin: 0 20px 20px 0;
+  height: 300px; /*  */
+  overflow: hidden;
   img {
     height: 210px;
   }
@@ -29,8 +32,7 @@ export const PopularPostCardBox = styled.div`
     }
   }
   &:hover {
-    /* border: 0.5px solid ${({ theme }) => theme.grayScale[4]}; */
-    box-shadow: 0 0 10px #eee;
+    box-shadow: 0 0 10px ${({ theme }) => theme.grayScale[2]};
   }
 `;
 
@@ -43,6 +45,9 @@ export const UserProfileCardBox = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 130px;
+  & + & {
+    margin-left: 20px;
+  }
   img {
     border-radius: 35px;
     width: 70px;
@@ -61,7 +66,7 @@ export const UserProfileCardBox = styled.div`
   }
   &:hover {
     img {
-      box-shadow: 0 0 3px ${({ theme }) => theme.grayScale[1]};
+      box-shadow: 0 0 10px ${({ theme }) => theme.grayScale[2]};
     }
     p {
       text-decoration: underline;
@@ -123,6 +128,12 @@ export const ExhibitionCardBox = styled.div`
   cursor: pointer;
   font-family: 'Noto Serif KR';
   width: 233px;
+  &:hover {
+    & > img {
+      transform: translateY(-5px);
+      transition: ease-in-out 0.3s;
+    }
+  }
   & + & {
     margin-left: 20px;
   }
@@ -557,6 +568,12 @@ export const ArchiveItemContainer = styled.li<{
   margin-top: 60px;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  &:hover {
+    h2 {
+      text-decoration: underline;
+    }
+  }
   ${props =>
     props.length &&
     props.length % 2 === 0 &&
@@ -588,7 +605,6 @@ export const ArchiveItemContainer = styled.li<{
       width: 100%;
       max-height: 350px;
       overflow: hidden;
-      cursor: pointer;
       ${props =>
         props.currentTheme === 'light' &&
         css`
@@ -625,10 +641,6 @@ export const ArchiveItemContainer = styled.li<{
       color: ${({ theme }) => theme.textColor.initial};
       margin-top: 35px;
       line-height: 33px;
-      cursor: pointer;
-      &:hover {
-        color: ${({ theme }) => theme.textColor.lighten};
-      }
     }
     h2 + p {
       margin-top: 35px;
