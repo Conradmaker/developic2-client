@@ -9,11 +9,11 @@ import UserProfileCard from '../components/Card/UserProfileCard';
 import Exhibition from '../components/Card/Exhibition';
 import { DarkModeBtn } from '../components/Button/FloatingBtn';
 import { useEffect } from 'react';
-import useUser from '../modules/user/hooks';
 import axios from 'axios';
 import wrapper from '../modules/store';
 import { authAction } from '../modules/user';
 import useList from '../modules/list/hooks';
+import { MainPageDataType } from '../modules/list';
 
 const MainContainer = styled.main`
   width: 1150px;
@@ -72,7 +72,7 @@ function Home(): JSX.Element {
   useEffect(() => {
     getArchiveListDispatch();
   }, []);
-  if (!pageData.archive) return <></>;
+  if (!(pageData as MainPageDataType).archive) return <></>;
   return (
     <Layout>
       <Head>
@@ -89,7 +89,7 @@ function Home(): JSX.Element {
               <TitleLabel title="피드" desc="Posts by your followers" />
             </li>
           </Link>
-          <Link href="/feed">
+          <Link href="/discovery">
             <li>
               <TitleLabel title="탐색" desc="Discover interesting posts" />
             </li>
@@ -108,7 +108,7 @@ function Home(): JSX.Element {
         <section>
           <h3>전시 아카이브</h3>
           <div>
-            {pageData?.archive.map(v => (
+            {(pageData as MainPageDataType).archive.map(v => (
               <Exhibition key={v.id} data={v} />
             ))}
           </div>

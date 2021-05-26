@@ -1,15 +1,16 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import React from 'react';
-import Link from 'next/link';
+import React, { useEffect } from 'react';
 import { BiRightArrow } from 'react-icons/bi';
 import CommonPostCard from '../../components/Card/CommonPostCard';
 import RecentUserCard from '../../components/Card/RecentUserCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
-import { discoveryData } from '../../utils/discoveryData';
-import { recentUsers } from '../../utils/data';
 import useFollowListModal from '../../hooks/useFollowListModal';
+import useList from '../../modules/list/hooks';
+import useUser from '../../modules/user/hooks';
+import { useRouter } from 'next/router';
+import { FeedPageDataType } from '../../modules/list';
 
 const FeedContainer = styled.div`
   max-width: 1150px;
@@ -76,21 +77,30 @@ const FeedContainer = styled.div`
   }
 `;
 export default function index(): JSX.Element {
+  const { userData } = useUser();
+  const { getFeedPostDispatch, pageData, getWriterListDispatch } = useList();
+  const router = useRouter();
   const [followListOpen, toggleFollowList, FollowListModal] = useFollowListModal();
+  useEffect(() => {
+    if (!userData) router.replace('/');
+    if (userData) {
+      getFeedPostDispatch({ UserId: userData.id });
+      getWriterListDispatch({ userId: userData.id, type: 'suber' });
+    }
+  }, [userData]);
+  if (!pageData.post || !(pageData as FeedPageDataType).writer) return <></>;
   return (
     <Layout>
       <Head>
-        <title>DEVELOPIC | feed</title>
+        <title>DEVELOPIC | FEED</title>
       </Head>
       <FeedContainer>
         <TitleLabel title="피드" desc="Posts by your followers" />
         <section className="feed__users">
-          <h1>최근 활동 작가</h1>
+          <h1>최근 활동 구독작가</h1>
           <ul>
-            {recentUsers.map(v => (
-              <Link href="/feed">
-                <RecentUserCard key={v.id} data={v} />
-              </Link>
+            {(pageData as FeedPageDataType).writer.map(user => (
+              <RecentUserCard key={user.id} userData={user} />
             ))}
             <li className="more__recent__users" onClick={toggleFollowList}>
               <div>
@@ -103,8 +113,8 @@ export default function index(): JSX.Element {
         <section className="feed__posts">
           <h1>구독한 작가의 글</h1>
           <ul>
-            {discoveryData.map(v => (
-              <CommonPostCard key={v.id} data={v} />
+            {pageData.post.map(post => (
+              <CommonPostCard key={post.id} postData={post} />
             ))}
           </ul>
         </section>

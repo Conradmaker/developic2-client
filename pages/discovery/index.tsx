@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useRef, useState } from 'react';
 import CommonPostCard from '../../components/Card/CommonPostCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
-import { discoveryData } from '../../utils/discoveryData';
-import { hashTag } from '../../utils/hashTagData';
+import { DiscoverPageDataType } from '../../modules/list';
+import useList from '../../modules/list/hooks';
 
 const DiscoveryContainer = styled.div`
   width: 1150px;
@@ -26,6 +27,13 @@ const DiscoveryContainer = styled.div`
       flex-wrap: wrap;
       width: auto;
       font-family: 'Noto Serif KR';
+      li:first-child {
+        color: #522424;
+        font-weight: 600;
+      }
+      li.tag--active {
+        text-decoration: underline;
+      }
       li {
         color: ${({ theme }) => theme.textColor.initial};
         font-size: ${({ theme }) => theme.fontSize.xl};
@@ -63,35 +71,53 @@ const DiscoveryContainer = styled.div`
     }
   }
 `;
-type CurrentTagPropsType = {
-  id: string;
-  name: string;
-};
 export default function discovery(): JSX.Element {
-  const [currentTag, setCurrentTag] = useState<CurrentTagPropsType | null>(null);
-  const onClickHashTag = (state: CurrentTagPropsType): void => {
-    setCurrentTag(state);
-  };
-  // if(currentTag !== null){
-  //   dispatch();
-  // }
+  const {
+    pageData,
+    getTaggedPostListDispatch,
+    getHashtagListDispatch,
+    getPostListDispatch,
+  } = useList();
+  const router = useRouter();
+  const currentTag = router.query.tag;
+  useEffect(() => {
+    getHashtagListDispatch({ sort: 'popular', term: 'month' });
+  }, []);
+  useEffect(() => {
+    if (!currentTag) {
+      getPostListDispatch({ sort: 'popular', term: 'month', limit: 12 });
+    } else {
+      getTaggedPostListDispatch({ HashtagName: currentTag as string });
+    }
+  }, [currentTag]);
+  if (!(pageData as DiscoverPageDataType).hashtag || !pageData.post) return <></>;
   return (
     <Layout>
-      <Head>DEVELOPIC | discovery</Head>
+      <Head>DEVELOPIC | DISCOVER</Head>
       <DiscoveryContainer>
         <section className="discovery__head">
           <TitleLabel title="인기태그" desc="Popular Tags" />
           <ul>
-            {hashTag.map(v => (
-              <li key={v.id} onClick={() => onClickHashTag(v)}>{`# ${v.name}`}</li>
+            <li
+              className={!currentTag ? 'tag--active' : ''}
+              onClick={() => router.push('/discovery')}
+            >
+              인기글
+            </li>
+            {(pageData as DiscoverPageDataType).hashtag.map(tag => (
+              <li
+                key={tag.id}
+                className={tag.name === currentTag ? 'tag--active' : ''}
+                onClick={() => router.push(`/discovery?tag=${tag.name}`)}
+              >{`# ${tag.name}`}</li>
             ))}
           </ul>
         </section>
         <section className="discovery__main">
-          <h1>{currentTag === null ? '인기글' : `# ${currentTag.name}`}</h1>
+          <h1>{!currentTag ? '인기글' : `# ${currentTag}`}</h1>
           <ul>
-            {discoveryData.map(v => (
-              <CommonPostCard key={v.id} data={v} />
+            {pageData.post.map(post => (
+              <CommonPostCard key={post.id} postData={post} />
             ))}
           </ul>
         </section>
