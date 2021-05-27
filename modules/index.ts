@@ -8,6 +8,7 @@ import drawer, { DrawerState } from './drawer';
 import blog, { BlogState } from './blog';
 import archive, { ArchiveState } from './archive';
 import list, { ListState } from './list';
+import cs, { CsState } from './cs';
 
 type State = {
   user: UserState;
@@ -18,6 +19,7 @@ type State = {
   blog: BlogState;
   archive: ArchiveState;
   list: ListState;
+  cs: CsState;
 };
 
 export const reducer = (state: State | undefined, action) => {
@@ -26,9 +28,16 @@ export const reducer = (state: State | undefined, action) => {
       console.log('HYDRATE', action.payload);
       return action.payload;
     default:
-      return combineReducers({ user, ui, post, blog, picstory, drawer, archive, list })(
-        state,
-        action
-      );
+      return combineReducers({
+        user,
+        ui,
+        post,
+        blog,
+        picstory,
+        drawer,
+        archive,
+        list,
+        cs,
+      })(state, action);
   }
 };
