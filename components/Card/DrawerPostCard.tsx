@@ -3,6 +3,7 @@ import { DrawerPostCardContainer } from './styles';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { LikeListItemType } from '../../modules/drawer';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 type DrawerPostCardPropsType = {
   postData: LikeListItemType;
   onDeleteCb: () => void;
@@ -28,7 +29,7 @@ export default function DrawerPostCard({
           <article>
             <h3>{postData.title} </h3>
             <p>{postData.summary}</p>
-            <p>{postData.updatedAt}</p>
+            <p>{dayjs(postData.updatedAt).format('YYYY년 MM월 DD일')}</p>
             <div className="circle">
               <RiArrowRightSLine />
             </div>

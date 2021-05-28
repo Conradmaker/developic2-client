@@ -16,11 +16,6 @@ export default function LikeList(): JSX.Element {
   };
   return (
     <LikeListContainer>
-      <div className="total_like_count">
-        <span>
-          총 <strong>{getLikeList.data.length}</strong>개의 좋아요 목록
-        </span>
-      </div>
       <ul>
         {getLikeList.data.map(likeItem => (
           <DrawerPostCard
