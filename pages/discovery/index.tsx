@@ -85,7 +85,7 @@ export default function discovery(): JSX.Element {
   const router = useRouter();
   const currentTag = router.query.tag;
   useEffect(() => {
-    getHashtagListDispatch({ sort: 'popular', term: 'month' });
+    getHashtagListDispatch({ sort: 'popular', term: 'month', limit: 18 });
   }, []);
   useEffect(() => {
     setPage(0);

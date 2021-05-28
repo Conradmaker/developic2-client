@@ -23,14 +23,19 @@ export const getFeedPostAction = createAsyncThunk<
   PostType[],
   { UserId: number; limit?: number; offset?: number },
   { rejectValue: MyKnownError }
->('list/getFeedList', async (payloadData, { rejectWithValue }) => {
+>('list/getFeedList', async (payloadData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/feed/${payloadData.UserId}?${
         payloadData.limit ? 'limit=' + payloadData.limit : ''
       }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
     );
-
+    dispatch(
+      hasMoreData(
+        payloadData.limit ? data.length === payloadData.limit : data.length === 12
+      )
+    );
+    dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
   } catch (e) {
     console.error(e);

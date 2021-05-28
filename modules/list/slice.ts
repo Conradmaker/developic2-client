@@ -43,7 +43,9 @@ const listSlice = createSlice({
         state.getFeedList.loading = false;
         state.getFeedList.data = true;
         state.getFeedList.error = null;
-        (state.pageData as FeedPageDataType).post = payload;
+        state.pageData.post = state.loadMore
+          ? state.pageData.post.concat(payload)
+          : payload;
       })
       .addCase(getFeedPostAction.rejected, (state, { payload }) => {
         state.getFeedList.loading = false;
@@ -91,7 +93,9 @@ const listSlice = createSlice({
         state.getTaggedPostList.loading = false;
         state.getTaggedPostList.data = true;
         state.getTaggedPostList.error = null;
-        state.pageData.post = payload;
+        state.pageData.post = state.loadMore
+          ? state.pageData.post.concat(payload)
+          : payload;
       })
       .addCase(getTaggedPostListAction.rejected, (state, { payload }) => {
         state.getTaggedPostList.loading = false;
