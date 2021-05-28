@@ -15,7 +15,7 @@ import {
   GetPostListPayload,
 } from './type';
 export default function useList() {
-  const { pageData, loadSearchPostList } = useAppSelector(state => state.list);
+  const { pageData, loadSearchPostList, hasMore } = useAppSelector(state => state.list);
   const dispatch = useAppDispatch();
 
   const getFeedPostDispatch = useCallback(
@@ -38,6 +38,7 @@ export default function useList() {
   }, []);
   return {
     pageData,
+    hasMore,
     loadSearchPostList,
     getFeedPostDispatch,
     getWriterListDispatch,

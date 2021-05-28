@@ -1,31 +1,30 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  SetStateAction,
+  Dispatch,
+} from 'react';
 
-const FetchMoreTriggerContainer = styled.div<{ loading: boolean }>`
+const FetchMoreTriggerContainer = styled.div`
   width: 100%;
   height: 80px;
   img {
     margin: 0 auto;
-    display: none;
+    display: block;
     height: 80px;
   }
   p {
-    display: none;
     text-align: center;
     font-size: 14px;
     font-family: 'Noto Serif KR';
   }
-  ${props =>
-    props.loading &&
-    css`
-      img,
-      p {
-        display: block;
-      }
-    `}
 `;
-export default function useFetchMore(loading = false): [() => JSX.Element, number] {
+export default function useFetchMore(
+  loading = false
+): [() => JSX.Element, number, Dispatch<SetStateAction<number>>] {
   const [page, setPage] = useState(0);
 
   const FetchMore = useCallback(() => {
@@ -47,16 +46,21 @@ export default function useFetchMore(loading = false): [() => JSX.Element, numbe
 
     return (
       <FetchMoreTriggerContainer
-        loading={loading}
         id="fetchMore"
         className={loading ? 'loading' : ''}
         ref={fetchMoreTrigger}
       >
-        <img src="/pencil_loading.gif" alt="loading..." />
-        <p>불러오는중..</p>
+        {loading ? (
+          <>
+            <img src="/pencil_loading.gif" alt="loading..." />
+            <p>불러오는중..</p>
+          </>
+        ) : (
+          <p>모든 데이터를 불러왔습니다.</p>
+        )}
       </FetchMoreTriggerContainer>
     );
-  }, []);
+  }, [loading]);
 
-  return [FetchMore, page];
+  return [FetchMore, page, setPage];
 }

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { Action, createSlice } from '@reduxjs/toolkit';
 import {
   getFeedPostAction,
   getHashtagListAction,
@@ -17,12 +17,21 @@ const initialState: ListState = {
   getHashtagList: { loading: false, data: null, error: null },
   getTaggedPostList: { loading: false, data: null, error: null },
   getPostList: { loading: false, data: null, error: null },
+  loadMore: false,
+  hasMore: true,
 };
 
 const listSlice = createSlice({
   name: 'list',
   initialState,
-  reducers: {},
+  reducers: {
+    isMoreLoading(state, { payload }) {
+      state.loadMore = payload;
+    },
+    hasMoreData(state, { payload }) {
+      state.hasMore = payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getFeedPostAction.pending, state => {
@@ -98,7 +107,9 @@ const listSlice = createSlice({
         state.getPostList.loading = false;
         state.getPostList.data = true;
         state.getPostList.error = null;
-        state.pageData.post = payload;
+        state.pageData.post = state.loadMore
+          ? state.pageData.post.concat(payload)
+          : payload;
       })
       .addCase(getPostListAction.rejected, (state, { payload }) => {
         state.getPostList.loading = false;
@@ -108,4 +119,5 @@ const listSlice = createSlice({
   },
 });
 
+export const { isMoreLoading, hasMoreData } = listSlice.actions;
 export default listSlice.reducer;

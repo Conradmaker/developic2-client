@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import CommonPostCard from '../../components/Card/CommonPostCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
+import useFetchMore from '../../hooks/useFetchMore';
 import { DiscoverPageDataType } from '../../modules/list';
 import useList from '../../modules/list/hooks';
 
@@ -74,22 +75,43 @@ const DiscoveryContainer = styled.div`
 export default function discovery(): JSX.Element {
   const {
     pageData,
+    hasMore,
     getTaggedPostListDispatch,
     getHashtagListDispatch,
     getPostListDispatch,
   } = useList();
+  const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
+
   const router = useRouter();
   const currentTag = router.query.tag;
   useEffect(() => {
     getHashtagListDispatch({ sort: 'popular', term: 'month' });
   }, []);
   useEffect(() => {
+    setPage(0);
     if (!currentTag) {
       getPostListDispatch({ sort: 'popular', term: 'month', limit: 12 });
     } else {
       getTaggedPostListDispatch({ HashtagName: currentTag as string });
     }
   }, [currentTag]);
+  useEffect(() => {
+    if (hasMore)
+      if (!currentTag) {
+        getPostListDispatch({
+          sort: 'popular',
+          term: 'month',
+          limit: 12,
+          offset: page * 12,
+        });
+      } else {
+        getTaggedPostListDispatch({
+          HashtagName: currentTag as string,
+          limit: 12,
+          offset: page * 12,
+        });
+      }
+  }, [page]);
   if (!(pageData as DiscoverPageDataType).hashtag || !pageData.post) return <></>;
   return (
     <Layout>
@@ -120,6 +142,7 @@ export default function discovery(): JSX.Element {
               <CommonPostCard key={post.id} postData={post} />
             ))}
           </ul>
+          <FetchMoreTrigger />
         </section>
       </DiscoveryContainer>
     </Layout>
