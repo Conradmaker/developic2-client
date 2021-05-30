@@ -56,13 +56,14 @@ const drawerSlice = createSlice({
     builder
       .addCase(getLikeListAction.pending, state => {
         state.getLikeList.loading = true;
-        state.getLikeList.data = null;
         state.getLikeList.error = null;
       })
       .addCase(getLikeListAction.fulfilled, (state, { payload }) => {
         state.getLikeList.loading = false;
-        state.getLikeList.data = payload;
         state.getLikeList.error = null;
+        state.getLikeList.data = state.loadMore
+          ? state.getLikeList.data.concat(payload)
+          : payload;
       })
       .addCase(getLikeListAction.rejected, (state, { payload }) => {
         state.getLikeList.loading = false;
