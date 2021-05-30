@@ -1,33 +1,22 @@
-import dayjs from 'dayjs';
-import _forEachRight from 'lodash/forEachRight';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { RecentViewType } from '../../modules/drawer';
+import useFetchMore from '../../hooks/useFetchMore';
 import useDrawer from '../../modules/drawer/hooks';
 import useUser from '../../modules/user/hooks';
+import { ComputedListType, sortByDate } from '../../utils/sortByDate';
 import DrawerPostCard from '../Card/DrawerPostCard';
 import { RecentViewListContainer } from './styles';
-
-type ComputedListType = { [key: string]: RecentViewType[] };
-
-const sortByDate = (list: RecentViewType[]) => {
-  const sections: ComputedListType = {};
-  _forEachRight(list, v => {
-    const date = dayjs(v.createdAt).format('YYYY.MM.DD');
-    if (Array.isArray(sections[date])) {
-      sections[date].push(v);
-    } else {
-      sections[date] = [v];
-    }
-  });
-
-  return sections;
-};
 
 export default function RecentViewList(): JSX.Element {
   const router = useRouter();
   const { userData } = useUser();
-  const { getRecentList, getRecentViewsDispatch, removeRecentViewDispatch } = useDrawer();
+  const {
+    getRecentList,
+    hasMore,
+    getRecentViewsDispatch,
+    removeRecentViewDispatch,
+  } = useDrawer();
+  const [FetchMoreTrigger, page] = useFetchMore(hasMore);
   const [computedRecents, setComputedRecents] = useState<ComputedListType | []>([]);
   useEffect(() => {
     if (!userData) {
@@ -41,6 +30,15 @@ export default function RecentViewList(): JSX.Element {
       setComputedRecents(sortByDate(getRecentList.data));
     }
   }, [getRecentList.data]);
+  useEffect(() => {
+    if (!userData) {
+      router.replace('/');
+      return;
+    }
+    if (hasMore && page > 0) {
+      getRecentViewsDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
+    }
+  }, [page]);
   if (!getRecentList.data) return <></>;
   if (!computedRecents) return <></>;
   return (
@@ -63,6 +61,7 @@ export default function RecentViewList(): JSX.Element {
           </li>
         );
       })}
+      <FetchMoreTrigger />
     </RecentViewListContainer>
   );
 }

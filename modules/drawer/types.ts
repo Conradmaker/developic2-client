@@ -94,6 +94,7 @@ export type RecentViewType = {
   id: number;
   date: Date;
   createdAt: Date;
+  updatedAt: Date;
   Post: LikeListItemType;
 };
 export type PhotoBinderType = {

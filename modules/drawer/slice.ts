@@ -96,6 +96,9 @@ const drawerSlice = createSlice({
         state.getTempList.loading = false;
         state.getTempList.data = payload;
         state.getTempList.error = null;
+        // state.getTempList.data = state.loadMore
+        //   ? (state.getTempList.data as TempItemType[]).concat(payload)
+        //   : payload;
       })
       .addCase(getTempListAction.rejected, (state, { payload }) => {
         state.getTempList.loading = false;
@@ -122,13 +125,14 @@ const drawerSlice = createSlice({
       })
       .addCase(getRecentViewsAction.pending, state => {
         state.getRecentList.loading = true;
-        state.getRecentList.data = null;
         state.getRecentList.error = null;
       })
       .addCase(getRecentViewsAction.fulfilled, (state, { payload }) => {
         state.getRecentList.loading = false;
-        state.getRecentList.data = payload;
         state.getRecentList.error = null;
+        state.getRecentList.data = state.loadMore
+          ? (state.getRecentList.data as RecentViewType[]).concat(payload)
+          : payload;
       })
       .addCase(getRecentViewsAction.rejected, (state, { payload }) => {
         state.getRecentList.loading = false;

@@ -29,6 +29,8 @@ import {
 export default function useDrawer() {
   const {
     getLikeList,
+    hasMore,
+    loadMore,
     removeLikeItem,
     getTempList,
     removeTempPost,
@@ -104,6 +106,8 @@ export default function useDrawer() {
 
   return {
     getLikeList,
+    hasMore,
+    loadMore,
     removeLikeItem,
     getTempList,
     removeTempPost,
