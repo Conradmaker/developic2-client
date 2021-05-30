@@ -1,13 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { hasMoreData, isMoreLoading } from './slice';
 import {
   CreatePhotoBinderPayload,
+  GetLikeListPayload,
   LikeListItemType,
   PhotoBinderType,
   RecentViewType,
   RemoveLikesPayload,
   TempItemType,
   UpdatePhotoBinderPayload,
+  GetBinderListPayload,
+  GetRecentListPayload,
+  GetTempListPayload,
 } from './types';
 
 axios.defaults.withCredentials = true;
@@ -18,11 +23,21 @@ interface MyKnownError {
 }
 export const getLikeListAction = createAsyncThunk<
   LikeListItemType[],
-  number,
+  GetLikeListPayload,
   { rejectValue: MyKnownError }
->('drawer/getLikeList', async (userId, { rejectWithValue }) => {
+>('drawer/getLikeList', async (payloadData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.get(`/drawer/likes/${userId}`);
+    const { data } = await axios.get(
+      `/drawer/likes/${payloadData.userId}?${
+        payloadData.limit ? 'limit=' + payloadData.limit : ''
+      }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
+    );
+    dispatch(
+      hasMoreData(
+        payloadData.limit ? data.length === payloadData.limit : data.length === 12
+      )
+    );
+    dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
   } catch (e) {
     console.error(e);
@@ -48,11 +63,23 @@ export const removeLikePostAction = createAsyncThunk<
 //임시저장리스트불러오기
 export const getTempListAction = createAsyncThunk<
   TempItemType[],
-  number,
+  GetTempListPayload,
   { rejectValue: MyKnownError }
->('drawer/getTemps', async (userId, { rejectWithValue }) => {
+>('drawer/getTemps', async (payloadData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.get(`/drawer/saves/${userId}`);
+    const { data } = await axios.get(
+      `/drawer/saves/${payloadData.userId}?${
+        payloadData.limit ? 'limit=' + payloadData.limit : ''
+      }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
+    );
+
+    dispatch(
+      hasMoreData(
+        payloadData.limit ? data.length === payloadData.limit : data.length === 12
+      )
+    );
+    dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
+
     return data;
   } catch (e) {
     console.error(e);
@@ -77,11 +104,23 @@ export const removeTempPostAction = createAsyncThunk<
 //최근 본글 조회
 export const getRecentViewsAction = createAsyncThunk<
   RecentViewType[],
-  number,
+  GetRecentListPayload,
   { rejectValue: MyKnownError }
->('drawer/getRecentList', async (userId, { rejectWithValue }) => {
+>('drawer/getRecentList', async (payloadData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.get(`/drawer/recents/${userId}`);
+    const { data } = await axios.get(
+      `/drawer/recents/${payloadData.userId}?${
+        payloadData.limit ? 'limit=' + payloadData.limit : ''
+      }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
+    );
+
+    dispatch(
+      hasMoreData(
+        payloadData.limit ? data.length === payloadData.limit : data.length === 12
+      )
+    );
+    dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
+
     return data;
   } catch (e) {
     console.error(e);
@@ -106,11 +145,23 @@ export const removeRecentViewAction = createAsyncThunk<
 //포토바인더 리스트 조회
 export const getPhotoBinderListAction = createAsyncThunk<
   PhotoBinderType[],
-  number,
+  GetBinderListPayload,
   { rejectValue: MyKnownError }
->('drawer/getBinderList', async (userId, { rejectWithValue }) => {
+>('drawer/getBinderList', async (payloadData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.get(`/drawer/binder/${userId}`);
+    const { data } = await axios.get(
+      `/drawer/binder/${payloadData.userId}?${
+        payloadData.limit ? 'limit=' + payloadData.limit : ''
+      }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
+    );
+
+    dispatch(
+      hasMoreData(
+        payloadData.limit ? data.length === payloadData.limit : data.length === 12
+      )
+    );
+    dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
+
     return data;
   } catch (e) {
     console.error(e);

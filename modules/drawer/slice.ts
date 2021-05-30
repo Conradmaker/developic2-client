@@ -37,12 +37,21 @@ const initialState: DrawerState = {
   removeBinderPhoto: { loading: false, data: null, error: null },
   createBinder: { loading: false, data: null, error: null },
   removeBinder: { loading: false, data: null, error: null },
+  hasMore: true,
+  loadMore: false,
 };
 
 const drawerSlice = createSlice({
   name: 'drawer',
   initialState,
-  reducers: {},
+  reducers: {
+    isMoreLoading(state, { payload }) {
+      state.loadMore = payload;
+    },
+    hasMoreData(state, { payload }) {
+      state.hasMore = payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getLikeListAction.pending, state => {
@@ -284,4 +293,5 @@ const drawerSlice = createSlice({
   },
 });
 
+export const { hasMoreData, isMoreLoading } = drawerSlice.actions;
 export default drawerSlice.reducer;

@@ -13,7 +13,7 @@ type ComputedListType = { [key: string]: RecentViewType[] };
 const sortByDate = (list: RecentViewType[]) => {
   const sections: ComputedListType = {};
   _forEachRight(list, v => {
-    const date = dayjs(v.date).format('YYYY.MM.DD');
+    const date = dayjs(v.createdAt).format('YYYY.MM.DD');
     if (Array.isArray(sections[date])) {
       sections[date].push(v);
     } else {
@@ -34,7 +34,7 @@ export default function RecentViewList(): JSX.Element {
       router.replace('/');
       return;
     }
-    getRecentViewsDispatch(userData.id);
+    getRecentViewsDispatch({ userId: userData.id, limit: 12 });
   }, []);
   useEffect(() => {
     if (getRecentList.data) {

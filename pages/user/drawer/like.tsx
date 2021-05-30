@@ -15,7 +15,7 @@ export default function like(): JSX.Element {
   const { getLikeListDispatch } = useDrawer();
   useEffect(() => {
     if (!userData) return;
-    getLikeListDispatch(userData.id);
+    getLikeListDispatch({ userId: userData.id, limit: 12 });
   }, [userData]);
 
   return (

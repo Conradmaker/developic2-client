@@ -70,6 +70,8 @@ export type DrawerState = {
       | { id: number; src: string }[];
     error: null | unknown;
   };
+  hasMore: boolean;
+  loadMore: boolean;
 };
 
 export type LikeListItemType = {
@@ -91,6 +93,7 @@ export type TempItemType = {
 export type RecentViewType = {
   id: number;
   date: Date;
+  createdAt: Date;
   Post: LikeListItemType;
 };
 export type PhotoBinderType = {
@@ -116,6 +119,10 @@ export type CreatePhotoBinderPayload = {
   description: string;
   UserId: number;
 };
+export type GetLikeListPayload = { userId: number; limit?: number; offset?: number };
+export type GetTempListPayload = { userId: number; limit?: number; offset?: number };
+export type GetRecentListPayload = { userId: number; limit?: number; offset?: number };
+export type GetBinderListPayload = { userId: number; limit?: number; offset?: number };
 
 //NOTE: TYPE GUARD
 export const isPhotoBinderArr = (
