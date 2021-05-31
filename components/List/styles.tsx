@@ -21,6 +21,9 @@ export const UserCardListContainer = styled.ul`
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 50px 30px;
   margin-bottom: 100px;
+  .empty_content {
+    text-align: center;
+  }
 `;
 
 export const NoticeListContainer = styled.ul`

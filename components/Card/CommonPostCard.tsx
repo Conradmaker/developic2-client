@@ -1,44 +1,40 @@
 import React from 'react';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { CommonPostCardBox, UserAvatarWithNameBox } from './styles';
-
+import { PostType } from '../../modules/list';
+import Link from 'next/link';
 type PostCardPropsType = {
-  data: {
-    id: number;
-    postImgUrl: string;
-    title: string;
-    description: string;
-    userName: string;
-    avatarImgUrl: string;
-    likeCount: number;
-    viewCount: number;
-  };
+  postData: PostType;
 };
-export default function CommonPostCard({ data }: PostCardPropsType): JSX.Element {
+export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Element {
   return (
-    <CommonPostCardBox>
-      <article>
-        <img src={data.postImgUrl} alt="postImg" />
-        <h3>{data.title}</h3>
-        <p>{data.description}</p>
-      </article>
-      <div className="info">
-        <UserAvatarWithNameBox>
-          <img src={data.avatarImgUrl} alt="avatar" />
-          <strong>{data.userName}</strong>
-          <span>님의 글</span>
-        </UserAvatarWithNameBox>
-        <div className="stats">
-          <p>
-            <MdFavorite />
-            <span>{data.likeCount}</span>
-          </p>
-          <p>
-            <MdRemoveRedEye />
-            <span>{data.viewCount}</span>
-          </p>
+    <Link href={`/${postData.User?.id}/post/${postData.id}`}>
+      <CommonPostCardBox>
+        <article>
+          <img src={postData.thumbnail} alt="postImg" />
+          <h3>{postData.title}</h3>
+          <p>{postData.summary}</p>
+        </article>
+        <div className="info">
+          <Link href={`/${postData.User?.id}/post`}>
+            <UserAvatarWithNameBox>
+              <img src={postData.User?.avatar} alt="avatar" />
+              <strong>{postData.User?.nickname}</strong>
+              <span>님의 글</span>
+            </UserAvatarWithNameBox>
+          </Link>
+          <div className="stats">
+            <p>
+              <MdFavorite />
+              <span>{postData.likers?.length}</span>
+            </p>
+            <p>
+              <MdRemoveRedEye />
+              <span>{postData.hits}</span>
+            </p>
+          </div>
         </div>
-      </div>
-    </CommonPostCardBox>
+      </CommonPostCardBox>
+    </Link>
   );
 }

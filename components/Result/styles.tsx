@@ -43,6 +43,16 @@ export const BlogUserInfoBox = styled.div`
   }
 `;
 
+export const EmptyContentContainer = styled.section`
+  font-family: 'Noto Serif KR';
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 120px;
+  .empty_message {
+    margin-top: 50px;
+  }
+`;
+
 export const EmptyBlogUserInfoBox = styled.div`
   margin-bottom: 100px;
   text-align: center;
@@ -61,6 +71,7 @@ export const IncompleteContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 100px 0;
   & > section {
     margin-right: 100px;
     ul {
@@ -120,4 +131,8 @@ export const ToastPopUpBox = styled.div<{ visible: boolean }>`
     css`
       animation: ${slideDown} 0.5s;
     `}
+`;
+
+export const SearchContentBox = styled.div`
+  min-height: 400px;
 `;

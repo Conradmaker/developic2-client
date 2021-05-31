@@ -221,6 +221,7 @@ export const UserAvatarWithNameBox = styled.div`
 `;
 
 export const UserInfoCardBox = styled.li`
+  font-family: 'Noto Serif KR';
   background-color: #fff;
   border: solid 1px #efefef;
   position: relative;
@@ -236,9 +237,9 @@ export const UserInfoCardBox = styled.li`
     }
     > img {
       margin-top: 2.357em;
-      border-radius: 75px;
-      width: 150px;
-      height: 150px;
+      border-radius: 60px;
+      width: 120px;
+      height: 120px;
       margin-bottom: 1.071em;
       cursor: pointer;
     }
@@ -255,6 +256,9 @@ export const UserInfoCardBox = styled.li`
       font-size: ${({ theme }) => theme.fontSize.medium};
       color: ${({ theme }) => theme.textColor.initial};
       margin-bottom: 2em;
+      padding: 0 2em;
+      text-align: center;
+      line-height: 1.5;
     }
 
     .writer__add-info {
@@ -269,22 +273,22 @@ export const UserInfoCardBox = styled.li`
         text-align: center;
         div {
           margin-bottom: 0.357em;
-          font-weight: ${({ theme }) => theme.fontWeight.semiBold};
+          font-weight: ${({ theme }) => theme.fontWeight.regular};
         }
         span {
-          font-weight: ${({ theme }) => theme.fontWeight.regular};
+          font-size: ${({ theme }) => theme.fontSize.lg};
+          font-weight: ${({ theme }) => theme.fontWeight.semiBold};
         }
       }
     }
     .writer__recent-img {
       display: flex;
-      justify-content: center;
-      align-items: center;
       width: 100%;
       .img__box {
         width: 33.3%;
         height: 90px;
         img {
+          object-fit: cover;
           width: 100%;
           height: 100%;
         }

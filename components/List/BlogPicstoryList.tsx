@@ -4,18 +4,21 @@ import BlogPistoryCard from '../Card/BlogPistoryCard';
 import { BlogPicstoryListContainer } from './styles';
 
 type PicstoryListPropsType = {
-  blogPicstoryListData: BlogPicstoryListData['blogPicstories'];
+  blogPicstoryListData?: BlogPicstoryListData['blogPicstories'];
+  searchPicstoryData?: BlogPicstoryListData['blogPicstories'];
 };
 export default function BlogPicstoryList({
   blogPicstoryListData,
+  searchPicstoryData,
 }: PicstoryListPropsType): JSX.Element {
   return (
     <BlogPicstoryListContainer>
-      <div className="empty_content">
-        {blogPicstoryListData.length < 1 && '등록된 픽스토리가 없습니다.'}
-      </div>
       {blogPicstoryListData &&
         blogPicstoryListData.map((picstoryItem: BlogPicstory) => (
+          <BlogPistoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
+        ))}
+      {searchPicstoryData &&
+        searchPicstoryData.map((picstoryItem: BlogPicstory) => (
           <BlogPistoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
         ))}
     </BlogPicstoryListContainer>

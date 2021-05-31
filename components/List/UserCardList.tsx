@@ -1,17 +1,19 @@
 import React from 'react';
-import { UserDataType } from '../../utils/data';
+import { SearchPageData } from '../../modules/list';
 import UserInfoCard from '../Card/UserInfoCard';
 import { UserCardListContainer } from './styles';
 
 type UserCardListPropsType = {
-  data: UserDataType;
+  searchUserListData?: SearchPageData['writer'];
 };
-export default function UserCardList({ data }: UserCardListPropsType): JSX.Element {
+export default function UserCardList({
+  searchUserListData,
+}: UserCardListPropsType): JSX.Element {
   return (
     <UserCardListContainer>
-      {data &&
-        data.map(userInfoItem => (
-          <UserInfoCard key={userInfoItem.id} data={userInfoItem} />
+      {searchUserListData &&
+        searchUserListData.map(userInfoItem => (
+          <UserInfoCard key={userInfoItem.id} userInfoData={userInfoItem} />
         ))}
     </UserCardListContainer>
   );

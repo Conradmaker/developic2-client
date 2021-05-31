@@ -16,12 +16,12 @@ export default function BlogPistoryCard({
   const router = useRouter();
   const { userId } = router.query;
 
-  const posts = picstoryData.Posts;
+  const posts = picstoryData?.Posts;
 
-  const likeCounts = posts.map((post: BlogPost) => post.likers?.length);
+  const likeCounts = posts?.map((post: BlogPost) => post.likers?.length);
   const likeCountSum = countSum(likeCounts as number[]);
 
-  const hits = posts.map((post: BlogPost) => post.hits);
+  const hits = posts?.map((post: BlogPost) => post.hits);
   const viewCountSum = countSum(hits);
 
   return (

@@ -1,16 +1,23 @@
 import React from 'react';
-import { PostDataType } from '../../utils/data';
+import { SearchPageData } from '../../modules/list';
 import CommonPostCard from '../Card/CommonPostCard';
 import { PostSearchListContainer } from './styles';
 
 type PostCardListPropsType = {
-  data: PostDataType;
+  searchPostListData: SearchPageData['post'];
 };
 
-export default function PostCardList({ data }: PostCardListPropsType): JSX.Element {
+export default function SearchPostCardList({
+  searchPostListData,
+}: PostCardListPropsType): JSX.Element {
   return (
-    <PostSearchListContainer>
-      {data && data.map(postItem => <CommonPostCard key={postItem.id} data={postItem} />)}
-    </PostSearchListContainer>
+    <>
+      <PostSearchListContainer>
+        {searchPostListData &&
+          searchPostListData.map(postItem => (
+            <CommonPostCard key={postItem.id} postData={postItem} />
+          ))}
+      </PostSearchListContainer>
+    </>
   );
 }

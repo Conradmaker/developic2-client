@@ -9,7 +9,7 @@ export const formatDate = (date: string): string => {
 };
 
 export const countSum = (arrayData: number[]): number => {
-  const countSumData = arrayData.reduce((acc, cur) => acc + cur, 0);
+  const countSumData = arrayData?.reduce((acc, cur) => acc + cur, 0);
   return countSumData;
 };
 
