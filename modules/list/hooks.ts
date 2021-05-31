@@ -1,8 +1,15 @@
+import { LoadSearchListPayload } from './type';
+import { useCallback } from 'react';
 import { useAppSelector } from '../../hooks/useSelector';
 import { useAppDispatch } from './../../hooks/useDispatch';
+import { loadSearchListAction } from './thunk';
 export default function useList() {
-  const { pageData, loadSearchPostList } = useAppSelector(state => state.list);
+  const { pageData, loadSearchList } = useAppSelector(state => state.list);
   const dispatch = useAppDispatch();
 
-  return { pageData, loadSearchPostList };
+  const loadSearchListDispatch = useCallback((data: LoadSearchListPayload) => {
+    dispatch(loadSearchListAction(data));
+  }, []);
+
+  return { pageData, loadSearchList, loadSearchListDispatch };
 }
