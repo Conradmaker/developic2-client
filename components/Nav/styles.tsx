@@ -5,7 +5,7 @@ export const PageNavigationBox = styled.nav`
   color: ${({ theme }) => theme.textColor.initial};
   ul {
     display: flex;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     li {
       margin-right: 60px;
       font-family: 'Noto Serif KR';

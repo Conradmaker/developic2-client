@@ -61,7 +61,7 @@ export default function Header(): JSX.Element {
               <Link href="/archive">
                 <li>전시정보</li>
               </Link>
-              <Link href="/search/1">
+              <Link href="/search">
                 <li>
                   <MdSearch />
                   {/* <MdSearch onClick={toggleSearchModal} /> */}
