@@ -1,13 +1,20 @@
 import styled from '@emotion/styled';
+import axios from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import CommonPostCard from '../../components/Card/CommonPostCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
-import useFetchMore from '../../hooks/useFetchMore';
-import { DiscoverPageDataType } from '../../modules/list';
+import DiscoverList from '../../components/List/DiscoverList';
+import {
+  DiscoverPageDataType,
+  getHashtagListAction,
+  getPostListAction,
+  getTaggedPostListAction,
+} from '../../modules/list';
 import useList from '../../modules/list/hooks';
+import wrapper from '../../modules/store';
+import { authAction } from '../../modules/user';
 
 const DiscoveryContainer = styled.div`
   width: 1150px;
@@ -73,45 +80,11 @@ const DiscoveryContainer = styled.div`
   }
 `;
 export default function discovery(): JSX.Element {
-  const {
-    pageData,
-    hasMore,
-    getTaggedPostListDispatch,
-    getHashtagListDispatch,
-    getPostListDispatch,
-  } = useList();
-  const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
+  const { pageData } = useList();
 
   const router = useRouter();
   const currentTag = router.query.tag;
-  useEffect(() => {
-    getHashtagListDispatch({ sort: 'popular', term: 'month', limit: 18 });
-  }, []);
-  useEffect(() => {
-    setPage(0);
-    if (!currentTag) {
-      getPostListDispatch({ sort: 'popular', term: 'month', limit: 12 });
-    } else {
-      getTaggedPostListDispatch({ HashtagName: currentTag as string });
-    }
-  }, [currentTag]);
-  useEffect(() => {
-    if (hasMore)
-      if (!currentTag) {
-        getPostListDispatch({
-          sort: 'popular',
-          term: 'month',
-          limit: 12,
-          offset: page * 12,
-        });
-      } else {
-        getTaggedPostListDispatch({
-          HashtagName: currentTag as string,
-          limit: 12,
-          offset: page * 12,
-        });
-      }
-  }, [page]);
+
   if (!(pageData as DiscoverPageDataType).hashtag || !pageData.post) return <></>;
   return (
     <Layout>
@@ -135,16 +108,39 @@ export default function discovery(): JSX.Element {
             ))}
           </ul>
         </section>
-        <section className="discovery__main">
-          <h1>{!currentTag ? '인기글' : `# ${currentTag}`}</h1>
-          <ul>
-            {pageData.post.map(post => (
-              <CommonPostCard key={post.id} postData={post} />
-            ))}
-          </ul>
-          <FetchMoreTrigger />
-        </section>
+        <DiscoverList />
       </DiscoveryContainer>
     </Layout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  console.log('SSR시작');
+
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  await context.store.dispatch(authAction(null));
+  await context.store.dispatch(
+    getHashtagListAction({ sort: 'popular', term: 'month', limit: 18 })
+  );
+
+  if (!context.query.tag) {
+    await context.store.dispatch(
+      getPostListAction({ sort: 'popular', term: 'month', limit: 12 })
+    );
+  } else {
+    await context.store.dispatch(
+      getTaggedPostListAction({
+        HashtagName: context.query.tag as string,
+        limit: 12,
+        offset: 0,
+        sort: 'popular',
+      })
+    );
+  }
+
+  console.log('SSR끝');
+});

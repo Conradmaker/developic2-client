@@ -14,7 +14,21 @@ export default function PhotoBinderCard({
     <Link href={`/user/drawer/binder/${binderData.id}`}>
       <PhotoBinderCardBox>
         <div className="img__box">
-          {binderData.PostImages.map((photo, index) => {
+          {Array.from({ length: 6 }).map((_, index) => {
+            return binderData.PostImages[index] ? (
+              <div className="img__box__item" key={binderData.PostImages[index].id}>
+                <img src={binderData.PostImages[index].src} alt="" />
+              </div>
+            ) : (
+              <div className="img__box__item" key={index}>
+                <img
+                  src="https://lh3.googleusercontent.com/proxy/C5-C4O3U06DgkK0jIeev6JiUJAljnQ5vaheSnpK7N6GvBB91sRCGdMlsRN2Sj3pS2OSRUcz7toPECsfrSDA5A6ekOa1UubHwrCgzcOUbHeehtyxrdYCuvN5lufBpgVWK"
+                  alt=""
+                />
+              </div>
+            );
+          })}
+          {/* {binderData.PostImages.map((photo, index) => {
             if (index < 6) {
               return (
                 <div className="img__box__item" key={photo.id}>
@@ -22,7 +36,7 @@ export default function PhotoBinderCard({
                 </div>
               );
             }
-          })}
+          })} */}
         </div>
         <article>
           <div className="left">

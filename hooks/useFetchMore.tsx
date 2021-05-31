@@ -29,11 +29,11 @@ export default function useFetchMore(
 
   const FetchMore = useCallback(() => {
     const fetchMoreTrigger = useRef<HTMLDivElement>(null);
-    const fetchMoreObserver = new IntersectionObserver(([{ isIntersecting }]) => {
-      if (isIntersecting) setPage(prev => prev + 1);
-    });
 
     useEffect(() => {
+      const fetchMoreObserver = new IntersectionObserver(([{ isIntersecting }]) => {
+        if (isIntersecting) setPage(prev => prev + 1);
+      });
       if (fetchMoreTrigger.current) {
         fetchMoreObserver.observe(fetchMoreTrigger.current);
       }
