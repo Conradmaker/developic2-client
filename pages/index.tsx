@@ -8,11 +8,7 @@ import PopularPostCard from '../components/Card/PopularPostCard';
 import UserProfileCard from '../components/Card/UserProfileCard';
 import Exhibition from '../components/Card/Exhibition';
 import { DarkModeBtn } from '../components/Button/FloatingBtn';
-import { useEffect } from 'react';
-import useUser from '../modules/user/hooks';
-import axios from 'axios';
-import wrapper from '../modules/store';
-import { authAction } from '../modules/user';
+import initialGetServerSideProps from '../utils/getServerSidePropsTemplate';
 
 const MainContainer = styled.main`
   width: 1150px;
@@ -61,7 +57,7 @@ const MainContainer = styled.main`
     background-color: ${({ theme }) => theme.primary[2]};
   }
 `;
-function Home(): JSX.Element {
+export default function Home(): JSX.Element {
   return (
     <Layout>
       <Head>
@@ -112,18 +108,4 @@ function Home(): JSX.Element {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  console.log('SSR시작');
-  console.log(context.req.headers);
-  //쿠키 전달
-  const cookie = context.req ? context.req.headers.cookie : ''; //이 안에 쿠키 들어있음.
-  //쿠키 공유 방지
-  axios.defaults.headers.Cookie = ''; //아닐때는 쿠키 제거
-  if (context.req && cookie) {
-    //서버일때 & 쿠키가 있을때만
-    axios.defaults.headers.Cookie = cookie; //쿠키를 넣어주고
-  }
-  await context.store.dispatch(authAction());
-  console.log('SSR끝');
-});
-export default Home;
+export const getServerSideProps = initialGetServerSideProps();
