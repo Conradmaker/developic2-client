@@ -45,9 +45,8 @@ export const SortTabBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-bottom: 20px;
   ul {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     position: relative;
     display: flex;
     width: 110px;

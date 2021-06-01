@@ -15,7 +15,7 @@ export default function SearchInput({
   return (
     <SearchInputBox>
       <input
-        placeholder="검색어를 입력하세요"
+        placeholder="검색어를 입력해주세요."
         onChange={onChange}
         value={value}
         autoFocus

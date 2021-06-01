@@ -134,7 +134,7 @@ export const CustomTextareaBox = styled.div<{ width: number }>`
 `;
 
 export const SearchInputBox = styled.form`
-  border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
+  // border: 0.5px solid ${({ theme }) => theme.grayScale[2]};
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
@@ -142,7 +142,8 @@ export const SearchInputBox = styled.form`
   height: 60px;
   width: 100%;
   padding: 0.75em;
-  margin-bottom: 3em;
+  padding-left: 0;
+  margin-bottom: 1.2em;
   transition: all 0.15s ease-in;
   max-width: 100%;
   svg {
@@ -153,6 +154,7 @@ export const SearchInputBox = styled.form`
     transition: all 0.125s ease-in;
   }
   input {
+    font-family: 'Noto Serif KR', serif;
     font-size: ${({ theme }) => theme.fontSize.xxl};
     flex: 1;
     display: block;
