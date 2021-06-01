@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import Layout from '../../../components/Layout';
@@ -7,6 +7,10 @@ import CommentList from '../../../components/List/CommentList';
 import PostDetailLayout from '../../../components/Layout/PostDetailLayout';
 import usePost from '../../../modules/post/hooks';
 import ScrollIndicator from '../../../components/Layout/ScrollIndicator';
+import wrapper from '../../../modules/store';
+import { authAction } from '../../../modules/user';
+import axios from 'axios';
+import { getPostDetailAction } from '../../../modules/post';
 
 const NotAllowComment = styled.div`
   width: 800px;
@@ -14,18 +18,39 @@ const NotAllowComment = styled.div`
   text-align: center;
   font-family: 'Noto Serif KR';
 `;
-export default function postId(): JSX.Element {
+function postId(): JSX.Element {
+  const { getPostDetail } = usePost();
   const router = useRouter();
-  const { getPostDetail, getPostDetailDispatch } = usePost();
-  useEffect(() => {
-    getPostDetailDispatch(+(router.query.postId as string));
-  }, [router]);
-  if (!getPostDetail.data) return <></>;
+
   return (
     <Layout>
       <Head>
-        <title>DEVELOPIC | {getPostDetail.data.title}</title>
+        <title>
+          {getPostDetail.data.title} | {getPostDetail.data.User.nickname}
+        </title>
+        <meta name="author" content="ss" />
+        <meta name="description" content="ss" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="DeveloPic" />
+        <meta property="og:title" content="글로 만드는 사진" />
+        <meta property="og:description" content={getPostDetail.data.title} />
+        <meta property="og:image" content={getPostDetail.data.thumbnail} />
+        <meta
+          property="og:url"
+          content={`${process.env.NEXT_PUBLIC_CLIENT_HOST}${router.asPath}`}
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content={process.env.NEXT_PUBLIC_CLIENT_HOST} />
+        <meta
+          property="twitter:url"
+          content={`${process.env.NEXT_PUBLIC_CLIENT_HOST}${router.asPath}`}
+        />
+        <meta name="twitter:title" content="DeveloPic" />
+        <meta name="twitter:description" content={getPostDetail.data.title} />
+        <meta name="twitter:image" content={getPostDetail.data.thumbnail} />
       </Head>
+
       <PostDetailLayout postData={getPostDetail.data} />
       {getPostDetail.data.allowComment ? (
         <CommentList commentsData={getPostDetail.data.Comments} />
@@ -36,3 +61,19 @@ export default function postId(): JSX.Element {
     </Layout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  console.log('SSR시작');
+
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  await context.store.dispatch(authAction(null));
+  await context.store.dispatch(getPostDetailAction(+(context.query.postId as string)));
+
+  console.log('SSR끝');
+});
+
+export default postId;

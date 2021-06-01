@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import axios from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import DiscoverList from '../../components/List/DiscoverList';
@@ -79,7 +79,7 @@ const DiscoveryContainer = styled.div`
     }
   }
 `;
-export default function discovery(): JSX.Element {
+function discovery(): JSX.Element {
   const { pageData } = useList();
 
   const router = useRouter();
@@ -88,7 +88,9 @@ export default function discovery(): JSX.Element {
   if (!(pageData as DiscoverPageDataType).hashtag || !pageData.post) return <></>;
   return (
     <Layout>
-      <Head>DEVELOPIC | DISCOVER</Head>
+      <Head>
+        <title>DISCOVER | {!currentTag ? '인기글' : `# ${currentTag}`}</title>
+      </Head>
       <DiscoveryContainer>
         <section className="discovery__head">
           <TitleLabel title="인기태그" desc="Popular Tags" />
@@ -144,3 +146,4 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
 
   console.log('SSR끝');
 });
+export default discovery;
