@@ -14,6 +14,8 @@ import wrapper from '../modules/store';
 import { authAction } from '../modules/user';
 import useList from '../modules/list/hooks';
 import { MainPageDataType } from '../modules/list';
+import useCarousel from '../hooks/useCarousel';
+import Carousel from '../components/List/Carousel';
 
 const MainContainer = styled.main`
   width: 1150px;
@@ -49,10 +51,6 @@ const MainContainer = styled.main`
       font-family: 'Nanum Myeongjo';
       font-size: 30px;
       margin-bottom: 40px;
-    }
-    & > div {
-      display: flex;
-      align-items: center;
     }
     & > .post__section {
       flex-wrap: wrap;
@@ -118,11 +116,18 @@ function Home(): JSX.Element {
         </ul>
         <section>
           <h3>전시 아카이브</h3>
-          <div>
-            {(pageData as MainPageDataType).archive.map(v => (
-              <Exhibition key={v.id} data={v} />
+          <Carousel
+            width={233}
+            listLength={(pageData as MainPageDataType).archive.length}
+          >
+            {[
+              ...(pageData as MainPageDataType).archive,
+              ...(pageData as MainPageDataType).archive,
+              ...(pageData as MainPageDataType).archive,
+            ].map((archive, i) => (
+              <Exhibition key={archive.id + 'ex' + i} archiveData={archive} />
             ))}
-          </div>
+          </Carousel>
         </section>
         <section>
           <h3>추천작가</h3>
@@ -157,7 +162,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
     //서버일때 & 쿠키가 있을때만
     axios.defaults.headers.Cookie = cookie; //쿠키를 넣어주고
   }
-  await context.store.dispatch(authAction());
+  await context.store.dispatch(authAction(null));
   console.log('SSR끝');
 });
 export default Home;

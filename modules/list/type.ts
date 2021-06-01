@@ -42,6 +42,7 @@ export type ArchiveDataType = {
   poster: string;
   cost: number;
   title: string;
+  author: string;
   startDate: string;
   endDate: string;
   User: {

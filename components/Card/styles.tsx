@@ -128,16 +128,11 @@ export const ExhibitionCardBox = styled.div`
   cursor: pointer;
   font-family: 'Noto Serif KR';
   width: 233px;
-  &:hover {
-    & > img {
-      transform: translateY(-5px);
-      transition: ease-in-out 0.3s;
-    }
-  }
-  & + & {
-    margin-left: 20px;
-  }
+  position: relative;
   img {
+    width: 233px;
+    height: 330px;
+    object-fit: cover;
     width: 100%;
     height: 330px;
     object-fit: contain;
@@ -167,6 +162,18 @@ export const ExhibitionCardBox = styled.div`
         }
       }
     }
+  }
+  .cost__box {
+    font-family: 'Montserrat';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 32px;
+    background-color: ${({ theme }) => theme.background.initial};
+    border: 1px solid ${({ theme }) => theme.primary[1]};
   }
 `;
 
