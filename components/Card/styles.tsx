@@ -4,25 +4,30 @@ import styled from '@emotion/styled';
 export const PopularPostCardBox = styled.div`
   display: inline-block;
   cursor: pointer;
-  margin: 0 20px 20px 0;
-  height: 300px; /*  */
+  margin: 0 20px 30px 0;
   overflow: hidden;
+  max-width: 400px;
+  padding: 5px 5px;
+  display: flex;
+  flex-direction: column;
   img {
-    height: 210px;
+    border: 1px solid ${({ theme }) => theme.grayScale[3]};
+    flex: 1;
+    max-height: 150px;
+    object-fit: cover;
   }
   article {
     width: 100%;
     font-family: 'Noto Serif KR';
-    padding: 5px 5px;
-    margin-top: 1px;
     h5 {
+      margin: 5px 0;
       color: ${({ theme }) => theme.textColor.initial};
-      font-size: 20px;
+      font-size: 16px;
     }
     p {
-      margin: 10px 0;
+      margin-top: 10px;
       color: ${({ theme }) => theme.textColor.lighten};
-      font-size: 16px;
+      font-size: 14px;
     }
     ul {
       max-width: 300px;
@@ -31,9 +36,33 @@ export const PopularPostCardBox = styled.div`
       gap: 5px;
     }
   }
-  &:hover {
-    box-shadow: 0 0 10px ${({ theme }) => theme.grayScale[2]};
+  transition: 0.2s ease-in-out;
+  .like__box {
+    margin: 5px 0 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    small {
+      display: flex;
+      align-items: center;
+      font-family: 'Montserrat';
+      margin-left: 20px;
+      svg {
+        font-size: 14px;
+        fill: ${({ theme }) => theme.grayScale[2]};
+      }
+      span {
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 12px;
+        color: ${({ theme }) => theme.grayScale[2]};
+      }
+    }
   }
+  &:hover {
+    background-color: ${({ theme }) => theme.grayScale[4]};
+  }
+  /* border: 1px solid ${({ theme }) => theme.grayScale[2]}; */
 `;
 
 export const UserProfileCardBox = styled.div`
@@ -120,7 +149,7 @@ export const HashTagBox = styled.div`
   border: solid 1px ${({ theme }) => theme.grayScale[2]};
   color: ${({ theme }) => theme.grayScale[1]};
   &:hover {
-    background-color: ${({ theme }) => theme.grayScale[4]};
+    background-color: ${({ theme }) => theme.grayScale[3]};
   }
 `;
 

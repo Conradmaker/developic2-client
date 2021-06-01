@@ -14,7 +14,6 @@ import wrapper from '../modules/store';
 import { authAction } from '../modules/user';
 import useList from '../modules/list/hooks';
 import { MainPageDataType } from '../modules/list';
-import useCarousel from '../hooks/useCarousel';
 import Carousel from '../components/List/Carousel';
 
 const MainContainer = styled.main`
@@ -53,6 +52,7 @@ const MainContainer = styled.main`
       margin-bottom: 40px;
     }
     & > .post__section {
+      display: inline-flex;
       flex-wrap: wrap;
     }
   }
@@ -75,9 +75,9 @@ function Home(): JSX.Element {
     getPostListDispatch,
   } = useList();
   useEffect(() => {
-    getArchiveListDispatch({ limit: 5 });
+    getArchiveListDispatch({ limit: 12 });
     getWriterListDispatch({ type: 'all', limit: 5 });
-    getPostListDispatch({ sort: 'popular', term: 'month', limit: 10 });
+    getPostListDispatch({ sort: 'popular', term: 'month', limit: 15 });
   }, []);
   if (!(pageData as MainPageDataType).archive) return <></>;
   if (!(pageData as MainPageDataType).writer) return <></>;
@@ -140,8 +140,8 @@ function Home(): JSX.Element {
         <section>
           <h3>인기글</h3>
           <div className="post__section">
-            {(pageData as MainPageDataType).post.map(v => (
-              <PopularPostCard key={v.id} data={v} />
+            {(pageData as MainPageDataType).post.map(postData => (
+              <PopularPostCard key={postData.id} postData={postData} />
             ))}
           </div>
         </section>

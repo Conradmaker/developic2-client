@@ -35,6 +35,7 @@ export type PostType = {
   updatedAt: Date;
   User: PostUser;
   likers?: { id: number }[];
+  HashTags?: { id: number; name: string }[];
 };
 
 export type ArchiveDataType = {
@@ -101,4 +102,4 @@ export type GetPostListPayload = {
 export type GetArchiveListPayload = {
   limit?: number;
   offset?: number;
-}
+};

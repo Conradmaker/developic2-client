@@ -1,25 +1,50 @@
+import Link from 'next/link';
 import React from 'react';
+import { AiFillEye } from 'react-icons/ai';
+import { BiLike } from 'react-icons/bi';
 import { PostType } from '../../modules/list';
-import HashTag from './HashTag';
-import { PopularPostCardBox } from './styles';
+import { HashTagBox, PopularPostCardBox } from './styles';
 
-interface PopularPostCardPropsType {
-  data: PostType;
+function HashTag({ tagData }: { tagData: { id: number; name: string } }) {
+  return (
+    <Link href={`/discovery?tag=${tagData.name}`}>
+      <HashTagBox>{tagData.name}</HashTagBox>
+    </Link>
+  );
 }
 
-export default function PopularPostCard({ data }: PopularPostCardPropsType): JSX.Element {
+interface PopularPostCardPropsType {
+  postData: PostType;
+}
+
+export default function PopularPostCard({
+  postData,
+}: PopularPostCardPropsType): JSX.Element {
   return (
-    <PopularPostCardBox>
-      <img src={data.thumbnail} alt="thumbnail" />
-      <article>
-        <h5>{data.title}</h5>
-        <p>{data.User.nickname}</p>
-        <ul>
-          {Array.from({ length: 7 }).map(v => (
-            <HashTag key={Math.random()} name={'몰라'} />
-          ))}
-        </ul>
-      </article>
-    </PopularPostCardBox>
+    <Link href={`/${postData.User.id}/post/${postData.id}`}>
+      <PopularPostCardBox>
+        <img src={postData.thumbnail} alt="thumbnail" />
+
+        <article>
+          <h5>{postData.title}</h5>
+          <p>{postData.User.nickname}</p>
+          <div className="like__box">
+            <small>
+              <BiLike />
+              <span>{postData.likers?.length}</span>
+            </small>
+            <small>
+              <AiFillEye />
+              <span>{postData.hits}</span>
+            </small>
+          </div>
+          <ul>
+            {postData.HashTags?.map(tag => (
+              <HashTag key={Math.random()} tagData={tag} />
+            ))}
+          </ul>
+        </article>
+      </PopularPostCardBox>
+    </Link>
   );
 }
