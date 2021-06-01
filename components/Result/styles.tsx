@@ -136,3 +136,10 @@ export const ToastPopUpBox = styled.div<{ visible: boolean }>`
 export const SearchContentBox = styled.div`
   min-height: 400px;
 `;
+
+export const SearchCountBox = styled.div`
+  font-family: 'Noto Serif KR';
+  margin-bottom: 25px;
+  font-size: ${({ theme }) => theme.fontSize.base};
+  color: ${({ theme }) => theme.grayScale[1]};
+`;
