@@ -37,23 +37,33 @@ const initialState: DrawerState = {
   removeBinderPhoto: { loading: false, data: null, error: null },
   createBinder: { loading: false, data: null, error: null },
   removeBinder: { loading: false, data: null, error: null },
+  hasMore: true,
+  loadMore: false,
 };
 
 const drawerSlice = createSlice({
   name: 'drawer',
   initialState,
-  reducers: {},
+  reducers: {
+    isMoreLoading(state, { payload }) {
+      state.loadMore = payload;
+    },
+    hasMoreData(state, { payload }) {
+      state.hasMore = payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getLikeListAction.pending, state => {
         state.getLikeList.loading = true;
-        state.getLikeList.data = null;
         state.getLikeList.error = null;
       })
       .addCase(getLikeListAction.fulfilled, (state, { payload }) => {
         state.getLikeList.loading = false;
-        state.getLikeList.data = payload;
         state.getLikeList.error = null;
+        state.getLikeList.data = state.loadMore
+          ? state.getLikeList.data.concat(payload)
+          : payload;
       })
       .addCase(getLikeListAction.rejected, (state, { payload }) => {
         state.getLikeList.loading = false;
@@ -87,6 +97,9 @@ const drawerSlice = createSlice({
         state.getTempList.loading = false;
         state.getTempList.data = payload;
         state.getTempList.error = null;
+        // state.getTempList.data = state.loadMore
+        //   ? (state.getTempList.data as TempItemType[]).concat(payload)
+        //   : payload;
       })
       .addCase(getTempListAction.rejected, (state, { payload }) => {
         state.getTempList.loading = false;
@@ -113,13 +126,14 @@ const drawerSlice = createSlice({
       })
       .addCase(getRecentViewsAction.pending, state => {
         state.getRecentList.loading = true;
-        state.getRecentList.data = null;
         state.getRecentList.error = null;
       })
       .addCase(getRecentViewsAction.fulfilled, (state, { payload }) => {
         state.getRecentList.loading = false;
-        state.getRecentList.data = payload;
         state.getRecentList.error = null;
+        state.getRecentList.data = state.loadMore
+          ? (state.getRecentList.data as RecentViewType[]).concat(payload)
+          : payload;
       })
       .addCase(getRecentViewsAction.rejected, (state, { payload }) => {
         state.getRecentList.loading = false;
@@ -284,4 +298,5 @@ const drawerSlice = createSlice({
   },
 });
 
+export const { hasMoreData, isMoreLoading } = drawerSlice.actions;
 export default drawerSlice.reducer;

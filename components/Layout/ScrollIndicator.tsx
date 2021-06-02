@@ -20,6 +20,6 @@ export default function ScrollIndicator(): JSX.Element {
     return () => {
       window.removeEventListener('scroll', indicator);
     };
-  }, [window]);
+  }, []);
   return <ScrollBar width={width}></ScrollBar>;
 }

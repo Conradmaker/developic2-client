@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import useFetchMore from '../../hooks/useFetchMore';
 import useDrawer from '../../modules/drawer/hooks';
 import useUser from '../../modules/user/hooks';
 import DrawerPostCard from '../Card/DrawerPostCard';
@@ -7,20 +8,26 @@ import { LikeListContainer } from './styles';
 export default function LikeList(): JSX.Element {
   const { getLikeList, removeLikeItemDispatch } = useDrawer();
   const { userData } = useUser();
-  if (!getLikeList.data) return <></>;
+  const { getLikeListDispatch, hasMore } = useDrawer();
+  const [FetchMoreTrigger, page] = useFetchMore(hasMore);
+
   const makeDeleteFn = (postId: number) => {
     if (!userData) return () => null;
     return () => {
       removeLikeItemDispatch({ postId, userId: userData.id });
     };
   };
+
+  useEffect(() => {
+    if (hasMore && page > 0 && userData) {
+      getLikeListDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
+    }
+  }, [page]);
+
+  if (!getLikeList.data) return <></>;
+
   return (
     <LikeListContainer>
-      <div className="total_like_count">
-        <span>
-          총 <strong>{getLikeList.data.length}</strong>개의 좋아요 목록
-        </span>
-      </div>
       <ul>
         {getLikeList.data.map(likeItem => (
           <DrawerPostCard
@@ -30,6 +37,7 @@ export default function LikeList(): JSX.Element {
           />
         ))}
       </ul>
+      <FetchMoreTrigger />
     </LikeListContainer>
   );
 }

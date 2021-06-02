@@ -9,12 +9,10 @@ import UserProfileCard from '../components/Card/UserProfileCard';
 import Exhibition from '../components/Card/Exhibition';
 import { DarkModeBtn } from '../components/Button/FloatingBtn';
 import { useEffect } from 'react';
-import axios from 'axios';
-import wrapper from '../modules/store';
-import { authAction } from '../modules/user';
 import useList from '../modules/list/hooks';
 import { MainPageDataType } from '../modules/list';
 import Carousel from '../components/List/Carousel';
+import initialGetServerSideProps from '../utils/getServerSidePropsTemplate';
 
 const MainContainer = styled.main`
   width: 1150px;
@@ -67,7 +65,7 @@ const MainContainer = styled.main`
     background-color: ${({ theme }) => theme.primary[2]};
   }
 `;
-function Home(): JSX.Element {
+export default function Home(): JSX.Element {
   const {
     pageData,
     getArchiveListDispatch,
@@ -82,6 +80,7 @@ function Home(): JSX.Element {
   if (!(pageData as MainPageDataType).archive) return <></>;
   if (!(pageData as MainPageDataType).writer) return <></>;
   if (!(pageData as MainPageDataType).post) return <></>;
+
   return (
     <Layout>
       <Head>
@@ -160,18 +159,4 @@ function Home(): JSX.Element {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  console.log('SSR시작');
-  console.log(context.req.headers);
-  //쿠키 전달
-  const cookie = context.req ? context.req.headers.cookie : ''; //이 안에 쿠키 들어있음.
-  //쿠키 공유 방지
-  axios.defaults.headers.Cookie = ''; //아닐때는 쿠키 제거
-  if (context.req && cookie) {
-    //서버일때 & 쿠키가 있을때만
-    axios.defaults.headers.Cookie = cookie; //쿠키를 넣어주고
-  }
-  await context.store.dispatch(authAction(null));
-  console.log('SSR끝');
-});
-export default Home;
+export const getServerSideProps = initialGetServerSideProps();

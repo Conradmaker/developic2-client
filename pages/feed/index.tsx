@@ -11,6 +11,7 @@ import useList from '../../modules/list/hooks';
 import useUser from '../../modules/user/hooks';
 import { useRouter } from 'next/router';
 import { FeedPageDataType } from '../../modules/list';
+import useFetchMore from '../../hooks/useFetchMore';
 
 const FeedContainer = styled.div`
   max-width: 1150px;
@@ -78,16 +79,22 @@ const FeedContainer = styled.div`
 `;
 export default function index(): JSX.Element {
   const { userData } = useUser();
-  const { getFeedPostDispatch, pageData, getWriterListDispatch } = useList();
+  const { getFeedPostDispatch, pageData, getWriterListDispatch, hasMore } = useList();
+  const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
   const router = useRouter();
   const [followListOpen, toggleFollowList, FollowListModal] = useFollowListModal();
   useEffect(() => {
     if (!userData) router.replace('/');
     if (userData) {
-      getFeedPostDispatch({ UserId: userData.id });
+      getFeedPostDispatch({ UserId: userData.id, limit: 12 });
       getWriterListDispatch({ userId: userData.id, type: 'suber' });
     }
   }, [userData]);
+  useEffect(() => {
+    if (!userData) return;
+    if (hasMore)
+      getFeedPostDispatch({ UserId: userData.id, offset: page * 12, limit: 12 });
+  }, [page]);
   if (!pageData.post || !(pageData as FeedPageDataType).writer) return <></>;
   return (
     <Layout>
@@ -117,6 +124,7 @@ export default function index(): JSX.Element {
               <CommonPostCard key={post.id} postData={post} />
             ))}
           </ul>
+          <FetchMoreTrigger />
         </section>
       </FeedContainer>
       {followListOpen && <FollowListModal />}

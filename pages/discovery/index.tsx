@@ -1,12 +1,20 @@
 import styled from '@emotion/styled';
+import axios from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
-import CommonPostCard from '../../components/Card/CommonPostCard';
+import React from 'react';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
-import { DiscoverPageDataType } from '../../modules/list';
+import DiscoverList from '../../components/List/DiscoverList';
+import {
+  DiscoverPageDataType,
+  getHashtagListAction,
+  getPostListAction,
+  getTaggedPostListAction,
+} from '../../modules/list';
 import useList from '../../modules/list/hooks';
+import wrapper from '../../modules/store';
+import { authAction } from '../../modules/user';
 
 const DiscoveryContainer = styled.div`
   width: 1150px;
@@ -71,29 +79,18 @@ const DiscoveryContainer = styled.div`
     }
   }
 `;
-export default function discovery(): JSX.Element {
-  const {
-    pageData,
-    getTaggedPostListDispatch,
-    getHashtagListDispatch,
-    getPostListDispatch,
-  } = useList();
+function discovery(): JSX.Element {
+  const { pageData } = useList();
+
   const router = useRouter();
   const currentTag = router.query.tag;
-  useEffect(() => {
-    getHashtagListDispatch({ sort: 'popular', term: 'month' });
-  }, []);
-  useEffect(() => {
-    if (!currentTag) {
-      getPostListDispatch({ sort: 'popular', term: 'month', limit: 12 });
-    } else {
-      getTaggedPostListDispatch({ HashtagName: currentTag as string });
-    }
-  }, [currentTag]);
+
   if (!(pageData as DiscoverPageDataType).hashtag || !pageData.post) return <></>;
   return (
     <Layout>
-      <Head>DEVELOPIC | DISCOVER</Head>
+      <Head>
+        <title>DISCOVER | {!currentTag ? '인기글' : `# ${currentTag}`}</title>
+      </Head>
       <DiscoveryContainer>
         <section className="discovery__head">
           <TitleLabel title="인기태그" desc="Popular Tags" />
@@ -113,15 +110,40 @@ export default function discovery(): JSX.Element {
             ))}
           </ul>
         </section>
-        <section className="discovery__main">
-          <h1>{!currentTag ? '인기글' : `# ${currentTag}`}</h1>
-          <ul>
-            {pageData.post.map(post => (
-              <CommonPostCard key={post.id} postData={post} />
-            ))}
-          </ul>
-        </section>
+        <DiscoverList />
       </DiscoveryContainer>
     </Layout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  console.log('SSR시작');
+
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  await context.store.dispatch(authAction(null));
+  await context.store.dispatch(
+    getHashtagListAction({ sort: 'popular', term: 'month', limit: 18 })
+  );
+
+  if (!context.query.tag) {
+    await context.store.dispatch(
+      getPostListAction({ sort: 'popular', term: 'month', limit: 12 })
+    );
+  } else {
+    await context.store.dispatch(
+      getTaggedPostListAction({
+        HashtagName: context.query.tag as string,
+        limit: 12,
+        offset: 0,
+        sort: 'popular',
+      })
+    );
+  }
+
+  console.log('SSR끝');
+});
+export default discovery;

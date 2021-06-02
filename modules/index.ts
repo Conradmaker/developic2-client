@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HYDRATE } from 'next-redux-wrapper';
 import { combineReducers } from '@reduxjs/toolkit';
 import user, { UserState } from './user';
@@ -9,7 +11,7 @@ import blog, { BlogState } from './blog';
 import archive, { ArchiveState } from './archive';
 import list, { ListState } from './list';
 
-type State = {
+export type State = {
   user: UserState;
   post: PostState;
   ui: UIState;
@@ -20,7 +22,7 @@ type State = {
   list: ListState;
 };
 
-export const reducer = (state: State | undefined, action) => {
+export const reducer = (state: State | undefined, action: any): any => {
   switch (action.type) {
     case HYDRATE:
       console.log('HYDRATE', action.payload);

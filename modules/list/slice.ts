@@ -24,12 +24,21 @@ const initialState: ListState = {
   getHashtagList: { loading: false, data: null, error: null },
   getTaggedPostList: { loading: false, data: null, error: null },
   getPostList: { loading: false, data: null, error: null },
+  loadMore: false,
+  hasMore: true,
 };
 
 const listSlice = createSlice({
   name: 'list',
   initialState,
-  reducers: {},
+  reducers: {
+    isMoreLoading(state, { payload }) {
+      state.loadMore = payload;
+    },
+    hasMoreData(state, { payload }) {
+      state.hasMore = payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getArchiveListAction.pending, state => {
@@ -57,7 +66,9 @@ const listSlice = createSlice({
         state.getFeedList.loading = false;
         state.getFeedList.data = true;
         state.getFeedList.error = null;
-        (state.pageData as FeedPageDataType).post = payload;
+        state.pageData.post = state.loadMore
+          ? state.pageData.post.concat(payload)
+          : payload;
       })
       .addCase(getFeedPostAction.rejected, (state, { payload }) => {
         state.getFeedList.loading = false;
@@ -105,7 +116,9 @@ const listSlice = createSlice({
         state.getTaggedPostList.loading = false;
         state.getTaggedPostList.data = true;
         state.getTaggedPostList.error = null;
-        state.pageData.post = payload;
+        state.pageData.post = state.loadMore
+          ? state.pageData.post.concat(payload)
+          : payload;
       })
       .addCase(getTaggedPostListAction.rejected, (state, { payload }) => {
         state.getTaggedPostList.loading = false;
@@ -121,7 +134,9 @@ const listSlice = createSlice({
         state.getPostList.loading = false;
         state.getPostList.data = true;
         state.getPostList.error = null;
-        state.pageData.post = payload;
+        state.pageData.post = state.loadMore
+          ? state.pageData.post.concat(payload)
+          : payload;
       })
       .addCase(getPostListAction.rejected, (state, { payload }) => {
         state.getPostList.loading = false;
@@ -131,4 +146,5 @@ const listSlice = createSlice({
   },
 });
 
+export const { isMoreLoading, hasMoreData } = listSlice.actions;
 export default listSlice.reducer;

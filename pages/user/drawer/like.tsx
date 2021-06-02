@@ -13,9 +13,10 @@ const LikeListContainer = styled.section`
 export default function like(): JSX.Element {
   const { userData } = useUser();
   const { getLikeListDispatch } = useDrawer();
+
   useEffect(() => {
     if (!userData) return;
-    getLikeListDispatch(userData.id);
+    getLikeListDispatch({ userId: userData.id, limit: 12 });
   }, [userData]);
 
   return (

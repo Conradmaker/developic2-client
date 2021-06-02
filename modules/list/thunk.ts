@@ -11,6 +11,7 @@ import {
   ArchiveDataType,
   GetArchiveListPayload,
 } from './type';
+import { hasMoreData, isMoreLoading } from './slice';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_HOST;
@@ -43,13 +44,19 @@ export const getFeedPostAction = createAsyncThunk<
   PostType[],
   { UserId: number; limit?: number; offset?: number },
   { rejectValue: MyKnownError }
->('list/getFeedList', async (payloadData, { rejectWithValue }) => {
+>('list/getFeedList', async (payloadData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/feed/${payloadData.UserId}?${
         payloadData.limit ? '&limit=' + payloadData.limit : ''
       }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
     );
+    dispatch(
+      hasMoreData(
+        payloadData.limit ? data.length === payloadData.limit : data.length === 12
+      )
+    );
+    dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
   } catch (e) {
     console.error(e);
@@ -104,15 +111,25 @@ export const getTaggedPostListAction = createAsyncThunk<
   PostType[],
   GetTaggedPostListPayload,
   { rejectValue: MyKnownError }
->('list/getTaggedPostList', async (payloadData, { rejectWithValue }) => {
+>('list/getTaggedPostList', async (payloadData, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/post/tag/${payloadData.HashtagId}?${
-        payloadData.sort ? '&sort=' + payloadData.sort : ''
-      }${payloadData.HashtagName ? 'HashtagName=' + payloadData.HashtagName : ''}${
-        payloadData.limit ? 'limit=' + payloadData.limit : ''
-      }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
+      `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/post/tag/${
+        payloadData.HashtagId || 0
+      }?${payloadData.sort ? '&sort=' + payloadData.sort : ''}${
+        payloadData.HashtagName
+          ? '&HashtagName=' + encodeURIComponent(payloadData.HashtagName)
+          : ''
+      }${payloadData.limit ? '&limit=' + payloadData.limit : ''}${
+        payloadData.offset ? '&offset=' + payloadData.offset : ''
+      }`
     );
+    dispatch(
+      hasMoreData(
+        payloadData.limit ? data.length === payloadData.limit : data.length === 12
+      )
+    );
+    dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
   } catch (e) {
     console.error(e);
@@ -125,7 +142,7 @@ export const getPostListAction = createAsyncThunk<
   PostType[],
   GetPostListPayload,
   { rejectValue: MyKnownError }
->('list/getPostList', async (payloadData, { rejectWithValue }) => {
+>('list/getPostList', async (payloadData, { rejectWithValue, dispatch }) => {
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/list/post?${
@@ -134,6 +151,12 @@ export const getPostListAction = createAsyncThunk<
         payloadData.limit ? '&limit=' + payloadData.limit : ''
       }${payloadData.offset ? '&offset=' + payloadData.offset : ''}`
     );
+    dispatch(
+      hasMoreData(
+        payloadData.limit ? data.length === payloadData.limit : data.length === 12
+      )
+    );
+    dispatch(isMoreLoading(payloadData.offset ? payloadData.offset !== 0 : false));
     return data;
   } catch (e) {
     console.error(e);

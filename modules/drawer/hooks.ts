@@ -18,6 +18,10 @@ import {
 } from './thunk';
 import {
   CreatePhotoBinderPayload,
+  GetBinderListPayload,
+  GetLikeListPayload,
+  GetRecentListPayload,
+  GetTempListPayload,
   RemoveLikesPayload,
   UpdatePhotoBinderPayload,
 } from './types';
@@ -25,6 +29,8 @@ import {
 export default function useDrawer() {
   const {
     getLikeList,
+    hasMore,
+    loadMore,
     removeLikeItem,
     getTempList,
     removeTempPost,
@@ -37,7 +43,7 @@ export default function useDrawer() {
   } = useAppSelector(state => state.drawer);
   const dispatch = useAppDispatch();
 
-  const getLikeListDispatch = useCallback((userId: number) => {
+  const getLikeListDispatch = useCallback((userId: GetLikeListPayload) => {
     dispatch(getLikeListAction(userId));
   }, []);
 
@@ -45,7 +51,7 @@ export default function useDrawer() {
     dispatch(removeLikePostAction(data));
   }, []);
 
-  const getTempListDispatch = useCallback((data: number) => {
+  const getTempListDispatch = useCallback((data: GetTempListPayload) => {
     dispatch(getTempListAction(data));
   }, []);
 
@@ -53,7 +59,7 @@ export default function useDrawer() {
     dispatch(removeTempPostAction(data));
   }, []);
 
-  const getRecentViewsDispatch = useCallback((data: number) => {
+  const getRecentViewsDispatch = useCallback((data: GetRecentListPayload) => {
     dispatch(getRecentViewsAction(data));
   }, []);
 
@@ -61,7 +67,7 @@ export default function useDrawer() {
     dispatch(removeRecentViewAction(data));
   }, []);
 
-  const getPhotoBinderListDispatch = useCallback((data: number) => {
+  const getPhotoBinderListDispatch = useCallback((data: GetBinderListPayload) => {
     dispatch(getPhotoBinderListAction(data));
   }, []);
 
@@ -100,6 +106,8 @@ export default function useDrawer() {
 
   return {
     getLikeList,
+    hasMore,
+    loadMore,
     removeLikeItem,
     getTempList,
     removeTempPost,

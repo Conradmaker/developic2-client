@@ -29,7 +29,7 @@ function BinderList(): JSX.Element {
       router.replace('/');
       return;
     }
-    getPhotoBinderListDispatch(userData.id);
+    getPhotoBinderListDispatch({ userId: userData.id, limit: 12 });
   }, [userData]);
   if (!getBinderList.data) return <></>;
   return (

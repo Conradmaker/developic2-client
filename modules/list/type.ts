@@ -16,6 +16,8 @@ export type ListState = {
   getHashtagList: { loading: boolean; data: null | unknown; error: null | unknown };
   getTaggedPostList: { loading: boolean; data: null | unknown; error: null | unknown };
   getPostList: { loading: boolean; data: null | unknown; error: null | unknown };
+  loadMore: boolean;
+  hasMore: boolean;
 };
 export type PostUser = {
   id: number;

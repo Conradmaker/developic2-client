@@ -385,6 +385,7 @@ export const DrawerPostCardContainer = styled.li`
     width: 235px;
     height: 183px;
     & > img {
+      border: 0.5px solid ${({ theme }) => theme.grayScale[3]};
       position: absolute;
       top: -20px;
       width: 40px;
