@@ -76,20 +76,22 @@ export const UserProfileCardBox = styled.div`
   margin: 25px 0;
   img {
     border-radius: 35px;
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     object-fit: cover;
     margin: 15px;
   }
   p {
     color: ${({ theme }) => theme.textColor.initial};
     font-weight: 500;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 12px;
   }
   span {
+    text-align: center;
     color: ${({ theme }) => theme.textColor.lighten};
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 1.4;
   }
   &:hover {
     img {
@@ -167,24 +169,22 @@ export const ExhibitionCardBox = styled.div`
     padding: 5px;
     color: ${({ theme }) => theme.textColor.initial};
     h5 {
-      font-size: 20px;
+      font-size: 16px;
+      line-height: 1.2;
     }
     p {
+      text-align: right;
       display: block;
       margin: 10px 0;
-      font-size: 16px;
+      font-size: 14px;
     }
     ul {
       font-family: 'Montserrat';
       li {
         display: flex;
         justify-content: space-between;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 1.2;
-        small {
-        }
-        strong {
-        }
       }
     }
   }

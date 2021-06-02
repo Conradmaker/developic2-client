@@ -134,7 +134,7 @@ function Home(): JSX.Element {
           <h3>추천작가</h3>
           <Carousel
             width={220}
-            height={195}
+            height={220}
             listLength={(pageData as MainPageDataType).writer.length}
           >
             {[
