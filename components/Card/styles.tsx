@@ -67,27 +67,25 @@ export const PopularPostCardBox = styled.div`
 
 export const UserProfileCardBox = styled.div`
   font-family: 'Noto Serif KR';
-  max-width: 245px;
+  width: 220px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 130px;
-  & + & {
-    margin-left: 20px;
-  }
+  height: 145px;
+  margin: 25px 0;
   img {
     border-radius: 35px;
     width: 70px;
     height: 70px;
     object-fit: cover;
-    margin-bottom: 15px;
+    margin: 15px;
   }
   p {
     color: ${({ theme }) => theme.textColor.initial};
     font-weight: 500;
     font-size: 18px;
+    margin-bottom: 12px;
   }
   span {
     color: ${({ theme }) => theme.textColor.lighten};
@@ -156,14 +154,12 @@ export const HashTagBox = styled.div`
 export const ExhibitionCardBox = styled.div`
   cursor: pointer;
   font-family: 'Noto Serif KR';
-  width: 233px;
+  width: 230px;
   position: relative;
+  margin: 25px 0;
   img {
-    width: 233px;
-    height: 330px;
-    object-fit: cover;
     width: 100%;
-    height: 330px;
+    height: 258px;
     object-fit: contain;
   }
   article {
@@ -204,8 +200,12 @@ export const ExhibitionCardBox = styled.div`
     transition: 0.2s;
     background-color: ${({ theme }) => theme.background.initial};
     border: 1px solid ${({ theme }) => theme.primary[1]};
+    color: ${({ theme }) => theme.textColor.initial};
   }
   &:hover {
+    h5 {
+      text-decoration: underline;
+    }
     .cost__box {
       background-color: ${({ theme }) => theme.primary[1]};
       border: 1px solid ${({ theme }) => theme.background.initial};

@@ -2,12 +2,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 import useCarousel from '../../hooks/useCarousel';
 
-const Container = styled.div<{ width: number }>`
+const Container = styled.div<{ width: number; height: number }>`
   width: 100%;
-  height: 526px;
+  height: ${({ height }) => height}px;
   position: relative;
   overflow: hidden;
-  section {
+  .slide__container {
     width: ${({ width }) => width}px;
     margin: 0 auto;
   }
@@ -59,11 +59,13 @@ const NextControl = styled(Control)`
 type CarouselPropsType = {
   children: React.ReactNode;
   width?: number;
+  height?: number;
   listLength?: number;
 };
 export default function Carousel({
   children,
   width = 0,
+  height = 0,
   listLength = 1,
 }: CarouselPropsType): JSX.Element {
   const {
@@ -91,8 +93,8 @@ export default function Carousel({
   };
 
   return (
-    <Container width={width}>
-      <section>
+    <Container width={width} height={height}>
+      <div className="slide__container">
         <Slides
           scale={scale}
           width={width}
@@ -102,7 +104,7 @@ export default function Carousel({
         >
           {children}
         </Slides>
-      </section>
+      </div>
       <PrevControl id="prev" onClick={handleClick}>
         &laquo;
       </PrevControl>

@@ -117,7 +117,8 @@ function Home(): JSX.Element {
         <section>
           <h3>전시 아카이브</h3>
           <Carousel
-            width={233}
+            width={230}
+            height={490}
             listLength={(pageData as MainPageDataType).archive.length}
           >
             {[
@@ -131,11 +132,19 @@ function Home(): JSX.Element {
         </section>
         <section>
           <h3>추천작가</h3>
-          <div>
-            {(pageData as MainPageDataType).writer.map(v => (
-              <UserProfileCard key={v.id} data={v} />
+          <Carousel
+            width={220}
+            height={195}
+            listLength={(pageData as MainPageDataType).writer.length}
+          >
+            {[
+              ...(pageData as MainPageDataType).writer,
+              ...(pageData as MainPageDataType).writer,
+              ...(pageData as MainPageDataType).writer,
+            ].map((userData, i) => (
+              <UserProfileCard key={userData.id + 'writer' + i} userData={userData} />
             ))}
-          </div>
+          </Carousel>
         </section>
         <section>
           <h3>인기글</h3>

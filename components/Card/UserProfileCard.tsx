@@ -3,14 +3,16 @@ import { PostUser } from '../../modules/list';
 import { UserProfileCardBox } from './styles';
 
 interface UserProfileCarePropsType {
-  data: PostUser;
+  userData: PostUser;
 }
-export default function UserProfileCard({ data }: UserProfileCarePropsType): JSX.Element {
+export default function UserProfileCard({
+  userData,
+}: UserProfileCarePropsType): JSX.Element {
   return (
     <UserProfileCardBox>
-      <img src={data.avatar} alt="avatar" />
-      <p>{data.nickname}</p>
-      <span>{data.introduce}</span>
+      <img src={userData.avatar} alt="avatar" />
+      <p>{userData.nickname}</p>
+      <span>{userData.introduce}</span>
     </UserProfileCardBox>
   );
 }
