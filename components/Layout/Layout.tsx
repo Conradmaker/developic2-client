@@ -1,7 +1,6 @@
 import { ThemeProvider } from '@emotion/react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useThemeState } from '../../hooks/ThemeContext';
-import useUI from '../../modules/ui/hooks';
 import theme from '../../utils/theme';
 import { LayoutContainer } from './';
 import Footer from './Footer';

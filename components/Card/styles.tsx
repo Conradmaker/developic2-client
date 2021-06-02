@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 export const PopularPostCardBox = styled.div`
   display: inline-block;
   cursor: pointer;
-  margin: 0 20px 30px 0;
+  margin: 0 20px 50px 0;
   overflow: hidden;
   max-width: 400px;
   padding: 5px 5px;
@@ -201,8 +201,16 @@ export const ExhibitionCardBox = styled.div`
     font-size: 12px;
     padding: 2px 10px;
     border-radius: 32px;
+    transition: 0.2s;
     background-color: ${({ theme }) => theme.background.initial};
     border: 1px solid ${({ theme }) => theme.primary[1]};
+  }
+  &:hover {
+    .cost__box {
+      background-color: ${({ theme }) => theme.primary[1]};
+      border: 1px solid ${({ theme }) => theme.background.initial};
+      color: ${({ theme }) => theme.background.initial};
+    }
   }
 `;
 
