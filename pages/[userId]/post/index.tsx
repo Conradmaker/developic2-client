@@ -7,8 +7,7 @@ import useBlog from '../../../modules/blog/hooks';
 import { useInfiniteScroll } from '../../../utils/utils';
 
 const BlogPostContainer = styled.section`
-  min-height: 550px;
-  width: 850px;
+  max-width: 850px;
   margin: 0 auto;
 `;
 
@@ -23,12 +22,6 @@ export default function BlogPosts(): JSX.Element {
 
   const router = useRouter();
   const { userId } = router.query;
-
-  useEffect(() => {
-    if (userId) {
-      loadBlogPostListDispatch({ userId });
-    }
-  }, [userId]);
 
   const onIntersect = useCallback(
     ([{ isIntersecting, target }], observer) => {
@@ -50,6 +43,14 @@ export default function BlogPosts(): JSX.Element {
   const [setTarget] = useInfiniteScroll({
     onIntersect,
   });
+
+  useEffect(() => {
+    if (!userId) {
+      router.replace('/');
+      return;
+    }
+    loadBlogPostListDispatch({ userId });
+  }, [userId]);
 
   return (
     <BlogWithNavLayout>

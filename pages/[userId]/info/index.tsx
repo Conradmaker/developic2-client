@@ -7,7 +7,7 @@ import useBlog from '../../../modules/blog/hooks';
 
 const BlogUserInfoContainer = styled.section`
   min-height: 550px;
-  width: 850px;
+  max-width: 850px;
   margin: 0 auto;
   font-family: 'Noto Serif KR';
 `;
@@ -18,9 +18,11 @@ export default function BlogInfo(): JSX.Element {
   const { userId } = router.query;
 
   useEffect(() => {
-    if (userId) {
-      loadBlogUserDispatch(userId);
+    if (!userId) {
+      router.replace('/');
+      return;
     }
+    loadBlogUserDispatch(userId);
   }, [userId]);
 
   return (

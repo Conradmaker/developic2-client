@@ -1,11 +1,10 @@
 import React from 'react';
 import { MdDoneAll, MdPersonAdd } from 'react-icons/md';
-import { Subscriber } from '../../modules/user';
 import { RoundCornerBtnBox } from './styles';
 
 type FollowBtnPropsType = {
   text: string;
-  isFollow?: Subscriber | undefined;
+  isFollow: boolean;
   onClick?: () => void;
 };
 export default function FollowBtn({

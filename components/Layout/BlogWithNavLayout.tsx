@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Layout from './Layout';
 import styled from '@emotion/styled';
 import Link from 'next/link';
@@ -9,15 +9,16 @@ import FollowBtn from '../Button/FollowBtn';
 import { BlogUserProfile } from './styles';
 import useBlog from '../../modules/blog/hooks';
 import useUser from '../../modules/user/hooks';
-import { UpdateInfoButton } from '../Button/styles';
-const BlogwithProfileContainer = styled.main`
-  margin: 40px auto;
-  width: 850px;
-  position: relative;
-`;
+import { RoundCornerBtnBox } from '../Button/styles';
+import Head from 'next/head';
 
-const UserProfileWithTabContainer = styled.section`
-  margin: 0 auto;
+const BlogwithProfileContainer = styled.div`
+  margin: 40px auto;
+  max-width: 850px;
+  position: relative;
+  .blog__tab {
+    margin: 0 auto;
+  }
 `;
 
 type BlogWithNavLayoutPropsType = {
@@ -30,93 +31,82 @@ export default function BlogWithNavLayout({
   const { userId } = router.query;
   const { loadBlogUserDispatch, blogUserData } = useBlog();
   const { userData, subscribeDispatch, unSubscribeDispatch } = useUser();
-
-  const blogUserId = blogUserData?.id;
-
-  useEffect(() => {
-    if (userId) {
-      loadBlogUserDispatch(userId);
-    }
-  }, [userId]);
-
-  const isFollowing = userData?.writers?.find(
-    following => following.id === blogUserData?.id
-  ); // 구독 여부, 일치하면 isFollowing
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const onFollowToggle = useCallback(() => {
-    if (!userData) return console.log('로그인해주세요');
-    // 로그인모달창 띄우기(모달창 띄우는 함수 만들기)
-    if (userData && isFollowing && blogUserId) {
-      unSubscribeDispatch({ writerId: blogUserId, subscriberId: userData.id });
-    } else if (userData && !isFollowing && blogUserId) {
-      subscribeDispatch({ writerId: blogUserId, subscriberId: userData.id });
+    if (!userData) return alert('로그인해주세요');
+    if (!blogUserData) return;
+    if (isFollowing) {
+      unSubscribeDispatch({ writerId: blogUserData.id, subscriberId: userData.id });
+    } else {
+      subscribeDispatch({ writerId: blogUserData.id, subscriberId: userData.id });
     }
-  }, [userData, isFollowing]);
+  }, [userData, isFollowing, blogUserData]);
+
+  useEffect(() => {
+    loadBlogUserDispatch(userId as string);
+  }, [userId]);
+
+  useEffect(() => {
+    if (!userData) return;
+    if (!blogUserData) return;
+    setIsFollowing(
+      userData.writers.findIndex(following => following.id === +(userId as string)) !== -1
+    );
+  }, [userData]);
 
   if (!blogUserData) return <></>;
+
   return (
     <Layout>
+      <Head>
+        <title>{blogUserData.nickname}님의 블로그</title>
+      </Head>
       <BlogwithProfileContainer>
-        <UserProfileWithTabContainer>
+        <div className="blog__tab">
           <BlogUserProfile>
             <div className="profile__top">
-              <img src={blogUserData?.avatar} alt="profile" />
-              <h1>{blogUserData && blogUserData.nickname}</h1>
-              <p>{blogUserData && blogUserData.introduce}</p>
-              {blogUserId !== userData?.id && (
+              <img src={blogUserData.avatar} alt="profile" />
+              <h1>{blogUserData.nickname}</h1>
+              <p>{blogUserData.introduce}</p>
+              {blogUserData.id !== userData?.id && (
                 <FollowBtn
-                  isFollow={isFollowing && isFollowing}
+                  isFollow={isFollowing}
                   text={isFollowing ? '구독해지' : '구독'}
                   onClick={onFollowToggle}
                 ></FollowBtn>
               )}
-              {blogUserId === userData?.id && (
+              {blogUserData.id === userData?.id && (
                 <Link href="/user/setting/info">
-                  <UpdateInfoButton>프로필 수정</UpdateInfoButton>
+                  <RoundCornerBtnBox>프로필 수정</RoundCornerBtnBox>
                 </Link>
               )}
             </div>
             <div className="profile__bottom">
               <div className="follower">
                 <strong>구독자</strong>
-                <span>
-                  {blogUserData && blogUserData.suberCount ? blogUserData.suberCount : 0}
-                </span>
+                <span>{blogUserData.suberCount ? blogUserData.suberCount : 0}</span>
               </div>
               <div className="following">
                 <strong>관심작가</strong>
-                <span>
-                  {blogUserData && blogUserData.writerCount
-                    ? blogUserData.writerCount
-                    : 0}
-                </span>
+                <span>{blogUserData.writerCount ? blogUserData.writerCount : 0}</span>
               </div>
             </div>
           </BlogUserProfile>
           <BlogTabBox>
-            <Link href={`/${userId}/post`}>
-              <li
-                className={router.pathname === BlogNavData[0].link ? 'nav--active' : ''}
-              >
-                글
-              </li>
-            </Link>
-            <Link href={`/${userId}/picstory`}>
-              <li
-                className={router.pathname === BlogNavData[1].link ? 'nav--active' : ''}
-              >
-                픽스토리
-              </li>
-            </Link>
-            <Link href={`/${userId}/info`}>
-              <li
-                className={router.pathname === BlogNavData[2].link ? 'nav--active' : ''}
-              >
-                소개
-              </li>
-            </Link>
+            {BlogNavData.map(navItem => (
+              <Link href={`/${userId + navItem.link}`}>
+                <li
+                  className={
+                    router.asPath === `/${userId + navItem.link}` ? 'nav--active' : ''
+                  }
+                >
+                  {navItem.name}
+                </li>
+              </Link>
+            ))}
           </BlogTabBox>
-        </UserProfileWithTabContainer>
+        </div>
         {children}
       </BlogwithProfileContainer>
     </Layout>

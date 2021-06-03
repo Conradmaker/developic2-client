@@ -7,8 +7,7 @@ import useBlog from '../../../modules/blog/hooks';
 import { useInfiniteScroll } from '../../../utils/utils';
 
 const BlogPicstoryContainer = styled.section`
-  min-height: 550px;
-  width: 850px;
+  max-width: 850px;
   margin: 0 auto;
 `;
 
@@ -22,12 +21,6 @@ export default function Picstory(): JSX.Element {
   } = useBlog();
   const router = useRouter();
   const { userId } = router.query;
-
-  useEffect(() => {
-    if (userId) {
-      loadBlogPicstoryListDispatch(userId);
-    }
-  }, [userId]);
 
   const onIntersect = useCallback(
     ([{ isIntersecting, target }], observer) => {
@@ -49,6 +42,14 @@ export default function Picstory(): JSX.Element {
   const [setTarget] = useInfiniteScroll({
     onIntersect,
   });
+
+  useEffect(() => {
+    if (!userId) {
+      router.replace('/');
+      return;
+    }
+    loadBlogPicstoryListDispatch(userId as string);
+  }, [userId]);
 
   return (
     <BlogWithNavLayout>

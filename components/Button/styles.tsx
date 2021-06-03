@@ -1,6 +1,5 @@
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Subscriber } from '../../modules/user';
 
 const slideUp = keyframes`
 from{
@@ -144,8 +143,6 @@ export const CheckBtnBox = styled.div`
       background-color: ${({ theme }) => theme.primary[1]};
     }
   }
-  label {
-  }
 `;
 
 export const HashTagBox = styled.li`
@@ -165,7 +162,7 @@ export const HashTagBox = styled.li`
 `;
 
 export const RoundCornerBtnBox = styled.button<{
-  isFollow?: Subscriber | undefined;
+  isFollow?: boolean;
 }>`
   background-color: ${({ theme }) => theme.primary[1]};
   color: #fff;
@@ -183,16 +180,11 @@ export const RoundCornerBtnBox = styled.button<{
     margin-right: 5px;
     font-size: ${({ theme }) => theme.fontSize.lg};
   }
-  ${props => {
-    if (props.isFollow) {
-      return css`
-        border: 1px solid ${props.theme.primary[1]};
-        background-color: transparent;
-        color: ${props.theme.primary[1]};
-      `;
-    }
-  }}
+  ${({ isFollow, theme }) =>
+    isFollow &&
+    css`
+      border: 1px solid ${theme.primary[1]};
+      background-color: transparent;
+      color: ${theme.primary[1]};
+    `}
 `;
-
-export const CreateInfoButton = styled(RoundCornerBtnBox)``;
-export const UpdateInfoButton = styled(RoundCornerBtnBox)``;
