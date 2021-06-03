@@ -19,13 +19,6 @@ export default function RecentViewList(): JSX.Element {
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
   const [computedRecents, setComputedRecents] = useState<ComputedListType | []>([]);
   useEffect(() => {
-    if (!userData) {
-      router.replace('/');
-      return;
-    }
-    getRecentViewsDispatch({ userId: userData.id, limit: 12 });
-  }, []);
-  useEffect(() => {
     if (getRecentList.data) {
       setComputedRecents(sortByDate(getRecentList.data));
     }
