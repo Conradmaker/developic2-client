@@ -72,7 +72,7 @@ export const UserProfileCardBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 145px;
+  height: 175px;
   margin: 25px 0;
   img {
     border-radius: 35px;
@@ -80,12 +80,14 @@ export const UserProfileCardBox = styled.div`
     height: 65px;
     object-fit: cover;
     margin: 15px;
+    transition: all 0.3s;
   }
   p {
     color: ${({ theme }) => theme.textColor.initial};
     font-weight: 500;
     font-size: 16px;
     margin-bottom: 12px;
+    transition: all 0.3s;
   }
   span {
     text-align: center;
@@ -93,12 +95,26 @@ export const UserProfileCardBox = styled.div`
     font-size: 12px;
     line-height: 1.4;
   }
+  .move__btn {
+    transition: all 0.3s;
+    opacity: 0;
+    margin-top: 15px;
+    position: relative;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    svg {
+      padding-top: 2px;
+      fill: ${({ theme }) => theme.textColor.lighten};
+    }
+  }
+
   &:hover {
     img {
       box-shadow: 0 0 10px ${({ theme }) => theme.grayScale[2]};
     }
-    p {
-      text-decoration: underline;
+    .move__btn {
+      opacity: 1;
     }
   }
 `;

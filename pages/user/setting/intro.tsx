@@ -8,6 +8,7 @@ import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import useUser from '../../../modules/user/hooks';
 import { SettingNavData } from '../../../utils/data';
 import useInput from '../../../hooks/useInput';
+import Head from 'next/head';
 
 const InfoContainer = styled.section`
   display: flex;
@@ -99,11 +100,13 @@ export default function Intro(): JSX.Element {
       summary: info,
     });
   };
+
   useEffect(() => {
     if (userData) {
       getUserIntroDispatch({ userId: userData.id });
     }
   }, [userData]);
+
   useEffect(() => {
     if (userIntro.data) {
       setWebsite(userIntro.data?.website);
@@ -112,14 +115,19 @@ export default function Intro(): JSX.Element {
       setModel(userIntro.data.mostlyUseModel);
     }
   }, [userIntro]);
+
   useEffect(() => {
     if (updateUser.data === 'success') {
       alert('성공적으로 반영되었습니다.');
     }
   }, [updateUser.data]);
+
   if (!userIntro.data) return <></>;
   return (
     <PageWithNavLayout pageName="설정" pageDesc="Settings" navData={SettingNavData}>
+      <Head>
+        <title>내정보 | 내 소개 수정</title>
+      </Head>
       <InfoContainer>
         <div className="cs__left">
           <PageLabel

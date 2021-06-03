@@ -12,10 +12,17 @@ to{
 
 export const LayoutContainer = styled.div`
   transition: background-color 0.3s;
+  position: relative;
+  min-height: 100vh;
   background-color: ${({ theme }) => theme.background.initial};
   padding-top: 72px;
+  padding-bottom: 150px;
 `;
 export const FooterContainer = styled.footer`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background-color: ${({ theme }) => theme.primary[1]};
   color: #fff;
   .inner {

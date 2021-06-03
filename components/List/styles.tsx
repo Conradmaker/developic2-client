@@ -72,61 +72,6 @@ export const NoticeListContainer = styled.ul`
   }
 `;
 
-export const RecentViewListContainer = styled.ul`
-  width: 100%;
-  font-family: 'Noto Serif KR';
-
-  & > li {
-    .date {
-      margin-top: 50px;
-      margin-bottom: 30px;
-      color: ${({ theme }) => theme.grayScale[1]};
-      position: relative;
-      display: block;
-      width: 100%;
-      height: 1px;
-      border-top: 1px solid ${({ theme }) => theme.grayScale[1]};
-      span {
-        display: inline-block;
-        letter-spacing: 1.3px;
-        padding: 0 20px;
-        font-size: 18px;
-        position: absolute;
-        top: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: ${({ theme }) => theme.background.initial};
-      }
-    }
-    ul {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 50px 24px;
-      margin-bottom: 100px;
-    }
-  }
-`;
-export const LikeListContainer = styled.div`
-  width: 100%;
-  font-family: 'Noto Serif KR';
-  .total_like_count {
-    margin-bottom: 30px;
-    span {
-      color: ${({ theme }) => theme.textColor.initial};
-      strong {
-        font-weight: 600;
-        font-size: 18px;
-      }
-    }
-  }
-  ul {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 50px 24px;
-    margin-bottom: 100px;
-  }
-`;
-
 export const PhotoBinderGalleryContainer = styled.div`
   width: 100%;
   z-index: 0;
@@ -151,7 +96,6 @@ export const ImgItemBox = styled.div<{ selected: boolean }>`
   z-index: 0;
   position: relative;
   width: 100%;
-  /* change div to reference your elements you put in <Masonry> */
   margin-bottom: 10px;
   cursor: pointer;
   & > .img__layer {

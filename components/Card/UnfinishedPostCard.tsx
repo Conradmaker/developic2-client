@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
 import { TempItemType } from '../../modules/drawer';
@@ -21,7 +22,7 @@ export default function UnfinishedPostCard({
       <article>
         <h2>{tempPostData.title}</h2>
         <p dangerouslySetInnerHTML={{ __html: tempPostData.content }}></p>
-        <span>{tempPostData.updatedAt} 수정</span>
+        <span>{dayjs(tempPostData.updatedAt).format('YYYY년 MM월 DD일 HH시')} 수정</span>
       </article>
       <div className="btn__group">
         <Link href={`/edit/content/${tempPostData.id}`}>

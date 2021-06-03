@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Head from 'next/head';
 import React from 'react';
 import PageLabel from '../../components/Label/PageLabel';
 import PageWithNavLayout from '../../components/Layout/PageWithNavLayout';
@@ -12,6 +13,9 @@ const NoticeContainer = styled.section`
 export default function Inquery(): JSX.Element {
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
+      <Head>
+        <title>고객센터 | 공지사항</title>
+      </Head>
       <NoticeContainer>
         <div className="cs__left">
           <PageLabel

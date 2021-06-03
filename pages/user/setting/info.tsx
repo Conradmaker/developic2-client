@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import SquareBtn from '../../../components/Button/SquareBtn';
@@ -123,22 +124,30 @@ export default function Info(): JSX.Element {
       newPassword: passwords.password,
     });
   }, [passwords]);
+
   const onDestroyUser = useCallback(() => {
     if (!userData) return;
     destroyUserDispatch(userData.id);
   }, []);
+
   useEffect(() => {
     if (updateUser.data === 'passwordSuccess') {
       alert('성공적으로 비밀번호를 변경하였습니다.');
     }
   }, [updateUser]);
+
   useEffect(() => {
     if (destroyUser.data) alert('회원정보가 삭제 되었습니다.');
     if (!userData) router.replace('/');
   }, [userData, destroyUser]);
+
   if (!userData) return <></>;
+
   return (
     <PageWithNavLayout pageName="설정" pageDesc="Settings" navData={SettingNavData}>
+      <Head>
+        <title>내정보 | 계정정보 수정</title>
+      </Head>
       <InfoContainer>
         <div className="cs__left">
           <PageLabel

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Head from 'next/head';
 import React from 'react';
 import CustomInput from '../../components/Input/CustomInput';
 import CustomSelect from '../../components/Input/CustomSelect';
@@ -57,6 +58,9 @@ export default function Inquery(): JSX.Element {
   const [content, onChangeContent] = useInput('');
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
+      <Head>
+        <title>고객센터 | 문의</title>
+      </Head>
       <InqueryContainer>
         <div className="cs__left">
           <PageLabel

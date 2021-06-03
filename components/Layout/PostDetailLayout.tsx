@@ -77,7 +77,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
             ))}
           </ul>
           <div className="post__menu">
-            <p>{dayjs(postData.updatedAt).format('YYYY년 MM월 DD일')} 작성.</p>
+            <p>{dayjs(postData.createdAt).format('YYYY년 MM월 DD일')} 작성.</p>
 
             <ul>
               <li>

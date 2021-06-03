@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import React from 'react';
+import { BsBoxArrowInDownRight } from 'react-icons/bs';
 import { PostUser } from '../../modules/list';
 import { UserProfileCardBox } from './styles';
 
@@ -9,10 +11,16 @@ export default function UserProfileCard({
   userData,
 }: UserProfileCarePropsType): JSX.Element {
   return (
-    <UserProfileCardBox>
-      <img src={userData.avatar} alt="avatar" />
-      <p>{userData.nickname}</p>
-      <span>{userData.introduce}</span>
-    </UserProfileCardBox>
+    <Link href={`/${userData.id}/post`}>
+      <UserProfileCardBox>
+        <img src={userData.avatar} alt="avatar" />
+        <p>{userData.nickname}</p>
+        <span>{userData.introduce}</span>
+        <div className="move__btn">
+          <span>방문</span>
+          <BsBoxArrowInDownRight />
+        </div>
+      </UserProfileCardBox>
+    </Link>
   );
 }

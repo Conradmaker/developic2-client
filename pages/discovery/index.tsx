@@ -5,6 +5,7 @@ import React from 'react';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import DiscoverList from '../../components/List/DiscoverList';
+import Incomplete from '../../components/Result/Incomplete';
 import {
   DiscoverPageDataType,
   getHashtagListAction,
@@ -78,13 +79,21 @@ const DiscoveryContainer = styled.div`
     }
   }
 `;
+
 export default function discovery(): JSX.Element {
   const { pageData } = useList();
 
   const router = useRouter();
   const currentTag = router.query.tag;
 
-  if (!(pageData as DiscoverPageDataType).hashtag || !pageData.post) return <></>;
+  if (
+    !(pageData as DiscoverPageDataType).hashtag ||
+    !(pageData as DiscoverPageDataType).post
+  )
+    return (
+      <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
+    );
+
   return (
     <Layout>
       <Head>

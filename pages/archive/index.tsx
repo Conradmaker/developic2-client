@@ -33,7 +33,7 @@ export default function archive(): JSX.Element {
   return (
     <Layout>
       <Head>
-        <title>DEVELOPIC | Archive</title>
+        <title>ARCHIVE | 전시회 정보</title>
       </Head>
       <ArchiveContainer>
         <section>

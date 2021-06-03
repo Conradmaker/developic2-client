@@ -7,6 +7,7 @@ import HashTagInstant from '../../../components/Editor/HashTagInstant';
 import TitleInput from '../../../components/Input/EditPageInput';
 import useUser from '../../../modules/user/hooks';
 import usePost from '../../../modules/post/hooks';
+import Head from 'next/head';
 const EditContainer = styled.div`
   max-width: 1100px;
   margin: 0 auto;
@@ -56,6 +57,9 @@ export default function edit(): JSX.Element {
   }, [tempPost.data]);
   return (
     <Layout>
+      <Head>
+        <title>글쓰기 | {!tempPost.data ? '새글쓰기' : tempPost.data.title}</title>
+      </Head>
       <EditContainer>
         <TitleInput title={title} setTitle={setTitle} />
         <HashTagInstant setTagList={setTagList} tagList={tagList} />

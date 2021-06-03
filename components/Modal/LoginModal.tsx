@@ -52,7 +52,6 @@ export default function LoginModal({ onClose }: LoginModalPropsType): JSX.Elemen
               type="password"
             />
             <div className="social__wrapper">
-              <a href={`${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/google`}>페북</a>
               <RoundBtn onClick={() => onClickSocialLogin('facebook')}>
                 <RiFacebookFill />
               </RoundBtn>

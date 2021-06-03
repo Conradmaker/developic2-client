@@ -191,9 +191,6 @@ export default function signup(): JSX.Element {
       {authOpen && (
         <SignupAuthModal email={email} onClose={() => setAuthOpen(!authOpen)} />
       )}
-      {/* {authOpen && <SignupPenNameModal setModalOpen={setAuthOpen} />} */}
     </Layout>
   );
 }
-
-//social시 param으로 refreshToken을 받는게 어떨까 신규면 new로

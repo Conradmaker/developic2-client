@@ -81,11 +81,15 @@ export const LoginModalBox = styled(ModalBox)`
       display: flex;
       justify-content: space-around;
       margin-top: 70px;
+      svg {
+        fill: ${({ theme }) => theme.textColor.initial};
+      }
     }
     .sign-up__wrapper {
       font-size: 14px;
       display: flex;
       justify-content: center;
+      color: ${({ theme }) => theme.textColor.initial};
       strong {
         text-indent: 10px;
         text-decoration: underline;
@@ -524,6 +528,7 @@ export const MakeBinderModalMox = styled(ModalBox)`
       width: 300px;
       border-right: 1px solid ${({ theme }) => theme.textColor.initial};
       padding-right: 30px;
+      overflow-y: scroll;
       ul {
         li {
           margin: 10px 0;

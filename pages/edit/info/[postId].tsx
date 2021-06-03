@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import useInput from '../../../hooks/useInput';
 import usePost from '../../../modules/post/hooks';
 import useUser from '../../../modules/user/hooks';
+import Head from 'next/head';
 
 export const InfoPostContainer = styled.div`
   max-width: 1000px;
@@ -106,12 +107,17 @@ export default function InfoPost(): JSX.Element {
       router.replace(`/${userData.id}/post`);
     }
   }, [submitPost.data, router.query]);
+
   useEffect(() => {
     getTempPostDispatch(router.query.postId as string);
   }, [router.query]);
   if (!tempPost.data) return <></>;
+
   return (
     <Layout>
+      <Head>
+        <title>글쓰기 | {tempPost.data.title} 정보입력</title>
+      </Head>
       <InfoPostContainer>
         <div className="left__section">
           <h5>썸네일</h5>

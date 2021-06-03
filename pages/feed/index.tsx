@@ -100,11 +100,13 @@ export default function index(): JSX.Element {
       getFeedPostDispatch({ UserId: userData.id, offset: page * 12, limit: 12 });
   }, [page]);
 
-  if (!pageData.post || !(pageData as FeedPageDataType).writer) return <></>;
+  if (!(pageData as FeedPageDataType).post || !(pageData as FeedPageDataType).writer)
+    return <></>;
+
   return (
     <Layout>
       <Head>
-        <title>DEVELOPIC | FEED</title>
+        <title>FEED | {userData?.nickname}님의 피드</title>
       </Head>
       <FeedContainer>
         <TitleLabel title="피드" desc="Posts by your followers" />

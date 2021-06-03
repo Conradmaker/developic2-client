@@ -14,7 +14,7 @@ export default function PhotoBinderCard({
     <Link href={`/user/drawer/binder/${binderData.id}`}>
       <PhotoBinderCardBox>
         <div className="img__box">
-          {Array.from({ length: 6 }).map((_, index) => {
+          {Array.from({ length: 5 }).map((_, index) => {
             return binderData.PostImages[index] ? (
               <div className="img__box__item" key={binderData.PostImages[index].id}>
                 <img src={binderData.PostImages[index].src} alt="" />
@@ -28,15 +28,6 @@ export default function PhotoBinderCard({
               </div>
             );
           })}
-          {/* {binderData.PostImages.map((photo, index) => {
-            if (index < 6) {
-              return (
-                <div className="img__box__item" key={photo.id}>
-                  <img src={photo.src} alt="" />
-                </div>
-              );
-            }
-          })} */}
         </div>
         <article>
           <div className="left">

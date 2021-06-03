@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useCallback, useState } from 'react';
 import SquareBtn from '../../../../components/Button/SquareBtn';
@@ -110,6 +111,9 @@ export default function binderId(): JSX.Element {
 
   return (
     <PageWithNavLayout pageName="내 서랍" pageDesc="My Drawer" navData={DrawerNavData}>
+      <Head>
+        <title>바인더 | {getBinderDetail.data.title}</title>
+      </Head>
       <BinderDetailContainer>
         <div className="left__section">
           <article>
