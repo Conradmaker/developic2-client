@@ -8,11 +8,16 @@ import PopularPostCard from '../components/Card/PopularPostCard';
 import UserProfileCard from '../components/Card/UserProfileCard';
 import Exhibition from '../components/Card/Exhibition';
 import { DarkModeBtn } from '../components/Button/FloatingBtn';
-import { useEffect } from 'react';
 import useList from '../modules/list/hooks';
-import { MainPageDataType } from '../modules/list';
+import {
+  getArchiveListAction,
+  getPostListAction,
+  getWriterListAction,
+  MainPageDataType,
+} from '../modules/list';
 import Carousel from '../components/List/Carousel';
-import initialGetServerSideProps from '../utils/getServerSidePropsTemplate';
+import { authServersiceAction } from '../utils/getServerSidePropsTemplate';
+import wrapper from '../modules/store';
 
 const MainContainer = styled.main`
   width: 1150px;
@@ -65,18 +70,9 @@ const MainContainer = styled.main`
     background-color: ${({ theme }) => theme.primary[2]};
   }
 `;
+
 export default function Home(): JSX.Element {
-  const {
-    pageData,
-    getArchiveListDispatch,
-    getWriterListDispatch,
-    getPostListDispatch,
-  } = useList();
-  useEffect(() => {
-    getArchiveListDispatch({ limit: 12 });
-    getWriterListDispatch({ type: 'all', limit: 5 });
-    getPostListDispatch({ sort: 'popular', term: 'month', limit: 15 });
-  }, []);
+  const { pageData } = useList();
   if (!(pageData as MainPageDataType).archive) return <></>;
   if (!(pageData as MainPageDataType).writer) return <></>;
   if (!(pageData as MainPageDataType).post) return <></>;
@@ -149,7 +145,7 @@ export default function Home(): JSX.Element {
           <h3>인기글</h3>
           <div className="post__section">
             {(pageData as MainPageDataType).post.map(postData => (
-              <PopularPostCard key={postData.id} postData={postData} />
+              <PopularPostCard key={postData.id + 'post'} postData={postData} />
             ))}
           </div>
         </section>
@@ -159,4 +155,11 @@ export default function Home(): JSX.Element {
   );
 }
 
-export const getServerSideProps = initialGetServerSideProps();
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  await authServersiceAction(context);
+  await context.store.dispatch(getArchiveListAction({ limit: 12 }));
+  await context.store.dispatch(getWriterListAction({ type: 'all', limit: 12 }));
+  await context.store.dispatch(
+    getPostListAction({ sort: 'popular', term: 'week', limit: 15 })
+  );
+});

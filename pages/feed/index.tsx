@@ -10,8 +10,15 @@ import useFollowListModal from '../../hooks/useFollowListModal';
 import useList from '../../modules/list/hooks';
 import useUser from '../../modules/user/hooks';
 import { useRouter } from 'next/router';
-import { FeedPageDataType } from '../../modules/list';
+import {
+  FeedPageDataType,
+  getFeedPostAction,
+  getHashtagListAction,
+  getWriterListAction,
+} from '../../modules/list';
 import useFetchMore from '../../hooks/useFetchMore';
+import wrapper from '../../modules/store';
+import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
 
 const FeedContainer = styled.div`
   max-width: 1150px;
@@ -79,22 +86,20 @@ const FeedContainer = styled.div`
 `;
 export default function index(): JSX.Element {
   const { userData } = useUser();
-  const { getFeedPostDispatch, pageData, getWriterListDispatch, hasMore } = useList();
-  const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
+  const { getFeedPostDispatch, pageData, hasMore } = useList();
+  const [FetchMoreTrigger, page] = useFetchMore(hasMore);
   const router = useRouter();
   const [followListOpen, toggleFollowList, FollowListModal] = useFollowListModal();
+
   useEffect(() => {
-    if (!userData) router.replace('/');
-    if (userData) {
-      getFeedPostDispatch({ UserId: userData.id, limit: 12 });
-      getWriterListDispatch({ userId: userData.id, type: 'suber' });
+    if (!userData) {
+      router.replace('/');
+      return;
     }
-  }, [userData]);
-  useEffect(() => {
-    if (!userData) return;
-    if (hasMore)
+    if (hasMore && page > 0)
       getFeedPostDispatch({ UserId: userData.id, offset: page * 12, limit: 12 });
   }, [page]);
+
   if (!pageData.post || !(pageData as FeedPageDataType).writer) return <></>;
   return (
     <Layout>
@@ -131,3 +136,16 @@ export default function index(): JSX.Element {
     </Layout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  await authServersiceAction(context);
+  await context.store.dispatch(
+    getHashtagListAction({ sort: 'popular', term: 'month', limit: 18 })
+  );
+  const store = context.store.getState();
+  if (store.user.userData) {
+    const userId = store.user.userData.id;
+    await context.store.dispatch(getFeedPostAction({ UserId: userId, limit: 12 }));
+    await context.store.dispatch(getWriterListAction({ userId: userId, type: 'suber' }));
+  }
+});

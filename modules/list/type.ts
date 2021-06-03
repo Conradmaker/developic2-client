@@ -81,7 +81,7 @@ export type GetWriterListPayload = {
 };
 export type GetHashTagListPayload = {
   sort?: 'recent' | 'popular';
-  term?: 'month' | 'day';
+  term?: 'all' | 'year' | 'month' | 'week' | 'day';
   limit?: number;
   offset?: number;
 };
@@ -96,7 +96,7 @@ export type GetTaggedPostListPayload = {
 
 export type GetPostListPayload = {
   sort?: 'recent' | 'popular';
-  term?: 'month' | 'day';
+  term?: 'all' | 'year' | 'month' | 'week' | 'day';
   limit?: number;
   offset?: number;
 };

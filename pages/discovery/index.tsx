@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import axios from 'axios';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -14,7 +13,7 @@ import {
 } from '../../modules/list';
 import useList from '../../modules/list/hooks';
 import wrapper from '../../modules/store';
-import { authAction } from '../../modules/user';
+import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
 
 const DiscoveryContainer = styled.div`
   width: 1150px;
@@ -79,7 +78,7 @@ const DiscoveryContainer = styled.div`
     }
   }
 `;
-function discovery(): JSX.Element {
+export default function discovery(): JSX.Element {
   const { pageData } = useList();
 
   const router = useRouter();
@@ -117,18 +116,10 @@ function discovery(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  console.log('SSR시작');
-
-  const cookie = context.req ? context.req.headers.cookie : '';
-  axios.defaults.headers.Cookie = '';
-  if (context.req && cookie) {
-    axios.defaults.headers.Cookie = cookie;
-  }
-  await context.store.dispatch(authAction(null));
+  await authServersiceAction(context);
   await context.store.dispatch(
     getHashtagListAction({ sort: 'popular', term: 'month', limit: 18 })
   );
-
   if (!context.query.tag) {
     await context.store.dispatch(
       getPostListAction({ sort: 'popular', term: 'month', limit: 12 })
@@ -143,7 +134,4 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
       })
     );
   }
-
-  console.log('SSR끝');
 });
-export default discovery;

@@ -15,7 +15,7 @@ export default function DiscoverList(): JSX.Element {
   }, [currentTag]);
 
   useEffect(() => {
-    if (hasMore) {
+    if (hasMore && page > 0) {
       if (!currentTag) {
         getPostListDispatch({
           sort: 'popular',

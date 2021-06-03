@@ -3,14 +3,13 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import Layout from '../../../components/Layout';
-import CommentList from '../../../components/List/CommentList';
 import PostDetailLayout from '../../../components/Layout/PostDetailLayout';
 import usePost from '../../../modules/post/hooks';
 import ScrollIndicator from '../../../components/Layout/ScrollIndicator';
 import wrapper from '../../../modules/store';
-import { authAction } from '../../../modules/user';
-import axios from 'axios';
 import { getPostDetailAction } from '../../../modules/post';
+import CommentList from '../../../components/List/CommentList';
+import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const NotAllowComment = styled.div`
   width: 800px;
@@ -18,9 +17,11 @@ const NotAllowComment = styled.div`
   text-align: center;
   font-family: 'Noto Serif KR';
 `;
-function postId(): JSX.Element {
+export default function postId(): JSX.Element {
   const { getPostDetail } = usePost();
   const router = useRouter();
+
+  if (!getPostDetail.data) return <></>;
 
   return (
     <Layout>
@@ -63,17 +64,6 @@ function postId(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  console.log('SSR시작');
-
-  const cookie = context.req ? context.req.headers.cookie : '';
-  axios.defaults.headers.Cookie = '';
-  if (context.req && cookie) {
-    axios.defaults.headers.Cookie = cookie;
-  }
-  await context.store.dispatch(authAction(null));
+  authServersiceAction(context);
   await context.store.dispatch(getPostDetailAction(+(context.query.postId as string)));
-
-  console.log('SSR끝');
 });
-
-export default postId;
