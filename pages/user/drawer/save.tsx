@@ -31,7 +31,7 @@ function SaveList(): JSX.Element {
     if (hasMore && page > 0) {
       getTempListDispatch({ userId: userData.id, limit: 12, offset: 0 });
     }
-  }, [page]);
+  }, [userData, page]);
   if (!getTempList.data) return <></>;
   // if (getTempList.data.length === 0)
   //   return <Incomplete title="작성중인 게시글이 없습니다." />;

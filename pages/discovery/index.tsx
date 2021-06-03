@@ -116,16 +116,14 @@ export default function discovery(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  const { dispatch } = context.store;
   await authServersiceAction(context);
-  await context.store.dispatch(
-    getHashtagListAction({ sort: 'popular', term: 'month', limit: 18 })
-  );
+  await dispatch(getHashtagListAction({ sort: 'popular', term: 'month', limit: 18 }));
+
   if (!context.query.tag) {
-    await context.store.dispatch(
-      getPostListAction({ sort: 'popular', term: 'month', limit: 12 })
-    );
+    await dispatch(getPostListAction({ sort: 'popular', term: 'month', limit: 12 }));
   } else {
-    await context.store.dispatch(
+    await dispatch(
       getTaggedPostListAction({
         HashtagName: context.query.tag as string,
         limit: 12,

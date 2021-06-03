@@ -62,7 +62,7 @@ const drawerSlice = createSlice({
         state.getLikeList.loading = false;
         state.getLikeList.error = null;
         state.getLikeList.data = state.loadMore
-          ? state.getLikeList.data.concat(payload)
+          ? (state.getLikeList.data as LikeListItemType[]).concat(payload)
           : payload;
       })
       .addCase(getLikeListAction.rejected, (state, { payload }) => {
@@ -90,16 +90,14 @@ const drawerSlice = createSlice({
       })
       .addCase(getTempListAction.pending, state => {
         state.getTempList.loading = true;
-        state.getTempList.data = null;
         state.getTempList.error = null;
       })
       .addCase(getTempListAction.fulfilled, (state, { payload }) => {
         state.getTempList.loading = false;
-        state.getTempList.data = payload;
         state.getTempList.error = null;
-        // state.getTempList.data = state.loadMore
-        //   ? (state.getTempList.data as TempItemType[]).concat(payload)
-        //   : payload;
+        state.getTempList.data = state.loadMore
+          ? (state.getTempList.data as TempItemType[]).concat(payload)
+          : payload;
       })
       .addCase(getTempListAction.rejected, (state, { payload }) => {
         state.getTempList.loading = false;
@@ -142,7 +140,6 @@ const drawerSlice = createSlice({
       })
       .addCase(removeRecentViewAction.pending, state => {
         state.removeRecentView.loading = true;
-        state.removeRecentView.data = null;
         state.removeRecentView.error = null;
       })
       .addCase(removeRecentViewAction.fulfilled, (state, { payload }) => {
@@ -160,13 +157,14 @@ const drawerSlice = createSlice({
       })
       .addCase(getPhotoBinderListAction.pending, state => {
         state.getBinderList.loading = true;
-        state.getBinderList.data = null;
         state.getBinderList.error = null;
       })
       .addCase(getPhotoBinderListAction.fulfilled, (state, { payload }) => {
         state.getBinderList.loading = false;
-        state.getBinderList.data = payload;
         state.getBinderList.error = null;
+        state.getBinderList.data = state.loadMore
+          ? (state.getBinderList.data as PhotoBinderType[]).concat(payload)
+          : payload;
       })
       .addCase(getPhotoBinderListAction.rejected, (state, { payload }) => {
         state.getBinderList.loading = false;

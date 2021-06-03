@@ -68,7 +68,7 @@ function UsersBinderList({ photoId, userId }: UsersBinderListPropsType) {
   };
 
   useEffect(() => {
-    getPhotoBinderListDispatch(userId);
+    getPhotoBinderListDispatch({ userId, limit: 50 });
   }, []);
   if (!getBinderList.data) return <></>;
   return <ul>{getBinderList.data.map(binder => makeBinderItem(binder))}</ul>;
