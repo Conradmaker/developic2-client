@@ -1,13 +1,18 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import SquareBtn from '../../../../components/Button/SquareBtn';
 import PageWithNavLayout from '../../../../components/Layout/PageWithNavLayout';
 import PhotoBinderGallery from '../../../../components/List/PhotoBinderGallery';
 import BinderEditModal from '../../../../components/Modal/BinderModal';
 import ConfirmRemoveModal from '../../../../components/Modal/ConfirmRemoveModal';
+import Incomplete from '../../../../components/Result/Incomplete';
+import { getPhotoBinderDetailAction } from '../../../../modules/drawer';
 import useDrawer from '../../../../modules/drawer/hooks';
+import wrapper from '../../../../modules/store';
 import { DrawerNavData } from '../../../../utils/data';
+import { authServersiceAction } from '../../../../utils/getServerSidePropsTemplate';
+
 const BinderDetailContainer = styled.div`
   display: flex;
   .left__section {
@@ -46,27 +51,31 @@ const BinderDetailContainer = styled.div`
     flex: 1;
     position: relative;
     margin-bottom: 100px;
+    .is-empty {
+      margin-top: 40px;
+      text-align: center;
+    }
   }
 `;
+
 export default function binderId(): JSX.Element {
   const router = useRouter();
   const {
-    getPhotoBinderDetailDispatch,
     getBinderDetail,
     removeBinderPhotoDispatch,
     removePhotoBinderDispatch,
   } = useDrawer();
-  // const [fakePhotos, setFakePhotos] = useState(photos);
+
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [removeModalOpen, setRemoveModalOpen] = useState(false);
 
   const onToggleEditModal = useCallback(() => {
-    setEditModalOpen(state => !state);
+    setEditModalOpen(prev => !prev);
   }, []);
   const onToggleRemoveModal = useCallback(() => {
-    setEditModalOpen(state => !state);
-    setRemoveModalOpen(state => !state);
+    setEditModalOpen(prev => !prev);
+    setRemoveModalOpen(prev => !prev);
   }, []);
 
   const onToggleSelectPhoto = useCallback(
@@ -78,25 +87,27 @@ export default function binderId(): JSX.Element {
     },
     [selectedPhotos]
   );
-  const removePhotos = () => {
+
+  const removePhotos = useCallback(() => {
     if (!getBinderDetail.data) return;
     removeBinderPhotoDispatch({
       BinderId: getBinderDetail.data.id,
       photoIdArr: selectedPhotos,
     });
-  };
+  }, [selectedPhotos, getBinderDetail.data]);
 
-  const removeBinder = () => {
+  const removeBinder = useCallback(() => {
     if (!getBinderDetail.data) return;
     removePhotoBinderDispatch(getBinderDetail.data.id);
     router.back();
-  };
+  }, [getBinderDetail.data]);
 
-  useEffect(() => {
-    getPhotoBinderDetailDispatch(+(router.query.binderId as string));
-  }, [router.query]);
-
+  if (getBinderDetail.error)
+    return (
+      <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
+    );
   if (!getBinderDetail.data) return <></>;
+
   return (
     <PageWithNavLayout pageName="내 서랍" pageDesc="My Drawer" navData={DrawerNavData}>
       <BinderDetailContainer>
@@ -112,11 +123,15 @@ export default function binderId(): JSX.Element {
           </article>
         </div>
         <div className="binder__detail__img__list">
-          <PhotoBinderGallery
-            photos={getBinderDetail.data.PostImages}
-            selectedPhotos={selectedPhotos}
-            onToggleSelectPhoto={onToggleSelectPhoto}
-          />
+          {getBinderDetail.data.PostImages.length === 0 ? (
+            <div className="is-empty">비어있는 바인더 입니다.</div>
+          ) : (
+            <PhotoBinderGallery
+              photos={getBinderDetail.data.PostImages}
+              selectedPhotos={selectedPhotos}
+              onToggleSelectPhoto={onToggleSelectPhoto}
+            />
+          )}
         </div>
       </BinderDetailContainer>
       {editModalOpen && (
@@ -140,3 +155,9 @@ export default function binderId(): JSX.Element {
     </PageWithNavLayout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  const { dispatch } = context.store;
+  await authServersiceAction(context);
+  await dispatch(getPhotoBinderDetailAction(+(context.query.binderId as string)));
+});

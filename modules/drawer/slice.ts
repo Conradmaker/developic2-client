@@ -255,15 +255,6 @@ const drawerSlice = createSlice({
           );
           (state.getBinderDetail.data as PhotoBinderType).PostImages = newPhotos;
         }
-
-        if (isPhotoBinderArr(state.getBinderList.data)) {
-          const binderIndex = state.getBinderList.data.findIndex(
-            binder => binder.id === payload.BinderId
-          );
-          state.getBinderList.data[binderIndex].PostImages = state.getBinderList.data[
-            binderIndex
-          ].PostImages.filter(image => !payload.photoIdArr.includes(image.id));
-        }
       })
       .addCase(removeBinderPhotoAction.rejected, (state, { payload }) => {
         state.removeBinderPhoto.loading = false;
