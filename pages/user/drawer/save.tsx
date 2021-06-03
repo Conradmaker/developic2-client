@@ -10,9 +10,7 @@ import useDrawer from '../../../modules/drawer/hooks';
 import wrapper from '../../../modules/store';
 import useUser from '../../../modules/user/hooks';
 import { DrawerNavData } from '../../../utils/data';
-import initialGetServerSideProps, {
-  authServersiceAction,
-} from '../../../utils/getServerSidePropsTemplate';
+import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const SavePageContainer = styled.div`
   display: grid;
@@ -23,14 +21,13 @@ function SaveList(): JSX.Element {
   const router = useRouter();
   const { userData } = useUser();
   const { getTempList, getTempListDispatch, hasMore } = useDrawer();
-  const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
+  const [FetchMoreTrigger, page] = useFetchMore(hasMore);
 
   useEffect(() => {
     if (!userData) {
       router.replace('/');
       return;
     }
-
     if (hasMore && page > 0) {
       getTempListDispatch({ userId: userData.id, limit: 12, offset: 0 });
     }
@@ -59,11 +56,12 @@ export default function save(): JSX.Element {
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
   const { dispatch, getState } = context.store;
-  const state = getState();
 
   await authServersiceAction(context);
-
-  await dispatch(
-    getTempListAction({ userId: state.user.userData?.id, limit: 12, offset: 0 })
-  );
+  const state = getState();
+  if (state.user.userData) {
+    await dispatch(
+      getTempListAction({ userId: state.user.userData?.id, limit: 12, offset: 0 })
+    );
+  }
 });
