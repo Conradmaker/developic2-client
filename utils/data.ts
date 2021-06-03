@@ -28,9 +28,9 @@ export const SearchListOptions = {
 };
 
 export const BlogNavData: NavDataType = [
-  { name: '글', link: '/[userId]/post' },
-  { name: '픽스토리', link: '/[userId]/picstory' },
-  { name: '소개', link: '/[userId]/info' },
+  { name: '글', link: '/post' },
+  { name: '픽스토리', link: '/picstory' },
+  { name: '소개', link: '/info' },
 ];
 
 export const SearchNavData: NavDataType = [
