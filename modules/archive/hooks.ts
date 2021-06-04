@@ -2,16 +2,16 @@ import { useCallback } from 'react';
 import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useSelector';
 import { addArchiveAction, getArchiveDetailAction, getArchiveListAction } from './thunk';
-import { AddArchivePayload } from './type';
+import { AddArchivePayload, GetArchivePayload } from './type';
 
 export default function useArchive() {
-  const { getArchiveList, getArchiveDetail, addArchive } = useAppSelector(
+  const { getArchiveList, getArchiveDetail, addArchive, hasMore } = useAppSelector(
     state => state.archive
   );
   const dispatch = useAppDispatch();
 
-  const getArchiveListDispatch = useCallback(() => {
-    dispatch(getArchiveListAction());
+  const getArchiveListDispatch = useCallback((data: GetArchivePayload) => {
+    dispatch(getArchiveListAction(data));
   }, []);
 
   const getArchiveDetailDispatch = useCallback((archiveId: number) => {
@@ -23,6 +23,7 @@ export default function useArchive() {
   }, []);
 
   return {
+    hasMore,
     getArchiveList,
     getArchiveDetail,
     addArchive,
