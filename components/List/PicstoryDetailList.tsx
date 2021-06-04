@@ -18,7 +18,7 @@ export default function PicstoryDetailList({
         >
           {picstoryDetailPostData &&
             picstoryDetailPostData.Posts.map((blogPostItem: BlogPost) => (
-              <BlogPostCard key={blogPostItem.id} data={blogPostItem} />
+              <BlogPostCard key={blogPostItem.id} postData={blogPostItem} />
             ))}
         </Masonry>
       </BlogPostListContainer>

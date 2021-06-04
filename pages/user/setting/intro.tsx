@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import CustomInput from '../../../components/Input/CustomInput';
@@ -18,7 +18,13 @@ const InfoContainer = styled.section`
     form {
       margin-top: 50px;
       & > div {
-        margin-top: 30px;
+        margin-top: 25px;
+      }
+      & > p {
+        font-size: 12px;
+        color: #a35757;
+        text-align: end;
+        padding-top: 8px;
       }
     }
   }
@@ -86,10 +92,19 @@ export default function Intro(): JSX.Element {
     updateUser,
   } = useUser();
   const [website, onChangeWebsite, setWebsite] = useInput('');
-  const [info, onChangeInfo, setInfo] = useInput('');
+  const [info, setInfo] = useState('');
+  const [infoError, setInfoError] = useState('');
   const [intro, onChangeIntro, setIntro] = useInput('');
   const [model, onChangeModel, setModel] = useInput('');
 
+  const onChangeInfo = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length >= 40) {
+      setInfoError('40글자를 넘길 수 없습니다.');
+    } else {
+      setInfoError('');
+      setInfo(e.target.value);
+    }
+  }, []);
   const onUpdateUserIntro = () => {
     if (!userData) return;
     updateUserIntroDispatch({
@@ -137,6 +152,7 @@ export default function Intro(): JSX.Element {
           />
           <form>
             <CustomInput title="한 줄 소개" value={info} onChange={onChangeInfo} />
+            {infoError && <p>{infoError}</p>}
             <CustomInput title="웹사이트" value={website} onChange={onChangeWebsite} />
             <CustomInput title="주 사용 기기" value={model} onChange={onChangeModel} />
           </form>

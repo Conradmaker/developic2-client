@@ -233,7 +233,7 @@ export const ExhibitionCardBox = styled.div`
 export const CommonPostCardBox = styled.li`
   font-family: 'Noto Serif KR';
   font-size: ${({ theme }) => theme.fontSize.base};
-  text-align: justify;
+  text-align: start;
   position: relative;
   line-height: 1.5;
   width: 273px;
@@ -254,6 +254,10 @@ export const CommonPostCardBox = styled.li`
       margin: 0.857em 0 0.857em 0;
     }
     p {
+      height: 42px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
       color: ${({ theme }) => theme.grayScale[2]};
       margin-bottom: 1.786em;
     }
@@ -879,6 +883,7 @@ export const BlogPicstoryCardBox = styled.li`
 `;
 
 export const BlogPostCardBox = styled.li`
+  cursor: pointer;
   font-size: ${({ theme }) => theme.fontSize.base};
   text-align: justify;
   line-height: 1.8;
@@ -887,38 +892,17 @@ export const BlogPostCardBox = styled.li`
     width: 100%;
     .img__wrapper {
       position: relative;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
       margin-bottom: 0.714em;
       & > img {
         border-radius: 3px;
         min-width: 100%;
         min-height: 100%;
       }
-      .img__description {
-        position: absolute;
-        background-color: black;
-        display: flex;
-        border-radius: 3px;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0);
-        opacity: 0;
-        transition: all 0.3s ease-in;
-      }
     }
-    .img__wrapper:hover .img__description {
-      color: #fff;
-      opacity: 1;
-      background-color: rgba(0, 0, 0, 0.3);
-    }
+
     .post__description {
       margin-bottom: 1em;
       span {
@@ -930,23 +914,20 @@ export const BlogPostCardBox = styled.li`
         cursor: pointer;
       }
       h3 {
-        cursor: pointer;
+        transition: all 0.25s ease-in-out;
         font-weight: 600;
         font-size: ${({ theme }) => theme.fontSize.lg};
         margin-bottom: 0.533em;
       }
       p {
-        cursor: pointer;
+        height: 47px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.25s ease-in-out;
         color: ${({ theme }) => theme.grayScale[1]};
         margin-bottom: 1.286em;
       }
-      &:hover p,
-      &:hover h3 {
-        transition: all 0.25s ease-in-out;
-        color: ${({ theme }) => theme.primary[1]};
-      }
     }
-
     .post__info {
       display: flex;
       justify-content: space-between;
@@ -960,8 +941,7 @@ export const BlogPostCardBox = styled.li`
         width: 18%;
         div:nth-of-type(1) {
           span {
-            margin-left: -0.125em;
-            margin-right: 1em;
+            margin: 0 1em 0 -0.125em;
           }
         }
         div {
@@ -975,7 +955,13 @@ export const BlogPostCardBox = styled.li`
           }
         }
       }
-      .post__date {
+    }
+  }
+  &:hover {
+    .post__description {
+      p,
+      h3 {
+        color: ${({ theme }) => theme.primary[1]};
       }
     }
   }

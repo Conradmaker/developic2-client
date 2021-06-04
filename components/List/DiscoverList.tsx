@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import useFetchMore from '../../hooks/useFetchMore';
 import useList from '../../modules/list/hooks';
 import CommonPostCard from '../Card/CommonPostCard';
+import Incomplete from '../Result/Incomplete';
 
 export default function DiscoverList(): JSX.Element {
   const { pageData, hasMore, getTaggedPostListDispatch, getPostListDispatch } = useList();
@@ -33,6 +34,11 @@ export default function DiscoverList(): JSX.Element {
       }
     }
   }, [page]);
+
+  if (!pageData.post)
+    return (
+      <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
+    );
 
   return (
     <section className="discovery__main">

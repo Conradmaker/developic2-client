@@ -5,7 +5,6 @@ import React from 'react';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
 import DiscoverList from '../../components/List/DiscoverList';
-import Incomplete from '../../components/Result/Incomplete';
 import {
   DiscoverPageDataType,
   getHashtagListAction,
@@ -86,14 +85,6 @@ export default function discovery(): JSX.Element {
   const router = useRouter();
   const currentTag = router.query.tag;
 
-  if (
-    !(pageData as DiscoverPageDataType).hashtag ||
-    !(pageData as DiscoverPageDataType).post
-  )
-    return (
-      <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
-    );
-
   return (
     <Layout>
       <Head>
@@ -109,13 +100,14 @@ export default function discovery(): JSX.Element {
             >
               인기글
             </li>
-            {(pageData as DiscoverPageDataType).hashtag.map(tag => (
-              <li
-                key={tag.id}
-                className={tag.name === currentTag ? 'tag--active' : ''}
-                onClick={() => router.push(`/discovery?tag=${tag.name}`)}
-              >{`# ${tag.name}`}</li>
-            ))}
+            {(pageData as DiscoverPageDataType).hashtag &&
+              (pageData as DiscoverPageDataType).hashtag.map(tag => (
+                <li
+                  key={tag.id}
+                  className={tag.name === currentTag ? 'tag--active' : ''}
+                  onClick={() => router.push(`/discovery?tag=${tag.name}`)}
+                >{`# ${tag.name}`}</li>
+              ))}
           </ul>
         </section>
         <DiscoverList />

@@ -2,9 +2,7 @@ import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
 
 export const formatDate = (date: string): string => {
-  const dayjsDate = dayjs(date);
-  const formatDateResult = dayjsDate.format('MMM D, YYYY');
-
+  const formatDateResult = dayjs(date).format('MMM D, YYYY');
   return formatDateResult;
 };
 

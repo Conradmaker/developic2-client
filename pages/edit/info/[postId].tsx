@@ -35,9 +35,10 @@ export const InfoPostContainer = styled.div`
     textarea {
       outline: none;
       padding: 5px;
+      line-height: 1.5;
       border: 1px solid ${({ theme }) => theme.grayScale[2]};
       width: 400px;
-      height: 200px;
+      height: 100px;
       resize: none;
       font-size: 16px;
       font-family: san-serif;
@@ -75,8 +76,10 @@ export default function InfoPost(): JSX.Element {
   const router = useRouter();
   const [picstoryOpen, setPicstoryOpen] = useState(false);
   const [allowComment, setAllowComment] = useState(tempPost.data?.allowComment === 1);
-  const [summary, onChangeSummary] = useInput(
-    tempPost.data?.summary ? tempPost.data.summary : ''
+  const [summary, onChangeSummary, setSummary] = useInput(
+    tempPost.data?.summary
+      ? tempPost.data?.summary
+      : tempPost.data?.content.replace(/(<([^>]+)>)/gi, '').substr(0, 100)
   );
   const [isPublic, setIsPublic] = useState(tempPost.data?.isPublic === 1);
   const [copyRight, setCopyRight] = useState(
@@ -90,6 +93,8 @@ export default function InfoPost(): JSX.Element {
     router.replace(`/edit/content/${router.query.postId}`);
   };
   const onSubmitPost = () => {
+    if (!summary.trim()) return alert('요약글을 넣어주세요.');
+    if (!thumbnail.trim()) return alert('썸내일을 넣어주세요.');
     const data = {
       allowComment: allowComment ? 1 : 0,
       isPublic: isPublic ? 1 : 0,
@@ -111,6 +116,12 @@ export default function InfoPost(): JSX.Element {
   useEffect(() => {
     getTempPostDispatch(router.query.postId as string);
   }, [router.query]);
+  useEffect(() => {
+    if (tempPost.data) {
+      setSummary(tempPost.data.content.replace(/(<([^>]+)>)/gi, '').substr(0, 100));
+    }
+  }, [tempPost.data]);
+
   if (!tempPost.data) return <></>;
 
   return (
@@ -124,7 +135,8 @@ export default function InfoPost(): JSX.Element {
           <ImageDropZone image={thumbnail} setImage={setThumbnail} />
           <span>위 비율로 화면에 나타나게 됩니다.</span>
           <h5>요약</h5>
-          <textarea onChange={onChangeSummary} value={summary}></textarea>
+          <textarea onChange={onChangeSummary} value={summary} maxLength={100}></textarea>
+          <span>최대 100글자를 입력할 수 있습니다.</span>
         </div>
         <div className="right__section">
           <h5>픽스토리</h5>

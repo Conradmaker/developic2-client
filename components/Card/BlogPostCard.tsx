@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { BlogPost } from '../../modules/blog';
@@ -7,53 +6,33 @@ import { formatDate } from '../../utils/utils';
 import { BlogPostCardBox } from './styles';
 
 type BlogPostCardPropsType = {
-  data: BlogPost;
+  postData: BlogPost;
 };
 
-export default function BlogPostCard({ data }: BlogPostCardPropsType): JSX.Element {
-  const router = useRouter();
-  const { userId } = router.query;
-  const postId = data.id;
-
+export default function BlogPostCard({ postData }: BlogPostCardPropsType): JSX.Element {
   return (
-    <Link href={`/${userId}/post/${postId}`}>
+    <Link href={`/${postData.UserId}/post/${postData.id}`}>
       <BlogPostCardBox>
         <article>
           <div className="img__wrapper">
-            <img src={data.thumbnail} alt="post-thumbnail" />
-            {/* <div className="img__description">
-            <div className="post__info">
-              <div className="post__stats">
-                <div>
-                  <MdFavorite />
-                  <span>{data.likeCount}</span>
-                </div>
-                <div>
-                  <MdRemoveRedEye />
-                  <span>{data.viewCount}</span>
-                </div>
-              </div>
-              <div className="post__date">{data.date}</div>
-            </div>
-          </div> */}
+            <img src={postData.thumbnail} alt="post-thumbnail" />
           </div>
           <div className="post__description">
-            {/* {data.picstoryTitle && <span>{data.picstoryTitle}</span>} */}
-            <h3>{data.title}</h3>
-            <p>{data.summary}</p>
+            <h3>{postData.title}</h3>
+            <p>{postData.summary}</p>
           </div>
           <div className="post__info">
             <div className="post__stats">
               <div>
                 <MdFavorite />
-                <span>{data.likeCount}</span>
+                <span>{postData.likeCount}</span>
               </div>
               <div>
                 <MdRemoveRedEye />
-                <span>{data.hits}</span>
+                <span>{postData.hits}</span>
               </div>
             </div>
-            <div className="post__date">{formatDate(`${data.createdAt}`)}</div>
+            <div className="post__date">{formatDate(`${postData.createdAt}`)}</div>
           </div>
         </article>
       </BlogPostCardBox>
