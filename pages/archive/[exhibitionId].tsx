@@ -214,7 +214,7 @@ export default function archiveId(): JSX.Element {
               </li>
               <li
                 className="detail__link"
-                onClick={() => window.open(`https://${getArchiveDetail.data.webPage}`)}
+                onClick={() => window.open(`https://${getArchiveDetail.data?.webPage}`)}
               >
                 사이트로 이동
               </li>

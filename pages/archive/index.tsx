@@ -26,6 +26,9 @@ const ArchiveContainer = styled.div`
     }
   }
   & > ul {
+    li:nth-child(2n) {
+      flex-direction: row-reverse;
+    }
   }
 `;
 export default function archive(): JSX.Element {

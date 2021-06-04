@@ -639,24 +639,6 @@ export const ArchiveItemContainer = styled.li<{
       text-decoration: underline;
     }
   }
-  ${props =>
-    props.length &&
-    props.length % 2 === 0 &&
-    props.posterId % 2 !== 0 &&
-    css`
-      & {
-        flex-direction: row-reverse;
-      }
-    `};
-  ${props =>
-    props.length &&
-    props.length % 2 !== 0 &&
-    props.posterId % 2 === 0 &&
-    css`
-      & {
-        flex-direction: row-reverse;
-      }
-    `};
   .img__wrapper {
     display: flex;
     justify-content: center;

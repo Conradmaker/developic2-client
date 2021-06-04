@@ -100,10 +100,9 @@ export default function edit(): JSX.Element {
   const { addArchive, addArchiveDispatch } = useArchive();
   const router = useRouter();
   const [title, onChangeTitle] = useInput('');
-  // const [author, onChangeAuthor] = useInput("여러명일 경우 ',' 로 구분하여 입력해주세요");
   const [author, onChangeAuthor] = useInput('');
   const [address, onChangeAddress] = useInput('');
-  const [webPage, onChangeWebPage] = useInput('http://');
+  const [webPage, onChangeWebPage] = useInput('');
   const [contact, onChangeContact] = useInput('');
   const [email, onChangeEmail] = useInput('');
   const [startDate, setStartDate] = useState('');
