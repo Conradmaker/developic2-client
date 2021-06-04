@@ -29,7 +29,9 @@ export default function BlogWithNavLayout({
 }: BlogWithNavLayoutPropsType): JSX.Element {
   const router = useRouter();
   const { userId } = router.query;
-  const { loadBlogUserDispatch, blogUserData } = useBlog();
+  const {
+    loadBlogUser: { data: blogUserData },
+  } = useBlog();
   const { userData, subscribeDispatch, unSubscribeDispatch } = useUser();
   const [isFollowing, setIsFollowing] = useState(false);
 
@@ -44,12 +46,11 @@ export default function BlogWithNavLayout({
   }, [userData, isFollowing, blogUserData]);
 
   useEffect(() => {
-    loadBlogUserDispatch(userId as string);
-  }, [userId]);
-
-  useEffect(() => {
     if (!userData) return;
-    if (!blogUserData) return;
+    if (!blogUserData) {
+      router.replace('/');
+      return;
+    }
     setIsFollowing(
       userData.writers.findIndex(following => following.id === +(userId as string)) !== -1
     );

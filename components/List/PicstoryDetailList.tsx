@@ -1,13 +1,14 @@
 import React from 'react';
 import Masonry from 'react-masonry-css';
-import { blogPicstoryDetailData, BlogPost } from '../../modules/blog';
+import useBlog from '../../modules/blog/hooks';
 import BlogPostCard from '../Card/BlogPostCard';
 import { BlogPostListContainer } from './styles';
 
-type BlogPostCardListPropsType = { picstoryDetailPostData: blogPicstoryDetailData };
-export default function PicstoryDetailList({
-  picstoryDetailPostData,
-}: BlogPostCardListPropsType): JSX.Element {
+export default function PicstoryDetailList(): JSX.Element {
+  const { loadBlogPicstoryDetail } = useBlog();
+
+  if (!loadBlogPicstoryDetail.data) return <></>;
+
   return (
     <>
       <BlogPostListContainer>
@@ -16,10 +17,9 @@ export default function PicstoryDetailList({
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >
-          {picstoryDetailPostData &&
-            picstoryDetailPostData.Posts.map((blogPostItem: BlogPost) => (
-              <BlogPostCard key={blogPostItem.id} postData={blogPostItem} />
-            ))}
+          {loadBlogPicstoryDetail.data.Posts.map(blogPostItem => (
+            <BlogPostCard key={blogPostItem.id} postData={blogPostItem} />
+          ))}
         </Masonry>
       </BlogPostListContainer>
     </>

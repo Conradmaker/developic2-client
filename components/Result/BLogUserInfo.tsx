@@ -1,53 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BlogUserData } from '../../modules/blog';
+import useBlog from '../../modules/blog/hooks';
 import useUser from '../../modules/user/hooks';
 import EmptyBlogUserInfo from './EmptyBlogUserInfo';
 import { BlogUserInfoBox } from './styles';
 
-type BlogUserInfoPropsType = {
-  blogUserInfoData: {
-    id: number;
-    introduction?: string;
-    website?: string;
-    mostlyUseModel?: string;
-  } | null;
-};
-export default function BlogUserInfo({
-  blogUserInfoData,
-}: BlogUserInfoPropsType): JSX.Element {
+export default function BlogUserInfo(): JSX.Element {
+  const { loadBlogUser } = useBlog();
   const { userData } = useUser();
-
+  const [infoState] = useState({
+    소개: (loadBlogUser.data as BlogUserData).introduction,
+    '주 사용기기': (loadBlogUser.data as BlogUserData).mostlyUseModel,
+    '웹 사이트': (loadBlogUser.data as BlogUserData).website,
+  });
   if (
-    !blogUserInfoData ||
-    (!blogUserInfoData.introduction &&
-      !blogUserInfoData.mostlyUseModel &&
-      !blogUserInfoData.website)
+    !loadBlogUser.data ||
+    (!loadBlogUser.data.introduction &&
+      !loadBlogUser.data.mostlyUseModel &&
+      !loadBlogUser.data.website &&
+      userData)
   )
     return (
       <EmptyBlogUserInfo
-        blogUserId={blogUserInfoData && blogUserInfoData.id}
+        blogUserId={(loadBlogUser.data as BlogUserData).id}
         userId={userData && userData.id}
       />
     );
+
   return (
     <>
       <BlogUserInfoBox>
-        {blogUserInfoData.introduction && (
-          <div className="user__info">
-            <strong>소개</strong>
-            <p>{blogUserInfoData.introduction}</p>
-          </div>
-        )}
-        {blogUserInfoData.mostlyUseModel && (
-          <div className="user__info">
-            <strong>주 사용기기</strong>
-            <p>{blogUserInfoData.mostlyUseModel}</p>
-          </div>
-        )}
-        {blogUserInfoData.website && (
-          <div className="user__info">
-            <strong>웹 사이트</strong>
-            <p>{blogUserInfoData.website}</p>
-          </div>
+        {Object.entries(infoState).map(
+          ([key, value]) =>
+            value && (
+              <div className="user__info">
+                <strong>{key}</strong>
+                <p>{value}</p>
+              </div>
+            )
         )}
       </BlogUserInfoBox>
     </>
