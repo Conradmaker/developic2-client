@@ -15,8 +15,7 @@ export function Logo(): JSX.Element {
 }
 
 export default function Header(): JSX.Element {
-  const { userData, logout, login, verification } = useUser();
-  // const { toastOpenDispatch, toastPopUp } = useUI();
+  const { userData } = useUser();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
@@ -24,20 +23,6 @@ export default function Header(): JSX.Element {
     userMenuOpen,
   ]);
   const toggleLoginModal = useCallback(() => setLoginOpen(!loginOpen), [loginOpen]);
-
-  // useEffect(() => {
-  //   if (logout.data) {
-  //     toastOpenDispatch('로그아웃 되었습니다.');
-  //   }
-  //   if (userData) {
-  //     toastOpenDispatch('로그인 되었습니다.');
-  //   }
-  //   if (verification.data) {
-  //     toastOpenDispatch('인증성공! 로그인해주세요.');
-  //   } else if (verification.error) {
-  //     toastOpenDispatch('올바른 인증번호를 입력해주세요.');
-  //   }
-  // }, [logout.data, login.data, userData]);
 
   return (
     <>
@@ -58,7 +43,6 @@ export default function Header(): JSX.Element {
               <Link href="/search/1">
                 <li>
                   <MdSearch />
-                  {/* <MdSearch onClick={toggleSearchModal} /> */}
                 </li>
               </Link>
             </ul>
@@ -74,8 +58,6 @@ export default function Header(): JSX.Element {
       </HeaderContainer>
       {loginOpen && <LoginModal onClose={toggleLoginModal} />}
       {userMenuOpen && userData && <UserMenu onClose={toggleUserMenu} />}
-      {/* {searchOpen && <SearchModal onClose={toggleSearchModal} />} */}
-      {/* {toastPopUp.open && <Toast />} */}
     </>
   );
 }

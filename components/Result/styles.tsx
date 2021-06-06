@@ -99,6 +99,7 @@ export const ToastPopUpBox = styled.div<{ visible: boolean }>`
   background: ${({ theme }) => theme.primary[1]};
   color: #fff;
   font-size: 14px;
+  z-index: 9999;
 
   animation: ${slideUp} 0.5s;
   overflow: hidden;

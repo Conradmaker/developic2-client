@@ -79,6 +79,7 @@ export const HeaderContainer = styled.header`
   width: 100%;
   background-color: ${({ theme }) => theme.background.initial};
   transition: background-color 0.3s;
+  z-index: 1000;
   .inner {
     max-width: 1150px;
     height: 72px;
@@ -146,7 +147,7 @@ export const UserMenuContainer = styled.div`
   bottom: 0;
   left: 0;
   cursor: pointer;
-  z-index: 10;
+  z-index: 1001;
   .user-menu__drawer {
     font-family: 'Noto Serif KR', serif;
     cursor: initial;

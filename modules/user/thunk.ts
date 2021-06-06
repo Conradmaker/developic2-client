@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toastPopAction } from '../ui/hooks';
 import {
   LoginPayload,
   LoginResponse,
@@ -23,18 +24,20 @@ interface MyKnownError {
 
 //로그인
 export const loginAction = createAsyncThunk<
-  LoginResponse, // 성공 시 리턴 타입
-  LoginPayload, // 디스패치할때 넣을 인자
+  LoginResponse,
+  LoginPayload,
   { rejectValue: MyKnownError }
->('user/login', async (loginData, { rejectWithValue }) => {
+>('user/login', async (loginData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post<LoginResponse>(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/local`,
       loginData
     );
+    await toastPopAction(dispatch, `${data.nickname}님 반갑습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -61,15 +64,17 @@ export const socialLoginAction = createAsyncThunk<
   LoginResponse,
   SocialLoginPayload,
   { rejectValue: MyKnownError }
->('user/socialLogin', async (loginData, { rejectWithValue }) => {
+>('user/socialLogin', async (loginData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post<LoginResponse>(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/retest`,
       loginData
     );
+    await toastPopAction(dispatch, `${data.nickname}님 반갑습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -79,14 +84,16 @@ export const logOutAction = createAsyncThunk<
   unknown,
   null,
   { rejectValue: MyKnownError }
->('user/logout', async (_, { rejectWithValue }) => {
+>('user/logout', async (_, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/logout`
     );
+    await toastPopAction(dispatch, '로그아웃 되었습니다.');
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.message });
   }
 });
@@ -110,15 +117,17 @@ export const signupAction = createAsyncThunk<
   string,
   SignupPayload,
   { rejectValue: MyKnownError }
->('user/signup', async (signupData, { rejectWithValue }) => {
+>('user/signup', async (signupData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/signup`,
       signupData
     );
+    await toastPopAction(dispatch, `${signupData.email}로 인증번호를 전송했습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -128,14 +137,16 @@ export const verificationAction = createAsyncThunk<
   string,
   VerificationPayload,
   { rejectValue: MyKnownError }
->('user/verification', async (verifiPayload, { rejectWithValue }) => {
+>('user/verification', async (verifiPayload, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/verification?email=${verifiPayload.email}&code=${verifiPayload.code}`
     );
+    await toastPopAction(dispatch, `인증이 완료되었습니다. 로그인해주세요!`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -162,15 +173,17 @@ export const updateUserInfoAction = createAsyncThunk<
   UpdateUserInfoPayload,
   UpdateUserInfoPayload,
   { rejectValue: MyKnownError }
->('user/updateInfo', async (updatedIntroPayload, { rejectWithValue }) => {
+>('user/updateInfo', async (updatedIntroPayload, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.patch(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/info`,
       updatedIntroPayload
     );
+    await toastPopAction(dispatch, `수정이 완료되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -180,15 +193,18 @@ export const updatePasswordAction = createAsyncThunk<
   string,
   UpdatePasswordPayload,
   { rejectValue: MyKnownError }
->('user/updatePassword', async (updatePasswordPayload, { rejectWithValue }) => {
+>('user/updatePassword', async (updatePasswordPayload, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.patch(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/password`,
       updatePasswordPayload
     );
+
+    await toastPopAction(dispatch, `비밀번호가 변경되었습니다 다음 로그인시 적용됩니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -198,11 +214,12 @@ export const destroyUserAction = createAsyncThunk<
   string,
   number,
   { rejectValue: MyKnownError }
->('user/destroy', async (UserId, { rejectWithValue }) => {
+>('user/destroy', async (UserId, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.delete(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/${UserId}`
     );
+    await toastPopAction(dispatch, `비밀번호가 변경되었습니다 다음 로그인시 적용됩니다.`);
     return data;
   } catch (e) {
     console.error(e);
@@ -215,12 +232,13 @@ export const updateUserIntroAction = createAsyncThunk<
   UserIntro,
   UpdateUserIntroPayload,
   { rejectValue: MyKnownError }
->('user/updateIntro', async (updatedIntroPayload, { rejectWithValue }) => {
+>('user/updateIntro', async (updatedIntroPayload, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.patch(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/intro`,
       updatedIntroPayload
     );
+    await toastPopAction(dispatch, '수정이 완료되었습니다.');
     return data;
   } catch (e) {
     console.error(e);
@@ -233,15 +251,17 @@ export const addPostLikeAction = createAsyncThunk<
   LikePostPayload,
   LikePostPayload,
   { rejectValue: MyKnownError }
->('user/addPostLike', async (addLikePayload, { rejectWithValue }) => {
+>('user/addPostLike', async (addLikePayload, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/like/post`,
       addLikePayload
     );
+    await toastPopAction(dispatch, `좋아요 게시글이 추가되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -251,45 +271,54 @@ export const removePostLikeAction = createAsyncThunk<
   LikePostPayload,
   LikePostPayload,
   { rejectValue: MyKnownError }
->('user/removePostLike', async (removeLikePayload, { rejectWithValue }) => {
+>('user/removePostLike', async (removeLikePayload, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.patch(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/user/like/post`,
       removeLikePayload
     );
+    await toastPopAction(dispatch, `좋아요가 취소되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
 
-// 블로그 유저 팔로우
+// 블로그 구독
 export const subscribeAction = createAsyncThunk<
   { writerId: number },
   blogFollowPayload,
   { rejectValue: MyKnownError }
->('blog/addBlogFollow', async (addBlogFollowData, { rejectWithValue }) => {
+>('blog/addBlogFollow', async (addBlogFollowData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(`/user/subscribe/add`, addBlogFollowData);
+    await toastPopAction(dispatch, `블로그를 구독하였습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
 
-// 블로그 유저 팔로우 취소
+// 블로그 구독취소
 export const unSubscribeAction = createAsyncThunk<
   { writerId: number },
   blogFollowPayload,
   { rejectValue: MyKnownError }
->('blog/removeBlogFollow', async (removeBlogFollowData, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.post(`/user/subscribe/remove`, removeBlogFollowData);
-    return data;
-  } catch (e) {
-    console.error(e);
-    return rejectWithValue({ message: e.response.data });
+>(
+  'blog/removeBlogFollow',
+  async (removeBlogFollowData, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(`/user/subscribe/remove`, removeBlogFollowData);
+      await toastPopAction(dispatch, `구독을 취소하였습니다`);
+      return data;
+    } catch (e) {
+      console.error(e);
+      await toastPopAction(dispatch, e.response.data);
+      return rejectWithValue({ message: e.response.data });
+    }
   }
-});
+);
