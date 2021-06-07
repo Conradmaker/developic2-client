@@ -10,7 +10,9 @@ import { SearchPageNavigation } from './styles';
 import { SearchNavData } from '../../utils/data';
 import Layout from '../Layout';
 
-const SearchPageWithNavContainer = styled(PageWithNavContainer)``;
+const SearchPageWithNavContainer = styled(PageWithNavContainer)`
+  color: ${({ theme }) => theme.textColor.initial};
+`;
 
 type SearchPageWithNavPropsType = {
   children: React.ReactNode;
@@ -44,7 +46,11 @@ export default function SearchPageWithNavLayout({
         <div className="title">
           <TitleLabel title="검색" desc="Search" />
         </div>
-        <SearchInput value={keyword} onChange={onChangeKeyword} onKeyPress={onKeyPress} />
+        <SearchInput
+          value={keyword || ''}
+          onChange={onChangeKeyword}
+          onKeyPress={onKeyPress}
+        />
         {
           <SearchPageNavigation>
             <ul>

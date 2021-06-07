@@ -4,10 +4,10 @@ import BlogPicstoryList from '../../components/List/BlogPicstoryList';
 import SearchPageWithNavLayout from '../../components/Nav/SearchPageNav';
 import EmptyContent from '../../components/Result/EmptyContent';
 import SearchResultCount from '../../components/Result/SearchResultCount';
-import { SearchContentBox } from '../../components/Result/styles';
 import { SearchPageData } from '../../modules/list';
 import useList from '../../modules/list/hooks';
 import { SearchNavData } from '../../utils/data';
+import { SearchContentBox } from '.';
 
 export default function SearchPicstory(): JSX.Element {
   const { pageData, loadSearchListDispatch } = useList();

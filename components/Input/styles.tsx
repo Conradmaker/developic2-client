@@ -149,16 +149,17 @@ export const SearchInputBox = styled.form`
   svg {
     width: 25px;
     height: 25px;
-    fill: ${({ theme }) => theme.textColor.initial};
+    fill: ${({ theme }) => theme.grayScale[1]};
     margin-right: 0.5em;
     transition: all 0.125s ease-in;
+    margin-top: 3px;
   }
   input {
     font-family: 'Noto Serif KR', serif;
     font-size: ${({ theme }) => theme.fontSize.xxl};
     flex: 1;
     display: block;
-    line-height: 30px;
+    line-height: 32px;
     height: 30px;
     padding: 0;
     border: none;

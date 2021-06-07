@@ -1,26 +1,32 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { dateOptionData, SearchContentBox, sortOptionData } from '.';
 import UserCardList from '../../components/List/UserCardList';
 import SearchPageWithNavLayout from '../../components/Nav/SearchPageNav';
 import EmptyContent from '../../components/Result/EmptyContent';
 import SearchResultCount from '../../components/Result/SearchResultCount';
-import { SearchContentBox } from '../../components/Result/styles';
-import SortTab from '../../components/Tab/SortTab';
+import SortOption from '../../components/Tab/SortOption';
 import { SearchPageData } from '../../modules/list';
 import useList from '../../modules/list/hooks';
-import { SearchListOptions, SearchNavData } from '../../utils/data';
+import { SearchNavData } from '../../utils/data';
 
 export default function SearchWriter(): JSX.Element {
   const { pageData, loadSearchListDispatch } = useList();
-  const [currentSort, setCurrentSort] = useState(SearchListOptions.Popular);
   const { query } = useRouter();
+
+  const [currentSort, setCurrentSort] = useState(sortOptionData[0]);
+  const [currentDate, setCurrentDate] = useState(dateOptionData[0]);
+
   useEffect(() => {
-    if (query.keyword && currentSort === SearchListOptions.Popular) {
-      loadSearchListDispatch({ query: query.keyword, sort: 'popular', type: 'writer' });
-    } else if (query.keyword && currentSort === SearchListOptions.Recent) {
-      loadSearchListDispatch({ query: query.keyword, sort: 'recent', type: 'writer' });
+    if (query.keyword) {
+      loadSearchListDispatch({
+        query: query.keyword,
+        sort: currentSort.value as 'popular' | 'recent',
+        type: 'writer',
+        term: currentDate.value as 'all' | 'day' | 'week' | 'month',
+      });
     }
-  }, [query, currentSort]);
+  }, [query, currentSort, currentDate]);
 
   return (
     <SearchPageWithNavLayout>
@@ -32,7 +38,20 @@ export default function SearchWriter(): JSX.Element {
         {(pageData as SearchPageData['writer']) &&
           (pageData as SearchPageData['writer']).length >= 1 && (
             <>
-              <SortTab currentSort={currentSort} setCurrentSort={setCurrentSort} />
+              <div className="sort-option">
+                <SortOption
+                  sortOptionData={sortOptionData}
+                  setCurrentSort={setCurrentSort}
+                  currentSort={currentSort}
+                />
+                {currentSort.value === sortOptionData[0].value && (
+                  <SortOption
+                    sortOptionData={dateOptionData}
+                    setCurrentSort={setCurrentDate}
+                    currentSort={currentDate}
+                  />
+                )}
+              </div>
               <SearchResultCount
                 searchTitle={SearchNavData[1].name}
                 resultCount={(pageData as SearchPageData['writer']).length}
