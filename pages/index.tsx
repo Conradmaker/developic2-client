@@ -7,7 +7,6 @@ import TitleLabel from '../components/Label/TitleLabel';
 import PopularPostCard from '../components/Card/PopularPostCard';
 import UserProfileCard from '../components/Card/UserProfileCard';
 import Exhibition from '../components/Card/Exhibition';
-import { DarkModeBtn } from '../components/Button/FloatingBtn';
 import useList from '../modules/list/hooks';
 import {
   getArchiveListAction,
@@ -150,7 +149,6 @@ export default function Home(): JSX.Element {
           </div>
         </section>
       </MainContainer>
-      <DarkModeBtn />
     </Layout>
   );
 }

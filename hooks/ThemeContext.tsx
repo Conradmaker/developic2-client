@@ -6,16 +6,16 @@ import React, {
   useEffect,
 } from 'react';
 
-const resolveTheme = (): string => {
+const resolveTheme = (): 'light' | 'dark' => {
   let theme = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
   if (!theme) {
     const { matches } = window.matchMedia('(prefers-color-scheme:dark');
     theme = matches ? 'dark' : 'light';
   }
-  return theme;
+  return theme as 'light' | 'dark';
 };
 
-const ThemeStateContext = createContext<string | null>(null);
+const ThemeStateContext = createContext<'light' | 'dark' | null>(null);
 const ThemeToggleContext = createContext<(() => void) | null>(null);
 
 type ModeProviderPropsType = {
@@ -23,7 +23,7 @@ type ModeProviderPropsType = {
 };
 
 export default function ModeProvider({ children }: ModeProviderPropsType): JSX.Element {
-  const [currentTheme, setCurrentTheme] = useState<string>('light');
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark'>('light');
   const toggleTheme = useCallback(() => {
     currentTheme === 'dark' ? setCurrentTheme('light') : setCurrentTheme('dark');
   }, [currentTheme]);
@@ -45,7 +45,7 @@ export default function ModeProvider({ children }: ModeProviderPropsType): JSX.E
   );
 }
 
-export function useThemeState(): string | null {
+export function useThemeState(): 'light' | 'dark' | null {
   const state = useContext(ThemeStateContext);
   return state;
 }
