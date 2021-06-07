@@ -39,45 +39,55 @@ export default function HashTagInstant({
     createHashtagDispatch,
   } = usePost();
   const { toastOpenDispatch } = useUI();
-  const onChangeTagValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const onChangeTagValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setTagValue(e.target.value);
     debouncedSearch(e.target.value);
-  };
+  }, []);
 
   const debouncedSearch = useCallback(
-    _debounce(async (keyword: string) => {
+    _debounce((keyword: string) => {
       searchHashtagDispatch(keyword.replace('#', ''));
     }, 500),
     []
   );
 
-  const onAddTag = async () => {
+  const onAddTag = useCallback(() => {
     if (tagList.findIndex(tag => tag.name === tagValue.replace('#', '')) !== -1)
       return toastOpenDispatch('이미 적용된 태그입니다.');
     createHashtagDispatch(tagValue.replace('#', ''));
     setTagValue('');
-  };
+  }, [tagList, tagValue]);
 
-  const onRemoveTag = (name: string) => {
-    setTagList(tagList.filter(tag => tag.name !== name));
-  };
+  const onRemoveTag = useCallback((name: string) => {
+    setTagList(tagList => tagList.filter(tag => tag.name !== name));
+  }, []);
 
-  const onKeypress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      if (tagValue.replace('#', '').trim() === '')
-        return toastOpenDispatch('올바른 태그를 입력해주세요.');
-      onAddTag();
+  const onKeypress = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        if (tagValue.replace('#', '').trim() === '')
+          return toastOpenDispatch('올바른 태그를 입력해주세요.');
+        onAddTag();
+        setInstantMode(false);
+      } else if (e.key === '#') {
+        setInstantMode(true);
+      }
+    },
+    [tagValue]
+  );
+
+  const onClickAddTag = useCallback(
+    (tag: Hashtag) => {
+      console.log(tag, tagList);
+      if (tagList.findIndex(tagItem => tagItem.name === tag.name) !== -1)
+        return toastOpenDispatch('이미 적용된 태그입니다.');
+      setTagList(tagList.concat(tag));
+      setTagValue('');
       setInstantMode(false);
-    } else if (e.key === '#') {
-      setInstantMode(true);
-    }
-  };
-
-  const onClickAddTag = (tag: { id: number; name: string }) => {
-    setTagList(tagList.concat(tag));
-    setTagValue('');
-    setInstantMode(false);
-  };
+    },
+    [tagList, tagValue]
+  );
 
   useEffect(() => {
     if (createHashtag.data) {

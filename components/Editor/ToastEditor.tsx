@@ -29,12 +29,13 @@ export default function ToastEditor({
   const router = useRouter();
   const EditorRef = useRef<null | Editor>(null);
 
-  const onTempSubmit = async () => {
+  const onTempSubmit = () => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);
     temporarySave(EditorRef.current?.getInstance().getHtml() as string);
     router.replace(`/user/drawer/save`);
+    toggleConfirmModal();
   };
-  const onFinalSubmit = async () => {
+  const onFinalSubmit = () => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);
     temporarySave(EditorRef.current?.getInstance().getHtml() as string);
   };

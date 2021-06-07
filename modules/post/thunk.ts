@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toastPopAction } from '../ui/hooks';
 import {
   CreateCommentPayload,
   Hashtag,
@@ -21,15 +22,17 @@ export const postPreSaveAction = createAsyncThunk<
   null,
   PreSavePayload,
   { rejectValue: MyKnownError }
->('post/preSave', async (postData, { rejectWithValue }) => {
+>('post/preSave', async (postData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/presave`,
       postData
     );
+    await toastPopAction(dispatch, `게시글이 임시저장 되었습니다..`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -38,15 +41,17 @@ export const submitPostAction = createAsyncThunk<
   { id: number },
   SubmitPostPayload,
   { rejectValue: MyKnownError }
->('post/submit', async (postData, { rejectWithValue }) => {
+>('post/submit', async (postData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/submit`,
       postData
     );
+    await toastPopAction(dispatch, `게시글이 등록되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -72,14 +77,16 @@ export const removePostAction = createAsyncThunk<
   PostData,
   number,
   { rejectValue: MyKnownError }
->('post/removePost', async (postId, { rejectWithValue }) => {
+>('post/removePost', async (postId, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.delete(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/${postId}`
     );
+    await toastPopAction(dispatch, `게시글이 삭제되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -160,15 +167,17 @@ export const createCommentAction = createAsyncThunk<
   Comment,
   CreateCommentPayload,
   { rejectValue: MyKnownError }
->('post/createComment', async (commentData, { rejectWithValue }) => {
+>('post/createComment', async (commentData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment`,
       commentData
     );
+    await toastPopAction(dispatch, `댓글이 등록되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -178,15 +187,17 @@ export const updateCommentAction = createAsyncThunk<
   Comment,
   UpdateCommentPayload,
   { rejectValue: MyKnownError }
->('post/updateComment', async (commentData, { rejectWithValue }) => {
+>('post/updateComment', async (commentData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.patch(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment`,
       commentData
     );
+    await toastPopAction(dispatch, `댓글이 수정되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -196,14 +207,16 @@ export const removeCommentAction = createAsyncThunk<
   Comment,
   number,
   { rejectValue: MyKnownError }
->('post/removeComment', async (commentId, { rejectWithValue }) => {
+>('post/removeComment', async (commentId, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.delete(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment/${commentId}`
     );
+    await toastPopAction(dispatch, `댓글이 삭제되었습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });

@@ -507,21 +507,32 @@ export const UnfinishedPostCardContainer = styled.div`
   transition: 0.3s;
   article {
     color: ${({ theme }) => theme.textColor.initial};
-    height: 280px;
+    height: 260px;
     display: flex;
     flex-direction: column;
-    h2 {
+    & > h2 {
       line-height: 2.22;
       font-size: 18px;
       height: 40px;
       margin-bottom: 10px;
+      height: 30px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
-    p {
+    & > p {
+      height: 200px;
       color: ${({ theme }) => theme.textColor.lighten};
       line-height: 2.5;
       font-size: 14px;
-      flex: 1;
       overflow: hidden;
+      text-overflow: ellipsis;
+      img {
+        display: block;
+        width: 50px;
+        height: 30px;
+        object-fit: cover;
+      }
     }
     span {
       align-self: flex-end;
