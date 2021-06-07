@@ -6,7 +6,7 @@ type PageLabelPropsType = {
   desc?: string;
   width?: number;
 };
-export default function PageLabel({
+function PageLabel({
   text = '',
   desc = '',
   width = 400,
@@ -18,3 +18,4 @@ export default function PageLabel({
     </PageLabelBox>
   );
 }
+export default React.memo(PageLabel);

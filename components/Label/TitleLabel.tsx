@@ -5,10 +5,7 @@ type TitleLabelPropsType = {
   title: string;
   desc?: string;
 };
-export default function TitleLabel({
-  title = '',
-  desc = '',
-}: TitleLabelPropsType): JSX.Element {
+function TitleLabel({ title = '', desc = '' }: TitleLabelPropsType): JSX.Element {
   return (
     <TitleLabelBox>
       <div>
@@ -18,3 +15,4 @@ export default function TitleLabel({
     </TitleLabelBox>
   );
 }
+export default React.memo(TitleLabel);
