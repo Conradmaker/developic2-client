@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 export const BlogTabBox = styled.ul`
   margin: 45px auto;
@@ -81,6 +82,60 @@ export const SortTabBox = styled.div`
       width: 5px;
       border-radius: 2.5px;
       background-color: ${({ theme }) => theme.primary[1]};
+    }
+  }
+`;
+
+export const SearhSortOptionContainer = styled.div<{
+  currentTheme: null | string;
+}>`
+  position: relative;
+  .option__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    svg {
+      margin-left: 8px;
+    }
+  }
+  .sort__dropdown {
+    right: 0;
+    text-align: center;
+    visibility: hidden;
+  }
+  .dropdown {
+    border: 1px solid ${({ theme }) => theme.grayScale[4]};
+    border-radius: 3px;
+    background-color: #fff;
+    position: absolute;
+    margin-top: 15px;
+    z-index: 9999;
+  }
+  .dropdown.sort-active {
+    visibility: visible;
+  }
+  ul {
+    padding: 20px 22px;
+    ${({ currentTheme, theme }) =>
+      currentTheme === 'dark' &&
+      css`
+        & {
+          color: ${theme.textColor.reverse};
+          box-shadow: 0px 0px 2px 1px #e0e0e0;
+        }
+      `};
+    li {
+      white-space: nowrap;
+      cursor: pointer;
+      padding: 7px 0;
+      &:hover {
+        color: ${({ theme }) => theme.primary[1]};
+      }
+      &.item-active {
+        font-weight: ${({ theme }) => theme.fontWeight.bold};
+        color: ${({ theme }) => theme.primary[1]};
+      }
     }
   }
 `;
