@@ -151,15 +151,15 @@ export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
   & > .modal__content {
     padding: 20px 0 20px 0;
     & > span {
-      font-size: 18px;
-      line-height: 1.5;
+      font-size: 16px;
+      line-height: 2;
       font-weight: 300;
     }
     & > p {
       margin: 20px 0;
       font-weight: 300;
       strong {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
       }
     }

@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import useModal from '../../hooks/useModal';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
 import useBlog from '../../modules/blog/hooks';
 import usePicstory from '../../modules/picstory/hooks';
@@ -33,20 +34,21 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
   const { loadBlogPicstoryDetail } = useBlog();
   const { removePicstoryDispatch } = usePicstory();
   const router = useRouter();
-  const [removeModalOpen, setRemoveModalOpen] = useState(false);
   const { Posts: posts } = loadBlogPicstoryDetail.data as BlogPicstory;
 
   const likeCountTotal = useMemo(() => countTotal.like(posts), [posts]);
   const viewCountTotal = useMemo(() => countTotal.hit(posts), [posts]);
 
-  const onToggleRemoveModal = useCallback(() => {
-    setRemoveModalOpen(current => !current);
-  }, []);
-
   const onRemovePicstory = useCallback(() => {
     removePicstoryDispatch(+(router.query.picstoryId as string));
     router.back();
   }, []);
+
+  const [RemovePicstoryModal, onToggleRemoveModal] = useModal(ConfirmRemoveModal, {
+    title: '픽스토리를 삭제하시겠습니까?',
+    description: '픽스토리에 포함된 글은 삭제되지 않습니다.',
+    onConfirm: onRemovePicstory,
+  });
 
   if (!loadBlogPicstoryDetail.data) return <></>;
 
@@ -89,14 +91,7 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
             ))}
         </ul>
       </article>
-      {removeModalOpen && (
-        <ConfirmRemoveModal
-          title="픽스토리를"
-          description="픽스토리에 포함된 글은 삭제되지 않습니다."
-          onClose={onToggleRemoveModal}
-          onConfirm={onRemovePicstory}
-        />
-      )}
+      <RemovePicstoryModal />
     </BlogPicstoryDetailContainer>
   );
 }

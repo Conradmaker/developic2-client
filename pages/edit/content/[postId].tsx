@@ -19,6 +19,7 @@ const ToastEditorWithNoSSR = dynamic(
     ssr: false,
   }
 );
+
 export default function edit(): JSX.Element {
   const { tempPost, postPreSaveDispatch, getTempPostDispatch } = usePost();
   const { userData } = useUser();
@@ -28,18 +29,21 @@ export default function edit(): JSX.Element {
   const [imageList, setImageList] = useState<{ imageId: number; src: string }[]>([]);
   const [content, setContent] = useState('글을 입력해주세요.');
 
-  const temporarySave = async (editorContent: string) => {
-    if (!userData) return;
-    const result = {
-      title,
-      tagList: tagList.map(tag => tag.id),
-      content: editorContent,
-      UserId: userData.id,
-      PostId: router.query.postId === 'new' ? null : (router.query.postId as string),
-      imageList: imageList.map(image => image.imageId),
-    };
-    postPreSaveDispatch(result);
-  };
+  const temporarySave = React.useCallback(
+    (editorContent: string) => {
+      if (!userData) return;
+      const result = {
+        title,
+        tagList: tagList.map(tag => tag.id),
+        content: editorContent,
+        UserId: userData.id,
+        PostId: router.query.postId === 'new' ? null : (router.query.postId as string),
+        imageList: imageList.map(image => image.imageId),
+      };
+      postPreSaveDispatch(result);
+    },
+    [title, tagList, imageList]
+  );
 
   useEffect(() => {
     if (!userData) router.replace('/');
@@ -55,6 +59,7 @@ export default function edit(): JSX.Element {
     setContent(tempPost.data.content);
     setTagList(tempPost.data.tagList);
   }, [tempPost.data]);
+  console.log(title);
   return (
     <Layout>
       <Head>

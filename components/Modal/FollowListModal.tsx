@@ -16,10 +16,10 @@ function FollowingItem(): JSX.Element {
 }
 
 type FollowListModalPropsType = {
-  onClose: () => void;
+  onClose?: () => void;
 };
 export default function FollowListModal({
-  onClose,
+  onClose = () => null,
 }: FollowListModalPropsType): JSX.Element {
   const onClickBG = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();

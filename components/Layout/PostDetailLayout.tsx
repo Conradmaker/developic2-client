@@ -1,11 +1,12 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsExclamationTriangle } from 'react-icons/bs';
 import { IoMdHeart, IoMdHeartEmpty, IoMdShare } from 'react-icons/io';
 import { RiEditLine } from 'react-icons/ri';
+import useModal from '../../hooks/useModal';
 import { PostData } from '../../modules/post';
 import usePost from '../../modules/post/hooks';
 import useUI from '../../modules/ui/hooks';
@@ -20,11 +21,17 @@ type PostDetaulLayout = {
   postData: PostData;
 };
 export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.Element {
-  const [removePostOpen, setRemovePostOpen] = useState(false);
   const { toastOpenDispatch } = useUI();
   const { userData, addPostLikeDispatch, removePostLikeDispatch } = useUser();
   const { removePostDispatch, removePost } = usePost();
   const router = useRouter();
+  const [RemovePostModal, toggleRemoveModal] = useModal(ConfirmRemoveModal, {
+    title: '포스트 삭제',
+    description: '글을 삭제하시겠습니까?',
+    onConfirm: useCallback(() => {
+      removePostDispatch(postData.id);
+    }, []),
+  });
 
   const onCopy = useCallback(() => {
     const tempElem = document.createElement('textarea');
@@ -48,10 +55,6 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
     const payload = { UserId: userData.id, PostId: postData.id };
     isLike() ? removePostLikeDispatch(payload) : addPostLikeDispatch(payload);
   }, [userData]);
-
-  const onRemovePost = useCallback(() => {
-    removePostDispatch(postData.id);
-  }, []);
 
   useEffect(() => {
     if (removePost.data && userData) {
@@ -92,7 +95,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
               {userData ? (
                 userData.id === postData.UserId ? (
                   <>
-                    <li onClick={() => setRemovePostOpen(true)}>
+                    <li onClick={toggleRemoveModal}>
                       <AiOutlineDelete /> 삭제
                     </li>
                     <Link href={`/edit/content/${postData.id}`}>
@@ -116,14 +119,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
         <PostContentViewer content={postData.content} />
         <LikeBtn isLike={isLike} onToggleLike={onToggleLike} />
       </section>
-      {removePostOpen && (
-        <ConfirmRemoveModal
-          title="포스트 삭제"
-          description="글을 삭제하시겠습니까?"
-          onClose={() => setRemovePostOpen(false)}
-          onConfirm={onRemovePost}
-        />
-      )}
+      <RemovePostModal />
     </PostDetailContainer>
   );
 }

@@ -4,11 +4,11 @@ import { ConfirmModalBox, ModalLayout } from './styles';
 
 type ConfirmModalPropsType = {
   onConfirm: () => void;
-  onClose: () => void;
+  onClose?: () => void;
   content: string;
 };
 export default function ConfirmModal({
-  onClose,
+  onClose = () => null,
   onConfirm,
   content,
 }: ConfirmModalPropsType): JSX.Element {
