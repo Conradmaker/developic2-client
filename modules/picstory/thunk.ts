@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toastPopAction } from '../ui/hooks';
 import { CreatePicstoryPayload, Picstory, TogglePicPostPayload } from './types';
 
 axios.defaults.withCredentials = true;
@@ -18,6 +19,7 @@ export const getPicstoryListAction = createAsyncThunk<
     const { data } = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory/${UserId}`
     );
+
     return data;
   } catch (e) {
     console.error(e);
@@ -30,15 +32,17 @@ export const createPicstoryAction = createAsyncThunk<
   Picstory,
   CreatePicstoryPayload,
   { rejectValue: MyKnownError }
->('picstory/create', async (newPicData, { rejectWithValue }) => {
+>('picstory/create', async (newPicData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory`,
       newPicData
     );
+    await toastPopAction(dispatch, `${newPicData.title}를 생성했습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -48,14 +52,16 @@ export const removePicstoryAction = createAsyncThunk<
   { id: string },
   number,
   { rejectValue: MyKnownError }
->('picstory/remove', async (PicstoryId, { rejectWithValue }) => {
+>('picstory/remove', async (PicstoryId, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.delete(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory/${PicstoryId}`
     );
+    await toastPopAction(dispatch, `픽스토리를 삭제했습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -65,15 +71,17 @@ export const addPicPostAction = createAsyncThunk<
   { id: number },
   TogglePicPostPayload,
   { rejectValue: MyKnownError }
->('picstory/addPost', async (picPostData, { rejectWithValue }) => {
+>('picstory/addPost', async (picPostData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory/post`,
       picPostData
     );
+    await toastPopAction(dispatch, `픽스토리에 게시글을 추가했습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -83,15 +91,17 @@ export const removePicPostAction = createAsyncThunk<
   { id: number },
   TogglePicPostPayload,
   { rejectValue: MyKnownError }
->('picstory/removePost', async (picPostData, { rejectWithValue }) => {
+>('picstory/removePost', async (picPostData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.patch(
       `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory/post`,
       picPostData
     );
+    await toastPopAction(dispatch, `픽스토리에서 게시글을 삭제했습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });

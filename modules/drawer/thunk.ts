@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toastPopAction } from '../ui/hooks';
 import { hasMoreData, isMoreLoading } from './slice';
 import {
   CreatePhotoBinderPayload,
@@ -21,6 +22,8 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_HOST;
 interface MyKnownError {
   message: string;
 }
+
+//좋아요 목록 조회
 export const getLikeListAction = createAsyncThunk<
   LikeListItemType[],
   GetLikeListPayload,
@@ -50,12 +53,14 @@ export const removeLikePostAction = createAsyncThunk<
   { postId: number },
   RemoveLikesPayload,
   { rejectValue: MyKnownError }
->('drawer/removeLikes', async ({ userId, postId }, { rejectWithValue }) => {
+>('drawer/removeLikes', async ({ userId, postId }, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.delete(`/drawer/likes/${userId}?PostId=${postId}`);
+    await toastPopAction(dispatch, `좋아요를 취소했습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -91,12 +96,14 @@ export const removeTempPostAction = createAsyncThunk<
   { postId: number },
   number,
   { rejectValue: MyKnownError }
->('drawer/removeTempPost', async (postId, { rejectWithValue }) => {
+>('drawer/removeTempPost', async (postId, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.delete(`/drawer/saves/${postId}`);
+    await toastPopAction(dispatch, `임시저장 게시글을 삭제하였습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -132,12 +139,14 @@ export const removeRecentViewAction = createAsyncThunk<
   { recentId: number },
   number,
   { rejectValue: MyKnownError }
->('drawer/removeRecentItem', async (recentId, { rejectWithValue }) => {
+>('drawer/removeRecentItem', async (recentId, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.delete(`/drawer/recents/${recentId}`);
+    await toastPopAction(dispatch, `최근 읽은 글을 삭제하였습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -189,12 +198,14 @@ export const updatePhotoBinderDetailAction = createAsyncThunk<
   UpdatePhotoBinderPayload,
   UpdatePhotoBinderPayload,
   { rejectValue: MyKnownError }
->('drawer/updateBinderDetail', async (binderData, { rejectWithValue }) => {
+>('drawer/updateBinderDetail', async (binderData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.patch(`/drawer/binder/detail`, binderData);
+    await toastPopAction(dispatch, `${binderData.title}바인더를 수정하였습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -204,12 +215,17 @@ export const removeBinderPhotoAction = createAsyncThunk<
   { photoIdArr: number[]; BinderId: number },
   { photoIdArr: number[]; BinderId: number },
   { rejectValue: MyKnownError }
->('drawer/removeBinderPhoto', async (photoData, { rejectWithValue }) => {
+>('drawer/removeBinderPhoto', async (photoData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.patch(`/drawer/binder/photo`, photoData);
+    await toastPopAction(
+      dispatch,
+      `${photoData.photoIdArr.length}개의 사진을 삭제하였습니다.`
+    );
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -218,12 +234,17 @@ export const addBinderPhotoAction = createAsyncThunk<
   { photoIdArr: number[]; BinderId: number },
   { photoIdArr: number[]; BinderId: number },
   { rejectValue: MyKnownError }
->('drawer/addBinderPhoto', async (photoData, { rejectWithValue }) => {
+>('drawer/addBinderPhoto', async (photoData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(`/drawer/binder/photo`, photoData);
+    await toastPopAction(
+      dispatch,
+      `${photoData.photoIdArr.length}개의 사진을 추가했습니다.`
+    );
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -233,12 +254,14 @@ export const createPhotoBinderAction = createAsyncThunk<
   PhotoBinderType,
   CreatePhotoBinderPayload,
   { rejectValue: MyKnownError }
->('drawer/createBinder', async (binderData, { rejectWithValue }) => {
+>('drawer/createBinder', async (binderData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.post(`/drawer/binder`, binderData);
+    await toastPopAction(dispatch, `${binderData.title}를 생성하였습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });
@@ -248,12 +271,14 @@ export const removePhotoBinderAction = createAsyncThunk<
   { binderId: number },
   number,
   { rejectValue: MyKnownError }
->('drawer/removeBinder', async (binderId, { rejectWithValue }) => {
+>('drawer/removeBinder', async (binderId, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.delete(`/drawer/binder/${binderId}`);
+    await toastPopAction(dispatch, `포토바인더를 삭제하였습니다.`);
     return data;
   } catch (e) {
     console.error(e);
+    await toastPopAction(dispatch, e.response.data);
     return rejectWithValue({ message: e.response.data });
   }
 });

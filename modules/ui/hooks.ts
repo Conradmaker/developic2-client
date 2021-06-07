@@ -10,8 +10,8 @@ export const toastPopAction = async (
 ): Promise<void> => {
   await dispatch(toastInitialize());
   await dispatch(toastOpen(message));
-  await _delay(() => dispatch(toastClose()), 3000);
-  await _delay(() => dispatch(toastInitialize()), 3500);
+  await _delay(() => dispatch(toastClose()), 2000);
+  await _delay(() => dispatch(toastInitialize()), 2300);
 };
 
 export default function useUI() {
@@ -21,8 +21,8 @@ export default function useUI() {
   const toastOpenDispatch = async (message: string) => {
     await dispatch(toastInitialize());
     await dispatch(toastOpen(message));
-    await _delay(() => dispatch(toastClose()), 3000);
-    await _delay(() => dispatch(toastInitialize()), 3500);
+    await _delay(() => dispatch(toastClose()), 2000);
+    await _delay(() => dispatch(toastInitialize()), 2300);
   };
 
   return { toastPopUp, toastOpenDispatch };

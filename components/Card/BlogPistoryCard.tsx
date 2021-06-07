@@ -7,7 +7,7 @@ import { BlogPicstoryCardBox } from './styles';
 
 const countTotal = {
   like: (list: BlogPost[]) =>
-    list.reduce((acc, cur) => acc + (cur.likeCount as number), 0),
+    list.reduce((acc, cur) => acc + (cur.likers?.length as number), 0),
   hit: (list: BlogPost[]) => list.reduce((acc, cur) => acc + cur.hits, 0),
 };
 

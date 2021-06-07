@@ -5,6 +5,7 @@ import { RiSunFill, RiMoonClearFill } from 'react-icons/ri';
 import _throttle from 'lodash/throttle';
 import { useThemeState, useToggleTheme } from '../../hooks/ThemeContext';
 import { DarkModeBox, FloatingButtonBox, LikeFltBox, ScrollTopBtnBox } from './styles';
+import useUI from '../../modules/ui/hooks';
 
 export function ScrollTopBtn({
   setHeader = () => null,
@@ -45,11 +46,19 @@ export function ScrollTopBtn({
 export function DarkModeBtn(): JSX.Element {
   const currentTheme = useThemeState();
   const toggleTheme = useToggleTheme();
-
+  const { toastOpenDispatch } = useUI();
+  const onToggleTheme = React.useCallback(() => {
+    toggleTheme();
+    toastOpenDispatch(
+      currentTheme === 'light'
+        ? '다크모드로 변경되었습니다.'
+        : '라이트모드로 변경되었습니다.'
+    );
+  }, [currentTheme]);
   return (
     <DarkModeBox
       className="dark-mode__btn"
-      onClick={toggleTheme}
+      onClick={onToggleTheme}
       currentTheme={currentTheme}
     >
       <span>라이트</span>
@@ -89,3 +98,9 @@ type FloatingBtnPropsType = {
 export default function FloatingBtn({ text = '' }: FloatingBtnPropsType): JSX.Element {
   return <FloatingButtonBox>{text}</FloatingButtonBox>;
 }
+
+type FltBtn = {
+  toggleTheme: () => JSX.Element;
+};
+export const FltBtn: FltBtn = { toggleTheme: DarkModeBtn };
+FltBtn.toggleTheme = DarkModeBtn;

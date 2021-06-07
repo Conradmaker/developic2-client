@@ -119,16 +119,19 @@ export const HeaderContainer = styled.header<{ active: boolean }>`
     .header--right {
       display: flex;
       align-items: center;
-      padding-top: 5px;
+      padding-top: 3px;
       & > span {
         color: ${({ theme }) => theme.textColor.initial};
         display: inline-block;
-        padding: 5px 10px;
+        padding: 5px 10px 2px 10px;
         font-weight: 600;
         cursor: pointer;
         &:hover {
           text-decoration: underline;
         }
+      }
+      & > button {
+        transform: scale(0.7);
       }
       .user-menu__btn {
         display: flex;

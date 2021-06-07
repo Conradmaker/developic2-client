@@ -7,7 +7,7 @@ import LoginModal from '../Modal/LoginModal';
 
 import UserMenu from './UserMenu';
 import useUser from '../../modules/user/hooks';
-import { ScrollTopBtn } from '../Button/FloatingBtn';
+import { DarkModeBtn, ScrollTopBtn } from '../Button/FloatingBtn';
 
 export function Logo(): JSX.Element {
   return (
@@ -77,7 +77,10 @@ export default function Header(): JSX.Element {
                 <img src={userData.avatar} alt="avatar"></img>
               </div>
             ) : (
-              <span onClick={toggleLoginModal}>로그인</span>
+              <>
+                <DarkModeBtn />
+                <span onClick={toggleLoginModal}>로그인</span>
+              </>
             )}
           </div>
         </div>
