@@ -51,4 +51,5 @@ export type LoadSearchListPayload = {
   sort?: 'recent' | 'popular';
   type: 'post' | 'writer' | 'picstory';
   offset?: number;
+  term?: 'all' | 'month' | 'week' | 'day';
 };

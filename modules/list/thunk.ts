@@ -18,7 +18,9 @@ export const loadSearchListAction = createAsyncThunk<
     const { data } = await axios.get(
       `/list/search?keyword=${payloadData.query}&${
         payloadData.type ? '&type=' + payloadData.type : ''
-      }&${payloadData.sort ? '&sort=' + payloadData.sort : ''}&limit=12`
+      }&${payloadData.sort ? '&sort=' + payloadData.sort : ''}&${
+        payloadData.term ? '&term=' + payloadData.term : ''
+      }&limit=12`
     );
     return data;
   } catch (e) {
