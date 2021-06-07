@@ -17,15 +17,18 @@ export default function ConfirmRemoveModal({
   onConfirm,
 }: ConfirmRemoveModalPropsType): JSX.Element {
   const [validation, onChangeValidation] = useInput('');
-  const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
+
+  const onClickBg = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
-  };
+  }, []);
+
   const onConfirmSubmit = useCallback(() => {
     if (validation !== '삭제') return;
     onConfirm();
   }, [validation]);
+
   return (
     <ModalLayout onClick={onClickBg} className="bg">
       <ConfirmRemoveModalBox valid={validation === '삭제'}>

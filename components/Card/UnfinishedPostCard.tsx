@@ -14,9 +14,11 @@ export default function UnfinishedPostCard({
   tempPostData,
 }: UnfinishedPostCardPropsType): JSX.Element {
   const { removeTempPostDispatch } = useDrawer();
-  const onDeleteTempPost = () => {
+
+  const onDeleteTempPost = React.useCallback(() => {
     removeTempPostDispatch(tempPostData.id);
-  };
+  }, [tempPostData]);
+
   return (
     <UnfinishedPostCardContainer>
       <article>

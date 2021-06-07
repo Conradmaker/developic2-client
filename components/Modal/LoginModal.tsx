@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { RiFacebookFill, RiGoogleFill, RiKakaoTalkFill } from 'react-icons/ri';
 import useInput from '../../hooks/useInput';
 import useUser from '../../modules/user/hooks';
@@ -16,23 +16,31 @@ export default function LoginModal({ onClose }: LoginModalPropsType): JSX.Elemen
   const { login, loginDispatch } = useUser();
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
-  const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
+
+  const onClickBg = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
-  };
-  const onSubmitLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    loginDispatch({ email, password });
-  };
-  const onClickSocialLogin = (type: 'kakao' | 'facebook' | 'google') => {
+  }, []);
+
+  const onSubmitLogin = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      loginDispatch({ email, password });
+    },
+    [email, password]
+  );
+
+  const onClickSocialLogin = useCallback((type: 'kakao' | 'facebook' | 'google') => {
     location.href = `${process.env.NEXT_PUBLIC_SERVER_HOST}/auth/${type}`;
-  };
+  }, []);
+
   useEffect(() => {
     if (login.data) {
       onClose();
     }
   }, [login.data]);
+
   return (
     <ModalLayout onClick={onClickBg} className="bg">
       <LoginModalBox>

@@ -103,9 +103,7 @@ export default function HashTagInstant({
       }
     };
     document.body.addEventListener('click', clickEvent);
-    return () => {
-      document.body.removeEventListener('click', clickEvent);
-    };
+    return () => document.body.removeEventListener('click', clickEvent);
   }, []);
 
   return (

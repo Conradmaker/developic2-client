@@ -26,7 +26,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
   const { removePostDispatch, removePost } = usePost();
   const router = useRouter();
 
-  const onCopy = () => {
+  const onCopy = useCallback(() => {
     const tempElem = document.createElement('textarea');
     document.body.appendChild(tempElem);
     tempElem.value = `${process.env.NEXT_PUBLIC_CLIENT_HOST}${router.asPath}`;
@@ -34,14 +34,14 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
     document.execCommand('copy');
     document.body.removeChild(tempElem);
     toastOpenDispatch('클립보드에 복사되었습니다.');
-  };
+  }, []);
 
   const isLike = useCallback(() => {
     if (!userData) return false;
     return (
       userData.likedPosts.findIndex(likedPost => likedPost.id === postData.id) !== -1
     );
-  }, [userData?.likedPosts]);
+  }, [userData]);
 
   const onToggleLike = useCallback(() => {
     if (!userData) return toastOpenDispatch('로그인이 필요한 서비스입니다.');
@@ -52,6 +52,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
   const onRemovePost = useCallback(() => {
     removePostDispatch(postData.id);
   }, []);
+
   useEffect(() => {
     if (removePost.data && userData) {
       removePost.data.id === +(router.query.postId as string)
@@ -59,6 +60,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
         : null;
     }
   }, [removePost.data]);
+
   return (
     <PostDetailContainer>
       <section className="blog__head">

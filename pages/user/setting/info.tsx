@@ -76,7 +76,6 @@ export default function Info(): JSX.Element {
   const router = useRouter();
   const {
     userData,
-    updateUser,
     destroyUser,
     updateUserInfoDispatch,
     updatePasswordDispatch,
@@ -149,8 +148,8 @@ export default function Info(): JSX.Element {
             desc="작가님의 소중한 정보."
           />
           <form>
-            <CustomInput title="이메일" value={userData.email} onChange={e => null} />
-            <CustomInput title="이름" value={userData.name} onChange={e => null} />
+            <CustomInput title="이메일" value={userData.email} onChange={() => null} />
+            <CustomInput title="이름" value={userData.name} onChange={() => null} />
             <CustomInput title="필명" value={nickname} onChange={onChangeNickname} />
             <CustomInput title="생년월일" value={birth} onChange={onChangeBirth} />
             <CustomSelect

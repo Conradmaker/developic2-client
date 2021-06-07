@@ -17,6 +17,7 @@ const BlogwithProfileContainer = styled.div`
   margin: 40px auto;
   max-width: 850px;
   position: relative;
+  color: ${({ theme }) => theme.textColor.initial};
   .blog__tab {
     margin: 0 auto;
   }
@@ -49,10 +50,7 @@ export default function BlogWithNavLayout({
 
   useEffect(() => {
     if (!userData) return;
-    if (!blogUserData) {
-      router.replace('/');
-      return;
-    }
+    if (!blogUserData) return;
     setIsFollowing(
       userData.writers.findIndex(following => following.id === +(userId as string)) !== -1
     );

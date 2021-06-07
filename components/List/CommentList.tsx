@@ -17,6 +17,7 @@ export default function CommentList({ commentsData }: CommentListPropsType): JSX
   const { userData } = useUser();
   const router = useRouter();
   const [newComment, onChangeNewComment, setNewComment] = useInput('');
+
   const onSubmitComment = useCallback(
     (e: React.FormEvent) => {
       if (!userData) return;
@@ -32,6 +33,7 @@ export default function CommentList({ commentsData }: CommentListPropsType): JSX
     },
     [newComment]
   );
+
   return (
     <PostCommentListContainer>
       <p>댓글입력</p>

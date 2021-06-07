@@ -4,9 +4,9 @@ import React from 'react';
 import { ArchiveDataType } from '../../modules/list';
 import { ExhibitionCardBox } from './styles';
 
-interface ExhibitionPropsType {
+type ExhibitionPropsType = {
   archiveData: ArchiveDataType;
-}
+};
 export default function Exhibition({ archiveData }: ExhibitionPropsType): JSX.Element {
   return (
     <Link href={`/archive/${archiveData.id}`}>

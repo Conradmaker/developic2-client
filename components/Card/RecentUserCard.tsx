@@ -11,6 +11,7 @@ dayjs.extend(relativeTime);
 type RecentUserCardPropsType = {
   userData: PostUser;
 };
+
 export default function RecentUserCard({
   userData,
 }: RecentUserCardPropsType): JSX.Element {

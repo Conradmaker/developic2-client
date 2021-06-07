@@ -1,11 +1,13 @@
 import React from 'react';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import Link from 'next/link';
 import { CommonPostCardBox, UserAvatarWithNameBox } from './styles';
 import { PostType } from '../../modules/list';
-import Link from 'next/link';
+
 type PostCardPropsType = {
   postData: PostType;
 };
+
 export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Element {
   return (
     <Link href={`/${postData.User.id}/post/${postData.id}`}>

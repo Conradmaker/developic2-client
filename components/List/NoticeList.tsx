@@ -14,10 +14,11 @@ function NoticeItem({
   index,
   hasWriter,
 }: NoticeItemPropsType): JSX.Element {
-  const turnOnContent = () => {
+  const turnOnContent = React.useCallback(() => {
     if (index === contentOpenIndex) setContentOpenIndex(null);
     else setContentOpenIndex(index);
-  };
+  }, [contentOpenIndex, index]);
+
   return (
     <li onClick={turnOnContent}>
       <div className="icon">

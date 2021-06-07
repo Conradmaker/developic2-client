@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import { MdArrowForward } from 'react-icons/md';
 import useUser from '../../modules/user/hooks';
+import { DarkModeBtn } from '../Button/FloatingBtn';
 import { UserMenuContainer } from './styles';
 
 type navDataType = {
@@ -54,21 +55,26 @@ function MenuNavItem({ data }: MenuNavItemPropsType): JSX.Element {
     </li>
   );
 }
+
 type UserMenuPropsType = {
   onClose: () => void;
 };
 export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
   const { userData, logoutDispatch } = useUser();
-  const closeMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+
+  const closeMenu = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) {
       onClose();
     }
-  };
-  const onLogout = () => {
+  }, []);
+
+  const onLogout = React.useCallback(() => {
     logoutDispatch();
     onClose();
-  };
+  }, []);
+
   if (!userData) return <></>;
+
   return (
     <UserMenuContainer onClick={closeMenu}>
       <div className="user-menu__drawer">
@@ -91,6 +97,7 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
             <h3 onClick={onLogout}>로그아웃</h3>
           </li>
         </ul>
+        <DarkModeBtn />
       </div>
     </UserMenuContainer>
   );

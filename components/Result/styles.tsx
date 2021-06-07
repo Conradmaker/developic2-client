@@ -41,6 +41,10 @@ export const BlogUserInfoBox = styled.div`
       margin-bottom: 70px;
     }
   }
+  .user__info:nth-child(3) > p {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 export const EmptyBlogUserInfoBox = styled.div`

@@ -11,6 +11,7 @@ import { BlogCommentCardBox } from './styles';
 type BlogCommentCardPropsType = {
   commentData: Comment;
 };
+
 export default function BlogCommentCard({
   commentData,
 }: BlogCommentCardPropsType): JSX.Element {
@@ -21,10 +22,12 @@ export default function BlogCommentCard({
     commentData.content
   );
   const { userData } = useUser();
+
   const onToggleEditMode = useCallback(() => {
     setEditMode(current => !current);
     setEditedComment(commentData.content);
   }, [commentData.content]);
+
   const onUpdateComment = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.shiftKey && e.key === 'Enter') {
@@ -38,9 +41,11 @@ export default function BlogCommentCard({
     },
     [editedComment]
   );
+
   const onRemoveComment = useCallback(() => {
     removeCommentDispatch(commentData.id);
   }, []);
+
   return (
     <BlogCommentCardBox>
       <section>

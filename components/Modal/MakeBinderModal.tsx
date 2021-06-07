@@ -14,6 +14,7 @@ function MakeBinderForm({ userId }: { userId: number }): JSX.Element {
   const { createPhotoBinderDispatch } = useDrawer();
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput('');
   const [newDesc, onChangeNewDesc, setNewDesc] = useInput('');
+
   const onCreate = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -27,6 +28,7 @@ function MakeBinderForm({ userId }: { userId: number }): JSX.Element {
     },
     [newTitle, newDesc]
   );
+
   return (
     <form className="section__right" onSubmit={onCreate}>
       <h5>포토바인더 생성</h5>
@@ -45,32 +47,37 @@ function UsersBinderList({ photoId, userId }: UsersBinderListPropsType) {
   const { getPhotoBinderListDispatch, getBinderList } = useDrawer();
   const { addBinderPhotoDispatch, removeBinderPhotoDispatch } = useDrawer();
 
-  const makeBinderItem = (binder: PhotoBinderType) => {
-    const checked = binder.PostImages.findIndex(image => image.id === photoId) !== -1;
-    const onChange = () => {
-      const dispatchData = {
-        BinderId: binder.id,
-        photoIdArr: [photoId],
+  const makeBinderItem = useCallback(
+    (binder: PhotoBinderType) => {
+      const checked = binder.PostImages.findIndex(image => image.id === photoId) !== -1;
+      const onChange = () => {
+        const dispatchData = {
+          BinderId: binder.id,
+          photoIdArr: [photoId],
+        };
+        checked
+          ? removeBinderPhotoDispatch(dispatchData)
+          : addBinderPhotoDispatch(dispatchData);
       };
-      checked
-        ? removeBinderPhotoDispatch(dispatchData)
-        : addBinderPhotoDispatch(dispatchData);
-    };
-    return (
-      <li key={binder.id}>
-        <CustomCheckBox
-          title={binder.title as string}
-          value={checked}
-          onChange={onChange}
-        />
-      </li>
-    );
-  };
+      return (
+        <li key={binder.id}>
+          <CustomCheckBox
+            title={binder.title as string}
+            value={checked}
+            onChange={onChange}
+          />
+        </li>
+      );
+    },
+    [getBinderList.data]
+  );
 
   useEffect(() => {
     getPhotoBinderListDispatch({ userId, limit: 50 });
   }, []);
+
   if (!getBinderList.data) return <></>;
+
   return <ul>{getBinderList.data.map(binder => makeBinderItem(binder))}</ul>;
 }
 
@@ -83,7 +90,9 @@ export default function MakeBinderModal({
   onClose,
 }: MakeBinderModalPropsType): JSX.Element {
   const { userData } = useUser();
+
   if (!userData) return <></>;
+
   return (
     <ModalLayout>
       <MakeBinderModalMox>

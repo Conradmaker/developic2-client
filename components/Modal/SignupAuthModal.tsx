@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import useInput from '../../hooks/useInput';
 import useUser from '../../modules/user/hooks';
 import Button from '../Button/Button';
@@ -23,19 +23,22 @@ export default function SignupAuthModal({
   const [authNum5, onChangeAuthNum5] = useInput('');
   const [authNum6, onChangeAuthNum6] = useInput('');
 
-  const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onClickBg = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
-  };
+  }, []);
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const code = authNum1 + authNum2 + authNum3 + authNum4 + authNum5 + authNum6;
     verificationDispatch({ email, code });
   };
+
   useEffect(() => {
     if (verification.data) {
       router.replace('/');
     }
   }, [verification]);
+
   return (
     <ModalLayout onClick={onClickBg}>
       <SignupAuthModalBox>

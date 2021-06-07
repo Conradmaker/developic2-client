@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import SquareBtn from '../Button/SquareBtn';
 import { ConfirmModalBox, ModalLayout } from './styles';
 
@@ -12,9 +12,10 @@ export default function ConfirmModal({
   onConfirm,
   content,
 }: ConfirmModalPropsType): JSX.Element {
-  const onClickBG = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onClickBG = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
-  };
+  }, []);
+
   return (
     <ModalLayout onClick={onClickBG}>
       <ConfirmModalBox>

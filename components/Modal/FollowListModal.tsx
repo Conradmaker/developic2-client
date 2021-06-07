@@ -3,8 +3,6 @@ import SquareBtn from '../Button/SquareBtn';
 import TitleLabel from '../Label/TitleLabel';
 import { FollowListModalBox, ModalLayout } from './styles';
 
-type FollowingItemPropsType = {};
-
 function FollowingItem(): JSX.Element {
   return (
     <li>

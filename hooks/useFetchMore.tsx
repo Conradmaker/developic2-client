@@ -17,6 +17,7 @@ const FetchMoreTriggerContainer = styled.div`
     height: 80px;
   }
   p {
+    color: ${({ theme }) => theme.textColor.initial};
     text-align: center;
     font-size: 14px;
     font-family: 'Noto Serif KR';

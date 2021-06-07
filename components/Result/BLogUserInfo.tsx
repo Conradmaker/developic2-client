@@ -26,7 +26,9 @@ export default function BlogUserInfo(): JSX.Element {
         userId={userData && userData.id}
       />
     );
-
+  const goWebsite = (key: string, value: string) => {
+    key === '웹 사이트' ? window.open(`https://${value}`) : null;
+  };
   return (
     <>
       <BlogUserInfoBox>
@@ -35,7 +37,7 @@ export default function BlogUserInfo(): JSX.Element {
             value && (
               <div className="user__info">
                 <strong>{key}</strong>
-                <p>{value}</p>
+                <p onClick={() => goWebsite(key, value)}>{value}</p>
               </div>
             )
         )}

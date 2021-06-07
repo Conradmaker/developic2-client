@@ -15,16 +15,17 @@ export default function SearchPageNav(): JSX.Element {
   const router = useRouter();
   const [keyword, setKeyword] = useState(router.query.keyword as string);
 
-  const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-    debounce(e.target.value);
-  };
   const debounce = useCallback(
     _debounce(searchValue => {
       router.push(`${router.pathname}?keyword=${searchValue}`);
     }, 500),
-    [router]
+    [router.pathname]
   );
+
+  const onChangeKeyword = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+    debounce(e.target.value);
+  }, []);
 
   return (
     <SearchPageWithNavContainer>

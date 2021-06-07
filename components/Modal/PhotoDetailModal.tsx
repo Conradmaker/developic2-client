@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AiOutlineInfo } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
 import { CgFolderAdd } from 'react-icons/cg';
@@ -39,23 +39,26 @@ export default function PhotoDetailModal({
   const [infoOpen, setInfoOpen] = useState(false);
   const [binderSetOpen, setBinderSetOpen] = useState(false);
 
-  const toggleBinderSet = (e?: React.MouseEvent) => {
-    (e as React.MouseEvent).stopPropagation();
-    if (!userData) {
-      return toastOpenDispatch('로그인이 필요한 서비스입니다.');
-    }
-    setBinderSetOpen(current => !current);
-  };
+  const toggleBinderSet = useCallback(
+    (e?: React.MouseEvent) => {
+      (e as React.MouseEvent).stopPropagation();
+      if (!userData) {
+        return toastOpenDispatch('로그인이 필요한 서비스입니다.');
+      }
+      setBinderSetOpen(current => !current);
+    },
+    [userData]
+  );
 
-  const onInfoOpen = (e: React.MouseEvent) => {
+  const onInfoOpen = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     setInfoOpen(current => !current);
-  };
+  }, []);
 
-  const onRightClick = (e: React.MouseEvent) => {
+  const onRightClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     toastOpenDispatch('우클릭이 방지되었습니다.');
-  };
+  }, []);
 
   useEffect(() => {
     getPhotoDetailDispatch(photoId);

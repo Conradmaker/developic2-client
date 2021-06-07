@@ -17,10 +17,10 @@ export default function Incomplete({
   width,
 }: IncompletePropsType): JSX.Element {
   const router = useRouter();
-  const goBack = () => {
+  const goBack = React.useCallback(() => {
     if (type === 'error') return router.reload();
     router.back();
-  };
+  }, [type]);
   return (
     <IncompleteContainer>
       <section>

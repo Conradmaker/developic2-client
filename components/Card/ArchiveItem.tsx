@@ -8,11 +8,13 @@ type ArchiveItemPropsType = {
   data: Archive;
   listLength: number | undefined;
 };
+
 export default function ArchiveItem({
   data,
   listLength,
 }: ArchiveItemPropsType): JSX.Element {
   const currentTheme = useThemeState();
+
   return (
     <Link href={`/archive/${data.id}`}>
       <ArchiveItemContainer

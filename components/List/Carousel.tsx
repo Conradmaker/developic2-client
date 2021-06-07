@@ -78,19 +78,22 @@ export default function Carousel({
     setScale,
   } = useCarousel(listLength);
 
-  const handleClick: React.MouseEventHandler<HTMLElement> = e => {
-    if (isMoving) return;
-    const delta = e.target.id === 'prev' ? -1 : 1;
-    move(currentSlide + 1 * delta, 300);
-  };
+  const handleClick = React.useCallback(
+    e => {
+      if (isMoving) return;
+      const delta = e.target.id === 'prev' ? -1 : 1;
+      move(currentSlide + 1 * delta, 300);
+    },
+    [currentSlide, isMoving]
+  );
 
-  const onTransitionEnd = () => {
+  const onTransitionEnd = React.useCallback(() => {
     setIsMoving(false);
     const delta =
       currentSlide === listLength - 1 ? 1 : currentSlide === listLength * 2 + 1 ? -1 : 0;
     if (delta) move(currentSlide + listLength * delta);
     setScale(1.13);
-  };
+  }, [currentSlide, listLength]);
 
   return (
     <Container width={width} height={height}>

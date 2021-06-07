@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import useInput from '../../hooks/useInput';
 import useDrawer from '../../modules/drawer/hooks';
 import SquareBtn from '../Button/SquareBtn';
@@ -23,12 +23,14 @@ export default function BinderEditModal({
   const { getBinderDetail, updatePhotoBinderDetailDispatch } = useDrawer();
   const [title, onChangeTitle] = useInput(binderData.title);
   const [description, onChangeDescription] = useInput(binderData.description);
-  const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
+
+  const onClickBg = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
-  };
-  const onUpdate = () => {
+  }, []);
+
+  const onUpdate = useCallback(() => {
     if (!getBinderDetail.data) return;
     updatePhotoBinderDetailDispatch({
       BinderId: getBinderDetail.data.id,
@@ -36,7 +38,8 @@ export default function BinderEditModal({
       description,
     });
     onClose();
-  };
+  }, [getBinderDetail.data, title, description]);
+
   return (
     <ModalLayout onClick={onClickBg} className="bg">
       <BinderEditModalBox>

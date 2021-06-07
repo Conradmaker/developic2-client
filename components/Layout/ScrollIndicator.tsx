@@ -4,6 +4,7 @@ import _throttle from 'lodash/throttle';
 
 export default function ScrollIndicator(): JSX.Element {
   const [width, setWidth] = useState(0);
+
   useEffect(() => {
     const indicator = _throttle(() => {
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -15,11 +16,12 @@ export default function ScrollIndicator(): JSX.Element {
       const percent = (scrollTop / contentHeight) * 100;
       setWidth(percent);
     }, 200);
-    if (!window) return;
+
     window.addEventListener('scroll', indicator);
     return () => {
       window.removeEventListener('scroll', indicator);
     };
   }, []);
+
   return <ScrollBar width={width}></ScrollBar>;
 }

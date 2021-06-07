@@ -1,10 +1,15 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
-import { countSum } from '../../utils/utils';
 import { BlogPicstoryCardBox } from './styles';
+
+const countTotal = {
+  like: (list: BlogPost[]) =>
+    list.reduce((acc, cur) => acc + (cur.likeCount as number), 0),
+  hit: (list: BlogPost[]) => list.reduce((acc, cur) => acc + cur.hits, 0),
+};
 
 type PicstoryCardPropsType = {
   picstoryData: BlogPicstory;
@@ -18,11 +23,10 @@ export default function BlogPistoryCard({
 
   const posts = picstoryData.Posts;
 
-  const likeCounts = posts.map((post: BlogPost) => post.likers?.length);
-  const likeCountSum = countSum(likeCounts as number[]);
+  const likeCountTotal = useMemo(() => countTotal.like(posts), [posts]);
+  const viewCountTotal = useMemo(() => countTotal.hit(posts), [posts]);
 
-  const hits = posts.map((post: BlogPost) => post.hits);
-  const viewCountSum = countSum(hits);
+  if (!picstoryData) return <></>;
 
   return (
     <Link href={`/${userId}/picstory/${picstoryData.id}`}>
@@ -33,15 +37,15 @@ export default function BlogPistoryCard({
             <div className="picstory__stats">
               <div>
                 <MdBook />
-                <span>{picstoryData.Posts && picstoryData.Posts.length}</span>
+                <span>{picstoryData.Posts.length || 0}</span>
               </div>
               <div>
                 <MdFavorite />
-                <span>{likeCountSum && likeCountSum}</span>
+                <span>{likeCountTotal}</span>
               </div>
               <div>
                 <MdRemoveRedEye />
-                <span>{viewCountSum && viewCountSum}</span>
+                <span>{viewCountTotal}</span>
               </div>
             </div>
           </div>

@@ -902,6 +902,7 @@ export const BlogPostCardBox = styled.li`
   article {
     width: 100%;
     .img__wrapper {
+      background: #fff;
       position: relative;
       display: flex;
       align-items: center;

@@ -20,7 +20,7 @@ export default function ArchiveEditor({
   const { userData } = useUser();
   const EditorRef = useRef<null | Editor>(null);
 
-  const uploadImageToServer = async (image: Blob | File) => {
+  const uploadImageToServer = useCallback(async (image: Blob | File) => {
     if (!userData) return;
     const formData = new FormData();
     formData.append('image', image);
@@ -30,10 +30,12 @@ export default function ArchiveEditor({
     );
     setImageList(current => current.concat(res.data));
     return res.data;
-  };
-  const onFinalSubmit = async () => {
+  }, []);
+
+  const onFinalSubmit = useCallback(() => {
     onSubmit(EditorRef.current?.getInstance().getHtml() as string);
-  };
+  }, [EditorRef]);
+
   const onUpload = useCallback(
     async (image: Blob | File, callback) => {
       const data = await uploadImageToServer(image);
@@ -42,6 +44,7 @@ export default function ArchiveEditor({
     },
     [userData]
   );
+
   return (
     <ToastEditorStyle>
       <Editor
