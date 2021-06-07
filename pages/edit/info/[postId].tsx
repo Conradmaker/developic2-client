@@ -11,6 +11,7 @@ import useInput from '../../../hooks/useInput';
 import usePost from '../../../modules/post/hooks';
 import useUser from '../../../modules/user/hooks';
 import Head from 'next/head';
+import useUI from '../../../modules/ui/hooks';
 
 export const InfoPostContainer = styled.div`
   max-width: 1000px;
@@ -88,13 +89,15 @@ export default function InfoPost(): JSX.Element {
   const [thumbnail, setThumbnail] = useState(
     tempPost.data?.thumbnail ? tempPost.data.thumbnail : ''
   );
-
+  const { toastOpenDispatch } = useUI();
   const goBack = () => {
     router.replace(`/edit/content/${router.query.postId}`);
   };
+
   const onSubmitPost = () => {
-    if (!summary.trim()) return alert('요약글을 넣어주세요.');
-    if (!thumbnail.trim()) return alert('썸내일을 넣어주세요.');
+    if (!summary.trim()) return toastOpenDispatch('요약글을 넣어주세요.');
+    if (!thumbnail.trim()) return toastOpenDispatch('썸내일을 넣어주세요.');
+
     const data = {
       allowComment: allowComment ? 1 : 0,
       isPublic: isPublic ? 1 : 0,

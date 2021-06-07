@@ -4,6 +4,7 @@ import { MdCancel, MdCheck } from 'react-icons/md';
 import useInput from '../../hooks/useInput';
 import { Picstory } from '../../modules/picstory';
 import usePicstory from '../../modules/picstory/hooks';
+import useUI from '../../modules/ui/hooks';
 import useUser from '../../modules/user/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import CustomInput from '../Input/CustomInput';
@@ -59,7 +60,7 @@ export default function PicstoryModal({
     addPicPostDispatch,
     removePicPostDispatch,
   } = usePicstory();
-
+  const { toastOpenDispatch } = useUI();
   const [usersPicstoryList, setUsersPicstoryList] = useState<Picstory[]>([]);
   const [title, onChangeTitle, setTitle] = useInput('');
   const [desc, onChangeDesc, setDesc] = useInput('');
@@ -81,8 +82,8 @@ export default function PicstoryModal({
 
   const onCreatePicstory = async () => {
     if (!userData) return;
-    if (!title.trim()) return alert('제목을 입력해주세요.');
-    if (!thumbnail.trim()) return alert('썸네일 이미지를 등록해주세요.');
+    if (!title.trim()) return toastOpenDispatch('제목을 입력해주세요.');
+    if (!thumbnail.trim()) return toastOpenDispatch('썸네일 이미지를 등록해주세요.');
     createPicstoryDispatch({
       title,
       thumbnail,

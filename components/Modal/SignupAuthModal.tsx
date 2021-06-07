@@ -28,7 +28,7 @@ export default function SignupAuthModal({
   };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const code = authNum1 + authNum2 + authNum3 + authNum4 + authNum5;
+    const code = authNum1 + authNum2 + authNum3 + authNum4 + authNum5 + authNum6;
     verificationDispatch({ email, code });
   };
   useEffect(() => {

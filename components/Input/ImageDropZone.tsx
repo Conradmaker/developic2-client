@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import useUI from '../../modules/ui/hooks';
 import { ImageDropZoneContainer } from './styles';
 
 type ImageDropZonePropsType = {
@@ -17,9 +18,11 @@ export default function ImageDropZone({
   height,
   axiosPath = 'thumbnail',
 }: ImageDropZonePropsType): JSX.Element {
+  const { toastOpenDispatch } = useUI();
   const onDrop = (files: File[]) => {
     if (files.length > 1) {
-      return alert('하나의 이미지만 선택해주세요.');
+      toastOpenDispatch('하나의 이미지만 선택할 수 있습니다.');
+      return;
     }
     const formData = new FormData();
     formData.append('image', files[0]);

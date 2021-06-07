@@ -131,13 +131,6 @@ export default function Info(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (updateUser.data === 'passwordSuccess') {
-      alert('성공적으로 비밀번호를 변경하였습니다.');
-    }
-  }, [updateUser]);
-
-  useEffect(() => {
-    if (destroyUser.data) alert('회원정보가 삭제 되었습니다.');
     if (!userData) router.replace('/');
   }, [userData, destroyUser]);
 

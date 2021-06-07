@@ -7,6 +7,7 @@ import usePost from '../../modules/post/hooks';
 import { ModalLayout, PhotoDetailBox, PhotoModalBtnBox } from './styles';
 import MakeBinderModal from './MakeBinderModal';
 import useUser from '../../modules/user/hooks';
+import useUI from '../../modules/ui/hooks';
 
 const computeMetaData = (data: MetaData) => ({
   모델: data.manufacturer && data.model ? `${data.manufacturer} ${data.model}` : null,
@@ -34,27 +35,34 @@ export default function PhotoDetailModal({
     getPhotoDetail: { data: photoData },
     getPhotoDetailDispatch,
   } = usePost();
+  const { toastOpenDispatch } = useUI();
   const [infoOpen, setInfoOpen] = useState(false);
   const [binderSetOpen, setBinderSetOpen] = useState(false);
+
   const toggleBinderSet = (e?: React.MouseEvent) => {
     (e as React.MouseEvent).stopPropagation();
     if (!userData) {
-      return alert('로그인해주세요.');
+      return toastOpenDispatch('로그인이 필요한 서비스입니다.');
     }
     setBinderSetOpen(current => !current);
   };
+
   const onInfoOpen = (e: React.MouseEvent) => {
     e.stopPropagation();
     setInfoOpen(current => !current);
   };
+
   const onRightClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    alert('우클릭이 방지되었습니다.');
+    toastOpenDispatch('우클릭이 방지되었습니다.');
   };
+
   useEffect(() => {
     getPhotoDetailDispatch(photoId);
   }, [photoId]);
+
   if (!photoData) return <></>;
+
   return (
     <>
       <ModalLayout onClick={onClose}>

@@ -11,6 +11,7 @@ import useBlog from '../../modules/blog/hooks';
 import useUser from '../../modules/user/hooks';
 import { RoundCornerBtnBox } from '../Button/styles';
 import Head from 'next/head';
+import useUI from '../../modules/ui/hooks';
 
 const BlogwithProfileContainer = styled.div`
   margin: 40px auto;
@@ -32,11 +33,12 @@ export default function BlogWithNavLayout({
   const {
     loadBlogUser: { data: blogUserData },
   } = useBlog();
+  const { toastOpenDispatch } = useUI();
   const { userData, subscribeDispatch, unSubscribeDispatch } = useUser();
   const [isFollowing, setIsFollowing] = useState(false);
 
   const onFollowToggle = useCallback(() => {
-    if (!userData) return alert('로그인해주세요');
+    if (!userData) return toastOpenDispatch('로그인이 필요한 서비스입니다.');
     if (!blogUserData) return;
     if (isFollowing) {
       unSubscribeDispatch({ writerId: blogUserData.id, subscriberId: userData.id });

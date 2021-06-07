@@ -4,6 +4,7 @@ import { HashInputContainer } from '../Input/EditPageInput';
 import { HashTagSearchContainer } from './styles';
 import { Hashtag } from '../../modules/post';
 import usePost from '../../modules/post/hooks';
+import useUI from '../../modules/ui/hooks';
 
 type SearchListPropsType = {
   resultList: { id: number; name: string }[];
@@ -37,6 +38,7 @@ export default function HashTagInstant({
     createHashtag,
     createHashtagDispatch,
   } = usePost();
+  const { toastOpenDispatch } = useUI();
   const onChangeTagValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTagValue(e.target.value);
     debouncedSearch(e.target.value);
@@ -51,7 +53,7 @@ export default function HashTagInstant({
 
   const onAddTag = async () => {
     if (tagList.findIndex(tag => tag.name === tagValue.replace('#', '')) !== -1)
-      return window.alert('이미 적용된 태그입니다.');
+      return toastOpenDispatch('이미 적용된 태그입니다.');
     createHashtagDispatch(tagValue.replace('#', ''));
     setTagValue('');
   };
@@ -63,7 +65,7 @@ export default function HashTagInstant({
   const onKeypress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (tagValue.replace('#', '').trim() === '')
-        return window.alert('올바른 태그를 입력해주세요.');
+        return toastOpenDispatch('올바른 태그를 입력해주세요.');
       onAddTag();
       setInstantMode(false);
     } else if (e.key === '#') {

@@ -12,6 +12,7 @@ import ImageDropZone from '../../components/Input/ImageDropZone';
 import useUser from '../../modules/user/hooks';
 import { useRouter } from 'next/router';
 import useArchive from '../../modules/archive/hooks';
+import useUI from '../../modules/ui/hooks';
 
 const ArchiveEditContainer = styled.div`
   max-width: 1150px;
@@ -25,8 +26,7 @@ const ArchiveEditContainer = styled.div`
       & > p {
         font-size: ${({ theme }) => theme.fontSize.xxl};
         color: ${({ theme }) => theme.textColor.initial};
-        margin-top: 80px;
-        margin-bottom: 50px;
+        margin-top: 80px 0 50px 0;
       }
       & > article {
         max-width: 800px;
@@ -95,12 +95,12 @@ const ArchiveEditorWithNoSSR = dynamic(
     ssr: false,
   }
 );
+
 export default function edit(): JSX.Element {
   const { userData } = useUser();
   const { addArchive, addArchiveDispatch } = useArchive();
   const router = useRouter();
   const [title, onChangeTitle] = useInput('');
-  // const [author, onChangeAuthor] = useInput("여러명일 경우 ',' 로 구분하여 입력해주세요");
   const [author, onChangeAuthor] = useInput('');
   const [address, onChangeAddress] = useInput('');
   const [webPage, onChangeWebPage] = useInput('http://');
@@ -112,9 +112,11 @@ export default function edit(): JSX.Element {
   const [poster, setPoster] = useState('');
   const [checkFree, setCheckFree] = useState<boolean>(false);
   const [imageList, setImageList] = useState<{ imageId: number; src: string }[]>([]);
-  const [description, setDescription] = useState(
+  const [description] = useState(
     '세부 전시 내용(작가 정보, 텍스트, 평론, 운영 시간 등)을 작성해 주세요.'
   );
+
+  const { toastOpenDispatch } = useUI();
 
   const onChangeCost = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,12 +127,14 @@ export default function edit(): JSX.Element {
     },
     [cost]
   );
-  const onChangeStartDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const onChangeStartDate = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setStartDate(e.target.value);
-  };
-  const onChangeEndDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+  }, []);
+
+  const onChangeEndDate = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setEndDate(e.target.value);
-  };
+  }, []);
 
   const onChangeCheckFree = useCallback(() => {
     if (checkFree === false) {
@@ -143,46 +147,73 @@ export default function edit(): JSX.Element {
 
   const onSubmit = (content: string) => {
     if (!userData) return;
-    if (
-      cost &&
-      webPage &&
-      contact &&
-      email &&
-      title &&
-      author &&
-      address &&
-      content &&
-      startDate &&
-      endDate &&
-      poster
-    ) {
-      const result = {
-        cost: +cost,
-        webPage,
-        contact,
-        email,
-        title,
-        author,
-        address,
-        description: content,
-        startDate,
-        endDate,
-        poster,
-        UserId: userData.id,
-        imageList: imageList.map(image => image.imageId),
-      };
-      addArchiveDispatch(result);
-    } else {
-      alert('내용을 모두 입력해주세요');
-    }
+    if (!cost) return toastOpenDispatch('가격을 입력해주세요');
+    if (!webPage) return toastOpenDispatch('웹페이지를 입력해주세요');
+    if (!contact) return toastOpenDispatch('연락처를 입력해주세요');
+    if (!email) return toastOpenDispatch('연락 이메일을 입력해주세요');
+    if (!title) return toastOpenDispatch('전시회명을 입력해주세요');
+    if (!author) return toastOpenDispatch('작가를 입력해주세요');
+    if (!address) return toastOpenDispatch('주소를 입력해주세요');
+    if (!content) return toastOpenDispatch('내용을 입력해주세요');
+    if (!startDate || !endDate) return toastOpenDispatch('기간을 입력해주세요');
+    if (!poster) return toastOpenDispatch('포스터를 입력해주세요');
+    addArchiveDispatch({
+      cost: +cost,
+      webPage,
+      contact,
+      email,
+      title,
+      author,
+      address,
+      description: content,
+      startDate,
+      endDate,
+      poster,
+      UserId: userData.id,
+      imageList: imageList.map(image => image.imageId),
+    });
+    // if (
+    //   cost &&
+    //   webPage &&
+    //   contact &&
+    //   email &&
+    //   title &&
+    //   author &&
+    //   address &&
+    //   content &&
+    //   startDate &&
+    //   endDate &&
+    //   poster
+    // ) {
+    // const result = {
+    //   cost: +cost,
+    //   webPage,
+    //   contact,
+    //   email,
+    //   title,
+    //   author,
+    //   address,
+    //   description: content,
+    //   startDate,
+    //   endDate,
+    //   poster,
+    //   UserId: userData.id,
+    //   imageList: imageList.map(image => image.imageId),
+    // };
+    //   addArchiveDispatch(result);
+    // } else {
+    //   toastOpenDispatch('내용을 모두 입력해주세요');
+    // }
   };
+
   useEffect(() => {
     if (addArchive.data) {
-      alert('전시회가 등록되었습니다.');
+      toastOpenDispatch('전시회가 등록되었습니다.');
       router.replace('/archive');
       return;
     }
   }, [addArchive.data]);
+
   return (
     <Layout>
       <Head>DEVELOPIC | archive</Head>

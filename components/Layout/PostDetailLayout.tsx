@@ -8,6 +8,7 @@ import { IoMdHeart, IoMdHeartEmpty, IoMdShare } from 'react-icons/io';
 import { RiEditLine } from 'react-icons/ri';
 import { PostData } from '../../modules/post';
 import usePost from '../../modules/post/hooks';
+import useUI from '../../modules/ui/hooks';
 import useUser from '../../modules/user/hooks';
 import { LikeBtn } from '../Button/FloatingBtn';
 import HashTag from '../Button/HashTag';
@@ -20,6 +21,7 @@ type PostDetaulLayout = {
 };
 export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.Element {
   const [removePostOpen, setRemovePostOpen] = useState(false);
+  const { toastOpenDispatch } = useUI();
   const { userData, addPostLikeDispatch, removePostLikeDispatch } = useUser();
   const { removePostDispatch, removePost } = usePost();
   const router = useRouter();
@@ -31,9 +33,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
     tempElem.select();
     document.execCommand('copy');
     document.body.removeChild(tempElem);
-    if (window) {
-      alert('클립보드에 복사되었습니다.');
-    }
+    toastOpenDispatch('클립보드에 복사되었습니다.');
   };
 
   const isLike = useCallback(() => {
@@ -44,7 +44,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
   }, [userData?.likedPosts]);
 
   const onToggleLike = useCallback(() => {
-    if (!userData) return alert('로그인을 먼저 해주세요.');
+    if (!userData) return toastOpenDispatch('로그인이 필요한 서비스입니다.');
     const payload = { UserId: userData.id, PostId: postData.id };
     isLike() ? removePostLikeDispatch(payload) : addPostLikeDispatch(payload);
   }, [userData]);

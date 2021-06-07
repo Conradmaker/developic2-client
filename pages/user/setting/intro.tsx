@@ -89,7 +89,6 @@ export default function Intro(): JSX.Element {
     userIntro,
     getUserIntroDispatch,
     updateUserIntroDispatch,
-    updateUser,
   } = useUser();
   const [website, onChangeWebsite, setWebsite] = useInput('');
   const [info, setInfo] = useState('');
@@ -105,6 +104,7 @@ export default function Intro(): JSX.Element {
       setInfo(e.target.value);
     }
   }, []);
+
   const onUpdateUserIntro = () => {
     if (!userData) return;
     updateUserIntroDispatch({
@@ -131,13 +131,8 @@ export default function Intro(): JSX.Element {
     }
   }, [userIntro]);
 
-  useEffect(() => {
-    if (updateUser.data === 'success') {
-      alert('성공적으로 반영되었습니다.');
-    }
-  }, [updateUser.data]);
-
   if (!userIntro.data) return <></>;
+
   return (
     <PageWithNavLayout pageName="설정" pageDesc="Settings" navData={SettingNavData}>
       <Head>
