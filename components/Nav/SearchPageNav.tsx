@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import _debounce from 'lodash/debounce';
 import React, { useCallback, useState } from 'react';
 import SearchInput from '../Input/SearchInput';
 import TitleLabel from '../Label/TitleLabel';
 import { PageWithNavContainer } from '../Layout/PageWithNavLayout';
-import { SearchPageNavigation } from './styles';
-import { SearchNavData } from '../../utils/data';
 import Layout from '../Layout';
+import SearchPageNavigation from './SearchPageNavigation';
 
 const SearchPageWithNavContainer = styled(PageWithNavContainer)`
   color: ${({ theme }) => theme.textColor.initial};
@@ -51,65 +49,7 @@ export default function SearchPageWithNavLayout({
           onChange={onChangeKeyword}
           onKeyPress={onKeyPress}
         />
-        {
-          <SearchPageNavigation>
-            <ul>
-              <Link href={`/search?keyword=${router.query.keyword}`}>
-                <li
-                  className={
-                    router.pathname === SearchNavData[0].link ? 'nav--active' : ''
-                  }
-                >
-                  글
-                </li>
-              </Link>
-              {!router.query.keyword && (
-                <Link href={`/search/writer?keyword=`}>
-                  <li
-                    className={
-                      router.pathname === SearchNavData[1].link ? 'nav--active' : ''
-                    }
-                  >
-                    작가
-                  </li>
-                </Link>
-              )}
-              {router.query.keyword && (
-                <Link href={`/search/writer?keyword=${router.query.keyword}`}>
-                  <li
-                    className={
-                      router.pathname === SearchNavData[1].link ? 'nav--active' : ''
-                    }
-                  >
-                    작가
-                  </li>
-                </Link>
-              )}
-              {!router.query.keyword && (
-                <Link href={`/search/picstory?keyword=`}>
-                  <li
-                    className={
-                      router.pathname === SearchNavData[2].link ? 'nav--active' : ''
-                    }
-                  >
-                    픽스토리
-                  </li>
-                </Link>
-              )}
-              {router.query.keyword && (
-                <Link href={`/search/picstory?keyword=${router.query.keyword}`}>
-                  <li
-                    className={
-                      router.pathname === SearchNavData[2].link ? 'nav--active' : ''
-                    }
-                  >
-                    픽스토리
-                  </li>
-                </Link>
-              )}
-            </ul>
-          </SearchPageNavigation>
-        }
+        <SearchPageNavigation />
         {children}
       </SearchPageWithNavContainer>
     </Layout>

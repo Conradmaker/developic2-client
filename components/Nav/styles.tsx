@@ -23,7 +23,7 @@ export const PageNavigationBox = styled.nav`
   }
 `;
 
-export const SearchPageNavigation = styled.nav`
+export const SearchPageNavigationContainer = styled.nav`
   border-bottom: 0.5px solid ${({ theme }) => theme.grayScale[2]};
   color: ${({ theme }) => theme.textColor.initial};
   margin-bottom: 30px;
