@@ -14,6 +14,7 @@ const BlogwithProfileContainer = styled.main`
   margin: 40px auto;
   width: 850px;
   position: relative;
+  color: ${({ theme }) => theme.textColor.initial};
 `;
 
 const UserProfileWithTabContainer = styled.section`

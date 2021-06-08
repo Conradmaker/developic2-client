@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import { useThemeState } from '../../hooks/ThemeContext';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
 import { countSum } from '../../utils/utils';
 import { BlogPicstoryCardBox } from './styles';
@@ -13,6 +14,8 @@ type PicstoryCardPropsType = {
 export default function BlogPistoryCard({
   picstoryData,
 }: PicstoryCardPropsType): JSX.Element {
+  const currentTheme = useThemeState();
+
   const router = useRouter();
   const { userId } = router.query;
 
@@ -26,7 +29,7 @@ export default function BlogPistoryCard({
 
   return (
     <Link href={`/${userId}/picstory/${picstoryData.id}`}>
-      <BlogPicstoryCardBox>
+      <BlogPicstoryCardBox currentTheme={currentTheme}>
         <article>
           <div className="picstory__description">
             <h3>{picstoryData.title}</h3>

@@ -133,7 +133,9 @@ export const CustomTextareaBox = styled.div<{ width: number }>`
   }
 `;
 
-export const SearchInputBox = styled.form`
+export const SearchInputBox = styled.form<{
+  currentTheme: null | string;
+}>`
   // border: 0.5px solid ${({ theme }) => theme.grayScale[2]};
   display: flex;
   flex-direction: row-reverse;
@@ -166,14 +168,30 @@ export const SearchInputBox = styled.form`
     outline: none;
     background-color: transparent;
     transition: all 0.125s ease-in;
+    color: ${({ theme }) => theme.grayScale[1]};
     &::placeholder {
       color: ${({ theme }) => theme.grayScale[2]};
+      ${({ currentTheme, theme }) =>
+        currentTheme === 'dark' &&
+        css`
+          & {
+            color: ${theme.textColor.initial};
+          }
+        `};
     }
   }
   input:focus,
   input:focus + svg {
     fill: black;
     color: black;
+    ${({ currentTheme, theme }) =>
+      currentTheme === 'dark' &&
+      css`
+        & {
+          color: ${theme.textColor.initial};
+          fill: ${theme.textColor.initial};
+        }
+      `};
   }
 `;
 

@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { UserInfoCardBox } from './styles';
 import { PostUser } from '../../modules/list';
+import { useThemeState } from '../../hooks/ThemeContext';
 
 type UserInfoCardPropsType = {
   userInfoData: PostUser;
@@ -9,9 +10,11 @@ type UserInfoCardPropsType = {
 export default function UserInfoCard({
   userInfoData,
 }: UserInfoCardPropsType): JSX.Element {
+  const currentTheme = useThemeState();
+
   return (
     <Link href={`/${userInfoData.id}/post`}>
-      <UserInfoCardBox>
+      <UserInfoCardBox currentTheme={currentTheme}>
         <article>
           <img src={userInfoData.avatar} alt="avatar" />
           <h3>{userInfoData.nickname}</h3>

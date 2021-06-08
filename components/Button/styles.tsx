@@ -179,19 +179,21 @@ export const RoundCornerBtnBox = styled.button<{
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  transition: all 0.2s ease-in;
   & > svg {
     margin-right: 5px;
     font-size: ${({ theme }) => theme.fontSize.lg};
   }
-  ${props => {
-    if (props.isFollow) {
-      return css`
-        border: 1px solid ${props.theme.primary[1]};
-        background-color: transparent;
-        color: ${props.theme.primary[1]};
-      `;
-    }
-  }}
+  &:hover {
+    background-color: #651fb5;
+  }
+  ${({ isFollow, theme }) =>
+    isFollow &&
+    css`
+      border: 1px solid ${theme.primary[1]};
+      background-color: transparent;
+      color: ${theme.primary[1]};
+    `}
 `;
 
 export const CreateInfoButton = styled(RoundCornerBtnBox)``;

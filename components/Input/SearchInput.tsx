@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdSearch } from 'react-icons/md';
+import { useThemeState } from '../../hooks/ThemeContext';
 import { SearchInputBox } from './styles';
 
 type SearchInputPropsType = {
@@ -12,8 +13,10 @@ export default function SearchInput({
   onChange,
   value,
 }: SearchInputPropsType): JSX.Element {
+  const currentTheme = useThemeState();
+
   return (
-    <SearchInputBox>
+    <SearchInputBox currentTheme={currentTheme}>
       <input
         placeholder="검색어를 입력해주세요."
         onChange={onChange}

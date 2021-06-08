@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useState } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
+import { useThemeState } from '../../hooks/ThemeContext';
 import { blogPicstoryDetailData, BlogPost } from '../../modules/blog';
 import usePicstory from '../../modules/picstory/hooks';
 import SquareBtn from '../Button/SquareBtn';
@@ -35,6 +36,7 @@ type PicstoryCardPropsType = {
 export default function BlogPicstoryDetailBox({
   picstoryDetailData,
 }: PicstoryCardPropsType): JSX.Element {
+  const currentTheme = useThemeState();
   const { removePicstoryDispatch } = usePicstory();
   const router = useRouter();
   const [removeModalOpen, setRemoveModalOpen] = useState(false);
@@ -52,7 +54,7 @@ export default function BlogPicstoryDetailBox({
     router.back();
   }, []);
   return (
-    <BlogPicstoryDetailContainer>
+    <BlogPicstoryDetailContainer currentTheme={null}>
       <article>
         <div className="picstory__description">
           <h2>{picstoryDetailData.title}</h2>

@@ -147,6 +147,7 @@ export const ExhibitionCardBox = styled.div`
 
 export const CommonPostCardBox = styled.li`
   font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
   font-size: ${({ theme }) => theme.fontSize.base};
   text-align: justify;
   position: relative;
@@ -162,13 +163,12 @@ export const CommonPostCardBox = styled.li`
       object-fit: cover;
     }
     h3 {
-      color: ${({ theme }) => theme.textColor.initial};
       font-weight: 400;
       font-size: ${({ theme }) => theme.fontSize.medium};
       margin: 0.857em 0 0.857em 0;
     }
     p {
-      color: ${({ theme }) => theme.grayScale[2]};
+      color: ${({ theme }) => theme.grayScale[1]};
       margin-bottom: 1.786em;
     }
     &:hover h3 {
@@ -176,24 +176,27 @@ export const CommonPostCardBox = styled.li`
       color: ${({ theme }) => theme.primary[1]};
     }
   }
-
   .info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     .stats {
-      color: ${({ theme }) => theme.textColor.initial};
       font-family: 'Montserrat';
+      width: 32%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 32%;
       font-size: ${({ theme }) => theme.fontSize.small};
-      svg {
-        color: ${({ theme }) => theme.grayScale[2]};
-        padding-top: 0.071em;
-        margin-right: 0.214em;
-        font-size: ${({ theme }) => theme.fontSize.base};
+      p {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        svg {
+          padding-bottom: 0.071em;
+          margin-right: 0.214em;
+          font-size: ${({ theme }) => theme.fontSize.base};
+          color: ${({ theme }) => theme.grayScale[1]};
+        }
       }
     }
   }
@@ -210,20 +213,32 @@ export const UserAvatarWithNameBox = styled.div`
     margin-right: 0.357em;
   }
   strong {
-    color: ${({ theme }) => theme.textColor.initial};
     font-weight: ${({ theme }) => theme.fontWeight.regular};
     margin-right: 0.143em;
   }
   span {
-    color: ${({ theme }) => theme.grayScale[2]};
+    color: ${({ theme }) => theme.grayScale[1]};
     font-size: ${({ theme }) => theme.fontSize.small};
   }
 `;
 
-export const UserInfoCardBox = styled.li`
+export const UserInfoCardBox = styled.li<{
+  currentTheme: null | string;
+}>`
+  ${({ currentTheme, theme }) =>
+    currentTheme === 'dark' &&
+    css`
+      & {
+        color: ${theme.textColor.reverse};
+        box-shadow: 0px 0px 5px 2px #e0e0e0;
+      }
+    `};
   font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
   background-color: #fff;
-  border: solid 1px #efefef;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.03), 0 20px 40px 10px rgba(224, 224, 224, 0.2);
+  border: 0;
+  border-radius: 3px;
   position: relative;
   width: 100%;
   article {
@@ -246,7 +261,6 @@ export const UserInfoCardBox = styled.li`
     h3 {
       cursor: pointer;
       transition: all 0.2s ease-in-out;
-
       font-size: ${({ theme }) => theme.fontSize.xl};
       font-weight: ${({ theme }) => theme.fontWeight.semiBold};
       margin: 0.875em 0;
@@ -254,15 +268,12 @@ export const UserInfoCardBox = styled.li`
     p {
       cursor: pointer;
       font-size: ${({ theme }) => theme.fontSize.medium};
-      color: ${({ theme }) => theme.textColor.initial};
       margin-bottom: 2em;
       padding: 0 2em;
       text-align: center;
       line-height: 1.5;
     }
-
     .writer__add-info {
-      color: ${({ theme }) => theme.textColor.lighten};
       font-size: ${({ theme }) => theme.fontSize.base};
       display: flex;
       justify-content: space-between;
@@ -711,14 +722,27 @@ export const BlogCommentCardBox = styled.li`
   }
 `;
 
-export const BlogPicstoryCardBox = styled.li`
-  border: 1px solid ${({ theme }) => theme.grayScale[2]};
+export const BlogPicstoryCardBox = styled.li<{
+  currentTheme: null | string;
+}>`
+  ${({ currentTheme, theme }) =>
+    currentTheme === 'dark' &&
+    css`
+      & {
+        color: ${theme.textColor.reverse};
+        box-shadow: 0px 0px 5px 2px #e0e0e0;
+        background: #fff;
+      }
+    `};
+  color: ${({ theme }) => theme.grayScale[1]};
+  font-family: 'Noto Serif KR';
   padding: 25px;
   height: 250px;
-  font-size: ${({ theme }) => theme.fontSize.base};
-  font-family: 'Noto Serif KR';
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 10px 0px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.03), 0 20px 40px 10px rgba(224, 224, 224, 0.2);
   border: 0;
+  border-radius: 3px;
+  /* box-shadow: inset 4px 4px 0 #fff, 3px 3px 0 rgba(0, 0, 128, 0.2);
+  border: 1px solid #ebebeb; */
   margin-bottom: 50px;
   cursor: pointer;
   article {
@@ -729,7 +753,6 @@ export const BlogPicstoryCardBox = styled.li`
       margin-bottom: 15px;
       h3 {
         font-size: ${({ theme }) => theme.fontSize.medium};
-
         font-weight: bold;
       }
       .picstory__stats {
@@ -743,7 +766,6 @@ export const BlogPicstoryCardBox = styled.li`
           display: flex;
           align-items: center;
           svg {
-            color: ${({ theme }) => theme.grayScale[1]};
             padding-top: 0.071em;
             margin-right: 0.143em;
           }
@@ -799,6 +821,7 @@ export const BlogPostCardBox = styled.li`
   text-align: justify;
   line-height: 1.8;
   font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
   article {
     width: 100%;
     .img__wrapper {

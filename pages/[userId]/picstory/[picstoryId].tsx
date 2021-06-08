@@ -18,6 +18,7 @@ const PicstoryDetailContainer = styled.section`
     text-align: center;
     margin-bottom: 25px;
     cursor: pointer;
+    color: ${({ theme }) => theme.textColor.initial};
   }
   .empty_content {
     text-align: center;
