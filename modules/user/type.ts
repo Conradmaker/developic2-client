@@ -84,6 +84,7 @@ export type UpdateUserInfoPayload = {
   nickname: string;
   birth: string;
   gender: string;
+  avatar: string;
 };
 export type UpdatePasswordPayload = {
   UserId: number;

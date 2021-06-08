@@ -55,7 +55,7 @@ export default function useUser() {
   }, []);
 
   const logoutDispatch = useCallback(() => {
-    dispatch(logOutAction());
+    dispatch(logOutAction(null));
   }, []);
 
   const signupDispatch = useCallback(data => {

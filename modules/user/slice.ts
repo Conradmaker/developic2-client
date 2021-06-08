@@ -183,6 +183,10 @@ const userSlice = createSlice({
         (state.userData as User).nickname = payload.nickname;
         (state.userData as User).gender = payload.gender;
         (state.userData as User).birth = payload.birth;
+        (state.userData as User).avatar =
+          payload.avatar.indexOf('/resize/400') !== -1
+            ? payload.avatar.replace('/resize/400', '/original')
+            : payload.avatar;
       })
       .addCase(updateUserInfoAction.rejected, (state, { payload }) => {
         state.updateUser.loading = false;

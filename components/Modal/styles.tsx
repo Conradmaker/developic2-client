@@ -559,3 +559,31 @@ export const MakeBinderModalMox = styled(ModalBox)`
     margin: 30px 0 0 auto;
   }
 `;
+
+export const ChangePasswordModalBox = styled(ModalBox)`
+  height: auto;
+  min-height: auto;
+  form {
+    margin-top: 30px;
+    width: 400px;
+    & > div {
+      margin-bottom: 20px;
+    }
+    & > p {
+      margin: 0 0 30px 0;
+      font-size: 14px;
+      color: #b92961;
+      text-align: right;
+    }
+    .btn__group {
+      display: flex;
+      justify-content: flex-end;
+      button + button {
+        margin-left: 20px;
+      }
+      button {
+        height: 35px;
+      }
+    }
+  }
+`;
