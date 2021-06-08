@@ -6,6 +6,7 @@ import React, { useCallback, useRef } from 'react';
 import useUser from '../../modules/user/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
+import _delay from 'lodash/delay';
 
 type ArchiveEditorPropsType = {
   content: string;
@@ -34,13 +35,13 @@ export default function ArchiveEditor({
 
   const onFinalSubmit = useCallback(() => {
     onSubmit(EditorRef.current?.getInstance().getHtml() as string);
-  }, [EditorRef]);
+  }, [EditorRef, onSubmit]);
 
   const onUpload = useCallback(
     async (image: Blob | File, callback) => {
       const data = await uploadImageToServer(image);
       EditorRef.current?.getInstance().moveCursorToEnd();
-      callback(`${data.src}`, `${data.imageId}`);
+      await _delay(() => callback(`${data.src}`, `${data.imageId}`), 3500);
     },
     [userData]
   );

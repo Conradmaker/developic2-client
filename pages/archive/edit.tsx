@@ -108,7 +108,7 @@ export default function edit(): JSX.Element {
   const [email, onChangeEmail] = useInput('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [cost, setCost] = useState('');
+  const [cost, setCost] = useState(0);
   const [poster, setPoster] = useState('');
   const [checkFree, setCheckFree] = useState<boolean>(false);
   const [imageList, setImageList] = useState<{ imageId: number; src: string }[]>([]);
@@ -118,15 +118,12 @@ export default function edit(): JSX.Element {
 
   const { toastOpenDispatch } = useUI();
 
-  const onChangeCost = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCost(e.target.value);
-      if (cost !== '0') {
-        setCheckFree(false);
-      }
-    },
-    [cost]
-  );
+  const onChangeCost = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setCost(+e.target.value);
+    if (+e.target.value !== 0) {
+      setCheckFree(false);
+    }
+  }, []);
 
   const onChangeStartDate = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setStartDate(e.target.value);
@@ -138,14 +135,27 @@ export default function edit(): JSX.Element {
 
   const onChangeCheckFree = useCallback(() => {
     if (checkFree === false) {
-      setCost('0');
-    } else {
-      setCost('');
+      setCost(0);
     }
     setCheckFree(prev => !prev);
   }, [checkFree]);
 
   const onSubmit = (content: string) => {
+    console.log({
+      cost: +cost,
+      webPage,
+      contact,
+      email,
+      title,
+      author,
+      address,
+      description: content,
+      startDate,
+      endDate,
+      poster,
+      UserId: userData.id,
+      imageList: imageList.map(image => image.imageId),
+    });
     if (!userData) return;
     if (!cost) return toastOpenDispatch('가격을 입력해주세요');
     if (!webPage) return toastOpenDispatch('웹페이지를 입력해주세요');
@@ -172,38 +182,6 @@ export default function edit(): JSX.Element {
       UserId: userData.id,
       imageList: imageList.map(image => image.imageId),
     });
-    // if (
-    //   cost &&
-    //   webPage &&
-    //   contact &&
-    //   email &&
-    //   title &&
-    //   author &&
-    //   address &&
-    //   content &&
-    //   startDate &&
-    //   endDate &&
-    //   poster
-    // ) {
-    // const result = {
-    //   cost: +cost,
-    //   webPage,
-    //   contact,
-    //   email,
-    //   title,
-    //   author,
-    //   address,
-    //   description: content,
-    //   startDate,
-    //   endDate,
-    //   poster,
-    //   UserId: userData.id,
-    //   imageList: imageList.map(image => image.imageId),
-    // };
-    //   addArchiveDispatch(result);
-    // } else {
-    //   toastOpenDispatch('내용을 모두 입력해주세요');
-    // }
   };
 
   useEffect(() => {
@@ -247,6 +225,7 @@ export default function edit(): JSX.Element {
                   <CustomInput
                     title="입장료"
                     width={380}
+                    type="number"
                     value={cost}
                     onChange={onChangeCost}
                   />

@@ -28,7 +28,7 @@ export default function edit(): JSX.Element {
   const [imageList, setImageList] = useState<{ imageId: number; src: string }[]>([]);
   const [content, setContent] = useState('글을 입력해주세요.');
 
-  const temporarySave = async (editorContent: string) => {
+  const temporarySave = (editorContent: string) => {
     if (!userData) return;
     const result = {
       title,

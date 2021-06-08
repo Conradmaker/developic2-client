@@ -10,6 +10,7 @@ import useConfirmModal from '../../hooks/useConfirmModal';
 import { useRouter } from 'next/router';
 import usePost from '../../modules/post/hooks';
 import useUser from '../../modules/user/hooks';
+import _delay from 'lodash/delay';
 
 type ToastEditorPropsType = {
   content: string;
@@ -34,12 +35,12 @@ export default function ToastEditor({
     temporarySave(EditorRef.current?.getInstance().getHtml() as string);
     router.replace(`/user/drawer/save`);
     toggleConfirmModal();
-  }, [EditorRef.current]);
+  }, [EditorRef.current, temporarySave]);
 
   const onFinalSubmit = useCallback(() => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);
     temporarySave(EditorRef.current?.getInstance().getHtml() as string);
-  }, [EditorRef.current]);
+  }, [EditorRef.current, temporarySave]);
 
   const [confirmModalOpen, toggleConfirmModal, ConfirmModal] = useConfirmModal(
     onTempSubmit,
@@ -80,7 +81,7 @@ export default function ToastEditor({
     const data = await uploadImageToServer(image);
     await updateMetaData(image, data.imageId);
     EditorRef.current?.getInstance().moveCursorToEnd();
-    callback(`${data.src}`, `${data.imageId}`);
+    await _delay(() => callback(`${data.src}`, `${data.imageId}`), 3500);
   }, []);
 
   useEffect(() => {
