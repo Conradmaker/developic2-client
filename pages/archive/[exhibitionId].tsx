@@ -194,7 +194,10 @@ export default function archiveId(): JSX.Element {
       </Head>
       <ArchiveDetailContainer>
         <div className="detail__poster__wrapper">
-          <img src={getArchiveDetail.data.poster} alt="poster" />
+          <img
+            src={process.env.NEXT_PUBLIC_IMAGE_600 + getArchiveDetail.data.poster}
+            alt="poster"
+          />
         </div>
         <section className="detail__summary">
           <h1>{getArchiveDetail.data.title}</h1>

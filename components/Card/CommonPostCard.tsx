@@ -13,7 +13,10 @@ export default function CommonPostCard({ postData }: PostCardPropsType): JSX.Ele
     <Link href={`/${postData.User.id}/post/${postData.id}`}>
       <CommonPostCardBox>
         <article>
-          <img src={postData.thumbnail} alt="postImg" />
+          <img
+            src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
+            alt="postImg"
+          />
           <h3>{postData.title}</h3>
           <p>{postData.summary}</p>
         </article>

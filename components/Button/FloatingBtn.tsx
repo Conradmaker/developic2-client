@@ -28,7 +28,6 @@ export function ScrollTopBtn({
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      console.log(top);
       top > 500 ? setActive(true) : setActive(false);
     }, 300);
     window.addEventListener('scroll', onScroll);

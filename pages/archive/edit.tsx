@@ -141,21 +141,6 @@ export default function edit(): JSX.Element {
   }, [checkFree]);
 
   const onSubmit = (content: string) => {
-    console.log({
-      cost: +cost,
-      webPage,
-      contact,
-      email,
-      title,
-      author,
-      address,
-      description: content,
-      startDate,
-      endDate,
-      poster,
-      UserId: userData.id,
-      imageList: imageList.map(image => image.imageId),
-    });
     if (!userData) return;
     if (!cost) return toastOpenDispatch('가격을 입력해주세요');
     if (!webPage) return toastOpenDispatch('웹페이지를 입력해주세요');

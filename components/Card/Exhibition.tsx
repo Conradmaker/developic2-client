@@ -11,7 +11,7 @@ export default function Exhibition({ archiveData }: ExhibitionPropsType): JSX.El
   return (
     <Link href={`/archive/${archiveData.id}`}>
       <ExhibitionCardBox className="carousel__item">
-        <img src={archiveData.poster} alt="poster" />
+        <img src={process.env.NEXT_PUBLIC_IMAGE_400 + archiveData.poster} alt="poster" />
         <article>
           <h5>{archiveData.title}</h5>
           <p>{archiveData.author}</p>

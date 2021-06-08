@@ -22,7 +22,10 @@ export default function DrawerPostCard({
   return (
     <Link href={`/${postData.User.id}/post/${postData.id}`}>
       <DrawerPostCardContainer>
-        <img src={postData.thumbnail} alt="thumnail" />
+        <img
+          src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
+          alt="thumnail"
+        />
         <div className="content">
           <img src={postData.User.avatar} alt="avatar" />
           <div className="writer">

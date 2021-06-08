@@ -23,7 +23,10 @@ export default function PopularPostCard({
   return (
     <Link href={`/${postData.User.id}/post/${postData.id}`}>
       <PopularPostCardBox>
-        <img src={postData.thumbnail} alt="thumbnail" />
+        <img
+          src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
+          alt="thumbnail"
+        />
 
         <article>
           <h5>{postData.title}</h5>

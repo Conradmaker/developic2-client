@@ -445,6 +445,9 @@ export const PhotoDetailBox = styled.div<{ infoOpen: boolean }>`
   width: 90vh;
   height: 70vh;
   perspective: 2100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .front,
   .back {
     display: block;

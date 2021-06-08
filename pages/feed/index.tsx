@@ -19,7 +19,6 @@ import {
 import useFetchMore from '../../hooks/useFetchMore';
 import wrapper from '../../modules/store';
 import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
-import useUI from '../../modules/ui/hooks';
 
 const FeedContainer = styled.div`
   max-width: 1150px;

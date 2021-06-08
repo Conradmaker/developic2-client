@@ -18,7 +18,12 @@ export default function PhotoBinderCard({
           {Array.from({ length: 5 }).map((_, index) => {
             return binderData.PostImages[index] ? (
               <div className="img__box__item" key={binderData.PostImages[index].id}>
-                <img src={binderData.PostImages[index].src} alt="" />
+                <img
+                  src={
+                    process.env.NEXT_PUBLIC_IMAGE_200 + binderData.PostImages[index].src
+                  }
+                  alt=""
+                />
               </div>
             ) : (
               <div className="img__box__item" key={index}>

@@ -112,7 +112,10 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
         </div>
       </section>
       <section className="blog__posting">
-        <img src={postData.thumbnail} alt="thumbnail" />
+        <img
+          src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
+          alt="thumbnail"
+        />
         <PostContentViewer content={postData.content} />
         <LikeBtn isLike={isLike} onToggleLike={onToggleLike} />
       </section>

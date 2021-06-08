@@ -79,7 +79,6 @@ export default function HashTagInstant({
 
   const onClickAddTag = useCallback(
     (tag: Hashtag) => {
-      console.log(tag, tagList);
       if (tagList.findIndex(tagItem => tagItem.name === tag.name) !== -1)
         return toastOpenDispatch('이미 적용된 태그입니다.');
       setTagList(tagList.concat(tag));

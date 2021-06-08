@@ -84,7 +84,10 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
           {posts &&
             posts.slice(0, 6).map(picstoryImgItem => (
               <li className="img__box" key={picstoryImgItem.id}>
-                <img src={picstoryImgItem.thumbnail} alt="picstory__recent-img" />
+                <img
+                  src={process.env.NEXT_PUBLIC_IMAGE_400 + picstoryImgItem.thumbnail}
+                  alt="picstory__recent-img"
+                />
               </li>
             ))}
         </ul>

@@ -81,7 +81,11 @@ export default function PhotoDetailModal({
               );
             })}
           </div>
-          <img className="front" src={photoData.src} alt=""></img>
+          <img
+            className="front"
+            src={process.env.NEXT_PUBLIC_IMAGE_ORIGINAL + photoData.src}
+            alt=""
+          ></img>
         </PhotoDetailBox>
         <PhotoModalBtnBox>
           <i onClick={toggleBinderSet}>
