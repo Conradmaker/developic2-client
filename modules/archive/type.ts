@@ -27,6 +27,8 @@ export type ArchiveState = {
   getArchiveList: { loading: boolean; data: null | Archive[]; error: null | unknown };
   getArchiveDetail: { loading: boolean; data: null | Archive; error: null | unknown };
   addArchive: { loading: boolean; data: null | Archive; error: null | unknown };
+  hasMore: boolean;
+  loadMore: boolean;
 };
 
 export type AddArchivePayload = {
@@ -43,4 +45,9 @@ export type AddArchivePayload = {
   poster: string;
   UserId: number;
   imageList: number[];
+};
+
+export type GetArchivePayload = {
+  limit?: number;
+  offset?: number;
 };

@@ -103,7 +103,7 @@ export default function edit(): JSX.Element {
   const [title, onChangeTitle] = useInput('');
   const [author, onChangeAuthor] = useInput('');
   const [address, onChangeAddress] = useInput('');
-  const [webPage, onChangeWebPage] = useInput('http://');
+  const [webPage, onChangeWebPage] = useInput('');
   const [contact, onChangeContact] = useInput('');
   const [email, onChangeEmail] = useInput('');
   const [startDate, setStartDate] = useState('');
