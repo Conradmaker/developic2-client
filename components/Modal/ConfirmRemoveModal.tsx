@@ -5,13 +5,13 @@ import TitleLabel from '../Label/TitleLabel';
 import { ConfirmRemoveModalBox, ModalLayout } from './styles';
 
 type ConfirmRemoveModalPropsType = {
-  onClose: () => void;
+  onClose?: () => void;
   title: string;
   description?: string;
   onConfirm: () => void;
 };
 export default function ConfirmRemoveModal({
-  onClose,
+  onClose = () => null,
   title,
   description,
   onConfirm,
@@ -34,10 +34,7 @@ export default function ConfirmRemoveModal({
       <ConfirmRemoveModalBox valid={validation === '삭제'}>
         <TitleLabel title={title} desc="Confirm Remove" />
         <div className="modal__content">
-          <span>
-            <br />
-            {description}
-          </span>
+          <span>{description}</span>
           <p>
             <strong>'삭제'</strong> 를 입력해 주세요.
           </p>

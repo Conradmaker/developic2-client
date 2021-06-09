@@ -6,11 +6,12 @@ import axios from 'axios';
 import exifr from 'exifr';
 import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
-import useConfirmModal from '../../hooks/useConfirmModal';
 import { useRouter } from 'next/router';
 import usePost from '../../modules/post/hooks';
 import useUser from '../../modules/user/hooks';
 import _delay from 'lodash/delay';
+import useModal from '../../hooks/useModal';
+import ConfirmModal from '../Modal/ConfirmModal';
 
 type ToastEditorPropsType = {
   content: string;
@@ -29,23 +30,19 @@ export default function ToastEditor({
   const { preSavePost } = usePost();
   const router = useRouter();
   const EditorRef = useRef<null | Editor>(null);
-
-  const onTempSubmit = useCallback(() => {
-    setContent(EditorRef.current?.getInstance().getHtml() as string);
-    temporarySave(EditorRef.current?.getInstance().getHtml() as string);
-    router.replace(`/user/drawer/save`);
-    toggleConfirmModal();
-  }, [EditorRef.current, temporarySave]);
+  const [TempSubmitModal, toggleConfirmModal] = useModal(ConfirmModal, {
+    content: '임시저장항목으로 저장하시겠습니까?',
+    onConfirm: useCallback(() => {
+      setContent(EditorRef.current?.getInstance().getHtml() as string);
+      temporarySave(EditorRef.current?.getInstance().getHtml() as string);
+      router.replace(`/user/drawer/save`);
+    }, [EditorRef.current, temporarySave]),
+  });
 
   const onFinalSubmit = useCallback(() => {
     setContent(EditorRef.current?.getInstance().getHtml() as string);
     temporarySave(EditorRef.current?.getInstance().getHtml() as string);
   }, [EditorRef.current, temporarySave]);
-
-  const [confirmModalOpen, toggleConfirmModal, ConfirmModal] = useConfirmModal(
-    onTempSubmit,
-    '임시저장항목으로 저장하시겠습니까?'
-  );
 
   const uploadImageToServer = useCallback(async (image: Blob | File) => {
     if (!userData) return;
@@ -96,7 +93,7 @@ export default function ToastEditor({
       )
         router.replace(`/edit/info/${preSavePost.data.postId}`);
     }
-  }, [preSavePost.data]);
+  }, [preSavePost.data, router.query]);
 
   return (
     <>
@@ -115,7 +112,7 @@ export default function ToastEditor({
           <SquareBtn onClick={onFinalSubmit}>제출</SquareBtn>
         </div>
       </ToastEditorStyle>
-      {confirmModalOpen && <ConfirmModal />}
+      <TempSubmitModal />
     </>
   );
 }

@@ -7,9 +7,10 @@ import CustomInput from '../../../components/Input/CustomInput';
 import CustomSelect from '../../../components/Input/CustomSelect';
 import PageLabel from '../../../components/Label/PageLabel';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
-import ChangePasswordModal from '../../../components/Modal/ChangePasswordModal';
+import _ChangePasswordModal from '../../../components/Modal/ChangePasswordModal';
 import ConfirmRemoveModal from '../../../components/Modal/ConfirmRemoveModal';
 import useInput from '../../../hooks/useInput';
+import useModal from '../../../hooks/useModal';
 import useUser from '../../../modules/user/hooks';
 import { SettingNavData } from '../../../utils/data';
 
@@ -70,22 +71,24 @@ export default function Info(): JSX.Element {
     updateUserInfoDispatch,
     destroyUserDispatch,
   } = useUser();
-  const [userDestroyOpen, setUserDestroyOpen] = useState(false);
-  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
   const [nickname, onChangeNickname] = useInput(userData?.nickname);
   const [birth, onChangeBirth] = useInput(userData?.birth);
   const [gender, onChangeGender] = useInput(userData?.gender);
   const [avatar, setAvatar] = useState(userData?.avatar || '');
+  const [UserDestroyModal, toggleDestroyModal] = useModal(ConfirmRemoveModal, {
+    title: '회원탈퇴',
+    description: '삭제된 회원 정보는 복구되지 않습니다.',
+    onConfirm: useCallback(() => {
+      if (!userData) return;
+      destroyUserDispatch(userData.id);
+    }, []),
+  });
+  const [ChangePasswordModal, togglePasswordModal] = useModal(_ChangePasswordModal, {});
 
   const onUpdateInfo = useCallback(() => {
     if (!userData) return;
     updateUserInfoDispatch({ UserId: userData.id, nickname, birth, gender, avatar });
   }, [nickname, birth, gender, avatar]);
-
-  const onDestroyUser = useCallback(() => {
-    if (!userData) return;
-    destroyUserDispatch(userData.id);
-  }, []);
 
   useEffect(() => {
     if (!userData) router.replace('/');
@@ -125,26 +128,17 @@ export default function Info(): JSX.Element {
             <button type="button" onClick={onUpdateInfo}>
               저장
             </button>
-            <button type="button" onClick={() => setChangePasswordOpen(true)}>
+            <button type="button" onClick={togglePasswordModal}>
               비밀번호 변경
             </button>
-            <button type="button" onClick={() => setUserDestroyOpen(true)}>
+            <button type="button" onClick={toggleDestroyModal}>
               회원탈퇴
             </button>
           </div>
         </div>
       </InfoContainer>
-      {userDestroyOpen && (
-        <ConfirmRemoveModal
-          onClose={() => setUserDestroyOpen(false)}
-          title="회원탈퇴"
-          description="삭제된 회원 정보는 복구되지 않습니다."
-          onConfirm={onDestroyUser}
-        />
-      )}
-      {changePasswordOpen && (
-        <ChangePasswordModal onClose={() => setChangePasswordOpen(false)} />
-      )}
+      <UserDestroyModal />
+      <ChangePasswordModal />
     </PageWithNavLayout>
   );
 }

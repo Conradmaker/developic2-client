@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import CustomInput from '../../components/Input/CustomInput';
 import CustomSelect from '../../components/Input/CustomSelect';
 import CustomTextarea from '../../components/Input/CustomTextarea';
@@ -22,6 +23,13 @@ const InqueryContainer = styled.section`
       width: 450px;
       & > div {
         margin-bottom: 20px;
+      }
+      & > p {
+        position: relative;
+        top: -10px;
+        color: #b93939;
+        text-align: end;
+        font-size: ${({ theme }) => theme.fontSize.small};
       }
       .btn__group {
         display: flex;
@@ -48,14 +56,57 @@ const InqueryContainer = styled.section`
   }
 `;
 
-const inquiryType = [
-  { id: 1, value: '1번유형' },
-  { id: 2, value: '2번유형' },
+const inqueryType = [
+  { id: 1, value: '이용문의' },
+  { id: 2, value: '전시정보 수정요청' },
+  { id: 3, value: '기타문의' },
 ];
+const initialState = {
+  email: '',
+  contact: '',
+  content: '',
+};
 export default function Inquery(): JSX.Element {
-  const [email, onChangeEmail] = useInput('');
-  const [phone, onChangePhone] = useInput('');
-  const [content, onChangeContent] = useInput('');
+  const [error, setError] = useState(initialState);
+  const [btnText, setBtnText] = useState('전송');
+  const [type, setType] = useState(inqueryType[0].value);
+  const [email, onChangeEmail, setEmail] = useInput('');
+  const [contact, onChangeContact, setContact] = useInput('');
+  const [content, onChangeContent, setContent] = useInput('');
+
+  const onChangeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setType(e.target.value);
+  };
+  const onSend = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!email.trim()) {
+      setError({ ...initialState, email: '이메일을 입력해주세요.' });
+      return;
+    } else if (!contact.trim()) {
+      setError({ ...initialState, contact: '연락처를 입력해주세요.' });
+      return;
+    } else if (!content.trim()) {
+      setError({ ...initialState, content: '문의내용을 입력해주세요.' });
+      return;
+    }
+    setBtnText('전송중..');
+    axios
+      .post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/cs/inquery`, {
+        email,
+        contact,
+        content,
+        type,
+      })
+      .then(res => {
+        alert(res.data);
+        setType(inqueryType[0].value);
+        setEmail('');
+        setContact('');
+        setContent('');
+        setBtnText('전송');
+        setError(initialState);
+      });
+  };
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <Head>
@@ -71,18 +122,21 @@ export default function Inquery(): JSX.Element {
           <img src="/cs_banner.png" alt="cs_banner.png" />
         </div>
         <div className="cs__right">
-          <form>
+          <form onSubmit={onSend}>
             <CustomInput title="이메일" value={email} onChange={onChangeEmail} />
-            <CustomInput title="연락처" value={phone} onChange={onChangePhone} />
+            <p>{error.email}</p>
+            <CustomInput title="연락처" value={contact} onChange={onChangeContact} />
+            <p>{error.contact}</p>
             <CustomSelect
               title="문의유형"
-              value={inquiryType[1].value}
-              onChange={() => null}
-              data={inquiryType}
+              value={type}
+              onChange={onChangeType}
+              data={inqueryType}
             />
             <CustomTextarea title="문의내용" value={content} onChange={onChangeContent} />
+            <p>{error.content}</p>
             <div className="btn__group">
-              <button>전송</button>
+              <button type="submit">{btnText}</button>
               <button type="reset">초기화</button>
             </div>
           </form>

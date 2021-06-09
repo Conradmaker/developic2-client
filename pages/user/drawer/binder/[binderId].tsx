@@ -8,6 +8,7 @@ import PhotoBinderGallery from '../../../../components/List/PhotoBinderGallery';
 import BinderEditModal from '../../../../components/Modal/BinderModal';
 import ConfirmRemoveModal from '../../../../components/Modal/ConfirmRemoveModal';
 import Incomplete from '../../../../components/Result/Incomplete';
+import useModal from '../../../../hooks/useModal';
 import { getPhotoBinderDetailAction } from '../../../../modules/drawer';
 import useDrawer from '../../../../modules/drawer/hooks';
 import wrapper from '../../../../modules/store';
@@ -66,17 +67,20 @@ export default function binderId(): JSX.Element {
     removeBinderPhotoDispatch,
     removePhotoBinderDispatch,
   } = useDrawer();
-
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [removeModalOpen, setRemoveModalOpen] = useState(false);
+  const [RemoveBinderModal, onToggleRemoveModal] = useModal(ConfirmRemoveModal, {
+    title: '바인더 삭제',
+    description: '포토바인더를 삭제 하시겠습니까?',
+    onConfirm: useCallback(() => {
+      if (!getBinderDetail.data) return;
+      removePhotoBinderDispatch(getBinderDetail.data.id);
+      router.replace('/user/drawer/binder');
+    }, [getBinderDetail.data]),
+  });
 
   const onToggleEditModal = useCallback(() => {
     setEditModalOpen(prev => !prev);
-  }, []);
-  const onToggleRemoveModal = useCallback(() => {
-    setEditModalOpen(prev => !prev);
-    setRemoveModalOpen(prev => !prev);
   }, []);
 
   const onToggleSelectPhoto = useCallback(
@@ -96,12 +100,6 @@ export default function binderId(): JSX.Element {
       photoIdArr: selectedPhotos,
     });
   }, [selectedPhotos, getBinderDetail.data]);
-
-  const removeBinder = useCallback(() => {
-    if (!getBinderDetail.data) return;
-    removePhotoBinderDispatch(getBinderDetail.data.id);
-    router.back();
-  }, [getBinderDetail.data]);
 
   if (getBinderDetail.error)
     return (
@@ -148,14 +146,7 @@ export default function binderId(): JSX.Element {
           onRemove={onToggleRemoveModal}
         />
       )}
-      {removeModalOpen && (
-        <ConfirmRemoveModal
-          title="바인더 삭제"
-          description="포토바인더를 삭제 하시겠습니까?"
-          onConfirm={removeBinder}
-          onClose={onToggleRemoveModal}
-        />
-      )}
+      <RemoveBinderModal />
     </PageWithNavLayout>
   );
 }

@@ -1,28 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getArchiveListAction, getArchiveDetailAction, addArchiveAction } from './thunk';
-import { ArchiveState } from './type';
+import { Archive, ArchiveState } from './type';
 
 const initialState: ArchiveState = {
   getArchiveList: { loading: false, data: null, error: null },
   getArchiveDetail: { loading: false, data: null, error: null },
   addArchive: { loading: false, data: null, error: null },
+  hasMore: false,
+  loadMore: false,
 };
 
 const archiveSlice = createSlice({
   name: 'archive',
   initialState,
-  reducers: {},
+  reducers: {
+    hasMoreData(state, { payload }) {
+      state.hasMore = payload;
+    },
+    isMoreLoading(state, { payload }) {
+      state.loadMore = payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getArchiveListAction.pending, state => {
         state.getArchiveList.loading = true;
-        state.getArchiveList.data = null;
         state.getArchiveList.error = null;
       })
       .addCase(getArchiveListAction.fulfilled, (state, { payload }) => {
         state.getArchiveList.loading = false;
-        state.getArchiveList.data = payload;
         state.getArchiveList.error = null;
+        state.getArchiveList.data = state.loadMore
+          ? (state.getArchiveList.data as Archive[]).concat(payload)
+          : payload;
       })
       .addCase(getArchiveListAction.rejected, (state, { payload }) => {
         state.getArchiveList.loading = false;
@@ -62,4 +72,5 @@ const archiveSlice = createSlice({
   },
 });
 
+export const { hasMoreData, isMoreLoading } = archiveSlice.actions;
 export default archiveSlice.reducer;

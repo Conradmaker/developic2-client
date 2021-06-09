@@ -6,7 +6,6 @@ import CommonPostCard from '../../components/Card/CommonPostCard';
 import RecentUserCard from '../../components/Card/RecentUserCard';
 import TitleLabel from '../../components/Label/TitleLabel';
 import Layout from '../../components/Layout';
-import useFollowListModal from '../../hooks/useFollowListModal';
 import useList from '../../modules/list/hooks';
 import useUser from '../../modules/user/hooks';
 import { useRouter } from 'next/router';
@@ -19,6 +18,8 @@ import {
 import useFetchMore from '../../hooks/useFetchMore';
 import wrapper from '../../modules/store';
 import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
+import useModal from '../../hooks/useModal';
+import _FollowListModal from '../../components/Modal/FollowListModal';
 
 const FeedContainer = styled.div`
   max-width: 1150px;
@@ -89,7 +90,7 @@ export default function index(): JSX.Element {
   const { getFeedPostDispatch, pageData, hasMore } = useList();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
   const router = useRouter();
-  const [followListOpen, toggleFollowList, FollowListModal] = useFollowListModal();
+  const [FollowListModal, toggleFollowList] = useModal(_FollowListModal, {});
 
   useEffect(() => {
     if (!userData) {
@@ -134,7 +135,7 @@ export default function index(): JSX.Element {
           <FetchMoreTrigger />
         </section>
       </FeedContainer>
-      {followListOpen && <FollowListModal />}
+      <FollowListModal />
     </Layout>
   );
 }

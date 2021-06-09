@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
 import { useThemeState } from '../../hooks/ThemeContext';
@@ -41,7 +42,9 @@ export default function ArchiveItem({
             ))}
           </p>
           <p>
-            <b>{`${data.startDate} - ${data.endDate}`}</b>
+            <b>{`${dayjs(data.startDate).format('YYYY-MM-DD')} - ${dayjs(
+              data.endDate
+            ).format('YYYY-MM-DD')}`}</b>
           </p>
           <p>{data.address}</p>
         </article>
