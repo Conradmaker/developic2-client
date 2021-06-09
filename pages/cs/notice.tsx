@@ -1,15 +1,20 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageLabel from '../../components/Label/PageLabel';
 import PageWithNavLayout from '../../components/Layout/PageWithNavLayout';
 import NoticeList from '../../components/List/NoticeList';
+import useCS from '../../modules/cs/hooks';
 import { CSNavData } from '../../utils/data';
 
 const NoticeContainer = styled.section`
   min-height: 550px;
 `;
 
-export default function Inquery(): JSX.Element {
+export default function Notice(): JSX.Element {
+  const { getNoticeDispatch, getCs } = useCS();
+  useEffect(() => {
+    getNoticeDispatch({ limit: 5 });
+  }, []);
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <NoticeContainer>
@@ -21,7 +26,7 @@ export default function Inquery(): JSX.Element {
           />
         </div>
         <div className="cs__right">
-          <NoticeList />
+          <NoticeList data={getCs.data} />
         </div>
       </NoticeContainer>
     </PageWithNavLayout>

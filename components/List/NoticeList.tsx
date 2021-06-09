@@ -1,42 +1,42 @@
 import React, { useState } from 'react';
 import { NoticeListContainer } from './styles';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { FaqType, NoticeType } from '../../modules/cs';
+import dayjs from 'dayjs';
 
 type NoticeItemPropsType = {
-  setContentOpenIndex: React.Dispatch<React.SetStateAction<number | null>>;
   contentOpenIndex: number | null;
-  index: number;
-  hasWriter: boolean;
+  setContentOpenIndex: React.Dispatch<React.SetStateAction<number | null>>;
+  data: NoticeType | FaqType;
 };
 function NoticeItem({
   contentOpenIndex,
   setContentOpenIndex,
-  index,
-  hasWriter,
+  data,
 }: NoticeItemPropsType): JSX.Element {
   const turnOnContent = () => {
-    if (index === contentOpenIndex) setContentOpenIndex(null);
-    else setContentOpenIndex(index);
+    if (data.id === contentOpenIndex) setContentOpenIndex(null);
+    else setContentOpenIndex(data.id);
+  };
+  const isNotice = (target: NoticeType | FaqType): target is NoticeType => {
+    return (target as NoticeType).title !== undefined;
   };
   return (
     <li onClick={turnOnContent}>
       <div className="icon">
-        {contentOpenIndex === index ? <AiOutlineMinus /> : <AiOutlinePlus />}
+        {contentOpenIndex === data.id ? <AiOutlineMinus /> : <AiOutlinePlus />}
       </div>
       <div className="content">
-        <h2>자자 공지가 왔어요 공지가!</h2>
-        {contentOpenIndex === index && (
+        <h2>{isNotice(data) ? data.title : data.question}</h2>
+        {contentOpenIndex === data.id && (
           <article>
-            {hasWriter && (
+            {isNotice(data) && (
               <div className="info">
-                <span>2020.03.20 / 03시 55분</span>
-                <span>- 운영자 픽픽few</span>
+                <span>{dayjs(data.createdAt).format('YYYY.MM.DD, hh:mm a')}</span>
+                <span>{`- ${data.Admin.name}`}</span>
               </div>
             )}
-            <p>
-              모두 이 사이트를 탈퇴해 주세요.... 왜냐면 망가져 버렸어요 누가 고장을
-              냈을까? 정답은 바로 아래에 있음. 함ㄴㅎㅁㄴ;험ㄴ;ㅎ
-            </p>
+            <p>{isNotice(data) ? data.content : data.answer}</p>
           </article>
         )}
       </div>
@@ -44,20 +44,19 @@ function NoticeItem({
   );
 }
 type NoticeListPropsType = {
-  hasWriter?: boolean;
+  data: NoticeType[] | FaqType[] | null;
 };
-export default function NoticeList({
-  hasWriter = true,
-}: NoticeListPropsType): JSX.Element {
+export default function NoticeList({ data }: NoticeListPropsType): JSX.Element {
   const [contentOpenIndex, setContentOpenIndex] = useState<null | number>(null);
+  if (!data) return <></>;
   return (
     <NoticeListContainer>
-      {Array.from({ length: 5 }).map((v, index) => (
+      {data.map((v: NoticeType | FaqType) => (
         <NoticeItem
-          index={index}
-          setContentOpenIndex={setContentOpenIndex}
+          key={v.id}
           contentOpenIndex={contentOpenIndex}
-          hasWriter={hasWriter}
+          setContentOpenIndex={setContentOpenIndex}
+          data={v}
         />
       ))}
     </NoticeListContainer>
