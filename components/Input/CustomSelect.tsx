@@ -4,7 +4,7 @@ import { CustomSelectBox } from './styles';
 type CustomSelectPropsType = {
   title: string;
   value: string;
-  onChange: (e: React.ChangeEvent) => void;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   width?: number;
   data: { id: number; value: string }[];
 };
