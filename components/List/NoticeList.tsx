@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NoticeListContainer } from './styles';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { FaqType, NoticeType } from '../../modules/cs';
@@ -51,9 +51,7 @@ type NoticeListPropsType = {
 };
 export default function NoticeList({ data }: NoticeListPropsType): JSX.Element {
   const [contentOpenIndex, setContentOpenIndex] = useState<null | number>(null);
-
   if (!data) return <></>;
-
   return (
     <NoticeListContainer>
       {data.map((v: NoticeType | FaqType) => (

@@ -4,18 +4,27 @@ import React, { useEffect } from 'react';
 import PageLabel from '../../components/Label/PageLabel';
 import PageWithNavLayout from '../../components/Layout/PageWithNavLayout';
 import NoticeList from '../../components/List/NoticeList';
+import useFetchMore from '../../hooks/useFetchMore';
+import { getNoticeAction } from '../../modules/cs';
 import useCS from '../../modules/cs/hooks';
+import wrapper from '../../modules/store';
 import { CSNavData } from '../../utils/data';
+import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
 
 const NoticeContainer = styled.section`
   min-height: 550px;
 `;
 
 export default function Notice(): JSX.Element {
-  const { getNoticeDispatch, getCs } = useCS();
+  const { getNoticeDispatch, getCs, hasMore } = useCS();
+  const [FetchMoreTrigger, page] = useFetchMore(hasMore);
+
   useEffect(() => {
-    getNoticeDispatch({ limit: 5 });
-  }, []);
+    if (hasMore && page > 0) {
+      getNoticeDispatch({ limit: 8, offset: page * 8 });
+    }
+  }, [page]);
+  if (!getCs.data) return <></>;
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <Head>
@@ -31,8 +40,14 @@ export default function Notice(): JSX.Element {
         </div>
         <div className="cs__right">
           <NoticeList data={getCs.data} />
+          <FetchMoreTrigger />
         </div>
       </NoticeContainer>
     </PageWithNavLayout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  await authServersiceAction(context);
+  await context.store.dispatch(getNoticeAction({ limit: 8, offset: 0 }));
+});

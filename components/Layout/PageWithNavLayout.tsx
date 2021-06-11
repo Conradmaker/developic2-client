@@ -24,6 +24,8 @@ export const PageWithNavContainer = styled.main`
     }
     .cs__right {
       flex: 1;
+      display: flex;
+      flex-direction: column;
     }
   }
 `;

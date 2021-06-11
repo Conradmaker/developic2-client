@@ -32,7 +32,7 @@ export const NoticeListContainer = styled.ul`
     display: flex;
     align-items: flex-start;
     .icon {
-      margin: 10px 20px 10px 0;
+      margin: 15px 20px 15px 0;
       color: ${({ theme }) => theme.textColor.initial};
       svg {
         font-size: 25px;
@@ -46,7 +46,7 @@ export const NoticeListContainer = styled.ul`
         height: 25px;
         font-size: 18px;
         line-height: 25px;
-        margin: 10px 0;
+        margin: 15px 0;
       }
       article {
         overflow: hidden;

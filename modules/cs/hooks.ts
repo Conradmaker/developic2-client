@@ -5,7 +5,7 @@ import { getFaqAction, getNoticeAction } from './thunk';
 import { GetCsPayload } from './type';
 
 export default function useCS() {
-  const { getCs } = useAppSelector(state => state.cs);
+  const { getCs, hasMore } = useAppSelector(state => state.cs);
   const dispatch = useAppDispatch();
 
   const getNoticeDispatch = useCallback((data: GetCsPayload) => {
@@ -16,5 +16,5 @@ export default function useCS() {
     dispatch(getFaqAction(data));
   }, []);
 
-  return { getCs, getNoticeDispatch, getFaqDispatch };
+  return { hasMore, getCs, getNoticeDispatch, getFaqDispatch };
 }
