@@ -49,8 +49,9 @@ export type UserState = {
     error: null | unknown;
   };
   userData: User | null;
-  addBlogFollow: { loading: boolean; data: null | unknown; error: null | unknown };
-  removeBlogFollow: { loading: boolean; data: null | unknown; error: null | unknown };
+  addSubscribe: { loading: boolean; data: null | unknown; error: null | unknown };
+  removeSubscribe: { loading: boolean; data: null | unknown; error: null | unknown };
+  getSubWriter: { loading: boolean; data: null | unknown; error: null | unknown };
 };
 
 // 액션 Payload 타입

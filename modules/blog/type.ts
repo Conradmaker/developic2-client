@@ -15,8 +15,8 @@ export type BlogState = {
     data: BlogPicstory | null;
     error: null | unknown;
   };
-  addBlogFollow: { loading: boolean; data: null | unknown; error: null };
-  removeBlogFollow: { loading: boolean; data: null | unknown; error: null };
+  addSubscribe: { loading: boolean; data: null | unknown; error: null };
+  removeSubscribe: { loading: boolean; data: null | unknown; error: null };
   loadMore: boolean;
   hasMore: boolean;
 };

@@ -397,46 +397,90 @@ export const FollowListModalBox = styled(ModalBox)`
   }
   & > ul {
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 20px 0;
-    height: 360px;
-    margin: 20px 0;
+    max-height: 360px;
+    margin: 25px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    li {
-      margin-bottom: 30px;
-      width: 200px;
-      height: 50px;
-      display: flex;
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-      & > div {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        padding-left: 20px;
-        span {
-          display: block;
-          font-size: 15px;
-          font-family: 'Noto Serif KR';
-        }
-        button {
-          align-self: flex-end;
-          font-size: 12px;
-          padding: 2px 10px;
-        }
-      }
-    }
   }
   .btn__group {
     display: flex;
+    flex: 1;
+    align-items: flex-end;
     justify-content: flex-end;
+  }
+`;
+export const FollowingItemBox = styled.li`
+  margin: 10px 0 30px 0;
+  width: 220px;
+  height: 50px;
+  display: flex;
+  position: relative;
+  img {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  & > .user__info {
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 20px;
+    font-family: 'Noto Serif KR';
+    span {
+      cursor: pointer;
+      display: block;
+      font-size: 15px;
+    }
+    & > ul > li {
+      cursor: pointer;
+      font-size: 12px;
+      small {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+        font-size: 12px;
+      }
+    }
+  }
+  .unSub__btn {
+    position: absolute;
+    right: 0;
+    top: -10px;
+    font-size: 12px;
+    background: #fff;
+    display: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    &:hover {
+      background-color: ${({ theme }) => theme.grayScale[4]};
+    }
+    svg {
+      transform: rotate(40deg);
+    }
+  }
+  &:hover {
+    .unSub__btn {
+      display: inline-flex;
+    }
+    span,
+    ul > li {
+      text-decoration: underline;
+    }
   }
 `;
 

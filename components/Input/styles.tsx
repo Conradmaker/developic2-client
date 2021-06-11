@@ -69,10 +69,12 @@ export const CustomSelectBox = styled.div<{ width?: number }>`
   width: ${props => (props.width ? `${props.width}px` : '100%')};
   label {
     width: 100px;
+    margin-right: 25px;
   }
   select {
     outline: none;
     width: 100%;
+    margin-left: 10px;
     padding: 5px 0;
     -webkit-appearance: none; /* 네이티브 외형 감추기 */
     -moz-appearance: none;

@@ -13,8 +13,8 @@ const initialState: BlogState = {
   loadBlogPostList: { loading: false, data: null, error: null },
   loadBlogPicstoryList: { loading: false, data: null, error: null },
   loadBlogPicstoryDetail: { loading: false, data: null, error: null },
-  addBlogFollow: { loading: false, data: null, error: null },
-  removeBlogFollow: { loading: false, data: null, error: null },
+  addSubscribe: { loading: false, data: null, error: null },
+  removeSubscribe: { loading: false, data: null, error: null },
   loadMore: false,
   hasMore: false,
 };
@@ -95,15 +95,15 @@ const blogSlice = createSlice({
         state.loadBlogPicstoryDetail.error = payload;
       })
       .addCase(subscribeAction.fulfilled, state => {
-        state.addBlogFollow.loading = false;
-        state.addBlogFollow.error = null;
+        state.addSubscribe.loading = false;
+        state.addSubscribe.error = null;
         if (state.loadBlogUser.data?.suberCount) {
           state.loadBlogUser.data.suberCount += 1;
         }
       })
       .addCase(unSubscribeAction.fulfilled, state => {
-        state.addBlogFollow.loading = false;
-        state.addBlogFollow.error = null;
+        state.addSubscribe.loading = false;
+        state.addSubscribe.error = null;
         if (state.loadBlogUser.data?.suberCount) {
           state.loadBlogUser.data.suberCount -= 1;
         }

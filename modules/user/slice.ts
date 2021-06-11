@@ -33,11 +33,11 @@ const initialState: UserState = {
   addPostLike: { loading: false, data: null, error: null },
   removePostLike: { loading: false, data: null, error: null },
   userData: null,
-  addBlogFollow: { loading: false, data: null, error: null },
-  removeBlogFollow: { loading: false, data: null, error: null },
+  addSubscribe: { loading: false, data: null, error: null },
+  removeSubscribe: { loading: false, data: null, error: null },
+  getSubWriter: { loading: false, data: null, error: null },
 };
 
-//data항목을 success:boolean으로 바꿀지 생각해보기. 성공여부만 나타내도록
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -278,32 +278,32 @@ const userSlice = createSlice({
         state.removePostLike.error = payload;
       })
       .addCase(subscribeAction.pending, state => {
-        state.addBlogFollow.loading = true;
-        state.addBlogFollow.data = null;
-        state.addBlogFollow.error = null;
+        state.addSubscribe.loading = true;
+        state.addSubscribe.data = null;
+        state.addSubscribe.error = null;
       })
       .addCase(subscribeAction.fulfilled, (state, { payload }) => {
-        state.addBlogFollow.loading = false;
-        state.addBlogFollow.data = payload;
-        state.addBlogFollow.error = null;
+        state.addSubscribe.loading = false;
+        state.addSubscribe.data = payload;
+        state.addSubscribe.error = null;
         if (state.userData) {
           state.userData.writers?.push({ id: payload.writerId });
         }
       })
       .addCase(subscribeAction.rejected, (state, { payload }) => {
-        state.addBlogFollow.loading = false;
-        state.addBlogFollow.data = null;
-        state.addBlogFollow.error = payload;
+        state.addSubscribe.loading = false;
+        state.addSubscribe.data = null;
+        state.addSubscribe.error = payload;
       })
       .addCase(unSubscribeAction.pending, state => {
-        state.removeBlogFollow.loading = true;
-        state.removeBlogFollow.data = null;
-        state.removeBlogFollow.error = null;
+        state.removeSubscribe.loading = true;
+        state.removeSubscribe.data = null;
+        state.removeSubscribe.error = null;
       })
       .addCase(unSubscribeAction.fulfilled, (state, { payload }) => {
-        state.removeBlogFollow.loading = false;
-        state.removeBlogFollow.data = payload;
-        state.removeBlogFollow.error = null;
+        state.removeSubscribe.loading = false;
+        state.removeSubscribe.data = payload;
+        state.removeSubscribe.error = null;
         if (state.userData) {
           state.userData.writers = state.userData.writers?.filter(
             writer => writer.id !== payload.writerId
@@ -311,9 +311,9 @@ const userSlice = createSlice({
         }
       })
       .addCase(unSubscribeAction.rejected, (state, { payload }) => {
-        state.removeBlogFollow.loading = false;
-        state.removeBlogFollow.data = null;
-        state.removeBlogFollow.error = payload;
+        state.removeSubscribe.loading = false;
+        state.removeSubscribe.data = null;
+        state.removeSubscribe.error = payload;
       });
   },
 });

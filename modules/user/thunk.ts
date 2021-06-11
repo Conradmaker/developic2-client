@@ -291,9 +291,9 @@ export const subscribeAction = createAsyncThunk<
   { writerId: number },
   blogFollowPayload,
   { rejectValue: MyKnownError }
->('blog/addBlogFollow', async (addBlogFollowData, { dispatch, rejectWithValue }) => {
+>('blog/addSubscribe', async (addSubscribeData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post(`/user/subscribe/add`, addBlogFollowData);
+    const { data } = await axios.post(`/user/subscribe/add`, addSubscribeData);
     await toastPopAction(dispatch, `블로그를 구독하였습니다.`);
     return data;
   } catch (e) {
@@ -308,17 +308,14 @@ export const unSubscribeAction = createAsyncThunk<
   { writerId: number },
   blogFollowPayload,
   { rejectValue: MyKnownError }
->(
-  'blog/removeBlogFollow',
-  async (removeBlogFollowData, { dispatch, rejectWithValue }) => {
-    try {
-      const { data } = await axios.post(`/user/subscribe/remove`, removeBlogFollowData);
-      await toastPopAction(dispatch, `구독을 취소하였습니다`);
-      return data;
-    } catch (e) {
-      console.error(e);
-      await toastPopAction(dispatch, e.response.data);
-      return rejectWithValue({ message: e.response.data });
-    }
+>('blog/removeSubscribe', async (removeSubscribeData, { dispatch, rejectWithValue }) => {
+  try {
+    const { data } = await axios.post(`/user/subscribe/remove`, removeSubscribeData);
+    await toastPopAction(dispatch, `구독을 취소하였습니다`);
+    return data;
+  } catch (e) {
+    console.error(e);
+    await toastPopAction(dispatch, e.response.data);
+    return rejectWithValue({ message: e.response.data });
   }
-);
+});

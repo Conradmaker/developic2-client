@@ -37,36 +37,43 @@ const FeedContainer = styled.div`
     }
   }
   .feed__users {
-    & > ul {
+    .user__list {
       display: flex;
-      justify-content: space-between;
-      height: 100px;
-      padding: 0 50px;
-      margin-top: 30px;
-      .more__recent__users {
-        color: ${({ theme }) => theme.textColor.lighten};
-        width: 100px;
+      & > ul {
+        flex: 1;
         display: flex;
-        flex-direction: column;
+        justify-content: flex-start;
+        height: 100px;
+        padding: 0 50px;
+        margin-top: 30px;
+        li {
+          margin: 0 10px;
+        }
+      }
+    }
+    .more__recent__users {
+      color: ${({ theme }) => theme.textColor.lighten};
+      width: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      & > div {
+        width: 40px;
+        height: 40px;
+        border: 2px solid ${({ theme }) => theme.textColor.lighten};
+        border-radius: 50%;
+        display: flex;
         justify-content: center;
         align-items: center;
-        & > div {
-          width: 40px;
-          height: 40px;
-          border: 2px solid ${({ theme }) => theme.textColor.lighten};
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          &:hover {
-            box-shadow: 0 0 3px ${({ theme }) => theme.grayScale[2]};
-          }
+        cursor: pointer;
+        &:hover {
+          box-shadow: 0 0 3px ${({ theme }) => theme.grayScale[2]};
         }
-        p {
-          font-size: ${({ theme }) => theme.fontSize.small};
-          margin-top: 10px;
-        }
+      }
+      p {
+        font-size: ${({ theme }) => theme.fontSize.small};
+        margin-top: 10px;
       }
     }
   }
@@ -113,17 +120,19 @@ export default function index(): JSX.Element {
         <TitleLabel title="피드" desc="Posts by your followers" />
         <section className="feed__users">
           <h1>최근 활동 구독작가</h1>
-          <ul>
-            {(pageData as FeedPageDataType).writer.map(user => (
-              <RecentUserCard key={user.id} userData={user} />
-            ))}
+          <div className="user__list">
+            <ul>
+              {(pageData as FeedPageDataType).writer.map(
+                (user, i) => i < 8 && <RecentUserCard key={user.id} userData={user} />
+              )}
+            </ul>
             <li className="more__recent__users" onClick={toggleFollowList}>
               <div>
                 <BiRightArrow />
               </div>
               <p>더 많은 작가</p>
             </li>
-          </ul>
+          </div>
         </section>
         <section className="feed__posts">
           <h1>구독한 작가의 글</h1>
