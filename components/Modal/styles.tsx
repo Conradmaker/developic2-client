@@ -17,7 +17,7 @@ to{
     transform:translateY(0px)
 }
 `;
-export const ModalLayout = styled.div`
+export const ModalLayout = styled.div<{ background?: 'darker' | 'lighter' }>`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -29,6 +29,16 @@ export const ModalLayout = styled.div`
   background-color: ${({ theme }) => theme.layerColor.modalLayer};
   animation: ${fadeIn} 0.4s;
   z-index: 2000;
+  ${({ background }) =>
+    background === 'darker' &&
+    css`
+      background-color: rgba(10, 10, 10, 0.7);
+    `};
+  ${({ background }) =>
+    background === 'lighter' &&
+    css`
+      background-color: rgba(10, 10, 10, 0.2);
+    `}
 `;
 
 export const SearchModalLayout = styled(ModalLayout)`
@@ -59,6 +69,11 @@ export const ModalBox = styled.div<{ width?: number; height?: number }>`
     css`
       height: ${height}px;
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    min-width: auto;
+    min-height: auto;
+    padding: 20px 20px;
+  }
 `;
 
 export const LoginModalBox = styled(ModalBox)`
@@ -115,6 +130,20 @@ export const LoginModalBox = styled(ModalBox)`
     bottom: 0;
     width: 50%;
     background-image: url('https://images.unsplash.com/photo-1542435503-956c469947f6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 95%;
+    min-height: 580px;
+    .login--left {
+      width: 100%;
+      padding: 10px;
+      form {
+        padding: 0;
+      }
+    }
+    .login--right {
+      display: none;
+    }
   }
 `;
 
@@ -504,6 +533,20 @@ export const PhotoDetailBox = styled.div<{ infoOpen: boolean }>`
   }
   .front {
     transform: rotateY(0deg);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ${({ theme }) =>
+      theme.background &&
+      css`
+        background-color: ${theme.background.modal};
+      `};
+    img {
+      max-width: 90vh;
+      max-height: 70vh;
+    }
   }
   .back {
     position: absolute;

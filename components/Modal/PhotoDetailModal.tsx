@@ -68,7 +68,7 @@ export default function PhotoDetailModal({
 
   return (
     <>
-      <ModalLayout onClick={onClose}>
+      <ModalLayout background={'darker'} onClick={onClose}>
         <PhotoDetailBox infoOpen={infoOpen} onContextMenu={onRightClick}>
           <div className="back">
             {Object.entries(computeMetaData(photoData.MetaDatum)).map(([key, value]) => {
@@ -81,11 +81,12 @@ export default function PhotoDetailModal({
               );
             })}
           </div>
-          <img
-            className="front"
-            src={process.env.NEXT_PUBLIC_IMAGE_ORIGINAL + photoData.src}
-            alt=""
-          ></img>
+          <div className="front">
+            <img
+              src={process.env.NEXT_PUBLIC_IMAGE_ORIGINAL + photoData.src}
+              alt=""
+            ></img>
+          </div>
         </PhotoDetailBox>
         <PhotoModalBtnBox>
           <i onClick={toggleBinderSet}>

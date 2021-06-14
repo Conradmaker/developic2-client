@@ -29,7 +29,8 @@ export default function Header(): JSX.Element {
   const toggleLoginModal = useCallback(() => setLoginOpen(!loginOpen), [loginOpen]);
 
   useEffect(() => {
-    const onScroll = _throttle((e: WheelEvent) => {
+    let oldValue = 0;
+    const onScroll = _throttle(() => {
       const top =
         window.scrollY ||
         window.pageYOffset ||
@@ -37,15 +38,17 @@ export default function Header(): JSX.Element {
         document.body.scrollTop;
 
       if (top > 72) {
-        e.deltaY < 0 ? setHeaderActive(true) : setHeaderActive(false);
+        oldValue > top ? setHeaderActive(true) : setHeaderActive(false);
       } else {
         setHeaderActive(true);
       }
+      oldValue = top;
+      console.log(oldValue);
     }, 300);
 
-    window.addEventListener('wheel', onScroll);
+    window.addEventListener('scroll', onScroll);
 
-    return () => window.removeEventListener('wheel', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
   return (
     <>

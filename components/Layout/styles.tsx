@@ -17,6 +17,9 @@ export const LayoutContainer = styled.div`
   background-color: ${({ theme }) => theme.background.initial};
   padding-top: 72px;
   padding-bottom: 150px;
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    overflow: hidden;
+  }
 `;
 export const FooterContainer = styled.footer`
   position: absolute;
@@ -72,6 +75,23 @@ export const FooterContainer = styled.footer`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .inner {
+      flex-direction: column;
+      max-width: 100%;
+      justify-content: space-evenly;
+      .menu__list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .logo {
+          margin-top: 10px;
+        }
+        p {
+        }
+      }
+    }
+  }
 `;
 export const HeaderContainer = styled.header<{ active: boolean }>`
   top: 0;
@@ -110,8 +130,6 @@ export const HeaderContainer = styled.header<{ active: boolean }>`
           color: ${({ theme }) => theme.textColor.initial};
           &:hover {
             text-decoration: underline;
-          }
-          svg {
           }
         }
       }
@@ -160,6 +178,34 @@ export const HeaderContainer = styled.header<{ active: boolean }>`
     css`
       transform: translateY(-73px);
     `};
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .inner {
+      max-width: 100%;
+      .header--left {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        .logo {
+          font-size: 20px;
+          padding: 5px 10px;
+        }
+        ul {
+          margin-left: 0px;
+          align-items: flex-start;
+          li {
+            font-size: 14px;
+          }
+        }
+      }
+      .header--right {
+        position: absolute;
+        right: 10px;
+        & > button {
+          display: none;
+        }
+      }
+    }
+  }
 `;
 
 export const UserMenuContainer = styled.div`
