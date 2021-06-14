@@ -151,6 +151,15 @@ export const RecentUserCardCardBox = styled.li`
     font-size: 12px;
     color: ${({ theme }) => theme.grayScale[1]};
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    div {
+      width: 80px;
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
 `;
 
 export const HashTagBox = styled.div`
@@ -283,6 +292,28 @@ export const CommonPostCardBox = styled.li`
         padding-top: 0.071em;
         margin-right: 0.214em;
         font-size: ${({ theme }) => theme.fontSize.base};
+      }
+    }
+  }
+  .write_date {
+    margin-top: 8px;
+    text-align: right;
+    color: ${({ theme }) => theme.grayScale[1]};
+    font-size: 12px;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    background-color: ${({ theme }) => theme.background.modal};
+    padding: 50px 20px 60px 20px;
+    article {
+      cursor: pointer;
+      width: 100%;
+      & > img {
+        width: 100%;
+        height: auto;
+        min-height: 160px;
+        max-height: 400px;
+        object-fit: cover;
       }
     }
   }

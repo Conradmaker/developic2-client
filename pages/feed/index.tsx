@@ -91,6 +91,50 @@ const FeedContainer = styled.div`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+    margin: 10px auto 50px auto;
+    .feed__users {
+      margin-top: 30px;
+      padding-top: 10px;
+      position: relative;
+      h1 {
+        font-size: 24px;
+      }
+      .user__list {
+        & > ul {
+          padding: 0 10px;
+          overflow: scroll;
+        }
+        & > .more__recent__users {
+          width: auto;
+          position: absolute;
+          top: 30px;
+          right: 0;
+          div {
+            display: none;
+          }
+        }
+      }
+    }
+    .feed__posts {
+      h1 {
+        font-size: 24px;
+      }
+      ul {
+        flex-wrap: wrap;
+        li {
+          padding: 30px 10px 30px 10px;
+          width: 100%;
+          margin-right: 0;
+          border-bottom: 1px solid ${({ theme }) => theme.grayScale[3]};
+        }
+        li:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
 `;
 export default function index(): JSX.Element {
   const { userData } = useUser();

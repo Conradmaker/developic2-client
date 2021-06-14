@@ -16,7 +16,7 @@ import wrapper from '../../modules/store';
 import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
 
 const DiscoveryContainer = styled.div`
-  width: 1150px;
+  max-width: 1150px;
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 100px;
@@ -74,6 +74,36 @@ const DiscoveryContainer = styled.div`
       }
       li:nth-child(4n) {
         margin-right: 0;
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    margin-top: 20px;
+    .discovery__head {
+      flex-direction: column;
+      padding: 0 10px;
+      & > ul {
+        margin: 20px 0;
+        gap: 20px 10px;
+        li {
+          margin-left: 0;
+          margin-bottom: 0px;
+        }
+      }
+    }
+    .discovery__main {
+      padding: 0 10px;
+      ul {
+        flex-wrap: wrap;
+        li {
+          padding: 30px 10px 30px 10px;
+          width: 100%;
+          margin-right: 0;
+          border-bottom: 1px solid ${({ theme }) => theme.grayScale[3]};
+        }
+        li:last-child {
+          border-bottom: none;
+        }
       }
     }
   }
