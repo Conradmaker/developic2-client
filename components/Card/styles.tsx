@@ -464,6 +464,8 @@ export const DrawerPostCardContainer = styled.li`
       }
       p:nth-child(2) {
         flex: 1;
+        text-overflow: ellipsis;
+        white-space: normal;
         overflow: hidden;
       }
       p:nth-child(3) {
@@ -526,6 +528,39 @@ export const DrawerPostCardContainer = styled.li`
       background-color: ${({ theme }) => theme.grayScale[4]};
     }
   }
+
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    height: 250px;
+    & > img {
+      height: 120px;
+    }
+    .content {
+      width: 90%;
+      height: 54%;
+      article {
+        height: 90%;
+        h3 {
+          display: inline;
+          flex: 1;
+          text-overflow: ellipsis;
+          white-space: normal;
+          overflow: hidden;
+          font-size: 15px;
+        }
+        p:nth-child(2) {
+          display: none;
+        }
+        .circle {
+          width: 25px;
+          height: 25px;
+        }
+        &::before {
+          height: 70px;
+        }
+      }
+    }
+  }
 `;
 
 export const UnfinishedPostCardContainer = styled.div`
@@ -583,6 +618,9 @@ export const UnfinishedPostCardContainer = styled.div`
   }
   &:hover {
     transform: translateY(-3px);
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
   }
 `;
 

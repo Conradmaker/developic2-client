@@ -22,6 +22,13 @@ const LikeListContainer = styled.div`
     gap: 70px 24px;
     margin-bottom: 100px;
   }
+
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    ul {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px 10px;
+    }
+  }
 `;
 
 function LikeList(): JSX.Element {

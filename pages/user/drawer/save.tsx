@@ -17,6 +17,10 @@ const SavePageContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px 50px;
+
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 function SaveList(): JSX.Element {

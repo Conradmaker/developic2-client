@@ -46,6 +46,17 @@ export const RecentViewListContainer = styled.ul`
       margin-bottom: 100px;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    & > li {
+      .date {
+        margin: 50px 0 30px 0;
+      }
+      ul {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px 10px;
+      }
+    }
+  }
 `;
 
 function RecentViewList(): JSX.Element {

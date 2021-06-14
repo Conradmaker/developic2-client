@@ -307,7 +307,6 @@ export const AvatarInputBox = styled.form`
       left: auto;
       bottom: 0;
       right: 10px;
-      bottom: ;
     }
   }
 `;
