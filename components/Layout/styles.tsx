@@ -288,6 +288,30 @@ export const UserMenuContainer = styled.div`
     .dark-mode__btn {
       margin-top: 40px;
     }
+    .close__btn {
+      position: absolute;
+      top: 5px;
+      left: 30px;
+      font-size: 36px;
+      transform: rotate(45deg);
+      display: none;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .user-menu__drawer {
+      width: 100%;
+      & > h2,
+      & > p,
+      & > ul {
+        width: 80%;
+      }
+      .dark-mode__btn {
+        margin-top: 20px;
+      }
+      .close__btn {
+        display: initial;
+      }
+    }
   }
 `;
 

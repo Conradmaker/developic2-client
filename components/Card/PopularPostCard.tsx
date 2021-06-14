@@ -22,7 +22,7 @@ export default function PopularPostCard({
 }: PopularPostCardPropsType): JSX.Element {
   return (
     <Link href={`/${postData.User.id}/post/${postData.id}`}>
-      <PopularPostCardBox>
+      <PopularPostCardBox className="popular-post__card">
         <img
           src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
           alt="thumbnail"

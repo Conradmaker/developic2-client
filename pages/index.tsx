@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled';
+import { RiArrowDownSLine } from 'react-icons/ri';
 import PageLabel from '../components/Label/PageLabel';
 import Layout from '../components/Layout';
 import TitleLabel from '../components/Label/TitleLabel';
@@ -19,7 +20,7 @@ import { authServersiceAction } from '../utils/getServerSidePropsTemplate';
 import wrapper from '../modules/store';
 
 const MainContainer = styled.main`
-  width: 1150px;
+  max-width: 1150px;
   margin: 0 auto;
   margin-top: 50px;
   .banner__image {
@@ -58,15 +59,147 @@ const MainContainer = styled.main`
       flex-wrap: wrap;
     }
   }
-  .circle {
-    position: absolute;
-    z-index: -0;
-    top: 1000px;
-    left: -240px;
-    width: 450px;
-    height: 450px;
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.primary[2]};
+  .more__btn {
+    margin: 0 auto;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    border: 1px solid ${({ theme }) => theme.grayScale[1]};
+    width: 120px;
+    height: 35px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${({ theme }) => theme.grayScale[1]};
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    &::after {
+      content: 'MORE';
+    }
+    &:hover {
+      border: 4px solid ${({ theme }) => theme.primary[1]};
+      color: ${({ theme }) => theme.primary[1]};
+      &::after {
+        content: 'DISCOVER';
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding-top: 100vh;
+    .page__label {
+      height: 436px;
+      position: absolute;
+      z-index: 10;
+      top: 15vh;
+      padding: 0 20px;
+      h1 {
+        text-shadow: 1px 1px 10px black;
+        font-size: 42px;
+        color: #eee;
+      }
+      p {
+        text-shadow: 1px 1px 10px black;
+        color: #aaa;
+      }
+    }
+    .banner__image {
+      background: linear-gradient(
+        8deg,
+        #64daff,
+        #ccf3ff,
+        #40d04f,
+        #273bb9,
+        #091355,
+        #091355
+      );
+      background-size: 1200% 1200%;
+      animation: GradientBackground 8s ease infinite;
+
+      @keyframes GradientBackground {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      position: absolute;
+      top: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100vh;
+      img {
+        display: none;
+      }
+      border-bottom-left-radius: 50% 10%;
+      border-bottom-right-radius: 50% 10%;
+    }
+    .scroll__down {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      top: 85vh;
+      left: 0;
+      right: 0;
+      color: #fff;
+      font-size: 30px;
+      span {
+        font-family: 'Montserrat';
+        font-size: 12px;
+      }
+      animation: MoveUp 1s ease-in-out infinite alternate;
+
+      @keyframes MoveUp {
+        0% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+    }
+    .main__nav {
+      position: absolute;
+      top: 60vh;
+      padding: 0 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 100px;
+      & > li {
+        h4 {
+          color: #fff;
+        }
+        p {
+          color: #aaa;
+        }
+
+        margin-bottom: 40px;
+        width: 48%;
+      }
+    }
+    section {
+      h3 {
+        text-align: center;
+      }
+      & > .post__section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 10px;
+        .popular-post__card {
+          width: 100%;
+          max-width: auto;
+          margin: 0 0px 50px 0;
+          img {
+            max-height: 400px;
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -85,6 +218,10 @@ export default function Home(): JSX.Element {
         <PageLabel text="디비디 바비디 부 벨소리 울려라" desc="지금은 새벽 4시 반" />
         <div className="banner__image">
           <img src="main_banner.png" alt="banner" />
+        </div>
+        <div className="scroll__down">
+          <RiArrowDownSLine />
+          <span>SCROLL DOWN</span>
         </div>
         <ul className="main__nav">
           <Link href="/feed">
@@ -147,6 +284,9 @@ export default function Home(): JSX.Element {
               <PopularPostCard key={postData.id + 'post'} postData={postData} />
             ))}
           </div>
+          <Link href="/discovery">
+            <div className="more__btn"></div>
+          </Link>
         </section>
       </MainContainer>
     </Layout>

@@ -98,6 +98,9 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
           </li>
         </ul>
         <DarkModeBtn />
+        <div className="close__btn" onClick={onClose}>
+          +
+        </div>
       </div>
     </UserMenuContainer>
   );

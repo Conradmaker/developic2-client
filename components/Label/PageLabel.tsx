@@ -12,7 +12,7 @@ function PageLabel({
   width = 400,
 }: PageLabelPropsType): JSX.Element {
   return (
-    <PageLabelBox width={width}>
+    <PageLabelBox className="page__label" width={width}>
       <h1>{text}</h1>
       <p>{desc}</p>
     </PageLabelBox>

@@ -62,7 +62,6 @@ export const PopularPostCardBox = styled.div`
   &:hover {
     background-color: ${({ theme }) => theme.grayScale[4]};
   }
-  /* border: 1px solid ${({ theme }) => theme.grayScale[2]}; */
 `;
 
 export const UserProfileCardBox = styled.div`

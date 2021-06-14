@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import useCarousel from '../../hooks/useCarousel';
+import _throttle from 'lodash/throttle';
+import { useState } from 'react';
+import { debounce } from 'lodash';
 
 const Container = styled.div<{ width: number; height: number }>`
   width: 100%;
@@ -51,9 +54,15 @@ const Control = styled.button`
 `;
 const PrevControl = styled(Control)`
   left: 0;
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    left: 5px;
+  }
 `;
 const NextControl = styled(Control)`
   right: 0;
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    right: 5px;
+  }
 `;
 
 type CarouselPropsType = {
@@ -77,7 +86,7 @@ export default function Carousel({
     scale,
     setScale,
   } = useCarousel(listLength);
-
+  const [oldClientX, setOldClientX] = useState(0);
   const handleClick = React.useCallback(
     e => {
       if (isMoving) return;
@@ -95,10 +104,39 @@ export default function Carousel({
     setScale(1.13);
   }, [currentSlide, listLength]);
 
+  const onTouchStart = _throttle(e => {
+    console.log(e);
+    setOldClientX(e.changedTouches[0].clientX);
+  }, 300);
+
+  const onMouseStart = _throttle(e => {
+    setOldClientX(e.clientX);
+  }, 300);
+
+  const onTouchEnd = _throttle(e => {
+    if (oldClientX > e.changedTouches[0].clientX) {
+      move(currentSlide + 1, 300);
+    } else if (oldClientX < e.changedTouches[0].clientX) {
+      move(currentSlide - 1, 300);
+    }
+  }, 300);
+
+  const onMouseEnd = _throttle(e => {
+    if (oldClientX > e.clientX) {
+      move(currentSlide + 1, 300);
+    } else if (oldClientX < e.clientX) {
+      move(currentSlide - 1, 300);
+    }
+  }, 300);
+
   return (
     <Container width={width} height={height}>
       <div className="slide__container">
         <Slides
+          onMouseDown={onMouseStart}
+          onMouseUp={onMouseEnd}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
           scale={scale}
           width={width}
           currentSlide={currentSlide}
