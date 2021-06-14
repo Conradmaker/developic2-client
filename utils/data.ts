@@ -15,7 +15,7 @@ export const CSNavData: NavDataType = [
 export const DrawerNavData: NavDataType = [
   { name: '최근 본 글', link: '/user/drawer/recent' },
   { name: '좋아요 목록', link: '/user/drawer/like' },
-  { name: '임시저장 목록', link: '/user/drawer/save' },
+  { name: '작성중인 글', link: '/user/drawer/save' },
   { name: '포토 바인더', link: '/user/drawer/binder' },
 ];
 

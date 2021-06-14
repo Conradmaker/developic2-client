@@ -32,6 +32,9 @@ const InfoContainer = styled.section`
     display: flex;
     justify-content: flex-end;
     form {
+      margin-left: 50px;
+      width: 600px;
+      justify-content: flex-end;
       & > span {
         display: block;
         margin-bottom: 30px;
@@ -39,9 +42,6 @@ const InfoContainer = styled.section`
         font-family: 'Noto Serif KR';
         color: ${({ theme }) => theme.textColor.initial};
       }
-      margin-left: 50px;
-      width: 600px;
-      justify-content: flex-end;
       & > div {
         margin-bottom: 30px;
       }
@@ -77,6 +77,30 @@ const InfoContainer = styled.section`
         }
         button + button {
           margin-left: 30px;
+        }
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .page__label {
+      h1 {
+        font-size: 32px;
+      }
+    }
+    .cs__left {
+      form {
+        margin-top: 0px;
+      }
+    }
+    .cs__right {
+      margin-top: 30px;
+      align-items: flex-start;
+      form {
+        margin-left: 0px;
+        width: 100%;
+        .btn__group {
+          width: 100%;
+          justify-content: center;
         }
       }
     }

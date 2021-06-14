@@ -86,6 +86,30 @@ export const IncompleteContainer = styled.div`
   img {
     width: 500px;
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    flex-direction: column-reverse;
+    .page__label {
+      h1 {
+        font-size: 28px;
+      }
+    }
+    & > section {
+      margin-top: 30px;
+      margin-right: 00px;
+      ul {
+        margin-top: 30px;
+        align-items: center;
+        justify-content: center;
+        li + li {
+          margin-left: 30px;
+        }
+      }
+    }
+    img {
+      width: 70%;
+    }
+  }
 `;
 
 export const ToastPopUpBox = styled.div<{ visible: boolean }>`

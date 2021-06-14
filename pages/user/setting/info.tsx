@@ -57,6 +57,29 @@ const InfoContainer = styled.section`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .page__label {
+      h1 {
+        font-size: 32px;
+      }
+    }
+    .cs__left {
+      form {
+        margin-top: 0px;
+      }
+    }
+    .cs__right {
+      margin-top: 30px;
+      align-items: flex-start;
+      .avatar-update__form {
+        width: 100%;
+      }
+      .btn__group {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
 `;
 const genderData = [
   { id: 1, value: '' },

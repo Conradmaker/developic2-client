@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import useCarousel from '../../hooks/useCarousel';
 import _throttle from 'lodash/throttle';
 import { useState } from 'react';
-import { debounce } from 'lodash';
 
 const Container = styled.div<{ width: number; height: number }>`
   width: 100%;

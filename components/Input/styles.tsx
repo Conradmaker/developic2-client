@@ -294,4 +294,20 @@ export const AvatarInputBox = styled.form`
       background: #eee;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+    img {
+      margin: 0;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      min-height: 70px;
+    }
+    .img-select__btn {
+      left: auto;
+      bottom: 0;
+      right: 10px;
+      bottom: ;
+    }
+  }
 `;

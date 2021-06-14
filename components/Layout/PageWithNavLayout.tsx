@@ -6,7 +6,7 @@ import PageNavigation from '../Nav/PageNavigation';
 import { NavDataType } from '../../utils/data';
 
 export const PageWithNavContainer = styled.main`
-  width: 1150px;
+  max-width: 1150px;
   margin: 0 auto;
   .title {
     margin: 30px 0;
@@ -24,6 +24,17 @@ export const PageWithNavContainer = styled.main`
     }
     .cs__right {
       flex: 1;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+    .title__label {
+      h4 {
+        font-size: 24px;
+      }
+    }
+    & > section {
+      flex-direction: column;
     }
   }
 `;
