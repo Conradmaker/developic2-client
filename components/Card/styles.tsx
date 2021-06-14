@@ -700,6 +700,9 @@ export const PhotoBinderCardBox = styled.div`
       text-decoration: underline;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+  }
 `;
 
 export const ArchiveItemContainer = styled.li<{

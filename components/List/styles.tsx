@@ -145,6 +145,15 @@ export const ImgItemBox = styled.div<{ selected: boolean }>`
         background-color: #8c30f5;
       }
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .check__circle {
+      display: flex;
+      border: 1px solid #aaa;
+      &:hover {
+        background-color: #8c30f5;
+      }
+    }
+  }
 `;
 
 export const BlogPicstoryListContainer = styled.ul`

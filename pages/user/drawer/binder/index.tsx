@@ -19,6 +19,10 @@ const BinderPageContainer = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 50px 47px;
   margin-bottom: 40px;
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 50px 0px;
+  }
 `;
 
 function BinderList(): JSX.Element {

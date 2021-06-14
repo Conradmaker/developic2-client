@@ -58,6 +58,16 @@ const BinderDetailContainer = styled.div`
       text-align: center;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    flex-direction: column;
+    .left__section {
+      width: 100%;
+      margin-right: 0px;
+    }
+    .binder__detail__img__list {
+      margin-top: 20px;
+    }
+  }
 `;
 
 export default function binderId(): JSX.Element {

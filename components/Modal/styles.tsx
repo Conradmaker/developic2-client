@@ -171,6 +171,9 @@ export const BinderEditModalBox = styled(ModalBox)`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 95%;
+  }
 `;
 
 export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
@@ -219,6 +222,9 @@ export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
         cursor: not-allowed;
       }
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 95%;
+  }
 `;
 
 export const SignupAuthModalBox = styled(ModalBox)`
