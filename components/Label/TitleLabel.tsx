@@ -7,7 +7,7 @@ type TitleLabelPropsType = {
 };
 function TitleLabel({ title = '', desc = '' }: TitleLabelPropsType): JSX.Element {
   return (
-    <TitleLabelBox>
+    <TitleLabelBox className="title__label">
       <div>
         <h4>{title}</h4>
         <p>{desc}</p>

@@ -11,6 +11,10 @@ import Head from 'next/head';
 const EditContainer = styled.div`
   max-width: 1100px;
   margin: 0 auto;
+
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+  }
 `;
 
 const ToastEditorWithNoSSR = dynamic(
@@ -59,7 +63,14 @@ export default function edit(): JSX.Element {
     setContent(tempPost.data.content);
     setTagList(tempPost.data.tagList);
   }, [tempPost.data]);
-  console.log(title);
+
+  useEffect(() => {
+    const filter = ['win16', 'win32', 'win64', 'mac', 'macintel', 'macm1'];
+    if (filter.indexOf(navigator.platform.toLowerCase()) < 0) {
+      alert('모바일환경에서는 글쓰기에 최적화되어 있지 않습니다.');
+    }
+  }, []);
+
   return (
     <Layout>
       <Head>

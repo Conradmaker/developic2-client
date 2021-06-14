@@ -69,6 +69,7 @@ export default function PicstoryModal({
   const [title, onChangeTitle, setTitle] = useInput('');
   const [desc, onChangeDesc, setDesc] = useInput('');
   const [thumbnail, setThumbnail] = useState('');
+  const [makeMode, setMakeMode] = useState(false);
 
   const onClickBG = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) onClose();
@@ -127,7 +128,7 @@ export default function PicstoryModal({
 
   return (
     <ModalLayout onClick={onClickBG}>
-      <PicstoryModalBox width={800} height={600}>
+      <PicstoryModalBox width={800} height={600} makeMode={makeMode}>
         <div className="modal__left">
           <TitleLabel title="픽스토리" desc="Picstory" />
           <h4>내 픽스토리</h4>
@@ -143,6 +144,10 @@ export default function PicstoryModal({
                 />
               ))}
           </ul>
+          <div className="mobile-btn__box">
+            <SquareBtn onClick={() => setMakeMode(true)}>새 픽스토리</SquareBtn>
+            <SquareBtn onClick={onClose}>닫기</SquareBtn>
+          </div>
         </div>
         <div className="modal__right">
           <h4>새 픽스토리</h4>
@@ -158,6 +163,10 @@ export default function PicstoryModal({
           <textarea onChange={onChangeDesc} value={desc}></textarea>
           <div className="btn__group">
             <SquareBtn onClick={onClose}>확인</SquareBtn>
+            <SquareBtn onClick={onCreatePicstory}>생성</SquareBtn>
+          </div>
+          <div className="mobile-btn__box">
+            <SquareBtn onClick={() => setMakeMode(false)}>뒤로</SquareBtn>
             <SquareBtn onClick={onCreatePicstory}>생성</SquareBtn>
           </div>
         </div>

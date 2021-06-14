@@ -302,7 +302,7 @@ export const SignupPenNameModalBox = styled(ModalBox)`
   }
 `;
 
-export const PicstoryModalBox = styled(ModalBox)`
+export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
   display: flex;
   font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
@@ -313,6 +313,10 @@ export const PicstoryModalBox = styled(ModalBox)`
   h5 {
     margin: 25px 0 10px 0;
     font-size: 16px;
+  }
+  .modal__left .mobile-btn__box,
+  .modal__right .mobile-btn__box {
+    display: none;
   }
   .modal__left {
     padding-right: 50px;
@@ -394,6 +398,50 @@ export const PicstoryModalBox = styled(ModalBox)`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    flex-direction: column;
+    padding: 0 20px 20px 20px;
+    width: 95%;
+    height: auto;
+    .title__label {
+      h4 {
+        font-size: 20px;
+      }
+    }
+    .modal__left {
+      padding: 0;
+      & > button {
+        display: initial;
+        width: 100%;
+      }
+    }
+    .modal__right {
+      padding: 0;
+      display: none;
+      .btn__group {
+        display: none;
+      }
+    }
+  }
+  .mobile-btn__box {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    button + button {
+      margin-left: 20px;
+    }
+  }
+
+  ${({ makeMode }) =>
+    makeMode &&
+    css`
+      .modal__left {
+        display: none;
+      }
+      .modal__right {
+        display: initial;
+      }
+    `}
 `;
 
 export const ConfirmModalBox = styled(ModalBox)`

@@ -21,6 +21,7 @@ export const InfoPostContainer = styled.div`
   h5 {
     margin: 35px 0 15px 0;
     font-size: 18px;
+    color: ${({ theme }) => theme.textColor.initial};
   }
   .left__section {
     flex: 1;
@@ -66,6 +67,20 @@ export const InfoPostContainer = styled.div`
     }
     .btn__group.left {
       justify-content: flex-start;
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+    flex-direction: column;
+    .left__section {
+      padding-right: 0;
+      border-right: none;
+      textarea {
+        width: 100%;
+      }
+    }
+    .right__section {
+      padding-left: 0;
     }
   }
 `;

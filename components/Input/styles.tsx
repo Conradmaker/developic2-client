@@ -255,6 +255,9 @@ export const ImageDropZoneContainer = styled.div<{
     css`
       height: ${height}px;
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 100%;
+  }
 `;
 
 export const AvatarInputBox = styled.form`
