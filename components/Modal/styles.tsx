@@ -631,7 +631,17 @@ export const PhotoDetailBox = styled.div<{ infoOpen: boolean }>`
         transform: rotateY(0deg);
       }
     `}
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 97%;
+    .front {
+      img {
+        max-width: 100%;
+        max-height: 70vh;
+      }
+    }
+  }
 `;
+
 export const PhotoModalBtnBox = styled.div`
   position: fixed;
   top: 25px;
@@ -657,9 +667,13 @@ export const PhotoModalBtnBox = styled.div`
       background-color: #eee;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    top: 25px;
+    right: 20px;
+  }
 `;
 
-export const MakeBinderModalMox = styled(ModalBox)`
+export const MakeBinderModalMox = styled(ModalBox)<{ makeMode: boolean }>`
   .double__section {
     display: flex;
     padding-top: 20px;
@@ -692,12 +706,60 @@ export const MakeBinderModalMox = styled(ModalBox)`
         margin-top: 10px;
         width: 100%;
       }
+      button:last-child {
+        display: none;
+      }
     }
   }
   & > button {
     width: 110px;
     display: block;
     margin: 30px 0 0 auto;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .title__label {
+      h4 {
+        font-size: 24px;
+      }
+    }
+    width: 95%;
+    .double__section {
+      height: auto;
+      .section__left {
+        width: 100%;
+        border-right: none;
+        padding-right: 0px;
+        ul > li {
+          margin: 15px 0;
+        }
+      }
+      .section__right {
+        width: 100%;
+        padding-left: 0;
+        display: none;
+        button:last-child {
+          display: initial;
+        }
+      }
+    }
+    & > button {
+      width: 100%;
+      display: block;
+      margin: 10px 0 0 auto;
+    }
+    ${({ makeMode }) =>
+      makeMode &&
+      css`
+        & > button {
+          display: none;
+        }
+        .double__section > .section__left {
+          display: none;
+        }
+        .double__section > .section__right {
+          display: block;
+        }
+      `}
   }
 `;
 

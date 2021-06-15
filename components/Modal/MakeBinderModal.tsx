@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import { useState } from 'react';
 import useInput from '../../hooks/useInput';
 import { PhotoBinderType } from '../../modules/drawer';
 import useDrawer from '../../modules/drawer/hooks';
@@ -10,7 +11,13 @@ import CustomTextarea from '../Input/CustomTextarea';
 import TitleLabel from '../Label/TitleLabel';
 import { MakeBinderModalMox, ModalLayout } from './styles';
 
-function MakeBinderForm({ userId }: { userId: number }): JSX.Element {
+function MakeBinderForm({
+  userId,
+  onToggleMakeMode,
+}: {
+  userId: number;
+  onToggleMakeMode: () => void;
+}): JSX.Element {
   const { createPhotoBinderDispatch } = useDrawer();
   const [newTitle, onChangeNewTitle, setNewTitle] = useInput('');
   const [newDesc, onChangeNewDesc, setNewDesc] = useInput('');
@@ -35,6 +42,9 @@ function MakeBinderForm({ userId }: { userId: number }): JSX.Element {
       <CustomInput title="제목" value={newTitle} onChange={onChangeNewTitle} />
       <CustomTextarea value={newDesc} title="요약" onChange={onChangeNewDesc} />
       <SquareBtn type="submit">생성</SquareBtn>
+      <SquareBtn type="button" onClick={onToggleMakeMode}>
+        뒤로
+      </SquareBtn>
     </form>
   );
 }
@@ -90,21 +100,26 @@ export default function MakeBinderModal({
   onClose,
 }: MakeBinderModalPropsType): JSX.Element {
   const { userData } = useUser();
+  const [makeMode, setMakeMode] = useState(false);
 
+  const onToggleMakeMode = React.useCallback(() => {
+    setMakeMode(prev => !prev);
+  }, []);
   if (!userData) return <></>;
 
   return (
     <ModalLayout>
-      <MakeBinderModalMox>
+      <MakeBinderModalMox makeMode={makeMode}>
         <TitleLabel title="포토바인더 담기" desc="Photo Binder" />
         <div className="double__section">
           <div className="section__left">
             <h5>회원님의 포토바인더</h5>
             <UsersBinderList photoId={photoId} userId={userData.id} />
           </div>
-          <MakeBinderForm userId={userData.id} />
+          <MakeBinderForm userId={userData.id} onToggleMakeMode={onToggleMakeMode} />
         </div>
-        <SquareBtn onClick={onClose}>적용</SquareBtn>
+        <SquareBtn onClick={onToggleMakeMode}>새 바인더</SquareBtn>
+        <SquareBtn onClick={onClose}>닫기</SquareBtn>
       </MakeBinderModalMox>
     </ModalLayout>
   );

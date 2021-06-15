@@ -121,6 +121,18 @@ export const LikeFltBox = styled(FloatingButtonBox)`
   &:hover {
     background: ${({ theme }) => theme.grayScale[4]};
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    position: fixed;
+    height: 40px;
+    top: 20px;
+    bottom: auto;
+    left: auto;
+    right: 20px;
+    background-color: ${({ theme }) => theme.background.modal};
+    span {
+      display: none;
+    }
+  }
 `;
 export const SquareBtnBox = styled(Btn)`
   display: inline-block;
@@ -173,6 +185,7 @@ export const ButtonBox = styled.div<{
 export const HashTagBox = styled.li`
   border: 1px solid ${({ theme }) => theme.textColor.initial};
   padding: 0 10px;
+  white-space: nowrap;
   color: ${({ theme }) => theme.textColor.lighten};
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   height: 30px;

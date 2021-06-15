@@ -790,7 +790,7 @@ export const ArchiveItemContainer = styled.li<{
 
 export const BlogCommentCardBox = styled.li`
   position: relative;
-  width: 800px;
+  max-width: 800px;
   padding: 30px 0;
   font-family: 'Noto Serif KR';
   color: ${({ theme }) => theme.textColor.initial};
@@ -859,6 +859,38 @@ export const BlogCommentCardBox = styled.li`
       text-align: right;
       font-size: 12px;
       color: ${({ theme }) => theme.grayScale[1]};
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 20px 5px;
+    & > section {
+      article {
+        display: flex;
+        img {
+          position: relative;
+          top: auto;
+          left: auto;
+          width: 40px;
+          height: 40px;
+        }
+        div {
+          margin-top: 2px;
+          strong {
+            font-size: 14px;
+          }
+          p {
+            margin-top: 8px;
+            font-size: 12px;
+          }
+        }
+      }
+      & > div > span {
+        font-size: 12px;
+      }
+    }
+    & > p {
+      margin-top: 5px;
+      line-height: 25px;
     }
   }
 `;

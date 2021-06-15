@@ -115,7 +115,7 @@ export const HashTagSearchContainer = styled.div`
 `;
 
 export const PostContentViewerContainer = styled.article`
-  width: 770px;
+  max-width: 770px;
   margin: 0 auto;
   margin-bottom: 100px;
   color: ${({ theme }) => theme.textColor.initial};
@@ -131,6 +131,11 @@ export const PostContentViewerContainer = styled.article`
     transition: 0.3s;
     &:hover {
       box-shadow: 0 0 10px ${({ theme }) => theme.grayScale[2]};
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    img {
+      width: 100%;
     }
   }
 `;

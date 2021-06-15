@@ -183,7 +183,7 @@ export const BlogPostListContainer = styled.ul`
 `;
 
 export const PostCommentListContainer = styled.div`
-  width: 1150px;
+  max-width: 1150px;
   margin: 0 auto;
   padding: 50px 175px 0 175px;
   border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
@@ -208,10 +208,14 @@ export const PostCommentListContainer = styled.div`
       font-size: ${({ theme }) => theme.fontSize.base};
       font-weight: ${({ theme }) => theme.fontWeight.regular};
     }
-    button {
-    }
   }
   & > ul {
     margin-bottom: 100px;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 30px 10px;
+    & > form > textarea {
+      width: 100%;
+    }
   }
 `;

@@ -12,7 +12,7 @@ import CommentList from '../../../components/List/CommentList';
 import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const NotAllowComment = styled.div`
-  width: 800px;
+  max-width: 800px;
   margin: 0 auto 100px auto;
   text-align: center;
   font-family: 'Noto Serif KR';
