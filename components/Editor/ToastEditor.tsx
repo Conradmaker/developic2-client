@@ -59,16 +59,18 @@ export default function ToastEditor({
   const updateMetaData = useCallback(async (image: Blob | File, PostImageId: number) => {
     const metaData = await exifr.parse(image, { exif: true, gps: true });
     const computedMeta = {
-      manufacturer: metaData.Make,
-      model: metaData.Model,
-      fValue: metaData.FNumber,
-      resolutionX: metaData.ImageWidth,
-      resolutionY: metaData.ImageHeight,
-      location: `${metaData.latitude}/${metaData.longitude}`,
-      exposureTime: metaData.ExposureTime,
+      manufacturer: metaData ? metaData.Make : null,
+      model: metaData ? metaData.Model : null,
+      fValue: metaData ? metaData.FNumber : null,
+      resolutionX: metaData ? metaData.ImageWidth : null,
+      resolutionY: metaData ? metaData.ImageHeight : null,
+      location: `${metaData ? metaData.latitude : null}/${
+        metaData ? metaData.longitude : null
+      }`,
+      exposureTime: metaData ? metaData.ExposureTime : null,
       size: image.size,
-      shutterSpeed: metaData.ShutterSpeedValue,
-      ISO: metaData.ISO,
+      shutterSpeed: metaData ? metaData.ShutterSpeedValue : null,
+      ISO: metaData ? metaData.ISO : null,
       PostImageId,
     };
     await axios.post(`${process.env.NEXT_PUBLIC_SERVER_HOST}/upload/exif`, computedMeta);

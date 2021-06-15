@@ -30,6 +30,18 @@ const ArchiveContainer = styled.div`
       flex-direction: row-reverse;
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+    margin: 30px auto 100px auto;
+    & > section {
+      padding-bottom: 30px;
+    }
+    & > ul {
+      li:nth-child(2n) {
+        flex-direction: column;
+      }
+    }
+  }
 `;
 export default function archive(): JSX.Element {
   const { userData } = useUser();

@@ -13,7 +13,7 @@ export default function CustomDateInput({
   ...rest
 }: CustomDateInputPropsType): JSX.Element {
   return (
-    <CustomDateInputBox>
+    <CustomDateInputBox width={width}>
       <input type="date" {...rest} />
     </CustomDateInputBox>
   );

@@ -24,9 +24,7 @@ export default function ArchiveItem({
         currentTheme={currentTheme}
       >
         <div className="img__wrapper">
-          <div>
-            <img src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster} alt="poster" />
-          </div>
+          <img src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster} alt="poster" />
         </div>
         <article>
           {data.cost === 0 ? (

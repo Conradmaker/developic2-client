@@ -10,15 +10,16 @@ import React, {
 
 const FetchMoreTriggerContainer = styled.div`
   width: 100%;
-  height: 80px;
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   img {
-    margin: 0 auto;
     display: block;
     height: 80px;
   }
   p {
     color: ${({ theme }) => theme.textColor.initial};
-    text-align: center;
     font-size: 14px;
     font-family: 'Noto Serif KR';
   }

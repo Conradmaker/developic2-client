@@ -46,6 +46,9 @@ const MainContainer = styled.main`
       }
     }
   }
+  .scroll__down {
+    display: none;
+  }
   section {
     margin: 50px 0 100px 0;
     h3 {

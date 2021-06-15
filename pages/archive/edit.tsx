@@ -87,6 +87,73 @@ const ArchiveEditContainer = styled.div`
       border-top: 1px solid ${({ theme }) => theme.grayScale[2]};
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+    margin: 20px auto 100px auto;
+    & > section {
+      margin-top: 20px;
+      padding: 0px;
+      & > div {
+        & > p {
+          font-size: 16px;
+          margin: 20px 0 10px 0;
+        }
+      }
+      .archive__summary {
+        margin-top: 50px;
+        & > article {
+          & .input__cus {
+            span {
+              width: 80px;
+              font-size: 14px;
+            }
+          }
+          .archive__date {
+            display: flex;
+            align-items: center;
+            small {
+              margin: 0 10px;
+            }
+            span {
+              display: block;
+              flex: 1;
+              font-size: 14px;
+            }
+            & > div {
+              width: 36%;
+            }
+          }
+          & > .archive__fee {
+            display: flex;
+            & > div {
+              flex: 1;
+              width: auto;
+              display: flex;
+              align-items: center;
+              .input__cus {
+                width: auto;
+              }
+              & > small {
+                transform: translateX(-15px);
+              }
+            }
+            & > span {
+              margin-left: 15px;
+            }
+          }
+          & > .archive__writer {
+            display: block;
+            & > div + div {
+              margin: 30px 0 0 0;
+            }
+          }
+          & > div + div {
+            margin-top: 30px;
+          }
+        }
+      }
+    }
+  }
 `;
 
 const ArchiveEditorWithNoSSR = dynamic(
@@ -255,7 +322,6 @@ export default function edit(): JSX.Element {
                 />
               </div>
             </article>
-            <article></article>
           </div>
           <div className="archive__detail">
             <p>세부 정보 입력</p>
