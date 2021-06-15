@@ -45,6 +45,13 @@ export const BlogUserInfoBox = styled.div`
     text-decoration: underline;
     cursor: pointer;
   }
+
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 20px;
+    .user__info {
+      text-align: center;
+    }
+  }
 `;
 
 export const EmptyBlogUserInfoBox = styled.div`

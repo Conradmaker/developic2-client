@@ -21,6 +21,8 @@ const BlogwithProfileContainer = styled.div`
   .blog__tab {
     margin: 0 auto;
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+  }
 `;
 
 type BlogWithNavLayoutPropsType = {

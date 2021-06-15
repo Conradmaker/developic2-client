@@ -8,6 +8,13 @@ import BlogPostCard from '../Card/BlogPostCard';
 import Incomplete from '../Result/Incomplete';
 import { BlogPostListContainer } from './styles';
 
+const breakpointColumnsObj = {
+  default: 2,
+  1100: 2,
+  700: 2,
+  500: 1,
+};
+
 export default function BlogPostList(): JSX.Element {
   const { loadBlogPostListDispatch, loadBlogPostList, hasMore } = useBlog();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
@@ -35,7 +42,7 @@ export default function BlogPostList(): JSX.Element {
   return (
     <BlogPostListContainer>
       <Masonry
-        breakpointCols={2}
+        breakpointCols={breakpointColumnsObj}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >

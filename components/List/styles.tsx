@@ -161,6 +161,9 @@ export const BlogPicstoryListContainer = styled.ul`
   .empty_content {
     text-align: center;
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+  }
 `;
 export const BlogPostListContainer = styled.ul`
   margin-bottom: 100px;
@@ -179,6 +182,9 @@ export const BlogPostListContainer = styled.ul`
 
   .my-masonry-grid_column > li {
     margin-bottom: 50px;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
   }
 `;
 

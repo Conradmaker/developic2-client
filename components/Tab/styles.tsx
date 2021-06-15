@@ -19,6 +19,15 @@ export const BlogTabBox = styled.ul`
     border-bottom: 2px solid ${({ theme }) => theme.primary[1]};
     font-weight: bold;
   }
+
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    max-width: 380px;
+    li {
+      flex: 1;
+      white-space: nowrap;
+      padding: 15px 00px;
+    }
+  }
 `;
 
 export const SearchTabBox = styled.nav`

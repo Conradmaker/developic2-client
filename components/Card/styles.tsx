@@ -890,6 +890,7 @@ export const BlogCommentCardBox = styled.li`
           left: auto;
           width: 40px;
           height: 40px;
+          margin-right: 10px;
         }
         div {
           margin-top: 2px;
@@ -931,7 +932,6 @@ export const BlogPicstoryCardBox = styled.li`
       margin-bottom: 15px;
       h3 {
         font-size: ${({ theme }) => theme.fontSize.medium};
-
         font-weight: bold;
       }
       .picstory__stats {
@@ -991,6 +991,31 @@ export const BlogPicstoryCardBox = styled.li`
       }
       li:nth-of-type(6) {
         margin-right: 0;
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    min-height: 220px;
+    height: auto;
+    article {
+      .picstory__recent-img {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        .img__box {
+          width: 100%;
+          height: 00px;
+          padding-top: 100%;
+          position: relative;
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+        }
+        .img__box:nth-child(3n) {
+          margin-right: 0;
+        }
       }
     }
   }
@@ -1077,6 +1102,28 @@ export const BlogPostCardBox = styled.li`
       p,
       h3 {
         color: ${({ theme }) => theme.primary[1]};
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    article {
+      & > .img__wrapper {
+        & > img {
+          min-width: auto;
+          width: 100%;
+          min-height: auto;
+          max-height: 450px;
+          height: auto;
+          object-fit: cover;
+        }
+      }
+      .img__wrapper {
+        background: #fff;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.714em;
       }
     }
   }
