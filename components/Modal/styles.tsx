@@ -235,9 +235,7 @@ export const SignupAuthModalBox = styled(ModalBox)`
   .auth__input {
     div {
       width: 300px;
-      margin: 0 auto;
-      margin-top: 70px;
-      margin-bottom: 40px;
+      margin: 70px auto 40px auto;
       display: flex;
       justify-content: space-between;
       input {
@@ -273,6 +271,23 @@ export const SignupAuthModalBox = styled(ModalBox)`
     right: 0;
     bottom: 0;
     margin-bottom: 70px;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    width: 95%;
+    .auth__input {
+      div {
+        width: 100%;
+        margin: 20px auto 20px auto;
+        input {
+          margin-bottom: 10px;
+        }
+      }
+    }
+    .auth__btn {
+      position: relative;
+      bottom: 0;
+      margin: 20px auto 0 auto;
+    }
   }
 `;
 

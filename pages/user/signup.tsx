@@ -13,7 +13,7 @@ import useUI from '../../modules/ui/hooks';
 import useUser from '../../modules/user/hooks';
 
 const SignupContainer = styled.div`
-  width: 1150px;
+  max-width: 1150px;
   margin: 60px auto;
   .signup__container {
     margin-top: 30px;
@@ -71,6 +71,21 @@ const SignupContainer = styled.div`
       img {
         padding-top: 30px;
         width: 100%;
+      }
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    margin: 20px auto;
+    padding: 0 10px;
+    .signup__container {
+      margin-top: 20px;
+      flex-direction: column;
+      form {
+        width: 100%;
+        margin-left: 0;
+      }
+      section {
+        display: none;
       }
     }
   }

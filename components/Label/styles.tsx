@@ -14,9 +14,19 @@ export const TitleLabelBox = styled.div`
     }
     p {
       font-family: 'Montserrat', sans-serif;
-      font-size: 28px;
       font-size: 16px;
       color: ${({ theme }) => theme.textColor.lighten};
+    }
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    div {
+      height: auto;
+      h4 {
+        font-size: 22px;
+      }
+      p {
+        font-size: 14px;
+      }
     }
   }
 `;
