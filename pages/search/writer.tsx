@@ -1,32 +1,77 @@
-import styled from '@emotion/styled';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
-import UserCardList from '../../components/List/UserCardList';
-import SearchPageNav from '../../components/Nav/SearchPageNav';
-import SortTab from '../../components/Tab/SortTab';
-import { UserInfoData, SearchListOptions } from '../../utils/data';
+import { SearchContentBox } from './post';
+import { UserCardListContainer } from '../../components/List/styles';
+import SearchPageWithNavLayout from '../../components/Layout/SearchPageNavLayout';
+import EmptyContent from '../../components/Result/EmptyContent';
+import SortOption from '../../components/Tab/SortOption';
+import { SearchPageData } from '../../modules/list';
+import useList from '../../modules/list/hooks';
+import UserInfoCard from '../../components/Card/UserInfoCard';
+import { searchDateOptionData, searchSortOptionData } from '../../utils/data';
+import Head from 'next/head';
 
-const SearchWriterContainer = styled.section`
-  width: 1150px;
-  margin: 0 auto;
-  position: relative;
-`;
+function SearchResult(): JSX.Element {
+  const { pageData } = useList();
 
-export default function SearchWriter(): JSX.Element {
-  const [currentSort, setCurrentSort] = useState(SearchListOptions.Popular);
-  const { query } = useRouter();
-  useEffect(() => {
-    console.log('서버로 작가 데이터 요청', query.keyword);
-  }, [query]);
+  if (
+    !(pageData as SearchPageData).writer ||
+    (pageData as SearchPageData).writer!.length < 1
+  )
+    return <EmptyContent message={'검색된 작가가 없습니다.'} />;
 
   return (
-    <Layout>
-      <SearchWriterContainer>
-        <SearchPageNav />
-        <SortTab currentSort={currentSort} setCurrentSort={setCurrentSort} />
-        <UserCardList data={UserInfoData}></UserCardList>
-      </SearchWriterContainer>
-    </Layout>
+    <>
+      <UserCardListContainer>
+        {(pageData as SearchPageData).writer!.map(userInfoItem => (
+          <UserInfoCard key={userInfoItem.id} userInfoData={userInfoItem} />
+        ))}
+      </UserCardListContainer>
+    </>
+  );
+}
+
+export default function SearchWriter(): JSX.Element {
+  const { getSearchListDispatch } = useList();
+  const { query } = useRouter();
+  const [currentSort, setCurrentSort] = useState(searchSortOptionData[0]);
+  const [currentDate, setCurrentDate] = useState(searchDateOptionData[0]);
+
+  useEffect(() => {
+    if (query.keyword) {
+      getSearchListDispatch({
+        query: query.keyword as string,
+        sort: currentSort.value as 'popular' | 'recent',
+        limit: 12,
+        type: 'writer',
+        term: currentDate.value as 'all' | 'day' | 'week' | 'month',
+      });
+    }
+  }, [query, currentSort, currentDate]);
+
+  return (
+    <SearchPageWithNavLayout>
+      <Head>
+        <title>검색 | 작가</title>
+      </Head>
+      <SearchContentBox>
+        <div className="sort-option">
+          <SortOption
+            sortOptionData={searchSortOptionData}
+            setCurrentSort={setCurrentSort}
+            currentSort={currentSort}
+          />
+          {currentSort.value === searchSortOptionData[0].value && (
+            <SortOption
+              sortOptionData={searchDateOptionData}
+              setCurrentSort={setCurrentDate}
+              currentSort={currentDate}
+            />
+          )}
+        </div>
+        <SearchResult />
+      </SearchContentBox>
+    </SearchPageWithNavLayout>
   );
 }

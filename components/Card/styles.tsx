@@ -240,6 +240,7 @@ export const ExhibitionCardBox = styled.div`
 
 export const CommonPostCardBox = styled.li`
   font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
   font-size: ${({ theme }) => theme.fontSize.base};
   text-align: start;
   position: relative;
@@ -256,7 +257,6 @@ export const CommonPostCardBox = styled.li`
       object-fit: cover;
     }
     h3 {
-      color: ${({ theme }) => theme.textColor.initial};
       font-weight: 400;
       font-size: ${({ theme }) => theme.fontSize.medium};
       margin: 0.857em 0 0.857em 0;
@@ -274,24 +274,27 @@ export const CommonPostCardBox = styled.li`
       color: ${({ theme }) => theme.primary[1]};
     }
   }
-
   .info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     .stats {
-      color: ${({ theme }) => theme.textColor.initial};
       font-family: 'Montserrat';
+      width: 32%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 32%;
       font-size: ${({ theme }) => theme.fontSize.small};
-      svg {
-        color: ${({ theme }) => theme.grayScale[2]};
-        padding-top: 0.071em;
-        margin-right: 0.214em;
-        font-size: ${({ theme }) => theme.fontSize.base};
+      p {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        svg {
+          padding-bottom: 0.071em;
+          margin-right: 0.214em;
+          font-size: ${({ theme }) => theme.fontSize.base};
+          color: ${({ theme }) => theme.grayScale[1]};
+        }
       }
     }
   }
@@ -330,55 +333,56 @@ export const UserAvatarWithNameBox = styled.div`
     margin-right: 0.357em;
   }
   strong {
-    color: ${({ theme }) => theme.textColor.initial};
     font-weight: ${({ theme }) => theme.fontWeight.regular};
     margin-right: 0.143em;
   }
   span {
-    color: ${({ theme }) => theme.grayScale[2]};
+    color: ${({ theme }) => theme.grayScale[1]};
     font-size: ${({ theme }) => theme.fontSize.small};
   }
 `;
 
 export const UserInfoCardBox = styled.li`
-  background-color: #fff;
-  border: solid 1px #efefef;
+  font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
+  background-color: ${({ theme }) => theme.background.modal};
+  box-shadow: 0 0 10px rgba(224, 224, 224, 0.2);
+  border: 0;
+  border-radius: 3px;
   position: relative;
   width: 100%;
+  cursor: pointer;
+  &:hover h3 {
+    color: ${({ theme }) => theme.primary[1]};
+  }
   article {
     display: flex;
     flex-direction: column;
     justify-content: Center;
     align-items: center;
     width: 100%;
-    &:hover h3 {
-      color: ${({ theme }) => theme.primary[1]};
-    }
-    > img {
+    & > img {
       margin-top: 2.357em;
-      border-radius: 75px;
-      width: 150px;
-      height: 150px;
+      border-radius: 60px;
+      width: 120px;
+      height: 120px;
       margin-bottom: 1.071em;
-      cursor: pointer;
+      border: 1px solid ${({ theme }) => theme.grayScale[4]};
     }
     h3 {
-      cursor: pointer;
       transition: all 0.2s ease-in-out;
-
       font-size: ${({ theme }) => theme.fontSize.xl};
       font-weight: ${({ theme }) => theme.fontWeight.semiBold};
       margin: 0.875em 0;
     }
     p {
-      cursor: pointer;
       font-size: ${({ theme }) => theme.fontSize.medium};
-      color: ${({ theme }) => theme.textColor.initial};
       margin-bottom: 2em;
+      padding: 0 2em;
+      text-align: center;
+      line-height: 1.5;
     }
-
     .writer__add-info {
-      color: ${({ theme }) => theme.textColor.lighten};
       font-size: ${({ theme }) => theme.fontSize.base};
       display: flex;
       justify-content: space-between;
@@ -389,22 +393,22 @@ export const UserInfoCardBox = styled.li`
         text-align: center;
         div {
           margin-bottom: 0.357em;
-          font-weight: ${({ theme }) => theme.fontWeight.semiBold};
+          font-weight: ${({ theme }) => theme.fontWeight.regular};
         }
         span {
-          font-weight: ${({ theme }) => theme.fontWeight.regular};
+          font-size: ${({ theme }) => theme.fontSize.lg};
+          font-weight: ${({ theme }) => theme.fontWeight.semiBold};
         }
       }
     }
     .writer__recent-img {
       display: flex;
-      justify-content: center;
-      align-items: center;
       width: 100%;
       .img__box {
         width: 33.3%;
         height: 90px;
         img {
+          object-fit: cover;
           width: 100%;
           height: 100%;
         }
@@ -708,7 +712,6 @@ export const PhotoBinderCardBox = styled.div`
 export const ArchiveItemContainer = styled.li<{
   length: number | undefined;
   posterId: number;
-  currentTheme: null | string;
 }>`
   max-width: 1020px;
   margin: 0 auto;
@@ -729,20 +732,6 @@ export const ArchiveItemContainer = styled.li<{
       width: 232px;
       max-height: 350px;
       object-fit: contain;
-      ${props =>
-        props.currentTheme === 'light' &&
-        css`
-          & {
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
-          }
-        `};
-      ${props =>
-        props.currentTheme === 'dark' &&
-        css`
-          & {
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.15);
-          }
-        `};
     }
   }
   article {
@@ -915,15 +904,15 @@ export const BlogCommentCardBox = styled.li`
 `;
 
 export const BlogPicstoryCardBox = styled.li`
-  border: 1px solid ${({ theme }) => theme.grayScale[2]};
+  color: ${({ theme }) => theme.grayScale[1]};
+  font-family: 'Noto Serif KR';
   padding: 25px;
   height: 250px;
-  font-size: ${({ theme }) => theme.fontSize.base};
-  font-family: 'Noto Serif KR';
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 10px 0px;
+  background-color: ${({ theme }) => theme.background.modal};
+  box-shadow: 0 0 10px rgba(224, 224, 224, 0.2);
   border: 0;
+  border-radius: 3px;
   margin-bottom: 50px;
-  cursor: pointer;
   article {
     .picstory__description {
       display: flex;
@@ -945,7 +934,6 @@ export const BlogPicstoryCardBox = styled.li`
           display: flex;
           align-items: center;
           svg {
-            color: ${({ theme }) => theme.grayScale[1]};
             padding-top: 0.071em;
             margin-right: 0.143em;
           }
@@ -1027,6 +1015,7 @@ export const BlogPostCardBox = styled.li`
   text-align: justify;
   line-height: 1.8;
   font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
   article {
     width: 100%;
     .img__wrapper {

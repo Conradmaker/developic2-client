@@ -7,24 +7,25 @@ import {
   getTaggedPostListAction,
   getWriterListAction,
   getArchiveListAction,
+  getSearchListAction,
 } from './thunk';
 import {
   DiscoverPageDataType,
   FeedPageDataType,
   ListState,
   MainPageDataType,
+  SearchPageData,
 } from './type';
 
 const initialState: ListState = {
   pageData: {},
-  loadSearchPostList: { loading: false, data: null, error: null },
-  loadMoreSearchPostList: { loading: false, data: null, error: null },
   getArchiveList: { loading: false, data: null, error: null },
   getFeedList: { loading: false, data: null, error: null },
   getWriterList: { loading: false, data: null, error: null },
   getHashtagList: { loading: false, data: null, error: null },
   getTaggedPostList: { loading: false, data: null, error: null },
   getPostList: { loading: false, data: null, error: null },
+  getSearchList: { loading: false, data: null, error: null },
   loadMore: false,
   hasMore: true,
 };
@@ -67,8 +68,8 @@ const listSlice = createSlice({
         state.getFeedList.loading = false;
         state.getFeedList.data = true;
         state.getFeedList.error = null;
-        state.pageData.post = state.loadMore
-          ? state.pageData.post.concat(payload)
+        (state.pageData as FeedPageDataType).post = state.loadMore
+          ? (state.pageData as FeedPageDataType).post.concat(payload)
           : payload;
       })
       .addCase(getFeedPostAction.rejected, (state, { payload }) => {
@@ -117,8 +118,8 @@ const listSlice = createSlice({
         state.getTaggedPostList.loading = false;
         state.getTaggedPostList.data = true;
         state.getTaggedPostList.error = null;
-        state.pageData.post = state.loadMore
-          ? state.pageData.post.concat(payload)
+        (state.pageData as DiscoverPageDataType).post = state.loadMore
+          ? (state.pageData as DiscoverPageDataType).post.concat(payload)
           : payload;
       })
       .addCase(getTaggedPostListAction.rejected, (state, { payload }) => {
@@ -135,14 +136,34 @@ const listSlice = createSlice({
         state.getPostList.loading = false;
         state.getPostList.data = true;
         state.getPostList.error = null;
-        state.pageData.post = state.loadMore
-          ? state.pageData.post.concat(payload)
+        (state.pageData as MainPageDataType).post = state.loadMore
+          ? (state.pageData as MainPageDataType).post.concat(payload)
           : payload;
       })
       .addCase(getPostListAction.rejected, (state, { payload }) => {
         state.getPostList.loading = false;
         state.getPostList.data = null;
         state.getPostList.error = payload;
+      })
+
+      .addCase(getSearchListAction.pending, state => {
+        state.getSearchList.loading = true;
+        state.getSearchList.data = null;
+        state.getSearchList.error = null;
+      })
+      .addCase(getSearchListAction.fulfilled, (state, { payload, meta }) => {
+        state.getSearchList.loading = false;
+        state.getSearchList.data = true;
+        state.getSearchList.error = null;
+        ((state.pageData as SearchPageData)[meta.arg.type] as SearchPageData[
+          | 'picstory'
+          | 'post'
+          | 'writer']) = payload;
+      })
+      .addCase(getSearchListAction.rejected, (state, { payload }) => {
+        state.getSearchList.loading = false;
+        state.getSearchList.data = null;
+        state.getSearchList.error = payload;
       })
       .addCase(unSubscribeAction.fulfilled, (state, { payload }) => {
         state.getPostList.loading = false;

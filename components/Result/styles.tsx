@@ -27,8 +27,8 @@ to{
 `;
 
 export const BlogUserInfoBox = styled.div`
-  line-height: 1.5;
   font-size: ${({ theme }) => theme.fontSize.base};
+  line-height: 1.5;
   max-width: 700px;
   margin: 0 auto;
   .user__info {
@@ -54,9 +54,25 @@ export const BlogUserInfoBox = styled.div`
   }
 `;
 
+export const EmptyContentContainer = styled.section`
+  font-family: 'Noto Serif KR';
+  color: ${({ theme }) => theme.textColor.initial};
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 120px;
+  .empty_message {
+    margin: 50px 0;
+  }
+  img {
+    width: 80px;
+    height: 121px;
+  }
+`;
+
 export const EmptyBlogUserInfoBox = styled.div`
   margin-bottom: 100px;
   text-align: center;
+  color: ${({ theme }) => theme.textColor.initial};
   img {
     width: 60%;
   }
@@ -72,6 +88,7 @@ export const IncompleteContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 100px 0;
   & > section {
     margin-right: 100px;
     ul {
@@ -156,4 +173,11 @@ export const ToastPopUpBox = styled.div<{ visible: boolean }>`
     css`
       animation: ${slideDown} 0.3s;
     `}
+`;
+
+export const SearchCountBox = styled.div`
+  font-family: 'Noto Serif KR';
+  margin-bottom: 25px;
+  font-size: ${({ theme }) => theme.fontSize.base};
+  color: ${({ theme }) => theme.grayScale[1]};
 `;

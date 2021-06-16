@@ -142,33 +142,36 @@ export const CustomTextareaBox = styled.div<{ width: number }>`
 `;
 
 export const SearchInputBox = styled.form`
-  border: 1px solid ${({ theme }) => theme.textColor.initial};
   display: flex;
+  border-bottom: 1px solid ${({ theme }) => theme.grayScale[1]};
   flex-direction: row-reverse;
+  justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 60px;
+  width: 600px;
   padding: 0.75em;
-  margin-bottom: 3em;
+  padding-left: 0;
+  margin-bottom: 1.2em;
   transition: all 0.15s ease-in;
-  max-width: 50%;
+  max-width: 100%;
   svg {
-    width: 25px;
-    height: 25px;
-    fill: ${({ theme }) => theme.textColor.initial};
+    font-size: 25px;
+    fill: ${({ theme }) => theme.grayScale[1]};
     margin-right: 0.5em;
     transition: all 0.125s ease-in;
+    margin-top: 3px;
   }
   input {
-    font-size: ${({ theme }) => theme.fontSize.medium};
+    font-family: 'Noto Serif KR', serif;
+    font-size: ${({ theme }) => theme.fontSize.xxl};
     flex: 1;
     display: block;
-    line-height: 25px;
-    height: 25px;
-    padding: 0;
+    padding: 5px 0;
     border: none;
     outline: none;
     background-color: transparent;
     transition: all 0.125s ease-in;
+    color: ${({ theme }) => theme.grayScale[1]};
     &::placeholder {
       color: ${({ theme }) => theme.grayScale[2]};
     }
@@ -177,6 +180,11 @@ export const SearchInputBox = styled.form`
   input:focus + svg {
     fill: black;
     color: black;
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    input {
+      font-size: 16px;
+    }
   }
 `;
 

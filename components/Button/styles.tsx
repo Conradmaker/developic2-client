@@ -214,6 +214,7 @@ export const RoundCornerBtnBox = styled.button<{
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  transition: all 0.2s ease-in;
   & > svg {
     margin-right: 5px;
     font-size: ${({ theme }) => theme.fontSize.lg};

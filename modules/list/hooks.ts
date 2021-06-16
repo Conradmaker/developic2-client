@@ -8,6 +8,7 @@ import {
   getTaggedPostListAction,
   getWriterListAction,
   getArchiveListAction,
+  getSearchListAction,
 } from './thunk';
 import {
   GetWriterListPayload,
@@ -15,10 +16,11 @@ import {
   GetTaggedPostListPayload,
   GetPostListPayload,
   GetArchiveListPayload,
+  getSearchListPayload,
 } from './type';
 
 export default function useList() {
-  const { pageData, loadSearchPostList, hasMore } = useAppSelector(state => state.list);
+  const { pageData, hasMore } = useAppSelector(state => state.list);
   const dispatch = useAppDispatch();
 
   const getFeedPostDispatch = useCallback(
@@ -42,15 +44,19 @@ export default function useList() {
   const getArchiveListDispatch = useCallback((data: GetArchiveListPayload) => {
     dispatch(getArchiveListAction(data));
   }, []);
+  const getSearchListDispatch = useCallback((data: getSearchListPayload) => {
+    dispatch(getSearchListAction(data));
+  }, []);
+
   return {
     pageData,
     hasMore,
-    loadSearchPostList,
     getFeedPostDispatch,
     getWriterListDispatch,
     getHashtagListDispatch,
     getTaggedPostListDispatch,
     getPostListDispatch,
     getArchiveListDispatch,
+    getSearchListDispatch,
   };
 }

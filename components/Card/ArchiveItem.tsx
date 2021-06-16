@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
-import { useThemeState } from '../../hooks/ThemeContext';
 import { Archive } from '../../modules/archive/type';
 import { ArchiveItemContainer } from './styles';
 
@@ -14,15 +13,9 @@ export default function ArchiveItem({
   data,
   listLength,
 }: ArchiveItemPropsType): JSX.Element {
-  const currentTheme = useThemeState();
-
   return (
     <Link href={`/archive/${data.id}`}>
-      <ArchiveItemContainer
-        length={listLength}
-        posterId={data.id}
-        currentTheme={currentTheme}
-      >
+      <ArchiveItemContainer length={listLength} posterId={data.id}>
         <div className="img__wrapper">
           <img src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster} alt="poster" />
         </div>

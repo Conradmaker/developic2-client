@@ -21,7 +21,7 @@ export default function BlogPistoryCard({
   const router = useRouter();
   const { userId } = router.query;
 
-  const posts = picstoryData.Posts;
+  const posts = picstoryData?.Posts;
 
   const likeCountTotal = useMemo(() => countTotal.like(posts), [posts]);
   const viewCountTotal = useMemo(() => countTotal.hit(posts), [posts]);
