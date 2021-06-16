@@ -8,6 +8,9 @@ import TitleInput from '../../../components/Input/EditPageInput';
 import useUser from '../../../modules/user/hooks';
 import usePost from '../../../modules/post/hooks';
 import Head from 'next/head';
+import useModal from '../../../hooks/useModal';
+import ConfirmModal from '../../../components/Modal/ConfirmModal';
+
 const EditContainer = styled.div`
   max-width: 1100px;
   margin: 0 auto;
@@ -64,6 +67,34 @@ export default function edit(): JSX.Element {
     setTagList(tempPost.data.tagList);
   }, [tempPost.data]);
 
+  const [toUrl, setToUrl] = useState('');
+  const [confirmed, setConfirmed] = useState(false);
+  const [RunModal, toggleModal] = useModal(ConfirmModal, {
+    onConfirm: () => setConfirmed(true),
+    content: '변경내용이 사라지게 됩니다. 페이지를 나가시겠습니까',
+  });
+  useEffect(() => {
+    const routeChangeStart = (url: string) => {
+      if (router.asPath.split('?')[0] !== url.split('?')[0] && !confirmed) {
+        setToUrl(url);
+        toggleModal();
+        router.events.emit('routeChangeError');
+        throw 'Abort route change. Please ignore this error.';
+      }
+    };
+    router.events.on('routeChangeStart', routeChangeStart);
+    return () => {
+      router.events.off('routeChangeStart', routeChangeStart);
+    };
+  }, [confirmed]);
+
+  useEffect(() => {
+    if (confirmed) {
+      toggleModal();
+      router.replace(toUrl);
+    }
+  }, [toUrl, confirmed]);
+
   useEffect(() => {
     const filter = ['win16', 'win32', 'win64', 'mac', 'macintel', 'macm1'];
     if (filter.indexOf(navigator.platform.toLowerCase()) < 0) {
@@ -85,6 +116,7 @@ export default function edit(): JSX.Element {
           setImageList={setImageList}
           temporarySave={temporarySave}
         />
+        <RunModal />
       </EditContainer>
     </Layout>
   );

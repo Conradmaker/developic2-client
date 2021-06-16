@@ -18,6 +18,9 @@ import {
 import Carousel from '../components/List/Carousel';
 import { authServersiceAction } from '../utils/getServerSidePropsTemplate';
 import wrapper from '../modules/store';
+import Welcome from '../components/Result/Welcome';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const MainContainer = styled.main`
   max-width: 1150px;
@@ -26,9 +29,9 @@ const MainContainer = styled.main`
   .banner__image {
     margin-top: 30px;
     margin-bottom: 150px;
-    width: 1150px;
+    max-width: 1150px;
     height: 436px;
-    background-color: #111;
+    background-color: #273bb9;
     img {
       width: 100%;
     }
@@ -93,7 +96,7 @@ const MainContainer = styled.main`
       height: 436px;
       position: absolute;
       z-index: 10;
-      top: 15vh;
+      top: 30vh;
       padding: 0 20px;
       h1 {
         text-shadow: 1px 1px 10px black;
@@ -106,36 +109,12 @@ const MainContainer = styled.main`
       }
     }
     .banner__image {
-      background: linear-gradient(
-        8deg,
-        #64daff,
-        #ccf3ff,
-        #40d04f,
-        #273bb9,
-        #091355,
-        #091355
-      );
-      background-size: 1200% 1200%;
-      animation: GradientBackground 8s ease infinite;
-
-      @keyframes GradientBackground {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
       position: absolute;
       top: 0;
       z-index: 0;
       width: 100%;
-      height: 100vh;
+      height: 90vh;
       img {
-        display: none;
       }
       border-bottom-left-radius: 50% 10%;
       border-bottom-right-radius: 50% 10%;
@@ -172,6 +151,7 @@ const MainContainer = styled.main`
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 100px;
+      z-index: 11;
       & > li {
         h4 {
           color: #fff;
@@ -208,6 +188,22 @@ const MainContainer = styled.main`
 
 export default function Home(): JSX.Element {
   const { pageData } = useList();
+
+  const [welcome, setWelcome] = useState(false);
+  useEffect(() => {
+    if (sessionStorage) {
+      const visited = sessionStorage.getItem('visited');
+      if (!visited) {
+        sessionStorage.setItem('visited', '1');
+        setWelcome(true);
+      }
+    }
+    const timeout = setTimeout(() => setWelcome(false), 4300);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (welcome) return <Welcome />;
+
   if (!(pageData as MainPageDataType).archive) return <></>;
   if (!(pageData as MainPageDataType).writer) return <></>;
   if (!(pageData as MainPageDataType).post) return <></>;

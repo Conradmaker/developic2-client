@@ -8,7 +8,22 @@ import useCS from '../../modules/cs/hooks';
 import { CSNavData } from '../../utils/data';
 
 const FaqContainer = styled.section`
-  min-height: 550px;
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+    .cs__left {
+      div {
+        padding-left: 0;
+      }
+      h1 {
+        font-size: 32px;
+      }
+      p {
+      }
+    }
+    .cs__right {
+      margin: 20px 0 30px 0;
+    }
+  }
 `;
 
 export default function Faq(): JSX.Element {

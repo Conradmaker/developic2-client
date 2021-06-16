@@ -246,7 +246,9 @@ export default function edit(): JSX.Element {
 
   return (
     <Layout>
-      <Head>DEVELOPIC | archive</Head>
+      <Head>
+        <title>아카이브 | 전시회 등록</title>
+      </Head>
       <ArchiveEditContainer>
         <TitleLabel title="전시등록" desc="Exhibition Archive" />
         <section>

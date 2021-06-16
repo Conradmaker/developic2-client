@@ -54,6 +54,24 @@ const InqueryContainer = styled.section`
       }
     }
   }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    padding: 0 10px;
+    flex-direction: column;
+    .cs__left {
+      div {
+        padding-left: 0;
+        h1 {
+          font-size: 32px;
+        }
+      }
+      img {
+        display: none;
+      }
+    }
+    .cs__right {
+      margin: 20px 0 30px 0;
+    }
+  }
 `;
 
 const inqueryType = [

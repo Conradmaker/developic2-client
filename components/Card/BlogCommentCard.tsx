@@ -53,7 +53,10 @@ export default function BlogCommentCard({
           </Link>
           <div>
             <strong>{commentData.User.nickname}</strong>
-            <p>{dayjs(commentData.updatedAt).format('YYYY년 MM월 DD일')}</p>
+            <p>
+              {dayjs(commentData.updatedAt).format('YY년 MM월 DD일 HH시')}{' '}
+              {commentData.createdAt !== commentData.updatedAt && '(수정됨)'}
+            </p>
           </div>
         </article>
         <div>

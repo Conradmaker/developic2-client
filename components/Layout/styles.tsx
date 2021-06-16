@@ -290,8 +290,8 @@ export const UserMenuContainer = styled.div`
     }
     .close__btn {
       position: absolute;
-      top: 5px;
-      left: 30px;
+      top: 5%;
+      left: 12%;
       font-size: 36px;
       transform: rotate(45deg);
       display: none;
@@ -299,6 +299,7 @@ export const UserMenuContainer = styled.div`
   }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
     .user-menu__drawer {
+      justify-content: center;
       width: 100%;
       & > h2,
       & > p,
