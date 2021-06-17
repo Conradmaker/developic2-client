@@ -14,7 +14,6 @@ export const PostSearchListContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 50px 20px;
-  margin-bottom: 70px;
   @media ${({ theme }) => theme.viewPortSize.mobile} {
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 00px;
@@ -25,7 +24,6 @@ export const UserCardListContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 50px 30px;
-  margin-bottom: 100px;
   .empty_content {
     text-align: center;
   }
@@ -169,7 +167,7 @@ export const ImgItemBox = styled.div<{ selected: boolean }>`
 `;
 
 export const BlogPicstoryListContainer = styled.ul`
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   .empty_content {
     text-align: center;
   }

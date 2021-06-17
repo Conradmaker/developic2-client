@@ -158,7 +158,12 @@ const listSlice = createSlice({
         ((state.pageData as SearchPageData)[meta.arg.type] as SearchPageData[
           | 'picstory'
           | 'post'
-          | 'writer']) = payload;
+          | 'writer']) = state.loadMore
+          ? ((state.pageData as SearchPageData)[meta.arg.type] as SearchPageData[
+              | 'picstory'
+              | 'post'
+              | 'writer'])?.concat(payload)
+          : payload;
       })
       .addCase(getSearchListAction.rejected, (state, { payload }) => {
         state.getSearchList.loading = false;

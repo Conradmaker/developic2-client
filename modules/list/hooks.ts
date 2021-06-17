@@ -20,7 +20,7 @@ import {
 } from './type';
 
 export default function useList() {
-  const { pageData, hasMore } = useAppSelector(state => state.list);
+  const { pageData, hasMore, loadMore } = useAppSelector(state => state.list);
   const dispatch = useAppDispatch();
 
   const getFeedPostDispatch = useCallback(
@@ -50,6 +50,7 @@ export default function useList() {
 
   return {
     pageData,
+    loadMore,
     hasMore,
     getFeedPostDispatch,
     getWriterListDispatch,

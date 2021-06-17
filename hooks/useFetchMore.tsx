@@ -12,7 +12,8 @@ const FetchMoreTriggerContainer = styled.div`
   width: 100%;
   height: 100px;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   img {
     display: block;

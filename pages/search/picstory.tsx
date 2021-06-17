@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import { BlogPicstoryListContainer } from '../../components/List/styles';
 import SearchPageWithNavLayout from '../../components/Layout/SearchPageNavLayout';
 import useList from '../../modules/list/hooks';
@@ -8,9 +9,11 @@ import { SearchContentBox } from './post';
 import BlogPistoryCard from '../../components/Card/BlogPistoryCard';
 import { SearchPageData } from '../../modules/list';
 import EmptyContent from '../../components/Result/EmptyContent';
-import Head from 'next/head';
+import wrapper from '../../modules/store';
+import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
+import useFetchMore from '../../hooks/useFetchMore';
 
-function PicstoryResult() {
+function PicstoryResult({ children }: { children?: React.ReactNode }) {
   const { pageData } = useList();
 
   if (
@@ -20,23 +23,36 @@ function PicstoryResult() {
     return <EmptyContent message={'검색된 픽스토리가 없습니다.'} />;
 
   return (
-    <BlogPicstoryListContainer>
-      {(pageData as SearchPageData).picstory!.map(picstoryItem => (
-        <BlogPistoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
-      ))}
-    </BlogPicstoryListContainer>
+    <>
+      <BlogPicstoryListContainer>
+        {(pageData as SearchPageData).picstory!.map(picstoryItem => (
+          <BlogPistoryCard key={picstoryItem.id} picstoryData={picstoryItem} />
+        ))}
+      </BlogPicstoryListContainer>
+      {children}
+    </>
   );
 }
 
 export default function SearchPicstory(): JSX.Element {
-  const { getSearchListDispatch } = useList();
+  const { getSearchListDispatch, hasMore } = useList();
   const { query } = useRouter();
+  const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
+
+  useEffect(() => {
+    setPage(0);
+  }, [query.keyword]);
 
   useEffect(() => {
     if (query.keyword) {
-      getSearchListDispatch({ query: query.keyword as string, type: 'picstory' });
+      getSearchListDispatch({
+        query: query.keyword as string,
+        type: 'picstory',
+        limit: 12,
+        offset: page * 12,
+      });
     }
-  }, [query]);
+  }, [query.keyword]);
 
   return (
     <SearchPageWithNavLayout>
@@ -44,8 +60,14 @@ export default function SearchPicstory(): JSX.Element {
         <title>검색 | 픽스토리</title>
       </Head>
       <SearchContentBox>
-        <PicstoryResult />
+        <PicstoryResult>
+          <FetchMoreTrigger />
+        </PicstoryResult>
       </SearchContentBox>
     </SearchPageWithNavLayout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  await authServersiceAction(context);
+});

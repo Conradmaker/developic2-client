@@ -172,11 +172,13 @@ export const getSearchListAction = createAsyncThunk<
 >('list/getSearchList', async (payloadData, { dispatch, rejectWithValue }) => {
   try {
     const { data } = await axios.get(
-      `/list/search?keyword=${payloadData.query}&${
+      `/list/search?keyword=${payloadData.query}${
         payloadData.type ? '&type=' + payloadData.type : ''
-      }&${payloadData.sort ? '&sort=' + payloadData.sort : ''}&${
+      }${payloadData.sort ? '&sort=' + payloadData.sort : ''}${
         payloadData.term ? '&term=' + payloadData.term : ''
-      }&${payloadData.limit ? '&limit=' + payloadData.limit : ''}`
+      }${payloadData.limit ? '&limit=' + payloadData.limit : ''}${
+        payloadData.offset ? '&offset=' + payloadData.offset : ''
+      }`
     );
 
     dispatch(
