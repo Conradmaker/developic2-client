@@ -63,9 +63,9 @@ export type MainPageDataType = {
 };
 
 export type SearchPageData = {
-  post?: PostType[];
-  writer?: PostUser[];
-  picstory?: BlogPicstory[];
+  post: PostType[];
+  writer: PostUser[];
+  picstory: BlogPicstory[];
 };
 
 export type HashtagType = {

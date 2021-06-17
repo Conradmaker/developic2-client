@@ -9,6 +9,7 @@ import PageLabel from '../../components/Label/PageLabel';
 import PageWithNavLayout from '../../components/Layout/PageWithNavLayout';
 import useInput from '../../hooks/useInput';
 import { CSNavData } from '../../utils/data';
+import useUI from '../../modules/ui/hooks';
 
 const InqueryContainer = styled.section`
   display: flex;
@@ -91,6 +92,7 @@ export default function Inquery(): JSX.Element {
   const [email, onChangeEmail, setEmail] = useInput('');
   const [contact, onChangeContact, setContact] = useInput('');
   const [content, onChangeContent, setContent] = useInput('');
+  const { toastOpenDispatch } = useUI();
 
   const onChangeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value);
@@ -115,8 +117,8 @@ export default function Inquery(): JSX.Element {
         content,
         type,
       })
-      .then(res => {
-        alert(res.data);
+      .then(() => {
+        toastOpenDispatch('소중한 의견 감사합니다.');
         setType(inqueryType[0].value);
         setEmail('');
         setContact('');

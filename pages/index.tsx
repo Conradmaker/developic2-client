@@ -214,7 +214,7 @@ export default function Home(): JSX.Element {
         <title>DEVELOPIC | HOME</title>
       </Head>
       <MainContainer>
-        <PageLabel text="디비디 바비디 부 벨소리 울려라" desc="지금은 새벽 4시 반" />
+        <PageLabel text="디비디 바비디 부 벨소리 울려라" desc="찍고 쓰는 디벨로픽" />
         <div className="banner__image">
           <img src="main_banner.png" alt="banner" />
         </div>

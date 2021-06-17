@@ -35,10 +35,11 @@ export const FooterContainer = styled.footer`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: 'Montserrat', sans-serif;
     .menu__list {
       .logo {
         display: block;
-        font-family: 'Montserrat', sans-serif;
+
         font-size: 24px;
         font-weight: 600;
         letter-spacing: 2.88px;

@@ -155,15 +155,36 @@ const listSlice = createSlice({
         state.getSearchList.loading = false;
         state.getSearchList.data = true;
         state.getSearchList.error = null;
-        ((state.pageData as SearchPageData)[meta.arg.type] as SearchPageData[
-          | 'picstory'
-          | 'post'
-          | 'writer']) = state.loadMore
-          ? ((state.pageData as SearchPageData)[meta.arg.type] as SearchPageData[
-              | 'picstory'
-              | 'post'
-              | 'writer'])?.concat(payload)
-          : payload;
+
+        // (state.pageData as SearchPageData)[meta.arg.type] = state.loadMore
+        //   ? (state.pageData as SearchPageData)[meta.arg.type].concat(payload)
+        //   : payload;
+
+        switch (meta.arg.type) {
+          case 'post':
+            (state.pageData as SearchPageData)[meta.arg.type] = state.loadMore
+              ? (state.pageData as SearchPageData)[meta.arg.type].concat(
+                  payload as SearchPageData['post']
+                )
+              : (payload as SearchPageData['post']);
+            break;
+          case 'picstory':
+            (state.pageData as SearchPageData)[meta.arg.type] = state.loadMore
+              ? (state.pageData as SearchPageData)[meta.arg.type].concat(
+                  payload as SearchPageData['picstory']
+                )
+              : (payload as SearchPageData['picstory']);
+            break;
+          case 'writer':
+            (state.pageData as SearchPageData)[meta.arg.type] = state.loadMore
+              ? (state.pageData as SearchPageData)[meta.arg.type].concat(
+                  payload as SearchPageData['writer']
+                )
+              : (payload as SearchPageData['writer']);
+            break;
+          default:
+            break;
+        }
       })
       .addCase(getSearchListAction.rejected, (state, { payload }) => {
         state.getSearchList.loading = false;

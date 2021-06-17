@@ -53,7 +53,7 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
   if (!loadBlogPicstoryDetail.data) return <></>;
 
   return (
-    <BlogPicstoryDetailContainer currentTheme={null}>
+    <BlogPicstoryDetailContainer>
       <article>
         <div className="picstory__description">
           <h2>{loadBlogPicstoryDetail.data.title}</h2>

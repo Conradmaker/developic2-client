@@ -14,7 +14,7 @@ export default function Footer(): JSX.Element {
       <div className="inner">
         <div className="menu__list">
           <span className="logo">DEVELOPIC</span>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>COMMITTED TO AWESOME DEVELOPIC.</p>
           <ul>
             <Link href="/">
               <li>홈페이지</li>

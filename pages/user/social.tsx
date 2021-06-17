@@ -20,6 +20,13 @@ const SocialAuthContainer = styled.div`
     margin: 20px 0 100px 0;
     font-size: 20px;
     font-family: 'Noto Serif KR';
+    color: ${({ theme }) => theme.textColor.initial};
+  }
+  @media ${({ theme }) => theme.viewPortSize.mobile} {
+    .banner {
+      margin: 50px 0;
+      width: 100%;
+    }
   }
 `;
 export default function social(): JSX.Element {
@@ -39,7 +46,7 @@ export default function social(): JSX.Element {
     <Layout>
       <SocialAuthContainer>
         <img src="/auth_loading.png" alt="이미지" className="banner" />
-        <img src="/loading.gif" alt="이미지" className="loading" />
+        <img src="/pencil_loading.gif" alt="이미지" className="loading" />
         <p>잠시만 기다려주세요</p>
       </SocialAuthContainer>
     </Layout>
