@@ -4,7 +4,7 @@ import { CustomTextareaBox } from './styles';
 type CustomTextareaPropsType = {
   title: string;
   value: string;
-  onChange: (e: React.ChangeEvent) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   width?: number;
 };
 export default function CustomTextarea({
