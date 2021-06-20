@@ -43,7 +43,6 @@ export default function Header(): JSX.Element {
         setHeaderActive(true);
       }
       oldValue = top;
-      console.log(oldValue);
     }, 300);
 
     window.addEventListener('scroll', onScroll);

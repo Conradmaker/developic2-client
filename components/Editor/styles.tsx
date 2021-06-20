@@ -121,7 +121,7 @@ export const PostContentViewerContainer = styled.article`
   color: ${({ theme }) => theme.textColor.initial};
   font-size: ${({ theme }) => theme.fontSize.base};
   text-align: center;
-  line-height: 1.5;
+  font-family: 'Noto Serif KR';
   img {
     max-height: 440px;
     object-fit: contain;
@@ -132,6 +132,108 @@ export const PostContentViewerContainer = styled.article`
     &:hover {
       box-shadow: 0 0 10px ${({ theme }) => theme.grayScale[2]};
     }
+  }
+  & > * {
+    line-height: 2.2;
+  }
+  em {
+    font-style: italic;
+  }
+  del {
+    text-decoration: line-through;
+  }
+  strong {
+    font-weight: 800;
+  }
+  ul,
+  ol {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  ul > li {
+    list-style: square;
+  }
+  ol > li {
+    list-style: decimal;
+  }
+  .task-list-item {
+    list-style: none;
+    display: flex;
+    align-items: center;
+  }
+  .task-list-item::before,
+  .task-list-item.checked::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    padding-right: 10px;
+    margin-bottom: 3px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  .task-list-item::before {
+    background-image: url('https://i.ibb.co/n7PsH2q/blank-check-box.png');
+  }
+  .task-list-item.checked::before {
+    background-image: url('https://i.ibb.co/1LcgL0Y/checkbox.png');
+  }
+  blockquote {
+    min-width: 300px;
+    display: inline-flex;
+    flex-direction: column;
+    border-left: 3px solid #aaa;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 5px 15px;
+    border-radius: 3px;
+  }
+  table {
+    width: auto;
+    margin: 0 auto;
+    th {
+      background-color: #86b5eb;
+    }
+    th,
+    td {
+      padding: 3px 5px;
+      border: 1px solid #aaa;
+    }
+  }
+  code {
+    @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap');
+    font-family: 'Source Code Pro', monospace;
+    border-radius: 3px;
+    padding: 5px 10px;
+    background-color: #dafcf9;
+    font-size: 12px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    border-bottom: 3px double black;
+  }
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  h4 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  h5 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  h6 {
+    font-size: 12px;
+    font-weight: 500;
   }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
     img {

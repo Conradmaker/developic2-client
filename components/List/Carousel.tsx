@@ -104,7 +104,6 @@ export default function Carousel({
   }, [currentSlide, listLength]);
 
   const onTouchStart = _throttle(e => {
-    console.log(e);
     setOldClientX(e.changedTouches[0].clientX);
   }, 300);
 

@@ -27,7 +27,6 @@ export type State = {
 export const reducer = (state: State | undefined, action: any): any => {
   switch (action.type) {
     case HYDRATE:
-      console.log('HYDRATE', action.payload);
       return action.payload;
     default:
       return combineReducers({
