@@ -19,31 +19,22 @@ type GetServerSidePropsContextType = (
 
 const initialGetServerSideProps: GetServerSidePropsContextType = callBackArr => {
   const getServerSideProps = wrapper.getServerSideProps(async context => {
-    console.log('SSR시작');
-    //쿠키 전달
-    const cookie = context.req ? context.req.headers.cookie : ''; //이 안에 쿠키 들어있음.
-    //쿠키 공유 방지
-    axios.defaults.headers.Cookie = ''; //아닐때는 쿠키 제거
+    const cookie = context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie = '';
     if (context.req && cookie) {
-      //서버일때 & 쿠키가 있을때만
-      axios.defaults.headers.Cookie = cookie; //쿠키를 넣어주고
+      axios.defaults.headers.Cookie = cookie;
     }
     await context.store.dispatch(authAction(null));
     _forEach(callBackArr, async callback => await context.store.dispatch(callback));
-    console.log('SSR끝');
   });
   return getServerSideProps;
 };
 
 export const authServersiceAction = async (context: ContextType): Promise<void> => {
-  console.log('SSR시작');
-  //쿠키 전달
-  const cookie = context.req ? context.req.headers.cookie : ''; //이 안에 쿠키 들어있음.
-  //쿠키 공유 방지
-  axios.defaults.headers.Cookie = ''; //아닐때는 쿠키 제거
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
   if (context.req && cookie) {
-    //서버일때 & 쿠키가 있을때만
-    axios.defaults.headers.Cookie = cookie; //쿠키를 넣어주고
+    axios.defaults.headers.Cookie = cookie;
   }
   await context.store.dispatch(authAction(null));
 };

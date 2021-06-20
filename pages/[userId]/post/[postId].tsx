@@ -29,13 +29,16 @@ export default function postId(): JSX.Element {
         <title>
           {getPostDetail.data.title} | {getPostDetail.data.User.nickname}
         </title>
-        <meta name="author" content="ss" />
-        <meta name="description" content="ss" />
+        <meta name="author" content="cozi" />
+        <meta name="description" content="blog for photographer" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="DeveloPic" />
         <meta property="og:title" content="글로 만드는 사진" />
         <meta property="og:description" content={getPostDetail.data.title} />
-        <meta property="og:image" content={getPostDetail.data.thumbnail} />
+        <meta
+          property="og:image"
+          content={process.env.NEXT_PUBLIC_IMAGE_400 + getPostDetail.data.thumbnail}
+        />
         <meta
           property="og:url"
           content={`${process.env.NEXT_PUBLIC_CLIENT_HOST}${router.asPath}`}
@@ -49,7 +52,10 @@ export default function postId(): JSX.Element {
         />
         <meta name="twitter:title" content="DeveloPic" />
         <meta name="twitter:description" content={getPostDetail.data.title} />
-        <meta name="twitter:image" content={getPostDetail.data.thumbnail} />
+        <meta
+          name="twitter:image"
+          content={process.env.NEXT_PUBLIC_IMAGE_400 + getPostDetail.data.thumbnail}
+        />
       </Head>
 
       <PostDetailLayout postData={getPostDetail.data} />

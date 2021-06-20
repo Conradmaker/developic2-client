@@ -13,6 +13,7 @@ import {
 } from './types';
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
 interface MyKnownError {
   message: string;
@@ -24,10 +25,7 @@ export const postPreSaveAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/preSave', async (postData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/presave`,
-      postData
-    );
+    const { data } = await axios.post(`/post/presave`, postData);
     await toastPopAction(dispatch, `게시글이 임시저장 되었습니다..`);
     return data;
   } catch (e) {
@@ -43,10 +41,7 @@ export const submitPostAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/submit', async (postData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/submit`,
-      postData
-    );
+    const { data } = await axios.post(`/post/submit`, postData);
     await toastPopAction(dispatch, `게시글이 등록되었습니다.`);
     return data;
   } catch (e) {
@@ -62,9 +57,7 @@ export const getTempPostAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/getTempPost', async (postId, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/temp/${postId}`
-    );
+    const { data } = await axios.get(`/post/temp/${postId}`);
     return data;
   } catch (e) {
     console.error(e);
@@ -79,9 +72,7 @@ export const removePostAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/removePost', async (postId, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.delete(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/${postId}`
-    );
+    const { data } = await axios.delete(`/post/${postId}`);
     await toastPopAction(dispatch, `게시글이 삭제되었습니다.`);
     return data;
   } catch (e) {
@@ -98,12 +89,9 @@ export const createHashtagAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/createTag', async (tagName, { rejectWithValue }) => {
   try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/hashtag`,
-      {
-        name: tagName,
-      }
-    );
+    const { data } = await axios.post(`/post/hashtag`, {
+      name: tagName,
+    });
     return data;
   } catch (e) {
     console.error(e);
@@ -118,9 +106,7 @@ export const searchHashtagAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/searchTags', async (keyword, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/hashtag?keyword=${keyword}`
-    );
+    const { data } = await axios.get(`/post/hashtag?keyword=${keyword}`);
     return data;
   } catch (e) {
     console.error(e);
@@ -135,9 +121,7 @@ export const getPostDetailAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/getPostDetail', async (postId, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/${postId}`
-    );
+    const { data } = await axios.get(`/post/${postId}`);
     return data;
   } catch (e) {
     console.error(e);
@@ -152,9 +136,7 @@ export const getPhotoDetailAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/getPhotoDetail', async (photoId, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/photo/${photoId}`
-    );
+    const { data } = await axios.get(`/post/photo/${photoId}`);
     return data;
   } catch (e) {
     console.error(e);
@@ -169,10 +151,7 @@ export const createCommentAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/createComment', async (commentData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment`,
-      commentData
-    );
+    const { data } = await axios.post(`/post/comment`, commentData);
     await toastPopAction(dispatch, `댓글이 등록되었습니다.`);
     return data;
   } catch (e) {
@@ -189,10 +168,7 @@ export const updateCommentAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/updateComment', async (commentData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.patch(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment`,
-      commentData
-    );
+    const { data } = await axios.patch(`/post/comment`, commentData);
     await toastPopAction(dispatch, `댓글이 수정되었습니다.`);
     return data;
   } catch (e) {
@@ -209,9 +185,7 @@ export const removeCommentAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('post/removeComment', async (commentId, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.delete(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/post/comment/${commentId}`
-    );
+    const { data } = await axios.delete(`/post/comment/${commentId}`);
     await toastPopAction(dispatch, `댓글이 삭제되었습니다.`);
     return data;
   } catch (e) {

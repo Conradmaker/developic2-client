@@ -281,7 +281,7 @@ export const UserMenuContainer = styled.div`
           }
         }
       }
-      & > li:last-child {
+      & > li:last-of-type {
         cursor: pointer;
         color: #e96363;
       }

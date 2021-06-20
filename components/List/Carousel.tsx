@@ -27,7 +27,7 @@ const Slides = styled.div<{
     padding: 0 27px;
     transition: 0.2s;
   }
-  & > div:nth-child(${({ currentSlide }) => currentSlide + 1}) {
+  & > div:nth-of-type(${({ currentSlide }) => currentSlide + 1}) {
     transform: scale(${({ scale }) => scale});
     text-shadow: 0 0 3px ${({ theme }) => theme.grayScale[2]};
   }

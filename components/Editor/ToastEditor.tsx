@@ -12,7 +12,6 @@ import useUser from '../../modules/user/hooks';
 import _delay from 'lodash/delay';
 import useModal from '../../hooks/useModal';
 import ConfirmModal from '../Modal/ConfirmModal';
-import { useThemeState } from '../../hooks/ThemeContext';
 
 type ToastEditorPropsType = {
   content: string;
@@ -31,7 +30,6 @@ export default function ToastEditor({
   const { preSavePost } = usePost();
   const router = useRouter();
   const EditorRef = useRef<null | Editor>(null);
-  const theme = useThemeState();
   const [TempSubmitModal, toggleConfirmModal] = useModal(ConfirmModal, {
     content: '임시저장항목으로 저장하시겠습니까?',
     onConfirm: useCallback(() => {

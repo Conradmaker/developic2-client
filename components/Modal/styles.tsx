@@ -151,7 +151,7 @@ export const BinderEditModalBox = styled(ModalBox)`
   color: ${({ theme }) => theme.textColor.initial};
   form {
     padding: 10px 0;
-    div:nth-child(2) {
+    div:nth-of-type(2) {
       margin: 15px 0 5px 0;
     }
     .btn__group {
@@ -217,7 +217,7 @@ export const ConfirmRemoveModalBox = styled(ModalBox)<{ valid: boolean }>`
   ${props =>
     props.valid ||
     css`
-      .modal__content > .btn__group > button:nth-child(2) {
+      .modal__content > .btn__group > button:nth-of-type(2) {
         background-color: #c9c4c4;
         cursor: not-allowed;
       }
@@ -487,7 +487,7 @@ export const ConfirmModalBox = styled(ModalBox)`
 export const FollowListModalBox = styled(ModalBox)`
   display: flex;
   flex-direction: column;
-  div:first-child {
+  div:first-of-type {
     height: 50px;
   }
   & > div > div > h4 {
@@ -711,7 +711,7 @@ export const MakeBinderModalMox = styled(ModalBox)<{ makeMode: boolean }>`
     .section__right {
       width: 300px;
       padding-left: 30px;
-      div:nth-child(3) {
+      div:nth-of-type(3) {
         margin-top: 10px;
       }
       textarea {
@@ -721,7 +721,7 @@ export const MakeBinderModalMox = styled(ModalBox)<{ makeMode: boolean }>`
         margin-top: 10px;
         width: 100%;
       }
-      button:last-child {
+      button:last-of-type {
         display: none;
       }
     }
@@ -752,7 +752,7 @@ export const MakeBinderModalMox = styled(ModalBox)<{ makeMode: boolean }>`
         width: 100%;
         padding-left: 0;
         display: none;
-        button:last-child {
+        button:last-of-type {
           display: initial;
         }
       }

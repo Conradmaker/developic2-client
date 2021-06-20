@@ -465,13 +465,15 @@ export const DrawerPostCardContainer = styled.li`
         color: ${({ theme }) => theme.textColor.initial};
         font-size: 18px;
       }
-      p:nth-child(2) {
+      p:nth-of-type(1) {
         flex: 1;
+        height: 56px;
+        width: 100%;
         text-overflow: ellipsis;
         white-space: normal;
         overflow: hidden;
       }
-      p:nth-child(3) {
+      p:nth-of-type(2) {
         height: 16px;
       }
       p {
@@ -551,7 +553,7 @@ export const DrawerPostCardContainer = styled.li`
           overflow: hidden;
           font-size: 15px;
         }
-        p:nth-child(2) {
+        p:nth-of-type(1) {
           display: none;
         }
         .circle {
@@ -648,23 +650,23 @@ export const PhotoBinderCardBox = styled.div`
         object-fit: cover;
       }
     }
-    & > div:nth-child(1) {
+    & > div:nth-of-type(1) {
       grid-row: 1/ 13;
       grid-column: 1/ 5;
     }
-    & > div:nth-child(2) {
+    & > div:nth-of-type(2) {
       grid-row: 1/ 8;
       grid-column: 5/ 8;
     }
-    & > div:nth-child(3) {
+    & > div:nth-of-type(3) {
       grid-row: 1/ 6;
       grid-column: 8/ 11;
     }
-    & > div:nth-child(4) {
+    & > div:nth-of-type(4) {
       grid-row: 8/ 13;
       grid-column: 5/ 8;
     }
-    & > div:nth-child(5) {
+    & > div:nth-of-type(5) {
       grid-row: 6/ 13;
       grid-column: 8/ 11;
     }
@@ -1000,7 +1002,7 @@ export const BlogPicstoryCardBox = styled.li`
             left: 0;
           }
         }
-        .img__box:nth-child(3n) {
+        .img__box:nth-of-type(3n) {
           margin-right: 0;
         }
       }

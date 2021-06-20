@@ -4,6 +4,7 @@ import { toastPopAction } from '../ui/hooks';
 import { CreatePicstoryPayload, Picstory, TogglePicPostPayload } from './types';
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_HOST;
 
 interface MyKnownError {
   message: string;
@@ -34,10 +35,7 @@ export const createPicstoryAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('picstory/create', async (newPicData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory`,
-      newPicData
-    );
+    const { data } = await axios.post(`/picstory`, newPicData);
     await toastPopAction(dispatch, `${newPicData.title}를 생성했습니다.`);
     return data;
   } catch (e) {
@@ -54,9 +52,7 @@ export const removePicstoryAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('picstory/remove', async (PicstoryId, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.delete(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory/${PicstoryId}`
-    );
+    const { data } = await axios.delete(`/picstory/${PicstoryId}`);
     await toastPopAction(dispatch, `픽스토리를 삭제했습니다.`);
     return data;
   } catch (e) {
@@ -73,10 +69,7 @@ export const addPicPostAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('picstory/addPost', async (picPostData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory/post`,
-      picPostData
-    );
+    const { data } = await axios.post(`/picstory/post`, picPostData);
     await toastPopAction(dispatch, `픽스토리에 게시글을 추가했습니다.`);
     return data;
   } catch (e) {
@@ -93,10 +86,7 @@ export const removePicPostAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('picstory/removePost', async (picPostData, { dispatch, rejectWithValue }) => {
   try {
-    const { data } = await axios.patch(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory/post`,
-      picPostData
-    );
+    const { data } = await axios.patch(`/picstory/post`, picPostData);
     await toastPopAction(dispatch, `픽스토리에서 게시글을 삭제했습니다.`);
     return data;
   } catch (e) {

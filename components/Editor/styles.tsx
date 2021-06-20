@@ -203,7 +203,6 @@ export const PostContentViewerContainer = styled.article`
     }
   }
   code {
-    @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap');
     font-family: 'Source Code Pro', monospace;
     border-radius: 3px;
     padding: 5px 10px;

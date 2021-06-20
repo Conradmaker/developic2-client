@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 import { RiArrowDownSLine } from 'react-icons/ri';
+import { useEffect, useState } from 'react';
 import PageLabel from '../components/Label/PageLabel';
 import Layout from '../components/Layout';
 import TitleLabel from '../components/Label/TitleLabel';
@@ -19,8 +20,6 @@ import Carousel from '../components/List/Carousel';
 import { authServersiceAction } from '../utils/getServerSidePropsTemplate';
 import wrapper from '../modules/store';
 import Welcome from '../components/Result/Welcome';
-import { useEffect } from 'react';
-import { useState } from 'react';
 
 const MainContainer = styled.main`
   max-width: 1150px;
@@ -211,7 +210,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout>
       <Head>
-        <title>DEVELOPIC | HOME</title>
+        <title>DEVELOPIC | 디펠로픽</title>
       </Head>
       <MainContainer>
         <PageLabel text="디비디 바비디 부 벨소리 울려라" desc="찍고 쓰는 디벨로픽" />

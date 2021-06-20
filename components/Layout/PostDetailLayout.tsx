@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';

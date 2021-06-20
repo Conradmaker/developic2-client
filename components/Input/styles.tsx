@@ -242,7 +242,7 @@ export const ImageDropZoneContainer = styled.div<{
       align-items: center;
       justify-content: center;
       gap: 20px;
-      span:nth-child(2) {
+      span:nth-of-type(1) {
         font-size: 30px;
       }
       span {

@@ -26,7 +26,7 @@ const ArchiveContainer = styled.div`
     }
   }
   & > ul {
-    li:nth-child(2n) {
+    li:nth-of-type(2n) {
       flex-direction: row-reverse;
     }
   }
@@ -37,7 +37,7 @@ const ArchiveContainer = styled.div`
       padding-bottom: 30px;
     }
     & > ul {
-      li:nth-child(2n) {
+      li:nth-of-type(2n) {
         flex-direction: column;
       }
     }

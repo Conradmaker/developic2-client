@@ -41,7 +41,7 @@ export const BlogUserInfoBox = styled.div`
       margin-bottom: 70px;
     }
   }
-  .user__info:nth-child(3) > p {
+  .user__info:nth-of-type(3) > p {
     text-decoration: underline;
     cursor: pointer;
   }

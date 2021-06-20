@@ -34,7 +34,7 @@ const DiscoveryContainer = styled.div`
       flex-wrap: wrap;
       width: auto;
       font-family: 'Noto Serif KR';
-      li:first-child {
+      li:first-of-type {
         color: #522424;
         font-weight: 600;
       }
@@ -72,7 +72,7 @@ const DiscoveryContainer = styled.div`
         padding: 1.786em 0;
         margin-right: 1.786em;
       }
-      li:nth-child(4n) {
+      li:nth-of-type(4n) {
         margin-right: 0;
       }
     }
@@ -101,7 +101,7 @@ const DiscoveryContainer = styled.div`
           margin-right: 0;
           border-bottom: 1px solid ${({ theme }) => theme.grayScale[3]};
         }
-        li:last-child {
+        li:last-of-type {
           border-bottom: none;
         }
       }
