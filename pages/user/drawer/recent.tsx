@@ -1,16 +1,13 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import DrawerPostCard from '../../../components/Card/DrawerPostCard';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import Incomplete from '../../../components/Result/Incomplete';
+import useAuth from '../../../hooks/useAuth';
 import useFetchMore from '../../../hooks/useFetchMore';
 import useDrawer from '../../../modules/drawer/hooks';
-import wrapper from '../../../modules/store';
-import useUser from '../../../modules/user/hooks';
 import { DrawerNavData } from '../../../utils/data';
-import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 import { ComputedListType, sortByDate } from '../../../utils/sortByDate';
 
 export const RecentViewListContainer = styled.ul`
@@ -59,8 +56,7 @@ export const RecentViewListContainer = styled.ul`
 `;
 
 function RecentViewList(): JSX.Element {
-  const router = useRouter();
-  const { userData } = useUser();
+  const { userData } = useAuth({ replace: true });
   const {
     getRecentList,
     hasMore,
@@ -69,16 +65,15 @@ function RecentViewList(): JSX.Element {
   } = useDrawer();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
   const [computedRecents, setComputedRecents] = useState<ComputedListType | []>([]);
+
   useEffect(() => {
     if (getRecentList.data) {
       setComputedRecents(sortByDate(getRecentList.data));
     }
   }, [getRecentList.data]);
+
   useEffect(() => {
-    if (!userData) {
-      router.replace('/');
-      return;
-    }
+    if (!userData) return;
     if (!hasMore && page > 0) return;
     getRecentViewsDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
   }, [page]);
@@ -135,7 +130,3 @@ export default function recent(): JSX.Element {
     </PageWithNavLayout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-});

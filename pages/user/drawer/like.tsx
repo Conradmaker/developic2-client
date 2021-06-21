@@ -1,16 +1,13 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import React, { useCallback, useEffect } from 'react';
 import DrawerPostCard from '../../../components/Card/DrawerPostCard';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import Incomplete from '../../../components/Result/Incomplete';
+import useAuth from '../../../hooks/useAuth';
 import useFetchMore from '../../../hooks/useFetchMore';
 import useDrawer from '../../../modules/drawer/hooks';
-import wrapper from '../../../modules/store';
-import useUser from '../../../modules/user/hooks';
 import { DrawerNavData } from '../../../utils/data';
-import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const LikeListContainer = styled.div`
   width: 100%;
@@ -37,7 +34,7 @@ function LikeList(): JSX.Element {
     getLikeListDispatch,
     hasMore,
   } = useDrawer();
-  const { userData } = useUser();
+  const { userData } = useAuth({ replace: true });
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
 
   const makeDeleteFn = useCallback(
@@ -51,10 +48,7 @@ function LikeList(): JSX.Element {
   );
 
   useEffect(() => {
-    if (!userData) {
-      useRouter().replace('/');
-      return;
-    }
+    if (!userData) return;
     if (!hasMore && page > 0) return;
     getLikeListDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
   }, [page]);
@@ -102,7 +96,3 @@ export default function like(): JSX.Element {
     </PageWithNavLayout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-});

@@ -1,16 +1,13 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import UnfinishedPostCard from '../../../components/Card/UnfinishedPostCard';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import Incomplete from '../../../components/Result/Incomplete';
+import useAuth from '../../../hooks/useAuth';
 import useFetchMore from '../../../hooks/useFetchMore';
 import useDrawer from '../../../modules/drawer/hooks';
-import wrapper from '../../../modules/store';
-import useUser from '../../../modules/user/hooks';
 import { DrawerNavData } from '../../../utils/data';
-import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const SavePageContainer = styled.div`
   display: grid;
@@ -23,16 +20,12 @@ const SavePageContainer = styled.div`
 `;
 
 function SaveList(): JSX.Element {
-  const router = useRouter();
-  const { userData } = useUser();
   const { getTempList, getTempListDispatch, hasMore } = useDrawer();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
+  const { userData } = useAuth({ replace: true });
 
   useEffect(() => {
-    if (!userData) {
-      router.replace('/');
-      return;
-    }
+    if (!userData) return;
     if (!hasMore && page > 0) return;
     getTempListDispatch({ userId: userData.id, limit: 12, offset: 0 });
   }, [userData, page]);
@@ -76,7 +69,3 @@ export default function save(): JSX.Element {
     </PageWithNavLayout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-});

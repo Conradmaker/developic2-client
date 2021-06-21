@@ -17,6 +17,7 @@ import {
   verificationAction,
   subscribeAction,
   unSubscribeAction,
+  authAction,
 } from './thunk';
 import {
   LikePostPayload,
@@ -102,6 +103,10 @@ export default function useUser() {
     dispatch(unSubscribeAction(data));
   }, []);
 
+  const authDispatch = useCallback(() => {
+    dispatch(authAction(null));
+  }, []);
+
   return {
     updateUser,
     login,
@@ -126,5 +131,6 @@ export default function useUser() {
     removePostLikeDispatch,
     subscribeDispatch,
     unSubscribeDispatch,
+    authDispatch,
   };
 }
