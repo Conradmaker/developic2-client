@@ -10,7 +10,6 @@ import useDrawer from '../../../modules/drawer/hooks';
 import wrapper from '../../../modules/store';
 import useUser from '../../../modules/user/hooks';
 import { DrawerNavData } from '../../../utils/data';
-import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
 
 const LikeListContainer = styled.div`
   width: 100%;
@@ -103,6 +102,6 @@ export default function like(): JSX.Element {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
+export const getServerSideProps = wrapper.getServerSideProps(() => {
+  return;
 });

@@ -69,6 +69,9 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
   }, []);
 
   const onLogout = React.useCallback(() => {
+    const date = new Date('2000-12-12');
+    const Cookie = `user.userData=;Expires=${date.toUTCString()}`;
+    document.cookie = Cookie;
     logoutDispatch();
     onClose();
   }, []);

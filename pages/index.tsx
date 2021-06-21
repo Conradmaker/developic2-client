@@ -10,14 +10,8 @@ import PopularPostCard from '../components/Card/PopularPostCard';
 import UserProfileCard from '../components/Card/UserProfileCard';
 import Exhibition from '../components/Card/Exhibition';
 import useList from '../modules/list/hooks';
-import {
-  getArchiveListAction,
-  getPostListAction,
-  getWriterListAction,
-  MainPageDataType,
-} from '../modules/list';
+import { MainPageDataType } from '../modules/list';
 import Carousel from '../components/List/Carousel';
-import { authServersiceAction } from '../utils/getServerSidePropsTemplate';
 import wrapper from '../modules/store';
 import Welcome from '../components/Result/Welcome';
 
@@ -307,6 +301,6 @@ export default function Home(): JSX.Element {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
+export const getServerSideProps = wrapper.getServerSideProps(() => {
+  return;
 });
