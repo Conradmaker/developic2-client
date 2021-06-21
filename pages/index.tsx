@@ -186,7 +186,12 @@ const MainContainer = styled.main`
 `;
 
 export default function Home(): JSX.Element {
-  const { pageData } = useList();
+  const {
+    pageData,
+    getArchiveListDispatch,
+    getWriterListDispatch,
+    getPostListDispatch,
+  } = useList();
 
   const [welcome, setWelcome] = useState(false);
   useEffect(() => {
@@ -199,6 +204,12 @@ export default function Home(): JSX.Element {
     }
     const timeout = setTimeout(() => setWelcome(false), 4300);
     return () => clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    getArchiveListDispatch({ limit: 12 });
+    getWriterListDispatch({ type: 'all', limit: 12 });
+    getPostListDispatch({ sort: 'popular', term: 'week', limit: 15 });
   }, []);
 
   if (welcome) return <Welcome />;
@@ -245,42 +256,47 @@ export default function Home(): JSX.Element {
         </ul>
         <section>
           <h3>전시 아카이브</h3>
-          <Carousel
-            width={230}
-            height={490}
-            listLength={(pageData as MainPageDataType).archive.length}
-          >
-            {[
-              ...(pageData as MainPageDataType).archive,
-              ...(pageData as MainPageDataType).archive,
-              ...(pageData as MainPageDataType).archive,
-            ].map((archive, i) => (
-              <Exhibition key={archive.id + 'ex' + i} archiveData={archive} />
-            ))}
-          </Carousel>
+          {(pageData as MainPageDataType).archive && (
+            <Carousel
+              width={230}
+              height={490}
+              listLength={(pageData as MainPageDataType).archive.length}
+            >
+              {[
+                ...(pageData as MainPageDataType).archive,
+                ...(pageData as MainPageDataType).archive,
+                ...(pageData as MainPageDataType).archive,
+              ].map((archive, i) => (
+                <Exhibition key={archive.id + 'ex' + i} archiveData={archive} />
+              ))}
+            </Carousel>
+          )}
         </section>
         <section>
           <h3>추천작가</h3>
-          <Carousel
-            width={220}
-            height={220}
-            listLength={(pageData as MainPageDataType).writer.length}
-          >
-            {[
-              ...(pageData as MainPageDataType).writer,
-              ...(pageData as MainPageDataType).writer,
-              ...(pageData as MainPageDataType).writer,
-            ].map((userData, i) => (
-              <UserProfileCard key={userData.id + 'writer' + i} userData={userData} />
-            ))}
-          </Carousel>
+          {(pageData as MainPageDataType).writer && (
+            <Carousel
+              width={220}
+              height={220}
+              listLength={(pageData as MainPageDataType).writer.length}
+            >
+              {[
+                ...(pageData as MainPageDataType).writer,
+                ...(pageData as MainPageDataType).writer,
+                ...(pageData as MainPageDataType).writer,
+              ].map((userData, i) => (
+                <UserProfileCard key={userData.id + 'writer' + i} userData={userData} />
+              ))}
+            </Carousel>
+          )}
         </section>
         <section>
           <h3>인기글</h3>
           <div className="post__section">
-            {(pageData as MainPageDataType).post.map(postData => (
-              <PopularPostCard key={postData.id + 'post'} postData={postData} />
-            ))}
+            {(pageData as MainPageDataType).post &&
+              (pageData as MainPageDataType).post.map(postData => (
+                <PopularPostCard key={postData.id + 'post'} postData={postData} />
+              ))}
           </div>
           <Link href="/discovery">
             <div className="more__btn"></div>
@@ -293,9 +309,4 @@ export default function Home(): JSX.Element {
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
   await authServersiceAction(context);
-  await context.store.dispatch(getArchiveListAction({ limit: 12 }));
-  await context.store.dispatch(getWriterListAction({ type: 'all', limit: 12 }));
-  await context.store.dispatch(
-    getPostListAction({ sort: 'popular', term: 'week', limit: 15 })
-  );
 });

@@ -6,7 +6,6 @@ import DrawerPostCard from '../../../components/Card/DrawerPostCard';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import Incomplete from '../../../components/Result/Incomplete';
 import useFetchMore from '../../../hooks/useFetchMore';
-import { getRecentViewsAction } from '../../../modules/drawer';
 import useDrawer from '../../../modules/drawer/hooks';
 import wrapper from '../../../modules/store';
 import useUser from '../../../modules/user/hooks';
@@ -80,9 +79,8 @@ function RecentViewList(): JSX.Element {
       router.replace('/');
       return;
     }
-    if (hasMore && page > 0) {
-      getRecentViewsDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
-    }
+    if (!hasMore && page > 0) return;
+    getRecentViewsDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
   }, [page]);
 
   if (getRecentList.error)
@@ -139,15 +137,5 @@ export default function recent(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  const {
-    store: { dispatch, getState },
-  } = context;
   await authServersiceAction(context);
-
-  const state = getState();
-  if (state.user.userData) {
-    await dispatch(
-      getRecentViewsAction({ userId: state.user.userData?.id, limit: 12, offset: 0 })
-    );
-  }
 });

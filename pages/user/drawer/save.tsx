@@ -6,7 +6,6 @@ import UnfinishedPostCard from '../../../components/Card/UnfinishedPostCard';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import Incomplete from '../../../components/Result/Incomplete';
 import useFetchMore from '../../../hooks/useFetchMore';
-import { getTempListAction } from '../../../modules/drawer';
 import useDrawer from '../../../modules/drawer/hooks';
 import wrapper from '../../../modules/store';
 import useUser from '../../../modules/user/hooks';
@@ -34,9 +33,8 @@ function SaveList(): JSX.Element {
       router.replace('/');
       return;
     }
-    if (hasMore && page > 0) {
-      getTempListDispatch({ userId: userData.id, limit: 12, offset: 0 });
-    }
+    if (!hasMore && page > 0) return;
+    getTempListDispatch({ userId: userData.id, limit: 12, offset: 0 });
   }, [userData, page]);
 
   if (getTempList.error)
@@ -80,13 +78,5 @@ export default function save(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  const { dispatch, getState } = context.store;
-
   await authServersiceAction(context);
-  const state = getState();
-  if (state.user.userData) {
-    await dispatch(
-      getTempListAction({ userId: state.user.userData.id, limit: 12, offset: 0 })
-    );
-  }
 });

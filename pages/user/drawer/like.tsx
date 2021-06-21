@@ -6,7 +6,6 @@ import DrawerPostCard from '../../../components/Card/DrawerPostCard';
 import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
 import Incomplete from '../../../components/Result/Incomplete';
 import useFetchMore from '../../../hooks/useFetchMore';
-import { getLikeListAction } from '../../../modules/drawer';
 import useDrawer from '../../../modules/drawer/hooks';
 import wrapper from '../../../modules/store';
 import useUser from '../../../modules/user/hooks';
@@ -32,9 +31,13 @@ const LikeListContainer = styled.div`
 `;
 
 function LikeList(): JSX.Element {
-  const { getLikeList, removeLikeItemDispatch } = useDrawer();
+  const {
+    getLikeList,
+    removeLikeItemDispatch,
+    getLikeListDispatch,
+    hasMore,
+  } = useDrawer();
   const { userData } = useUser();
-  const { getLikeListDispatch, hasMore } = useDrawer();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
 
   const makeDeleteFn = useCallback(
@@ -52,9 +55,8 @@ function LikeList(): JSX.Element {
       useRouter().replace('/');
       return;
     }
-    if (hasMore && page > 0 && userData) {
-      getLikeListDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
-    }
+    if (!hasMore && page > 0) return;
+    getLikeListDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
   }, [page]);
 
   if (getLikeList.error)
@@ -102,12 +104,5 @@ export default function like(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  const { dispatch, getState } = context.store;
   await authServersiceAction(context);
-  const state = getState();
-  if (state.user.userData) {
-    await dispatch(
-      getLikeListAction({ userId: state.user.userData?.id, limit: 12, offset: 0 })
-    );
-  }
 });
