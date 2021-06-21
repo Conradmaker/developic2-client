@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import { MdArrowForward } from 'react-icons/md';
 import useUser from '../../modules/user/hooks';
+import { deleteCookie } from '../../utils/cookieFn';
 import { DarkModeBtn } from '../Button/FloatingBtn';
 import { UserMenuContainer } from './styles';
 
@@ -70,6 +71,7 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
 
   const onLogout = React.useCallback(() => {
     logoutDispatch();
+    deleteCookie('userData');
     onClose();
   }, []);
 

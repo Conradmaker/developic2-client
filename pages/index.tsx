@@ -17,7 +17,10 @@ import {
   MainPageDataType,
 } from '../modules/list';
 import Carousel from '../components/List/Carousel';
-import { authServersiceAction } from '../utils/getServerSidePropsTemplate';
+import {
+  authByCookieAction,
+  authServersiceAction,
+} from '../utils/getServerSidePropsTemplate';
 import wrapper from '../modules/store';
 import Welcome from '../components/Result/Welcome';
 
@@ -308,5 +311,5 @@ export default function Home(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
+  await authByCookieAction(context);
 });

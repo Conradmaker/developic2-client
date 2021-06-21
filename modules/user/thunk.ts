@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { deleteCookie, setCookie } from '../../utils/cookieFn';
 import { toastPopAction } from '../ui/hooks';
 import {
   LoginPayload,
@@ -32,6 +33,7 @@ export const loginAction = createAsyncThunk<
   try {
     const { data } = await axios.post<LoginResponse>(`/auth/local`, loginData);
     await toastPopAction(dispatch, `${data.nickname}님 반갑습니다.`);
+    setCookie('userData', JSON.stringify(data));
     return data;
   } catch (e) {
     console.error(e);
@@ -64,6 +66,7 @@ export const socialLoginAction = createAsyncThunk<
   try {
     const { data } = await axios.post<LoginResponse>(`/auth/retest`, loginData);
     await toastPopAction(dispatch, `${data.nickname}님 반갑습니다.`);
+    setCookie('userData', JSON.stringify(data));
     return data;
   } catch (e) {
     console.error(e);
@@ -81,6 +84,7 @@ export const logOutAction = createAsyncThunk<
   try {
     const { data } = await axios.get(`/auth/logout`);
     await toastPopAction(dispatch, '로그아웃 되었습니다.');
+    deleteCookie('userData');
     return data;
   } catch (e) {
     console.error(e);

@@ -8,6 +8,8 @@ import { State } from '../modules';
 import { authAction } from '../modules/user';
 import { ParsedUrlQuery } from 'node:querystring';
 import { GetServerSidePropsContext } from 'next-redux-wrapper';
+import { getCookie } from './cookieFn';
+import { setUserData } from '../modules/user/slice';
 
 interface ContextType extends GetServerSidePropsContext {
   store: Store<State, any>;
@@ -37,6 +39,17 @@ export const authServersiceAction = async (context: ContextType): Promise<void> 
     axios.defaults.headers.Cookie = cookie;
   }
   await context.store.dispatch(authAction(null));
+};
+
+export const authByCookieAction = async (context: ContextType): Promise<void> => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+
+  const value = cookie?.match('(^|;) ?' + 'userData' + '=([^;]*)(;|$)');
+  const userData = value ? value[2] : null;
+
+  if (userData) {
+    await context.store.dispatch(setUserData(JSON.parse(userData)));
+  }
 };
 
 export default initialGetServerSideProps;

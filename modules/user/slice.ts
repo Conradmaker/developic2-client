@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   authAction,
   loginAction,
@@ -41,7 +41,12 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setUserData(state, action: PayloadAction<User | null>) {
+      console.log(123123123123123123, action.payload);
+      state.userData = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(loginAction.pending, state => {
@@ -317,4 +322,6 @@ const userSlice = createSlice({
       });
   },
 });
+
+export const { setUserData } = userSlice.actions;
 export default userSlice.reducer;
