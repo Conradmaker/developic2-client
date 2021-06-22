@@ -10,6 +10,7 @@ import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
 import ConfirmModal from '../Modal/ConfirmModal';
 import { useModal, usePost, useUser } from 'hooks';
+import { useState } from 'react';
 
 type ToastEditorPropsType = {
   content: string;
@@ -28,16 +29,18 @@ export default function ToastEditor({
   const { preSavePost } = usePost();
   const router = useRouter();
   const EditorRef = useRef<null | Editor>(null);
+  const [saveType, setSaveType] = useState<'tempSave' | 'submit' | ''>('');
   const [TempSubmitModal, toggleConfirmModal] = useModal(ConfirmModal, {
     content: '임시저장항목으로 저장하시겠습니까?',
     onConfirm: useCallback(() => {
+      setSaveType('tempSave');
       setContent(EditorRef.current?.getInstance().getHtml() as string);
       temporarySave(EditorRef.current?.getInstance().getHtml() as string);
-      router.replace(`/user/drawer/save`);
     }, [EditorRef.current, temporarySave]),
   });
 
   const onFinalSubmit = useCallback(() => {
+    setSaveType('submit');
     setContent(EditorRef.current?.getInstance().getHtml() as string);
     temporarySave(EditorRef.current?.getInstance().getHtml() as string);
   }, [EditorRef.current, temporarySave]);
@@ -78,7 +81,7 @@ export default function ToastEditor({
     const data = await uploadImageToServer(image);
     await updateMetaData(image, data.imageId);
     EditorRef.current?.getInstance().moveCursorToEnd();
-    await _delay(() => callback(`${data.src}`, `${data.imageId}`), 3500);
+    await _delay(() => callback(`${data.src}`, `${data.imageId}`), 4000);
   }, []);
 
   useEffect(() => {
@@ -87,9 +90,12 @@ export default function ToastEditor({
 
   useEffect(() => {
     if (preSavePost.data) {
-      if (
-        router.query.postId === 'new' ||
-        preSavePost.data.postId === +(router.query.postId as string)
+      if (saveType === 'tempSave') {
+        router.replace(`/user/drawer/save`);
+      } else if (
+        (router.query.postId === 'new' && saveType === 'submit') ||
+        (preSavePost.data.postId === +(router.query.postId as string) &&
+          saveType === 'submit')
       )
         router.replace(`/edit/info/${preSavePost.data.postId}`);
     }

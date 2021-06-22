@@ -62,9 +62,17 @@ export default function edit(): JSX.Element {
     onConfirm: () => setConfirmed(true),
     content: '변경내용이 사라지게 됩니다. 페이지를 나가시겠습니까',
   });
+
   useEffect(() => {
     const routeChangeStart = (url: string) => {
-      if (router.asPath.split('?')[0] !== url.split('?')[0] && !confirmed) {
+      const isNextStep =
+        url.split('?')[0].indexOf('edit/info') !== -1 ||
+        url.split('?')[0].indexOf('drawer/save') !== -1;
+      if (
+        router.asPath.split('?')[0] !== url.split('?')[0] &&
+        !confirmed &&
+        !isNextStep
+      ) {
         setToUrl(url);
         toggleModal();
         router.events.emit('routeChangeError');

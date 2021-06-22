@@ -35,7 +35,7 @@ function RecentViewList(): JSX.Element {
     return (
       <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
     );
-  if (getRecentList.loading || !computedRecents || !getRecentList.data) return <></>;
+  if (!computedRecents || !getRecentList.data) return <></>;
   if (getRecentList.data.length === 0)
     return (
       <Incomplete

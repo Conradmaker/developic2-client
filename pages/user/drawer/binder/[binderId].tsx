@@ -58,7 +58,6 @@ export default function binderId(): JSX.Element {
     getPhotoBinderDetailDispatch(+(router.query.binderId as string));
   }, []);
 
-  if (getBinderDetail.loading) return <></>;
   if (getBinderDetail.error)
     return (
       <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />

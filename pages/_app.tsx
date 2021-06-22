@@ -10,6 +10,7 @@ const globalStyle = css`
     list-style: none;
   }
   html {
+    overflow-y: scroll;
     scroll-behavior: smooth;
   }
 `;
