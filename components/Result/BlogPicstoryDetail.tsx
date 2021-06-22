@@ -6,6 +6,7 @@ import useModal from '../../hooks/useModal';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
 import useBlog from '../../modules/blog/hooks';
 import usePicstory from '../../modules/picstory/hooks';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
@@ -87,7 +88,7 @@ export default function BlogPicstoryDetailBox(): JSX.Element {
             posts.slice(0, 6).map(picstoryImgItem => (
               <li className="img__box" key={picstoryImgItem.id}>
                 <img
-                  src={process.env.NEXT_PUBLIC_IMAGE_400 + picstoryImgItem.thumbnail}
+                  src={calcImageSrc(400, picstoryImgItem.thumbnail)}
                   alt="picstory__recent-img"
                 />
               </li>

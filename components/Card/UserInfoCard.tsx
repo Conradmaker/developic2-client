@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { UserInfoCardBox } from './styles';
 import { PostUser } from '../../modules/list';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 
 type UserInfoCardPropsType = {
   userInfoData: PostUser;
@@ -30,10 +31,7 @@ export default function UserInfoCard({
             {userInfoData.Posts &&
               userInfoData.Posts.slice(0, 3).map(imgItem => (
                 <li className="img__box" key={imgItem.id}>
-                  <img
-                    src={process.env.NEXT_PUBLIC_IMAGE_200 + imgItem.thumbnail}
-                    alt="recent_Img"
-                  />
+                  <img src={calcImageSrc(200, imgItem.thumbnail)} alt="recent_Img" />
                 </li>
               ))}
           </div>

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { BlogPicstory, BlogPost } from '../../modules/blog';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 import { BlogPicstoryCardBox } from './styles';
 
 const countTotal = {
@@ -55,7 +56,7 @@ export default function BlogPistoryCard({
               posts.slice(0, 6).map(picstoryImgItem => (
                 <li className="img__box" key={picstoryImgItem.id}>
                   <img
-                    src={process.env.NEXT_PUBLIC_IMAGE_200 + picstoryImgItem.thumbnail}
+                    src={calcImageSrc(200, picstoryImgItem.thumbnail)}
                     alt="picstory-thumbnail"
                   />
                 </li>

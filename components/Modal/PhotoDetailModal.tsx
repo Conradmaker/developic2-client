@@ -8,6 +8,7 @@ import { ModalLayout, PhotoDetailBox, PhotoModalBtnBox } from './styles';
 import MakeBinderModal from './MakeBinderModal';
 import useUser from '../../modules/user/hooks';
 import useUI from '../../modules/ui/hooks';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 
 const computeMetaData = (data: MetaData) => ({
   모델: data.manufacturer && data.model ? `${data.manufacturer} ${data.model}` : null,
@@ -82,10 +83,7 @@ export default function PhotoDetailModal({
             })}
           </div>
           <div className="front">
-            <img
-              src={process.env.NEXT_PUBLIC_IMAGE_ORIGINAL + photoData.src}
-              alt=""
-            ></img>
+            <img src={calcImageSrc('original', photoData.src)} alt="detail_p"></img>
           </div>
         </PhotoDetailBox>
         <PhotoModalBtnBox>

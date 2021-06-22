@@ -3,6 +3,7 @@ import React from 'react';
 import { AiFillEye } from 'react-icons/ai';
 import { BiLike } from 'react-icons/bi';
 import { PostType } from '../../modules/list';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 import { HashTagBox, PopularPostCardBox } from './styles';
 
 function HashTag({ tagData }: { tagData: { id: number; name: string } }) {
@@ -23,11 +24,7 @@ export default function PopularPostCard({
   return (
     <Link href={`/${postData.User.id}/post/${postData.id}`}>
       <PopularPostCardBox className="popular-post__card">
-        <img
-          src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
-          alt="thumbnail"
-        />
-
+        <img src={calcImageSrc(400, postData.thumbnail)} alt="thumbnail" />
         <article>
           <h5>{postData.title}</h5>
           <p>{postData.User.nickname}</p>

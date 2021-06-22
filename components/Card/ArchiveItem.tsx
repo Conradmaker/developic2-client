@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
 import { Archive } from '../../modules/archive/type';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 import { ArchiveItemContainer } from './styles';
 
 type ArchiveItemPropsType = {
@@ -17,7 +18,7 @@ export default function ArchiveItem({
     <Link href={`/archive/${data.id}`}>
       <ArchiveItemContainer length={listLength} posterId={data.id}>
         <div className="img__wrapper">
-          <img src={process.env.NEXT_PUBLIC_IMAGE_400 + data.poster} alt="poster" />
+          <img src={calcImageSrc(400, data.poster)} alt="poster" />
         </div>
         <article>
           {data.cost === 0 ? (

@@ -10,6 +10,7 @@ import wrapper from '../../../modules/store';
 import { getPostDetailAction } from '../../../modules/post';
 import CommentList from '../../../components/List/CommentList';
 import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
+import { calcImageSrc } from '../../../utils/calcImageSrc';
 
 const NotAllowComment = styled.div`
   max-width: 800px;
@@ -37,7 +38,7 @@ export default function postId(): JSX.Element {
         <meta property="og:description" content={getPostDetail.data.title} />
         <meta
           property="og:image"
-          content={process.env.NEXT_PUBLIC_IMAGE_400 + getPostDetail.data.thumbnail}
+          content={calcImageSrc(400, getPostDetail.data.thumbnail)}
         />
         <meta
           property="og:url"
@@ -54,7 +55,7 @@ export default function postId(): JSX.Element {
         <meta name="twitter:description" content={getPostDetail.data.title} />
         <meta
           name="twitter:image"
-          content={process.env.NEXT_PUBLIC_IMAGE_400 + getPostDetail.data.thumbnail}
+          content={calcImageSrc(400, getPostDetail.data.thumbnail)}
         />
       </Head>
 

@@ -6,6 +6,7 @@ import Layout from '../../components/Layout';
 import Link from 'next/link';
 import useArchive from '../../modules/archive/hooks';
 import { useRouter } from 'next/router';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 
 const ArchiveDetailContainer = styled.div`
   max-width: 900px;
@@ -205,10 +206,7 @@ export default function archiveId(): JSX.Element {
       </Head>
       <ArchiveDetailContainer>
         <div className="detail__poster__wrapper">
-          <img
-            src={process.env.NEXT_PUBLIC_IMAGE_600 + getArchiveDetail.data.poster}
-            alt="poster"
-          />
+          <img src={calcImageSrc(600, getArchiveDetail.data.poster)} alt="poster" />
         </div>
         <section className="detail__summary">
           <h1>{getArchiveDetail.data.title}</h1>

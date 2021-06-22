@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { PhotoBinderType } from '../../modules/drawer';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 import { PhotoBinderCardBox } from './styles';
 
 type PhotoBinderCardPropsType = {
@@ -18,12 +19,7 @@ export default function PhotoBinderCard({
           {Array.from({ length: 5 }).map((_, index) => {
             return binderData.PostImages[index] ? (
               <div className="img__box__item" key={binderData.PostImages[index].id}>
-                <img
-                  src={
-                    process.env.NEXT_PUBLIC_IMAGE_200 + binderData.PostImages[index].src
-                  }
-                  alt=""
-                />
+                <img src={calcImageSrc(200, binderData.PostImages[index].src)} alt="p" />
               </div>
             ) : (
               <div className="img__box__item" key={index}>

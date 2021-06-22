@@ -2,6 +2,7 @@ import React from 'react';
 import Masonry from 'react-masonry-css';
 import { RiCheckFill } from 'react-icons/ri';
 import { ImgItemBox, PhotoBinderGalleryContainer } from './styles';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 
 type ImgItemPropsType = {
   data: { src: string; id: number };
@@ -11,10 +12,7 @@ type ImgItemPropsType = {
 function ImgItem({ data, onToggleSelectPhoto, selected }: ImgItemPropsType): JSX.Element {
   return (
     <ImgItemBox selected={selected}>
-      <img
-        src={process.env.NEXT_PUBLIC_IMAGE_200 + data.src}
-        alt={data.id + data.src}
-      ></img>
+      <img src={calcImageSrc(200, data.src)} alt={data.id + data.src}></img>
       <div className="img__layer" />
       <div className="check__circle" onClick={() => onToggleSelectPhoto(data.id)}>
         {selected && <RiCheckFill />}

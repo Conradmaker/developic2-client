@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import { BlogPost } from '../../modules/blog';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 import { BlogPostCardBox } from './styles';
 
 type BlogPostCardPropsType = {
@@ -15,10 +16,7 @@ export default function BlogPostCard({ postData }: BlogPostCardPropsType): JSX.E
       <BlogPostCardBox>
         <article>
           <div className="img__wrapper">
-            <img
-              src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
-              alt="post-thumbnail"
-            />
+            <img src={calcImageSrc(600, postData.thumbnail)} alt="post-thumbnail" />
           </div>
           <div className="post__description">
             <h3>{postData.title}</h3>

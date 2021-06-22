@@ -11,6 +11,7 @@ import { PostData } from '../../modules/post';
 import usePost from '../../modules/post/hooks';
 import useUI from '../../modules/ui/hooks';
 import useUser from '../../modules/user/hooks';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 import { LikeBtn } from '../Button/FloatingBtn';
 import HashTag from '../Button/HashTag';
 import PostContentViewer from '../Editor/PostContentViewer';
@@ -115,10 +116,7 @@ export default function PostDetailLayout({ postData }: PostDetaulLayout): JSX.El
         </div>
       </section>
       <section className="blog__posting">
-        <img
-          src={process.env.NEXT_PUBLIC_IMAGE_600 + postData.thumbnail}
-          alt="thumbnail"
-        />
+        <img src={calcImageSrc(600, postData.thumbnail)} alt="thumbnail" />
         <PostContentViewer content={postData.content} />
         <LikeBtn isLike={isLike} onToggleLike={onToggleLike} />
       </section>

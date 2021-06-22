@@ -17,9 +17,7 @@ export const getPicstoryListAction = createAsyncThunk<
   { rejectValue: MyKnownError }
 >('picstory/getList', async (UserId, { rejectWithValue }) => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_HOST}/picstory/${UserId}`
-    );
+    const { data } = await axios.get(`/picstory/${UserId}`);
 
     return data;
   } catch (e) {

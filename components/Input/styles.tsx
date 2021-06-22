@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 
 export const CustomInputBox = styled.div<{ width?: number }>`
   position: relative;
@@ -254,7 +255,7 @@ export const ImageDropZoneContainer = styled.div<{
   ${({ background }) =>
     background &&
     css`
-      background-image: url('${process.env.NEXT_PUBLIC_IMAGE_ORIGINAL}${background}');
+      background-image: url('${calcImageSrc('original', background)}');
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;

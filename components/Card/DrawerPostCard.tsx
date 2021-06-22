@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { DrawerPostCardContainer } from './styles';
 import { LikeListItemType } from '../../modules/drawer';
+import { calcImageSrc } from '../../utils/calcImageSrc';
 
 type DrawerPostCardPropsType = {
   postData: LikeListItemType;
@@ -22,10 +23,7 @@ export default function DrawerPostCard({
   return (
     <Link href={`/${postData.User.id}/post/${postData.id}`}>
       <DrawerPostCardContainer>
-        <img
-          src={process.env.NEXT_PUBLIC_IMAGE_400 + postData.thumbnail}
-          alt="thumnail"
-        />
+        <img src={calcImageSrc(400, postData.thumbnail)} alt="thumnail" />
         <div className="content">
           <img src={postData.User.avatar} alt="avatar" />
           <div className="writer">
