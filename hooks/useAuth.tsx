@@ -1,33 +1,32 @@
-import { delay } from 'lodash';
 import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 import { useEffect } from 'react';
-import useUI from '../modules/ui/hooks';
+import { User } from '../modules/user';
 import useUser from '../modules/user/hooks';
 
 type UseAuthType = {
   replace: boolean; //true시 홈으로
 };
-export default function useAuth({ replace = false }: UseAuthType) {
-  const { userData, authDispatch } = useUser();
-  const { toastOpenDispatch } = useUI();
+export function useAuth({ replace = false }: UseAuthType): { userData: User | null } {
+  const { userData, authDispatch, auth } = useUser();
   const router = useRouter();
 
-  const goHome = async () => {
-    await delay(() => {
-      toastOpenDispatch('로그인이 필요한 서비스입니다.');
+  const goHome = useCallback(() => {
+    if (replace && auth.error) {
+      alert('로그인이 필요한 서비스입니다.');
       router.replace('/');
-    }, 500);
-  };
+    }
+  }, [auth]);
 
   useEffect(() => {
     authDispatch();
   }, []);
 
   useEffect(() => {
-    if (replace && !userData) {
-      goHome();
-    }
-  }, []);
+    goHome();
+  }, [auth.error]);
 
   return { userData };
 }
+
+export default useAuth;

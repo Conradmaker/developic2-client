@@ -76,16 +76,13 @@ function RecentViewList(): JSX.Element {
     if (!userData) return;
     if (!hasMore && page > 0) return;
     getRecentViewsDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
-  }, [page]);
+  }, [page, userData, hasMore]);
 
   if (getRecentList.error)
     return (
       <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
     );
-  if (!computedRecents || !getRecentList.data)
-    return (
-      <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
-    );
+  if (getRecentList.loading || !computedRecents || !getRecentList.data) return <></>;
   if (getRecentList.data.length === 0)
     return (
       <Incomplete

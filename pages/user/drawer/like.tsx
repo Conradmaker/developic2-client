@@ -51,7 +51,7 @@ function LikeList(): JSX.Element {
     if (!userData) return;
     if (!hasMore && page > 0) return;
     getLikeListDispatch({ userId: userData.id, limit: 12, offset: page * 12 });
-  }, [page]);
+  }, [page, userData, hasMore]);
 
   if (getLikeList.error)
     return (

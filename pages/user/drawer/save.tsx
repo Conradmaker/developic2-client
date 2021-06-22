@@ -28,16 +28,13 @@ function SaveList(): JSX.Element {
     if (!userData) return;
     if (!hasMore && page > 0) return;
     getTempListDispatch({ userId: userData.id, limit: 12, offset: 0 });
-  }, [userData, page]);
+  }, [page, userData, hasMore]);
 
   if (getTempList.error)
     return (
       <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
     );
-  if (!getTempList.data)
-    return (
-      <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
-    );
+  if (getTempList.loading || !getTempList.data) return <></>;
   if (getTempList.data.length === 0)
     return (
       <Incomplete

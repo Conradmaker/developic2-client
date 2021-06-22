@@ -30,16 +30,13 @@ function BinderList(): JSX.Element {
     if (!userData) return;
     if (!hasMore && page > 0) return;
     getPhotoBinderListDispatch({ userId: userData.id, limit: 9, offset: page * 9 });
-  }, [userData, page]);
+  }, [userData, page, hasMore]);
 
   if (getBinderList.error)
     return (
       <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
     );
-  if (!getBinderList.data)
-    return (
-      <Incomplete title="에러가 발생했어요." desc="다시 시도 해주세요!" type="error" />
-    );
+  if (!getBinderList.data || getBinderList.loading) return <></>;
   if (getBinderList.data.length === 0)
     return (
       <Incomplete
