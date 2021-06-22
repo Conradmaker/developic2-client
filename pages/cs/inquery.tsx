@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import axios from 'axios';
 import React, { useState } from 'react';
@@ -9,81 +8,20 @@ import PageLabel from 'components/Label/PageLabel';
 import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import { CSNavData } from 'utils/data';
 import { useInput, useUI } from 'hooks';
-
-const InqueryContainer = styled.section`
-  display: flex;
-  margin-bottom: 100px;
-  .cs__left {
-    flex: 1;
-  }
-  .cs__right {
-    display: flex;
-    justify-content: flex-end;
-    form {
-      width: 450px;
-      & > div {
-        margin-bottom: 20px;
-      }
-      & > p {
-        position: relative;
-        top: -10px;
-        color: #b93939;
-        text-align: end;
-        font-size: ${({ theme }) => theme.fontSize.small};
-      }
-      .btn__group {
-        display: flex;
-        justify-content: flex-end;
-        button {
-          color: ${({ theme }) => theme.textColor.initial};
-          padding: 5px 10px;
-          cursor: pointer;
-          font-size: 16px;
-          outline: none;
-          border: none;
-          border-radius: 0;
-          background: none;
-          border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
-          &:hover {
-            font-weight: 600;
-          }
-        }
-        button + button {
-          margin-left: 30px;
-        }
-      }
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    padding: 0 10px;
-    flex-direction: column;
-    .cs__left {
-      div {
-        padding-left: 0;
-        h1 {
-          font-size: 32px;
-        }
-      }
-      img {
-        display: none;
-      }
-    }
-    .cs__right {
-      margin: 20px 0 30px 0;
-    }
-  }
-`;
+import { InqueryContainer } from 'styles/pages/cs';
 
 const inqueryType = [
   { id: 1, value: '이용문의' },
   { id: 2, value: '전시정보 수정요청' },
   { id: 3, value: '기타문의' },
 ];
+
 const initialState = {
   email: '',
   contact: '',
   content: '',
 };
+
 export default function Inquery(): JSX.Element {
   const [error, setError] = useState(initialState);
   const [btnText, setBtnText] = useState('전송');
@@ -96,6 +34,7 @@ export default function Inquery(): JSX.Element {
   const onChangeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value);
   };
+
   const onSend = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email.trim()) {
@@ -126,6 +65,7 @@ export default function Inquery(): JSX.Element {
         setError(initialState);
       });
   };
+
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <Head>

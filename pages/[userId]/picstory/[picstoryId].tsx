@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -9,23 +8,7 @@ import { loadBlogPicstoryDetailAction, loadBlogUserAction } from 'modules/blog';
 import useBlog from 'modules/blog/hooks';
 import wrapper from 'modules/store';
 import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
-
-const PicstoryDetailContainer = styled.section`
-  max-width: 850px;
-  margin: 0 auto;
-  font-family: 'Noto Serif KR';
-  h1 {
-    font-size: ${({ theme }) => theme.fontSize.xxl};
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 25px;
-    cursor: pointer;
-    color: ${({ theme }) => theme.textColor.initial};
-  }
-  .empty_content {
-    text-align: center;
-  }
-`;
+import { PicstoryDetailContainer } from 'styles/pages/[userId]';
 
 export default function PicstoryId(): JSX.Element {
   const router = useRouter();

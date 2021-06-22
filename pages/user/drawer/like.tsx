@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useCallback, useEffect } from 'react';
 import DrawerPostCard from 'components/Card/DrawerPostCard';
@@ -6,24 +5,7 @@ import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import Incomplete from 'components/Result/Incomplete';
 import { useAuth, useDrawer, useFetchMore } from 'hooks';
 import { DrawerNavData } from 'utils/data';
-
-const LikeListContainer = styled.div`
-  width: 100%;
-  font-family: 'Noto Serif KR';
-  ul {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 70px 24px;
-    margin-bottom: 100px;
-  }
-
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    ul {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px 10px;
-    }
-  }
-`;
+import { LikeListContainer } from 'styles/pages/user';
 
 function LikeList(): JSX.Element {
   const {

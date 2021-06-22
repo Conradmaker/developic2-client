@@ -2,21 +2,12 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-import styled from '@emotion/styled';
 import Layout from 'components/Layout';
 import HashTagInstant from 'components/Editor/HashTagInstant';
 import TitleInput from 'components/Input/EditPageInput';
 import ConfirmModal from 'components/Modal/ConfirmModal';
 import { useModal, usePost, useUser } from 'hooks';
-
-const EditContainer = styled.div`
-  max-width: 1100px;
-  margin: 0 auto;
-
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    padding: 0 10px;
-  }
-`;
+import { EditContainer } from 'styles/pages/edit';
 
 const ToastEditorWithNoSSR = dynamic(
   () => import('../../../components/Editor/ToastEditor'),

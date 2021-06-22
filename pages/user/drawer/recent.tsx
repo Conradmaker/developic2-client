@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import DrawerPostCard from 'components/Card/DrawerPostCard';
@@ -7,51 +6,7 @@ import Incomplete from 'components/Result/Incomplete';
 import { useAuth, useDrawer, useFetchMore } from 'hooks';
 import { DrawerNavData } from 'utils/data';
 import { ComputedListType, sortByDate } from 'utils/sortByDate';
-
-export const RecentViewListContainer = styled.ul`
-  width: 100%;
-  font-family: 'Noto Serif KR';
-  & > li {
-    .date {
-      margin-top: 70px;
-      margin-bottom: 50px;
-      color: ${({ theme }) => theme.grayScale[1]};
-      position: relative;
-      display: block;
-      width: 100%;
-      height: 1px;
-      border-top: 1px solid ${({ theme }) => theme.grayScale[1]};
-      span {
-        display: inline-block;
-        letter-spacing: 1.3px;
-        padding: 0 20px;
-        font-size: 18px;
-        position: absolute;
-        top: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: ${({ theme }) => theme.background.initial};
-      }
-    }
-    ul {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 50px 24px;
-      margin-bottom: 100px;
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    & > li {
-      .date {
-        margin: 50px 0 30px 0;
-      }
-      ul {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px 10px;
-      }
-    }
-  }
-`;
+import { RecentViewListContainer } from 'styles/pages/user';
 
 function RecentViewList(): JSX.Element {
   const { userData } = useAuth({ replace: true });

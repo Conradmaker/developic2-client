@@ -81,6 +81,7 @@ export type UserMenuNavData = {
     link: string;
   }[];
 };
+
 export const userMenuNavData: UserMenuNavData[] = [
   {
     title: '집필',

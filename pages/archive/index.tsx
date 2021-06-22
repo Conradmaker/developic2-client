@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
@@ -10,37 +9,8 @@ import { getArchiveListAction, useArchive } from 'modules/archive';
 import wrapper from 'modules/store';
 import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
 import { useFetchMore, useUser } from 'hooks';
+import { ArchiveContainer } from 'styles/pages/archive';
 
-const ArchiveContainer = styled.div`
-  max-width: 1150px;
-  margin: 50px auto 100px auto;
-  & > section {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 50px;
-    border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};
-    & > button {
-      height: 40px;
-    }
-  }
-  & > ul {
-    li:nth-of-type(2n) {
-      flex-direction: row-reverse;
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    padding: 0 10px;
-    margin: 30px auto 100px auto;
-    & > section {
-      padding-bottom: 30px;
-    }
-    & > ul {
-      li:nth-of-type(2n) {
-        flex-direction: column;
-      }
-    }
-  }
-`;
 export default function archive(): JSX.Element {
   const { userData } = useUser();
   const { getArchiveList, getArchiveListDispatch, hasMore } = useArchive();
@@ -51,7 +21,9 @@ export default function archive(): JSX.Element {
       getArchiveListDispatch({ limit: 8, offset: page * 8 });
     }
   }, [page]);
+
   if (!getArchiveList.data) return <></>;
+
   return (
     <Layout>
       <Head>

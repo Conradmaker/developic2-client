@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
-import styled from '@emotion/styled';
 import Layout from 'components/Layout';
 import PageLabel from 'components/Label/PageLabel';
 import TitleLabel from 'components/Label/TitleLabel';
@@ -9,85 +8,8 @@ import CustomCheckBox from 'components/Input/CustomCheckBox';
 import SignupAuthModal from 'components/Modal/SignupAuthModal';
 import SquareBtn from 'components/Button/SquareBtn';
 import { useInput, useUI, useUser } from 'hooks';
+import { SignupContainer } from 'styles/pages/user';
 
-const SignupContainer = styled.div`
-  max-width: 1150px;
-  margin: 60px auto;
-  .signup__container {
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
-    form {
-      width: 350px;
-      margin-left: 60px;
-      margin-top: 10px;
-      .signup__form {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-        & > div {
-          margin-bottom: 5px;
-        }
-        & > p {
-          font-size: 12px;
-          color: #b92961;
-          text-align: right;
-          height: 15px;
-          margin-bottom: 5px;
-        }
-      }
-      article {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        div {
-          width: auto;
-        }
-        a {
-          color: ${({ theme }) => theme.textColor.lighten};
-          font-size: ${({ theme }) => theme.fontSize.small};
-          padding-top: 5px;
-          margin-left: 10px;
-        }
-      }
-      .btn__wrapper {
-        margin-top: 40px;
-        display: flex;
-        justify-content: space-between;
-        button {
-          flex: 1;
-          height: 35px;
-        }
-        button + button {
-          margin-left: 30px;
-        }
-      }
-    }
-    section {
-      width: 500px;
-      margin-right: 60px;
-      img {
-        padding-top: 30px;
-        width: 100%;
-      }
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    margin: 20px auto;
-    padding: 0 10px;
-    .signup__container {
-      margin-top: 20px;
-      flex-direction: column;
-      form {
-        width: 100%;
-        margin-left: 0;
-      }
-      section {
-        display: none;
-      }
-    }
-  }
-`;
 export default function signup(): JSX.Element {
   const { toastOpenDispatch } = useUI();
   const { signup, signupDispatch } = useUser();

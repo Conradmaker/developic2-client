@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import UnfinishedPostCard from 'components/Card/UnfinishedPostCard';
@@ -6,16 +5,7 @@ import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import Incomplete from 'components/Result/Incomplete';
 import { useAuth, useDrawer, useFetchMore } from 'hooks';
 import { DrawerNavData } from 'utils/data';
-
-const SavePageContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px 50px;
-
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    grid-template-columns: repeat(1, 1fr);
-  }
-`;
+import { SavePageContainer } from 'styles/pages/user';
 
 function SaveList(): JSX.Element {
   const { getTempList, getTempListDispatch, hasMore } = useDrawer();

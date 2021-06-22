@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
 import { useRouter } from 'next/router';
-import styled from '@emotion/styled';
 import Layout from 'components/Layout';
 import PostDetailLayout from 'components/Layout/PostDetailLayout';
 import usePost from 'modules/post/hooks';
@@ -11,13 +10,8 @@ import { getPostDetailAction } from 'modules/post';
 import CommentList from 'components/List/CommentList';
 import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
 import { calcImageSrc } from 'utils/calcImageSrc';
+import { NotAllowComment } from 'styles/pages/[userId]';
 
-const NotAllowComment = styled.div`
-  max-width: 800px;
-  margin: 0 auto 100px auto;
-  text-align: center;
-  font-family: 'Noto Serif KR';
-`;
 export default function postId(): JSX.Element {
   const { getPostDetail } = usePost();
   const router = useRouter();

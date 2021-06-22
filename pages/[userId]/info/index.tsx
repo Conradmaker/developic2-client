@@ -1,16 +1,10 @@
-import styled from '@emotion/styled';
 import React from 'react';
 import BlogWithNavLayout from 'components/Layout/BlogWithNavLayout';
 import BlogUserInfo from 'components/Result/BloggerInfo';
 import { loadBlogUserAction } from 'modules/blog';
 import wrapper from 'modules/store';
 import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
-
-const BlogUserInfoContainer = styled.section`
-  max-width: 850px;
-  margin: 0 auto;
-  font-family: 'Noto Serif KR';
-`;
+import { BlogUserInfoContainer } from 'styles/pages/[userId]';
 
 export default function BlogInfo(): JSX.Element {
   return (

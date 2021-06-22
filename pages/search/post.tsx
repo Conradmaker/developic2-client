@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import SearchPageWithNavLayout from 'components/Layout/SearchPageNavLayout';
 import EmptyContent from 'components/Result/EmptyContent';
@@ -13,20 +12,7 @@ import { searchDateOptionData, searchSortOptionData } from 'utils/data';
 import wrapper from 'modules/store';
 import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
 import { useFetchMore } from 'hooks';
-
-export const SearchContentBox = styled.div`
-  margin-bottom: 85px;
-  .sort-option {
-    display: flex;
-    justify-content: flex-end;
-    font-size: ${({ theme }) => theme.fontSize.base};
-    position: relative;
-    margin-bottom: 30px;
-    & > div:first-of-type {
-      margin-right: 15px;
-    }
-  }
-`;
+import { SearchContentBox } from 'styles/pages/search';
 
 function PostResult({ children }: { children?: React.ReactNode }): JSX.Element {
   const { pageData } = useList();

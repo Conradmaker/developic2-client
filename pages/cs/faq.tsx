@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import PageLabel from 'components/Label/PageLabel';
@@ -6,31 +5,15 @@ import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import NoticeList from 'components/List/NoticeList';
 import { useCS } from 'hooks';
 import { CSNavData } from 'utils/data';
-
-const FaqContainer = styled.section`
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    padding: 0 10px;
-    .cs__left {
-      div {
-        padding-left: 0;
-      }
-      h1 {
-        font-size: 32px;
-      }
-      p {
-      }
-    }
-    .cs__right {
-      margin: 20px 0 30px 0;
-    }
-  }
-`;
+import { FaqContainer } from 'styles/pages/cs';
 
 export default function Faq(): JSX.Element {
   const { getCs, getFaqDispatch } = useCS();
+
   useEffect(() => {
     getFaqDispatch({ limit: 5 });
   }, []);
+
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <Head>

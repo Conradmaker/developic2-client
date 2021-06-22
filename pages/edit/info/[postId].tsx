@@ -2,85 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { copyRightData } from 'utils/data';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import styled from '@emotion/styled';
 import ImageDropZone from 'components/Input/ImageDropZone';
 import SquareBtn from 'components/Button/SquareBtn';
 import CustomCheckBox from 'components/Input/CustomCheckBox';
 import PicstoryModal from 'components/Modal/PicstoryModal';
 import Layout from 'components/Layout';
 import { useInput, usePost, useUI, useUser } from 'hooks';
-
-export const InfoPostContainer = styled.div`
-  max-width: 1000px;
-  margin: 0 auto 50px;
-  display: flex;
-  font-family: 'Noto Serif KR';
-  h5 {
-    margin: 35px 0 15px 0;
-    font-size: 18px;
-    color: ${({ theme }) => theme.textColor.initial};
-  }
-  .left__section {
-    flex: 1;
-    padding-right: 50px;
-    border-right: 1px solid ${({ theme }) => theme.grayScale[2]};
-    & > span {
-      margin-top: 5px;
-      display: block;
-      text-align: center;
-      font-size: 14px;
-      color: ${({ theme }) => theme.grayScale[2]};
-    }
-    textarea {
-      outline: none;
-      padding: 5px;
-      line-height: 1.5;
-      border: 1px solid ${({ theme }) => theme.grayScale[2]};
-      width: 400px;
-      height: 100px;
-      resize: none;
-      font-size: 16px;
-      font-family: san-serif;
-    }
-  }
-  .right__section {
-    flex: 1;
-    padding-left: 50px;
-    .check__group {
-      display: flex;
-    }
-    .license__group {
-      li {
-        margin-bottom: 7.5px;
-      }
-    }
-    .btn__group {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-      button + button {
-        margin-left: 20px;
-      }
-    }
-    .btn__group.left {
-      justify-content: flex-start;
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    padding: 0 10px;
-    flex-direction: column;
-    .left__section {
-      padding-right: 0;
-      border-right: none;
-      textarea {
-        width: 100%;
-      }
-    }
-    .right__section {
-      padding-left: 0;
-    }
-  }
-`;
+import { EditInfoPostContainer } from 'styles/pages/edit';
 
 export default function InfoPost(): JSX.Element {
   const { tempPost, submitPostDispatch, getTempPostDispatch, submitPost } = usePost();
@@ -144,7 +72,7 @@ export default function InfoPost(): JSX.Element {
       <Head>
         <title>글쓰기 | {tempPost.data.title} 정보입력</title>
       </Head>
-      <InfoPostContainer>
+      <EditInfoPostContainer>
         <div className="left__section">
           <h5>썸네일</h5>
           <ImageDropZone image={thumbnail} setImage={setThumbnail} />
@@ -202,7 +130,7 @@ export default function InfoPost(): JSX.Element {
             <SquareBtn onClick={onSubmitPost}>발행</SquareBtn>
           </div>
         </div>
-      </InfoPostContainer>
+      </EditInfoPostContainer>
       {picstoryOpen && (
         <PicstoryModal
           onClose={() => setPicstoryOpen(false)}

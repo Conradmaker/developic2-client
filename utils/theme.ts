@@ -3,6 +3,7 @@ const size = {
   tablet: '1024px',
   desktop: '1700px',
 };
+
 const calcRem = (size: number) => `${size / 16}rem`;
 
 export type colorTheme = {

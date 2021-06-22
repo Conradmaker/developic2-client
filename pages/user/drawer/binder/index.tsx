@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import PhotoBinderCard from 'components/Card/PhotoBinderCard';
@@ -6,18 +5,7 @@ import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import Incomplete from 'components/Result/Incomplete';
 import { useAuth, useDrawer, useFetchMore } from 'hooks';
 import { DrawerNavData } from 'utils/data';
-
-const BinderPageContainer = styled.div`
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 50px 47px;
-  margin-bottom: 40px;
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 50px 0px;
-  }
-`;
+import { BinderPageContainer } from 'styles/pages/user';
 
 function BinderList(): JSX.Element {
   const { userData } = useAuth({ replace: true });

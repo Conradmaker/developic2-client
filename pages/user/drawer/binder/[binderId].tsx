@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -10,61 +9,7 @@ import ConfirmRemoveModal from 'components/Modal/ConfirmRemoveModal';
 import Incomplete from 'components/Result/Incomplete';
 import { useAuth, useDrawer, useModal } from 'hooks';
 import { DrawerNavData } from 'utils/data';
-
-const BinderDetailContainer = styled.div`
-  display: flex;
-  .left__section {
-    position: relative;
-    width: 372px;
-    margin-right: 50px;
-    article {
-      position: sticky;
-      top: 90px;
-      width: 100%;
-      font-family: 'Noto Serif KR';
-      color: ${({ theme }) => theme.textColor.initial};
-
-      h2 {
-        font-size: 30px;
-        margin-bottom: 20px;
-      }
-      p {
-        line-height: 2;
-        color: ${({ theme }) => theme.textColor.lighten};
-      }
-      span {
-        font-size: 14px;
-        color: ${({ theme }) => theme.textColor.lighten};
-      }
-      .btn__group {
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
-  }
-
-  .binder__detail__img__list {
-    flex: 1;
-    position: relative;
-    margin-bottom: 100px;
-    .is-empty {
-      margin-top: 40px;
-      text-align: center;
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    flex-direction: column;
-    .left__section {
-      width: 100%;
-      margin-right: 0px;
-    }
-    .binder__detail__img__list {
-      margin-top: 20px;
-    }
-  }
-`;
+import { BinderDetailContainer } from 'styles/pages/user';
 
 export default function binderId(): JSX.Element {
   const router = useRouter();

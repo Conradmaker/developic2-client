@@ -1,15 +1,10 @@
-import styled from '@emotion/styled';
 import React from 'react';
 import BlogWithNavLayout from 'components/Layout/BlogWithNavLayout';
 import BlogPicstoryList from 'components/List/BlogPicstoryList';
 import { loadBlogPicstoryListAction, loadBlogUserAction } from 'modules/blog';
 import wrapper from 'modules/store';
 import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
-
-const BlogPicstoryContainer = styled.section`
-  max-width: 850px;
-  margin: 0 auto;
-`;
+import { BlogPicstoryContainer } from 'styles/pages/[userId]';
 
 export default function Picstory(): JSX.Element {
   return (

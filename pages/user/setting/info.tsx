@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -11,74 +10,8 @@ import _ChangePasswordModal from 'components/Modal/ChangePasswordModal';
 import ConfirmRemoveModal from 'components/Modal/ConfirmRemoveModal';
 import { SettingNavData } from 'utils/data';
 import { useInput, useModal, useUser } from 'hooks';
+import { SettingInfoContainer } from 'styles/pages/user';
 
-const InfoContainer = styled.section`
-  display: flex;
-  margin-bottom: 100px;
-  .cs__left {
-    flex: 1;
-    form {
-      margin-top: 50px;
-      & > div {
-        margin-top: 30px;
-      }
-    }
-  }
-  .cs__right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    .avatar-update__form {
-      width: 450px;
-    }
-    .btn__group {
-      margin-top: 50px;
-      display: flex;
-      justify-content: flex-end;
-      button {
-        color: ${({ theme }) => theme.textColor.initial};
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 16px;
-        outline: none;
-        border: none;
-        border-radius: 0;
-        background: none;
-        border-bottom: 1px solid ${({ theme }) => theme.textColor.initial};
-        &:hover {
-          font-weight: 600;
-        }
-      }
-      button + button {
-        margin-left: 30px;
-      }
-    }
-  }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-    .page__label {
-      h1 {
-        font-size: 32px;
-      }
-    }
-    .cs__left {
-      form {
-        margin-top: 0px;
-      }
-    }
-    .cs__right {
-      margin-top: 30px;
-      align-items: flex-start;
-      .avatar-update__form {
-        width: 100%;
-      }
-      .btn__group {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-  }
-`;
 const genderData = [
   { id: 1, value: '' },
   { id: 2, value: '남성' },
@@ -122,7 +55,7 @@ export default function Info(): JSX.Element {
       <Head>
         <title>내정보 | 계정정보 수정</title>
       </Head>
-      <InfoContainer>
+      <SettingInfoContainer>
         <div className="cs__left">
           <PageLabel
             width={300}
@@ -157,7 +90,7 @@ export default function Info(): JSX.Element {
             </button>
           </div>
         </div>
-      </InfoContainer>
+      </SettingInfoContainer>
       <UserDestroyModal />
       <ChangePasswordModal />
     </PageWithNavLayout>
