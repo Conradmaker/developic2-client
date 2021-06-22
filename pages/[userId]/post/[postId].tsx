@@ -2,15 +2,15 @@ import Head from 'next/head';
 import React from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
-import Layout from '../../../components/Layout';
-import PostDetailLayout from '../../../components/Layout/PostDetailLayout';
-import usePost from '../../../modules/post/hooks';
-import ScrollIndicator from '../../../components/Layout/ScrollIndicator';
-import wrapper from '../../../modules/store';
-import { getPostDetailAction } from '../../../modules/post';
-import CommentList from '../../../components/List/CommentList';
-import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
-import { calcImageSrc } from '../../../utils/calcImageSrc';
+import Layout from 'components/Layout';
+import PostDetailLayout from 'components/Layout/PostDetailLayout';
+import usePost from 'modules/post/hooks';
+import ScrollIndicator from 'components/Layout/ScrollIndicator';
+import wrapper from 'modules/store';
+import { getPostDetailAction } from 'modules/post';
+import CommentList from 'components/List/CommentList';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
+import { calcImageSrc } from 'utils/calcImageSrc';
 
 const NotAllowComment = styled.div`
   max-width: 800px;

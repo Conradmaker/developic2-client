@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
-import Button from '../../components/Button/Button';
-import Layout from '../../components/Layout';
 import Link from 'next/link';
-import useArchive from '../../modules/archive/hooks';
 import { useRouter } from 'next/router';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import Button from 'components/Button/Button';
+import Layout from 'components/Layout';
+import { useArchive } from 'hooks';
+import { calcImageSrc } from 'utils/calcImageSrc';
 
 const ArchiveDetailContainer = styled.div`
   max-width: 900px;

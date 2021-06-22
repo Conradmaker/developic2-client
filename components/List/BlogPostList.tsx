@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import Masonry from 'react-masonry-css';
-import useFetchMore from '../../hooks/useFetchMore';
-import { BlogPost } from '../../modules/blog';
-import useBlog from '../../modules/blog/hooks';
+
+import { BlogPost } from 'modules/blog';
 import BlogPostCard from '../Card/BlogPostCard';
 import Incomplete from '../Result/Incomplete';
 import { BlogPostListContainer } from './styles';
+import { useFetchMore, useBlog } from 'hooks';
 
 const breakpointColumnsObj = {
   default: 2,

@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import React from 'react';
-import PageWithNavLayout from '../../components/Layout/PageWithNavLayout';
-import Incomplete from '../../components/Result/Incomplete';
-import { CSNavData } from '../../utils/data';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import Incomplete from 'components/Result/Incomplete';
+import { CSNavData } from 'utils/data';
 
 const TermContainer = styled.section`
   min-height: 450px;

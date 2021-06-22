@@ -2,24 +2,22 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { BiRightArrow } from 'react-icons/bi';
-import CommonPostCard from '../../components/Card/CommonPostCard';
-import RecentUserCard from '../../components/Card/RecentUserCard';
-import TitleLabel from '../../components/Label/TitleLabel';
-import Layout from '../../components/Layout';
-import useList from '../../modules/list/hooks';
-import useUser from '../../modules/user/hooks';
+import CommonPostCard from 'components/Card/CommonPostCard';
+import RecentUserCard from 'components/Card/RecentUserCard';
+import TitleLabel from 'components/Label/TitleLabel';
+import Layout from 'components/Layout';
 import { useRouter } from 'next/router';
 import {
   FeedPageDataType,
   getFeedPostAction,
   getHashtagListAction,
   getWriterListAction,
-} from '../../modules/list';
-import useFetchMore from '../../hooks/useFetchMore';
-import wrapper from '../../modules/store';
-import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
-import useModal from '../../hooks/useModal';
-import _FollowListModal from '../../components/Modal/FollowListModal';
+} from 'modules/list';
+import useFetchMore from 'hooks/useFetchMore';
+import wrapper from 'modules/store';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
+import _FollowListModal from 'components/Modal/FollowListModal';
+import { useList, useModal, useUser } from 'hooks';
 
 const FeedContainer = styled.div`
   max-width: 1150px;

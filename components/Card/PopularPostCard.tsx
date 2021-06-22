@@ -2,8 +2,8 @@ import Link from 'next/link';
 import React from 'react';
 import { AiFillEye } from 'react-icons/ai';
 import { BiLike } from 'react-icons/bi';
-import { PostType } from '../../modules/list';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { PostType } from 'modules/list';
+import { calcImageSrc } from 'utils/calcImageSrc';
 import { HashTagBox, PopularPostCardBox } from './styles';
 
 function HashTag({ tagData }: { tagData: { id: number; name: string } }) {

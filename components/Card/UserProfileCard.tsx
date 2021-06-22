@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { BsBoxArrowInDownRight } from 'react-icons/bs';
-import { PostUser } from '../../modules/list';
+import { PostUser } from 'modules/list';
 import { UserProfileCardBox } from './styles';
 
 interface UserProfileCarePropsType {

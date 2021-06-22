@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { copyRightData } from '../../../utils/data';
-import styled from '@emotion/styled';
-import ImageDropZone from '../../../components/Input/ImageDropZone';
-import SquareBtn from '../../../components/Button/SquareBtn';
-import CustomCheckBox from '../../../components/Input/CustomCheckBox';
-import PicstoryModal from '../../../components/Modal/PicstoryModal';
-import Layout from '../../../components/Layout';
+import { copyRightData } from 'utils/data';
 import { useRouter } from 'next/router';
-import useInput from '../../../hooks/useInput';
-import usePost from '../../../modules/post/hooks';
-import useUser from '../../../modules/user/hooks';
 import Head from 'next/head';
-import useUI from '../../../modules/ui/hooks';
+import styled from '@emotion/styled';
+import ImageDropZone from 'components/Input/ImageDropZone';
+import SquareBtn from 'components/Button/SquareBtn';
+import CustomCheckBox from 'components/Input/CustomCheckBox';
+import PicstoryModal from 'components/Modal/PicstoryModal';
+import Layout from 'components/Layout';
+import { useInput, usePost, useUI, useUser } from 'hooks';
 
 export const InfoPostContainer = styled.div`
   max-width: 1000px;

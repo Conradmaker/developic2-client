@@ -1,17 +1,15 @@
 import React, { useCallback, useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
+import _delay from 'lodash/delay';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
 import axios from 'axios';
 import exifr from 'exifr';
+import { Editor } from '@toast-ui/react-editor';
 import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
-import { useRouter } from 'next/router';
-import usePost from '../../modules/post/hooks';
-import useUser from '../../modules/user/hooks';
-import _delay from 'lodash/delay';
-import useModal from '../../hooks/useModal';
 import ConfirmModal from '../Modal/ConfirmModal';
+import { useModal, usePost, useUser } from 'hooks';
 
 type ToastEditorPropsType = {
   content: string;

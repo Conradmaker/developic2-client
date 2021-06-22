@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import useUI from '../../modules/ui/hooks';
+import { useUI } from 'hooks';
 import PhotoDetailModal from '../Modal/PhotoDetailModal';
 import { PostContentViewerContainer } from './styles';
 

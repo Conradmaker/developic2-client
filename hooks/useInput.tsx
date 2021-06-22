@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 type ElementType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
-export default function useInput(
+export function useInput(
   initialState = ''
 ): [
   string,
@@ -15,3 +15,5 @@ export default function useInput(
   };
   return [value, onChange, setValue];
 }
+
+export default useInput;

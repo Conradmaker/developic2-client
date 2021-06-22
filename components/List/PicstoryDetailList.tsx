@@ -1,8 +1,9 @@
 import React from 'react';
 import Masonry from 'react-masonry-css';
-import useBlog from '../../modules/blog/hooks';
+
 import BlogPostCard from '../Card/BlogPostCard';
 import { BlogPostListContainer } from './styles';
+import { useBlog } from 'hooks';
 
 export default function PicstoryDetailList(): JSX.Element {
   const { loadBlogPicstoryDetail } = useBlog();

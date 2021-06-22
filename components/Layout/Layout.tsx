@@ -1,8 +1,8 @@
 import { ThemeProvider } from '@emotion/react';
 import React from 'react';
-import { useThemeState } from '../../hooks/ThemeContext';
-import useUI from '../../modules/ui/hooks';
-import theme from '../../utils/theme';
+import { useThemeState } from 'hooks/ThemeContext';
+import { useUI } from 'hooks';
+import theme from 'utils/theme';
 import Toast from '../Result/ToastPopUp';
 import { LayoutContainer } from './';
 import Footer from './Footer';

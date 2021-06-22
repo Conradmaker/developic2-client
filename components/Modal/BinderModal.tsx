@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import useInput from '../../hooks/useInput';
-import useDrawer from '../../modules/drawer/hooks';
+
 import SquareBtn from '../Button/SquareBtn';
 import CustomInput from '../Input/CustomInput';
 import CustomTextarea from '../Input/CustomTextarea';
 import TitleLabel from '../Label/TitleLabel';
 import { BinderEditModalBox, ModalLayout } from './styles';
+import { useDrawer, useInput } from 'hooks';
 
 type BinderEditModalPropsType = {
   onClose: () => void;

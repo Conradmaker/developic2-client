@@ -1,6 +1,6 @@
 import { Viewer } from '@toast-ui/react-editor';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import useUI from '../../modules/ui/hooks';
+import { useUI } from 'hooks';
 import PhotoDetailModal from '../Modal/PhotoDetailModal';
 
 type ToastViewerPropsType = {

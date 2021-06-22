@@ -1,12 +1,13 @@
 import { Editor } from '@toast-ui/react-editor';
 import axios from 'axios';
+import _delay from 'lodash/delay';
+import React, { useCallback, useRef } from 'react';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import React, { useCallback, useRef } from 'react';
-import useUser from '../../modules/user/hooks';
+
+import { useUser } from 'hooks';
 import SquareBtn from '../Button/SquareBtn';
 import { ToastEditorStyle } from './styles';
-import _delay from 'lodash/delay';
 
 type ArchiveEditorPropsType = {
   content: string;

@@ -2,14 +2,13 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import axios from 'axios';
 import React, { useState } from 'react';
-import CustomInput from '../../components/Input/CustomInput';
-import CustomSelect from '../../components/Input/CustomSelect';
-import CustomTextarea from '../../components/Input/CustomTextarea';
-import PageLabel from '../../components/Label/PageLabel';
-import PageWithNavLayout from '../../components/Layout/PageWithNavLayout';
-import useInput from '../../hooks/useInput';
-import { CSNavData } from '../../utils/data';
-import useUI from '../../modules/ui/hooks';
+import CustomInput from 'components/Input/CustomInput';
+import CustomSelect from 'components/Input/CustomSelect';
+import CustomTextarea from 'components/Input/CustomTextarea';
+import PageLabel from 'components/Label/PageLabel';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import { CSNavData } from 'utils/data';
+import { useInput, useUI } from 'hooks';
 
 const InqueryContainer = styled.section`
   display: flex;

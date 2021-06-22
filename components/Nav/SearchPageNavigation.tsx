@@ -1,6 +1,6 @@
 import React from 'react';
 import { SearchPageNavigationContainer } from './styles';
-import { SearchNavData } from '../../utils/data';
+import { SearchNavData } from 'utils/data';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 

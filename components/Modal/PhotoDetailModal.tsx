@@ -2,13 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { AiOutlineInfo } from 'react-icons/ai';
 import { IoMdClose } from 'react-icons/io';
 import { CgFolderAdd } from 'react-icons/cg';
-import { MetaData } from '../../modules/post';
-import usePost from '../../modules/post/hooks';
+
+import { MetaData } from 'modules/post';
 import { ModalLayout, PhotoDetailBox, PhotoModalBtnBox } from './styles';
 import MakeBinderModal from './MakeBinderModal';
-import useUser from '../../modules/user/hooks';
-import useUI from '../../modules/ui/hooks';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { calcImageSrc } from 'utils/calcImageSrc';
+import { useUI, useUser, usePost } from 'hooks';
 
 const computeMetaData = (data: MetaData) => ({
   모델: data.manufacturer && data.model ? `${data.manufacturer} ${data.model}` : null,

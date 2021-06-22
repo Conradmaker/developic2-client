@@ -1,12 +1,11 @@
 import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { FeedPageDataType, PostUser } from '../../modules/list';
-import useList from '../../modules/list/hooks';
-import useUser from '../../modules/user/hooks';
+import { FeedPageDataType, PostUser } from 'modules/list';
 import SquareBtn from '../Button/SquareBtn';
 import TitleLabel from '../Label/TitleLabel';
 import { FollowingItemBox, FollowListModalBox, ModalLayout } from './styles';
+import { useUser, useList } from 'hooks';
 
 function FollowingItem({ writerData }: { writerData: PostUser }): JSX.Element {
   const { userData, unSubscribeDispatch } = useUser();

@@ -6,17 +6,15 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { BsExclamationTriangle } from 'react-icons/bs';
 import { IoMdHeart, IoMdHeartEmpty, IoMdShare } from 'react-icons/io';
 import { RiEditLine } from 'react-icons/ri';
-import useModal from '../../hooks/useModal';
-import { PostData } from '../../modules/post';
-import usePost from '../../modules/post/hooks';
-import useUI from '../../modules/ui/hooks';
-import useUser from '../../modules/user/hooks';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+
+import { PostData } from 'modules/post';
+import { calcImageSrc } from 'utils/calcImageSrc';
 import { LikeBtn } from '../Button/FloatingBtn';
 import HashTag from '../Button/HashTag';
 import PostContentViewer from '../Editor/PostContentViewer';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
 import { PostDetailContainer } from './styles';
+import { useModal, useUI, useUser, usePost } from 'hooks';
 
 type PostDetaulLayout = {
   postData: PostData;

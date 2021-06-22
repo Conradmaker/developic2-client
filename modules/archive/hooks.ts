@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks/useSelector';
 import { addArchiveAction, getArchiveDetailAction, getArchiveListAction } from './thunk';
 import { AddArchivePayload, GetArchivePayload } from './type';
 
-export default function useArchive() {
+export function useArchive() {
   const { getArchiveList, getArchiveDetail, addArchive, hasMore } = useAppSelector(
     state => state.archive
   );
@@ -32,3 +32,5 @@ export default function useArchive() {
     addArchiveDispatch,
   };
 }
+
+export default useArchive;

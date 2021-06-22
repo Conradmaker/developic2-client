@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import _throttle from 'lodash/throttle';
 import Link from 'next/link';
 import { MdSearch } from 'react-icons/md';
+
 import { HeaderContainer } from './styles';
 import LoginModal from '../Modal/LoginModal';
-
 import UserMenu from './UserMenu';
-import useUser from '../../modules/user/hooks';
 import { DarkModeBtn, ScrollTopBtn } from '../Button/FloatingBtn';
+import { useUser } from 'hooks';
 
 export function Logo(): JSX.Element {
   return (

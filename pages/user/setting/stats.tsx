@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import React from 'react';
-import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
-import Incomplete from '../../../components/Result/Incomplete';
-import { SettingNavData } from '../../../utils/data';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import Incomplete from 'components/Result/Incomplete';
+import { SettingNavData } from 'utils/data';
 
 export default function Stats(): JSX.Element {
   return (

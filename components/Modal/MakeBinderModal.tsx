@@ -1,15 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
 import { useState } from 'react';
-import useInput from '../../hooks/useInput';
-import { PhotoBinderType } from '../../modules/drawer';
-import useDrawer from '../../modules/drawer/hooks';
-import useUser from '../../modules/user/hooks';
+
+import { PhotoBinderType } from 'modules/drawer';
 import SquareBtn from '../Button/SquareBtn';
 import CustomCheckBox from '../Input/CustomCheckBox';
 import CustomInput from '../Input/CustomInput';
 import CustomTextarea from '../Input/CustomTextarea';
 import TitleLabel from '../Label/TitleLabel';
 import { MakeBinderModalMox, ModalLayout } from './styles';
+import { useInput, useUser, useDrawer } from 'hooks';
 
 function MakeBinderForm({
   userId,

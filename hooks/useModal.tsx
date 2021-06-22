@@ -7,7 +7,7 @@ type UseModalHookType = <T>(
   props: T
 ) => [(props: any) => JSX.Element, () => void, boolean];
 
-const useModal: UseModalHookType = (ModalComp, props) => {
+export const useModal: UseModalHookType = (ModalComp, props) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const toggleModal = useCallback(() => {

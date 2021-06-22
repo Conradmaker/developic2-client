@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import useUI from '../../modules/ui/hooks';
+import { useUI } from 'hooks';
 import { ImageDropZoneContainer } from './styles';
 
 type ImageDropZonePropsType = {

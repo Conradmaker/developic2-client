@@ -25,7 +25,7 @@ const FetchMoreTriggerContainer = styled.div`
     font-family: 'Noto Serif KR';
   }
 `;
-export default function useFetchMore(
+export function useFetchMore(
   loading = false
 ): [() => JSX.Element, number, Dispatch<SetStateAction<number>>] {
   const [page, setPage] = useState(0);
@@ -67,3 +67,5 @@ export default function useFetchMore(
 
   return [FetchMore, page, setPage];
 }
+
+export default useFetchMore;

@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import useFetchMore from '../../hooks/useFetchMore';
-import { BlogPicstory } from '../../modules/blog';
-import useBlog from '../../modules/blog/hooks';
+
+import { BlogPicstory, useBlog } from 'modules/blog';
 import BlogPistoryCard from '../Card/BlogPistoryCard';
 import { BlogPicstoryListContainer } from './styles';
+import { useFetchMore } from 'hooks';
 
 export default function BlogPicstoryList(): JSX.Element {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
-import { PostUser } from '../../modules/list';
+import { PostUser } from 'modules/list';
 import { RecentUserCardCardBox } from './styles';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';

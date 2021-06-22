@@ -2,16 +2,14 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
-import SquareBtn from '../../components/Button/SquareBtn';
-import ArchiveItem from '../../components/Card/ArchiveItem';
-import TitleLabel from '../../components/Label/TitleLabel';
-import Layout from '../../components/Layout';
-import useFetchMore from '../../hooks/useFetchMore';
-import { getArchiveListAction } from '../../modules/archive';
-import useArchive from '../../modules/archive/hooks';
-import wrapper from '../../modules/store';
-import useUser from '../../modules/user/hooks';
-import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
+import SquareBtn from 'components/Button/SquareBtn';
+import ArchiveItem from 'components/Card/ArchiveItem';
+import TitleLabel from 'components/Label/TitleLabel';
+import Layout from 'components/Layout';
+import { getArchiveListAction, useArchive } from 'modules/archive';
+import wrapper from 'modules/store';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
+import { useFetchMore, useUser } from 'hooks';
 
 const ArchiveContainer = styled.div`
   max-width: 1150px;

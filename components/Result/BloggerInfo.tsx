@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { BlogUserData } from '../../modules/blog';
-import useBlog from '../../modules/blog/hooks';
-import useUser from '../../modules/user/hooks';
+
+import { BlogUserData } from 'modules/blog';
 import EmptyBlogUserInfo from './EmptyBlogUserInfo';
 import { BlogUserInfoBox } from './styles';
+import { useUser, useBlog } from 'hooks';
 
 export default function BlogUserInfo(): JSX.Element {
   const { loadBlogUser } = useBlog();

@@ -10,7 +10,7 @@ type useCarouselReturnType = {
   setScale: Dispatch<SetStateAction<number>>;
 };
 
-export default function useCarousel(startIndex: number): useCarouselReturnType {
+export function useCarousel(startIndex: number): useCarouselReturnType {
   const [scale, setScale] = useState(1.13);
   const [currentSlide, setCurrentSlide] = useState(startIndex);
   const [duration, setDuration] = useState(0);
@@ -25,3 +25,4 @@ export default function useCarousel(startIndex: number): useCarouselReturnType {
 
   return { currentSlide, duration, isMoving, setIsMoving, move, scale, setScale };
 }
+export default useCarousel;

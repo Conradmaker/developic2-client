@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+
 import { RoundCornerBtnBox } from '../Button/styles';
 import { EmptyBlogUserInfoBox } from './styles';
 

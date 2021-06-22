@@ -1,7 +1,8 @@
 import React, { useCallback, useRef } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { useOutsideClick } from '../../hooks/useOutsideClick';
+
 import { SearhSortOptionContainer } from './styles';
+import { useOutsideClick } from 'hooks';
 
 type SortOptionPropsType = {
   sortOptionData: { name: string; value: string }[];

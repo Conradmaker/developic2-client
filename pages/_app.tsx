@@ -1,8 +1,8 @@
 import { AppProps } from 'next/dist/next-server/lib/router/router';
-import '../styles/globals.css';
+import 'styles/globals.css';
 import { Global, css } from '@emotion/react';
-import ModeProvider from '../hooks/ThemeContext';
-import wrapper from '../modules/store';
+import ModeProvider from 'hooks/ThemeContext';
+import wrapper from 'modules/store';
 
 const globalStyle = css`
   * {

@@ -3,23 +3,18 @@ import Link from 'next/link';
 import styled from '@emotion/styled';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
-import PageLabel from '../components/Label/PageLabel';
-import Layout from '../components/Layout';
-import TitleLabel from '../components/Label/TitleLabel';
-import PopularPostCard from '../components/Card/PopularPostCard';
-import UserProfileCard from '../components/Card/UserProfileCard';
-import Exhibition from '../components/Card/Exhibition';
-import useList from '../modules/list/hooks';
-import {
-  getArchiveListAction,
-  getPostListAction,
-  getWriterListAction,
-  MainPageDataType,
-} from '../modules/list';
-import Carousel from '../components/List/Carousel';
-import { authServersiceAction } from '../utils/getServerSidePropsTemplate';
-import wrapper from '../modules/store';
-import Welcome from '../components/Result/Welcome';
+import PageLabel from 'components/Label/PageLabel';
+import Layout from 'components/Layout';
+import TitleLabel from 'components/Label/TitleLabel';
+import PopularPostCard from 'components/Card/PopularPostCard';
+import UserProfileCard from 'components/Card/UserProfileCard';
+import Exhibition from 'components/Card/Exhibition';
+import useList from 'modules/list/hooks';
+import { MainPageDataType } from 'modules/list';
+import Carousel from 'components/List/Carousel';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
+import wrapper from 'modules/store';
+import Welcome from 'components/Result/Welcome';
 
 const MainContainer = styled.main`
   max-width: 1150px;
@@ -213,10 +208,6 @@ export default function Home(): JSX.Element {
   }, []);
 
   if (welcome) return <Welcome />;
-
-  if (!(pageData as MainPageDataType).archive) return <></>;
-  if (!(pageData as MainPageDataType).writer) return <></>;
-  if (!(pageData as MainPageDataType).post) return <></>;
 
   return (
     <Layout>

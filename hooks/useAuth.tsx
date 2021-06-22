@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
-import { useEffect } from 'react';
-import { User } from '../modules/user';
-import useUser from '../modules/user/hooks';
+import { useCallback, useEffect } from 'react';
+
+import { User, useUser } from 'modules/user';
 
 type UseAuthType = {
   replace: boolean; //true시 홈으로

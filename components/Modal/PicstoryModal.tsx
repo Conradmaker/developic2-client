@@ -1,16 +1,13 @@
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { MdCancel, MdCheck } from 'react-icons/md';
-import useInput from '../../hooks/useInput';
-import { Picstory } from '../../modules/picstory';
-import usePicstory from '../../modules/picstory/hooks';
-import useUI from '../../modules/ui/hooks';
-import useUser from '../../modules/user/hooks';
+import { Picstory } from 'modules/picstory';
 import SquareBtn from '../Button/SquareBtn';
 import CustomInput from '../Input/CustomInput';
 import ImageDropZone from '../Input/ImageDropZone';
 import TitleLabel from '../Label/TitleLabel';
 import { ModalLayout, PicstoryModalBox } from './styles';
+import { useInput, useUI, useUser, usePicstory } from 'hooks';
 
 type PicstoryListItemPropsType = {
   checked: boolean;

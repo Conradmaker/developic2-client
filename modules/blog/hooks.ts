@@ -9,7 +9,7 @@ import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from './../../hooks/useSelector';
 import { LoadBlogListPayload } from './type';
 
-export default function useBlog() {
+export function useBlog() {
   const {
     loadBlogPostList,
     loadBlogPicstoryList,
@@ -47,3 +47,5 @@ export default function useBlog() {
     loadBlogPicstoryDetailDispatch,
   };
 }
+
+export default useBlog;

@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { useCallback } from 'react';
-import useInput from '../../hooks/useInput';
-import { Comment } from '../../modules/post';
-import usePost from '../../modules/post/hooks';
-import useUser from '../../modules/user/hooks';
+
+import { Comment } from 'modules/post';
 import Button from '../Button/Button';
 import BlogCommentCard from '../Card/BlogCommentCard';
 import { PostCommentListContainer } from './styles';
+import { useInput, useUser, usePost } from 'hooks';
 
 type CommentListPropsType = {
   commentsData: Comment[];

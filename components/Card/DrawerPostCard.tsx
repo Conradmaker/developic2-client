@@ -3,8 +3,8 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { DrawerPostCardContainer } from './styles';
-import { LikeListItemType } from '../../modules/drawer';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { LikeListItemType } from 'modules/drawer';
+import { calcImageSrc } from 'utils/calcImageSrc';
 
 type DrawerPostCardPropsType = {
   postData: LikeListItemType;

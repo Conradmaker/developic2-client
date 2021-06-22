@@ -1,13 +1,11 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
-import PhotoBinderCard from '../../../../components/Card/PhotoBinderCard';
-import PageWithNavLayout from '../../../../components/Layout/PageWithNavLayout';
-import Incomplete from '../../../../components/Result/Incomplete';
-import useAuth from '../../../../hooks/useAuth';
-import useFetchMore from '../../../../hooks/useFetchMore';
-import useDrawer from '../../../../modules/drawer/hooks';
-import { DrawerNavData } from '../../../../utils/data';
+import PhotoBinderCard from 'components/Card/PhotoBinderCard';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import Incomplete from 'components/Result/Incomplete';
+import { useAuth, useDrawer, useFetchMore } from 'hooks';
+import { DrawerNavData } from 'utils/data';
 
 const BinderPageContainer = styled.div`
   position: relative;

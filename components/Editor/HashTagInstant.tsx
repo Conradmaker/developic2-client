@@ -2,9 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import _debounce from 'lodash/debounce';
 import { HashInputContainer } from '../Input/EditPageInput';
 import { HashTagSearchContainer } from './styles';
-import { Hashtag } from '../../modules/post';
-import usePost from '../../modules/post/hooks';
-import useUI from '../../modules/ui/hooks';
+import { Hashtag } from 'modules/post';
+import { useUI, usePost } from 'hooks';
 
 type SearchListPropsType = {
   resultList: { id: number; name: string }[];

@@ -10,7 +10,7 @@ import {
 } from './thunk';
 import { CreatePicstoryPayload, TogglePicPostPayload } from './types';
 
-export default function usePicstory() {
+export function usePicstory() {
   const { getPicstoryList, createPicstory } = useAppSelector(state => state.picstory);
   const dispatch = useAppDispatch();
 
@@ -44,3 +44,4 @@ export default function usePicstory() {
     removePicPostDispatch,
   };
 }
+export default usePicstory;

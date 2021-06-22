@@ -1,8 +1,9 @@
 import React from 'react';
 import Masonry from 'react-masonry-css';
 import { RiCheckFill } from 'react-icons/ri';
+
 import { ImgItemBox, PhotoBinderGalleryContainer } from './styles';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { calcImageSrc } from 'utils/calcImageSrc';
 
 type ImgItemPropsType = {
   data: { src: string; id: number };

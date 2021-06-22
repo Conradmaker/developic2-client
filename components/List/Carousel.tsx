@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import useCarousel from '../../hooks/useCarousel';
 import _throttle from 'lodash/throttle';
 import { useState } from 'react';
+
+import { useCarousel } from 'hooks';
 
 const Container = styled.div<{ width: number; height: number }>`
   width: 100%;

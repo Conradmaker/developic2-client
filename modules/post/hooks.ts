@@ -21,7 +21,7 @@ import {
   UpdateCommentPayload,
 } from './types';
 
-export default function usePost() {
+export function usePost() {
   const {
     tempPost,
     preSavePost,
@@ -100,3 +100,5 @@ export default function usePost() {
     removeCommentDispatch,
   };
 }
+
+export default usePost;

@@ -1,17 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Layout from './Layout';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { BlogNavData } from '../../utils/data';
+import Head from 'next/head';
+
+import Layout from './Layout';
+import { BlogNavData } from 'utils/data';
 import { BlogTabBox } from '../Tab/styles';
 import FollowBtn from '../Button/FollowBtn';
 import { BlogUserProfile } from './styles';
-import useBlog from '../../modules/blog/hooks';
-import useUser from '../../modules/user/hooks';
 import { RoundCornerBtnBox } from '../Button/styles';
-import Head from 'next/head';
-import useUI from '../../modules/ui/hooks';
+import { useBlog, useUI, useUser } from 'hooks';
 
 const BlogwithProfileContainer = styled.div`
   margin: 40px auto;

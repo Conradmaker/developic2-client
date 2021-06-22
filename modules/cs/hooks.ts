@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks/useSelector';
 import { getFaqAction, getNoticeAction } from './thunk';
 import { GetCsPayload } from './type';
 
-export default function useCS() {
+export function useCS() {
   const { getCs } = useAppSelector(state => state.cs);
   const dispatch = useAppDispatch();
 
@@ -18,3 +18,5 @@ export default function useCS() {
 
   return { getCs, getNoticeDispatch, getFaqDispatch };
 }
+
+export default useCS;

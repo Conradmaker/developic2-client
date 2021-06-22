@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import Layout from '../../../components/Layout';
-import PicstoryDetailList from '../../../components/List/PicstoryDetailList';
-import BlogPicstoryDetailBox from '../../../components/Result/BlogPicstoryDetail';
-import { loadBlogPicstoryDetailAction, loadBlogUserAction } from '../../../modules/blog';
-import useBlog from '../../../modules/blog/hooks';
-import wrapper from '../../../modules/store';
-import { authServersiceAction } from '../../../utils/getServerSidePropsTemplate';
+import Layout from 'components/Layout';
+import PicstoryDetailList from 'components/List/PicstoryDetailList';
+import BlogPicstoryDetailBox from 'components/Result/BlogPicstoryDetail';
+import { loadBlogPicstoryDetailAction, loadBlogUserAction } from 'modules/blog';
+import useBlog from 'modules/blog/hooks';
+import wrapper from 'modules/store';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
 
 const PicstoryDetailContainer = styled.section`
   max-width: 850px;

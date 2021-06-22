@@ -3,7 +3,7 @@ import React from 'react';
 import TitleLabel from '../Label/TitleLabel';
 import Layout from '.';
 import PageNavigation from '../Nav/PageNavigation';
-import { NavDataType } from '../../utils/data';
+import { NavDataType } from 'utils/data';
 
 export const PageWithNavContainer = styled.main`
   max-width: 1150px;

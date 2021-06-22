@@ -1,5 +1,5 @@
 import React from 'react';
-import useUI from '../../modules/ui/hooks';
+import { useUI } from 'hooks';
 import { ToastPopUpBox } from './styles';
 
 export default function Toast(): JSX.Element {

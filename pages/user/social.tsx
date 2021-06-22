@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import Layout from '../../components/Layout';
-import useUser from '../../modules/user/hooks';
+import Layout from 'components/Layout';
+import { useUser } from 'hooks';
 
 const SocialAuthContainer = styled.div`
   display: flex;

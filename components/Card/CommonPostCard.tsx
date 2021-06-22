@@ -2,9 +2,9 @@ import React from 'react';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
 import Link from 'next/link';
 import { CommonPostCardBox, UserAvatarWithNameBox } from './styles';
-import { PostType } from '../../modules/list';
+import { PostType } from 'modules/list';
 import dayjs from 'dayjs';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { calcImageSrc } from 'utils/calcImageSrc';
 
 type PostCardPropsType = {
   postData: PostType;

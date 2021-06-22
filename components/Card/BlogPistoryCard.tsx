@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
-import { BlogPicstory, BlogPost } from '../../modules/blog';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { BlogPicstory, BlogPost } from 'modules/blog';
+import { calcImageSrc } from 'utils/calcImageSrc';
 import { BlogPicstoryCardBox } from './styles';
 
 const countTotal = {

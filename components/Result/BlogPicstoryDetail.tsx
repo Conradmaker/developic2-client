@@ -2,14 +2,13 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import React, { useCallback, useMemo } from 'react';
 import { MdBook, MdFavorite, MdRemoveRedEye } from 'react-icons/md';
-import useModal from '../../hooks/useModal';
-import { BlogPicstory, BlogPost } from '../../modules/blog';
-import useBlog from '../../modules/blog/hooks';
-import usePicstory from '../../modules/picstory/hooks';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+
+import { BlogPicstory, BlogPost } from 'modules/blog';
+import { calcImageSrc } from 'utils/calcImageSrc';
 import SquareBtn from '../Button/SquareBtn';
 import { BlogPicstoryCardBox } from '../Card/styles';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
+import { useModal, usePicstory, useBlog } from 'hooks';
 
 const BlogPicstoryDetailContainer = styled(BlogPicstoryCardBox)`
   border-bottom: 1px solid ${({ theme }) => theme.grayScale[2]};

@@ -1,13 +1,12 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React, { useCallback, useState } from 'react';
-import useInput from '../../hooks/useInput';
-import useModal from '../../hooks/useModal';
-import { Comment } from '../../modules/post';
-import usePost from '../../modules/post/hooks';
-import useUser from '../../modules/user/hooks';
+import { Comment } from 'modules/post';
+import usePost from 'modules/post/hooks';
+import useUser from 'modules/user/hooks';
 import ConfirmRemoveModal from '../Modal/ConfirmRemoveModal';
 import { BlogCommentCardBox } from './styles';
+import { useInput, useModal } from 'hooks';
 
 type BlogCommentCardPropsType = {
   commentData: Comment;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchListOptions } from '../../utils/data';
+import { SearchListOptions } from 'utils/data';
 import { SortTabBox } from './styles';
 
 type SortTabPropsType = {

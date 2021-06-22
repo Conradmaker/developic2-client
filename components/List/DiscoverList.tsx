@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import useFetchMore from '../../hooks/useFetchMore';
-import useList from '../../modules/list/hooks';
+
 import CommonPostCard from '../Card/CommonPostCard';
 import Incomplete from '../Result/Incomplete';
+import { useFetchMore, useList } from 'hooks';
 
 export default function DiscoverList(): JSX.Element {
   const { pageData, hasMore, getTaggedPostListDispatch, getPostListDispatch } = useList();

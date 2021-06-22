@@ -1,15 +1,13 @@
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
-import Layout from '../../../components/Layout';
-import styled from '@emotion/styled';
-import HashTagInstant from '../../../components/Editor/HashTagInstant';
-import TitleInput from '../../../components/Input/EditPageInput';
-import useUser from '../../../modules/user/hooks';
-import usePost from '../../../modules/post/hooks';
 import Head from 'next/head';
-import useModal from '../../../hooks/useModal';
-import ConfirmModal from '../../../components/Modal/ConfirmModal';
+import styled from '@emotion/styled';
+import Layout from 'components/Layout';
+import HashTagInstant from 'components/Editor/HashTagInstant';
+import TitleInput from 'components/Input/EditPageInput';
+import ConfirmModal from 'components/Modal/ConfirmModal';
+import { useModal, usePost, useUser } from 'hooks';
 
 const EditContainer = styled.div`
   max-width: 1100px;

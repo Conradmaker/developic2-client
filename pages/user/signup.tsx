@@ -1,16 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
 import Head from 'next/head';
 import styled from '@emotion/styled';
-import PageLabel from '../../components/Label/PageLabel';
-import TitleLabel from '../../components/Label/TitleLabel';
-import CustomInput from '../../components/Input/CustomInput';
-import CustomCheckBox from '../../components/Input/CustomCheckBox';
-import SignupAuthModal from '../../components/Modal/SignupAuthModal';
-import SquareBtn from '../../components/Button/SquareBtn';
-import useInput from '../../hooks/useInput';
-import useUI from '../../modules/ui/hooks';
-import useUser from '../../modules/user/hooks';
+import Layout from 'components/Layout';
+import PageLabel from 'components/Label/PageLabel';
+import TitleLabel from 'components/Label/TitleLabel';
+import CustomInput from 'components/Input/CustomInput';
+import CustomCheckBox from 'components/Input/CustomCheckBox';
+import SignupAuthModal from 'components/Modal/SignupAuthModal';
+import SquareBtn from 'components/Button/SquareBtn';
+import { useInput, useUI, useUser } from 'hooks';
 
 const SignupContainer = styled.div`
   max-width: 1150px;

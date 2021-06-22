@@ -3,17 +3,16 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import SearchPageWithNavLayout from '../../components/Layout/SearchPageNavLayout';
-import EmptyContent from '../../components/Result/EmptyContent';
-import SortOption from '../../components/Tab/SortOption';
-import { SearchPageData } from '../../modules/list';
-import useList from '../../modules/list/hooks';
-import { PostSearchListContainer } from '../../components/List/styles';
-import CommonPostCard from '../../components/Card/CommonPostCard';
-import { searchDateOptionData, searchSortOptionData } from '../../utils/data';
-import wrapper from '../../modules/store';
-import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
-import useFetchMore from '../../hooks/useFetchMore';
+import SearchPageWithNavLayout from 'components/Layout/SearchPageNavLayout';
+import EmptyContent from 'components/Result/EmptyContent';
+import SortOption from 'components/Tab/SortOption';
+import { SearchPageData, useList } from 'modules/list';
+import { PostSearchListContainer } from 'components/List/styles';
+import CommonPostCard from 'components/Card/CommonPostCard';
+import { searchDateOptionData, searchSortOptionData } from 'utils/data';
+import wrapper from 'modules/store';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
+import { useFetchMore } from 'hooks';
 
 export const SearchContentBox = styled.div`
   margin-bottom: 85px;

@@ -1,45 +1,14 @@
 import Link from 'next/link';
 import React from 'react';
 import { MdArrowForward } from 'react-icons/md';
-import useUser from '../../modules/user/hooks';
+
+import { useUser } from 'hooks';
 import { DarkModeBtn } from '../Button/FloatingBtn';
 import { UserMenuContainer } from './styles';
-
-type navDataType = {
-  title: string;
-  content: {
-    name: string;
-    link: string;
-  }[];
-};
-const navData: navDataType[] = [
-  {
-    title: '집필',
-    content: [
-      { name: '새 글 작성', link: '/edit/content/new' },
-      { name: '임시저장 글', link: '/user/drawer/save' },
-    ],
-  },
-  {
-    title: '내 서랍',
-    content: [
-      { name: '포토바인더', link: '/user/drawer/binder' },
-      { name: '좋아요 목록', link: '/user/drawer/like' },
-      { name: '최근 본 글', link: '/user/drawer/recent' },
-    ],
-  },
-  {
-    title: '설정',
-    content: [
-      { name: '계정정보', link: '/user/setting/info' },
-      { name: '소개', link: '/user/setting/intro' },
-      { name: '통계', link: '/user/setting/stats' },
-    ],
-  },
-];
+import { userMenuNavData, UserMenuNavData } from 'utils/data';
 
 type MenuNavItemPropsType = {
-  data: navDataType;
+  data: UserMenuNavData;
 };
 function MenuNavItem({ data }: MenuNavItemPropsType): JSX.Element {
   return (
@@ -89,7 +58,7 @@ export default function UserMenu({ onClose }: UserMenuPropsType): JSX.Element {
           </p>
         </Link>
         <ul>
-          {navData.map(subMenuData => (
+          {userMenuNavData.map(subMenuData => (
             <MenuNavItem data={subMenuData} key={subMenuData.title} />
           ))}
 

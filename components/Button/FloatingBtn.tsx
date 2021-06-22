@@ -3,9 +3,9 @@ import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io';
 import { MdKeyboardArrowUp } from 'react-icons/md';
 import { RiSunFill, RiMoonClearFill } from 'react-icons/ri';
 import _throttle from 'lodash/throttle';
-import { useThemeState, useToggleTheme } from '../../hooks/ThemeContext';
+import { useThemeState, useToggleTheme } from 'hooks/ThemeContext';
 import { DarkModeBox, FloatingButtonBox, LikeFltBox, ScrollTopBtnBox } from './styles';
-import useUI from '../../modules/ui/hooks';
+import useUI from 'modules/ui/hooks';
 
 export function ScrollTopBtn({
   setHeader = () => null,

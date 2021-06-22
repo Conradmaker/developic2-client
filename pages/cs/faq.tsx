@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
-import PageLabel from '../../components/Label/PageLabel';
-import PageWithNavLayout from '../../components/Layout/PageWithNavLayout';
-import NoticeList from '../../components/List/NoticeList';
-import useCS from '../../modules/cs/hooks';
-import { CSNavData } from '../../utils/data';
+import PageLabel from 'components/Label/PageLabel';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import NoticeList from 'components/List/NoticeList';
+import { useCS } from 'hooks';
+import { CSNavData } from 'utils/data';
 
 const FaqContainer = styled.section`
   @media ${({ theme }) => theme.viewPortSize.mobile} {

@@ -19,7 +19,7 @@ import {
   getSearchListPayload,
 } from './type';
 
-export default function useList() {
+export function useList() {
   const { pageData, hasMore, loadMore } = useAppSelector(state => state.list);
   const dispatch = useAppDispatch();
 
@@ -61,3 +61,5 @@ export default function useList() {
     getSearchListDispatch,
   };
 }
+
+export default useList;

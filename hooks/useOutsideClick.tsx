@@ -22,3 +22,5 @@ export const useOutsideClick: UseOutsideClickType = (el, initialState) => {
 
   return [isActive, setIsActive];
 };
+
+export default useOutsideClick;

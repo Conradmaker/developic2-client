@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import React, { useCallback, useEffect } from 'react';
 import { RiFacebookFill, RiGoogleFill, RiKakaoTalkFill } from 'react-icons/ri';
-import useInput from '../../hooks/useInput';
-import useUser from '../../modules/user/hooks';
+
 import RoundBtn from '../Button/RoundBtn';
 import SquareBtn from '../Button/SquareBtn';
 import CustomInput from '../Input/CustomInput';
 import TitleLabel from '../Label/TitleLabel';
 import { LoginModalBox, ModalLayout } from './styles';
+import { useInput, useUser } from 'hooks';
 
 type LoginModalPropsType = {
   onClose: () => void;

@@ -1,18 +1,16 @@
 import dynamic from 'next/dynamic';
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import Layout from '../../components/Layout';
-import CustomInput from '../../components/Input/CustomInput';
-import Head from 'next/head';
-import TitleLabel from '../../components/Label/TitleLabel';
-import CustomCheckBox from '../../components/Input/CustomCheckBox';
-import CustomDateInput from '../../components/Input/CustomDateInput';
-import useInput from '../../hooks/useInput';
-import ImageDropZone from '../../components/Input/ImageDropZone';
-import useUser from '../../modules/user/hooks';
 import { useRouter } from 'next/router';
-import useArchive from '../../modules/archive/hooks';
-import useUI from '../../modules/ui/hooks';
+import Head from 'next/head';
+import Layout from 'components/Layout';
+import CustomInput from 'components/Input/CustomInput';
+import TitleLabel from 'components/Label/TitleLabel';
+import CustomCheckBox from 'components/Input/CustomCheckBox';
+import CustomDateInput from 'components/Input/CustomDateInput';
+import ImageDropZone from 'components/Input/ImageDropZone';
+import useArchive from 'modules/archive/hooks';
+import { useInput, useUI, useUser } from 'hooks';
 
 const ArchiveEditContainer = styled.div`
   max-width: 1150px;

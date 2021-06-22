@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
 import { MdFavorite, MdRemoveRedEye } from 'react-icons/md';
-import { BlogPost } from '../../modules/blog';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { BlogPost } from 'modules/blog';
+import { calcImageSrc } from 'utils/calcImageSrc';
 import { BlogPostCardBox } from './styles';
 
 type BlogPostCardPropsType = {

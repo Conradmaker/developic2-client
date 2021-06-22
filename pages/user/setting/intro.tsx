@@ -1,14 +1,11 @@
 import styled from '@emotion/styled';
 import React, { useCallback, useEffect, useState } from 'react';
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import CustomInput from '../../../components/Input/CustomInput';
-import PageLabel from '../../../components/Label/PageLabel';
-import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
-import useUser from '../../../modules/user/hooks';
-import { SettingNavData } from '../../../utils/data';
-import useInput from '../../../hooks/useInput';
 import Head from 'next/head';
+import CustomInput from 'components/Input/CustomInput';
+import PageLabel from 'components/Label/PageLabel';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import { SettingNavData } from 'utils/data';
+import { useInput, useUser } from 'hooks';
 
 const InfoContainer = styled.section`
   display: flex;

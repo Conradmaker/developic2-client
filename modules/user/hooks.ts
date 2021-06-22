@@ -30,7 +30,7 @@ import {
 } from './type';
 
 // 커스텀 훅
-export default function useUser() {
+export function useUser() {
   const {
     login,
     signup,
@@ -40,6 +40,7 @@ export default function useUser() {
     userIntro,
     updateUser,
     destroyUser,
+    auth,
   } = useAppSelector(state => state.user);
   const dispatch = useAppDispatch();
 
@@ -108,6 +109,7 @@ export default function useUser() {
   }, []);
 
   return {
+    auth,
     updateUser,
     login,
     destroyUser,
@@ -134,3 +136,5 @@ export default function useUser() {
     authDispatch,
   };
 }
+
+export default useUser;

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
-import { PhotoBinderType } from '../../modules/drawer';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { PhotoBinderType } from 'modules/drawer';
+import { calcImageSrc } from 'utils/calcImageSrc';
 import { PhotoBinderCardBox } from './styles';
 
 type PhotoBinderCardPropsType = {

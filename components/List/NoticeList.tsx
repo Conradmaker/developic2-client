@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { NoticeListContainer } from './styles';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { FaqType, NoticeType } from '../../modules/cs';
 import dayjs from 'dayjs';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+
+import { NoticeListContainer } from './styles';
+import { FaqType, NoticeType } from 'modules/cs';
 
 const isNotice = (target: NoticeType | FaqType): target is NoticeType => {
   return (target as NoticeType).title !== undefined;

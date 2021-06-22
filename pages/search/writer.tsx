@@ -3,17 +3,16 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { SearchContentBox } from './post';
-import { UserCardListContainer } from '../../components/List/styles';
-import SearchPageWithNavLayout from '../../components/Layout/SearchPageNavLayout';
-import EmptyContent from '../../components/Result/EmptyContent';
-import SortOption from '../../components/Tab/SortOption';
-import { SearchPageData } from '../../modules/list';
-import useList from '../../modules/list/hooks';
-import UserInfoCard from '../../components/Card/UserInfoCard';
-import { searchDateOptionData, searchSortOptionData } from '../../utils/data';
-import wrapper from '../../modules/store';
-import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
-import useFetchMore from '../../hooks/useFetchMore';
+import { UserCardListContainer } from 'components/List/styles';
+import SearchPageWithNavLayout from 'components/Layout/SearchPageNavLayout';
+import EmptyContent from 'components/Result/EmptyContent';
+import SortOption from 'components/Tab/SortOption';
+import { SearchPageData, useList } from 'modules/list';
+import UserInfoCard from 'components/Card/UserInfoCard';
+import { searchDateOptionData, searchSortOptionData } from 'utils/data';
+import wrapper from 'modules/store';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
+import { useFetchMore } from 'hooks';
 
 function SearchResult({ children }: { children?: React.ReactNode }): JSX.Element {
   const { pageData } = useList();

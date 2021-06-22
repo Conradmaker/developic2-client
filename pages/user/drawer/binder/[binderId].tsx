@@ -2,16 +2,14 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import SquareBtn from '../../../../components/Button/SquareBtn';
-import PageWithNavLayout from '../../../../components/Layout/PageWithNavLayout';
-import PhotoBinderGallery from '../../../../components/List/PhotoBinderGallery';
-import BinderEditModal from '../../../../components/Modal/BinderModal';
-import ConfirmRemoveModal from '../../../../components/Modal/ConfirmRemoveModal';
-import Incomplete from '../../../../components/Result/Incomplete';
-import useAuth from '../../../../hooks/useAuth';
-import useModal from '../../../../hooks/useModal';
-import useDrawer from '../../../../modules/drawer/hooks';
-import { DrawerNavData } from '../../../../utils/data';
+import SquareBtn from 'components/Button/SquareBtn';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import PhotoBinderGallery from 'components/List/PhotoBinderGallery';
+import BinderEditModal from 'components/Modal/BinderModal';
+import ConfirmRemoveModal from 'components/Modal/ConfirmRemoveModal';
+import Incomplete from 'components/Result/Incomplete';
+import { useAuth, useDrawer, useModal } from 'hooks';
+import { DrawerNavData } from 'utils/data';
 
 const BinderDetailContainer = styled.div`
   display: flex;

@@ -1,13 +1,11 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useCallback, useEffect } from 'react';
-import DrawerPostCard from '../../../components/Card/DrawerPostCard';
-import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
-import Incomplete from '../../../components/Result/Incomplete';
-import useAuth from '../../../hooks/useAuth';
-import useFetchMore from '../../../hooks/useFetchMore';
-import useDrawer from '../../../modules/drawer/hooks';
-import { DrawerNavData } from '../../../utils/data';
+import DrawerPostCard from 'components/Card/DrawerPostCard';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import Incomplete from 'components/Result/Incomplete';
+import { useAuth, useDrawer, useFetchMore } from 'hooks';
+import { DrawerNavData } from 'utils/data';
 
 const LikeListContainer = styled.div`
   width: 100%;

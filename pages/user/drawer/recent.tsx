@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
-import DrawerPostCard from '../../../components/Card/DrawerPostCard';
-import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
-import Incomplete from '../../../components/Result/Incomplete';
-import useAuth from '../../../hooks/useAuth';
-import useFetchMore from '../../../hooks/useFetchMore';
-import useDrawer from '../../../modules/drawer/hooks';
-import { DrawerNavData } from '../../../utils/data';
-import { ComputedListType, sortByDate } from '../../../utils/sortByDate';
+import DrawerPostCard from 'components/Card/DrawerPostCard';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import Incomplete from 'components/Result/Incomplete';
+import { useAuth, useDrawer, useFetchMore } from 'hooks';
+import { DrawerNavData } from 'utils/data';
+import { ComputedListType, sortByDate } from 'utils/sortByDate';
 
 export const RecentViewListContainer = styled.ul`
   width: 100%;

@@ -2,17 +2,15 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import AvatarUpdateInput from '../../../components/Input/AvatarUpdateInput';
-import CustomInput from '../../../components/Input/CustomInput';
-import CustomSelect from '../../../components/Input/CustomSelect';
-import PageLabel from '../../../components/Label/PageLabel';
-import PageWithNavLayout from '../../../components/Layout/PageWithNavLayout';
-import _ChangePasswordModal from '../../../components/Modal/ChangePasswordModal';
-import ConfirmRemoveModal from '../../../components/Modal/ConfirmRemoveModal';
-import useInput from '../../../hooks/useInput';
-import useModal from '../../../hooks/useModal';
-import useUser from '../../../modules/user/hooks';
-import { SettingNavData } from '../../../utils/data';
+import AvatarUpdateInput from 'components/Input/AvatarUpdateInput';
+import CustomInput from 'components/Input/CustomInput';
+import CustomSelect from 'components/Input/CustomSelect';
+import PageLabel from 'components/Label/PageLabel';
+import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
+import _ChangePasswordModal from 'components/Modal/ChangePasswordModal';
+import ConfirmRemoveModal from 'components/Modal/ConfirmRemoveModal';
+import { SettingNavData } from 'utils/data';
+import { useInput, useModal, useUser } from 'hooks';
 
 const InfoContainer = styled.section`
   display: flex;

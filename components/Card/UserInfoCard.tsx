@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { UserInfoCardBox } from './styles';
-import { PostUser } from '../../modules/list';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { PostUser } from 'modules/list';
+import { calcImageSrc } from 'utils/calcImageSrc';
 
 type UserInfoCardPropsType = {
   userInfoData: PostUser;

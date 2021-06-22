@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import useUser from '../../modules/user/hooks';
+
+import useUser from 'modules/user/hooks';
 import SquareBtn from '../Button/SquareBtn';
 import CustomInput from '../Input/CustomInput';
 import TitleLabel from '../Label/TitleLabel';

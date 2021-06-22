@@ -14,7 +14,7 @@ export const toastPopAction = async (
   await _delay(() => dispatch(toastInitialize()), 2300);
 };
 
-export default function useUI() {
+export function useUI() {
   const { toastPopUp } = useAppSelector(state => state.ui);
   const dispatch = useAppDispatch();
 
@@ -27,3 +27,5 @@ export default function useUI() {
 
   return { toastPopUp, toastOpenDispatch };
 }
+
+export default useUI;

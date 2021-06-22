@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
-import useInput from '../../hooks/useInput';
+
 import SquareBtn from '../Button/SquareBtn';
 import TitleLabel from '../Label/TitleLabel';
 import { ConfirmRemoveModalBox, ModalLayout } from './styles';
+import { useInput } from 'hooks';
 
 type ConfirmRemoveModalPropsType = {
   onClose?: () => void;

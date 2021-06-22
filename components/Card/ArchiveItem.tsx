@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
-import { Archive } from '../../modules/archive/type';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { Archive } from 'modules/archive/type';
+import { calcImageSrc } from 'utils/calcImageSrc';
 import { ArchiveItemContainer } from './styles';
 
 type ArchiveItemPropsType = {

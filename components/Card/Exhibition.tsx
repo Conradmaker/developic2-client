@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
-import { ArchiveDataType } from '../../modules/list';
-import { calcImageSrc } from '../../utils/calcImageSrc';
+import { ArchiveDataType } from 'modules/list';
+import { calcImageSrc } from 'utils/calcImageSrc';
 import { ExhibitionCardBox } from './styles';
 
 type ExhibitionPropsType = {

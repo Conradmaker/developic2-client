@@ -2,16 +2,15 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { BlogPicstoryListContainer } from '../../components/List/styles';
-import SearchPageWithNavLayout from '../../components/Layout/SearchPageNavLayout';
-import useList from '../../modules/list/hooks';
+import { BlogPicstoryListContainer } from 'components/List/styles';
+import SearchPageWithNavLayout from 'components/Layout/SearchPageNavLayout';
 import { SearchContentBox } from './post';
-import BlogPistoryCard from '../../components/Card/BlogPistoryCard';
-import { SearchPageData } from '../../modules/list';
-import EmptyContent from '../../components/Result/EmptyContent';
-import wrapper from '../../modules/store';
-import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
-import useFetchMore from '../../hooks/useFetchMore';
+import BlogPistoryCard from 'components/Card/BlogPistoryCard';
+import { SearchPageData, useList } from 'modules/list';
+import EmptyContent from 'components/Result/EmptyContent';
+import wrapper from 'modules/store';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
+import { useFetchMore } from 'hooks';
 
 function PicstoryResult({ children }: { children?: React.ReactNode }) {
   const { pageData } = useList();

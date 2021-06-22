@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React from 'react';
-import { TempItemType } from '../../modules/drawer';
-import useDrawer from '../../modules/drawer/hooks';
+import { TempItemType, useDrawer } from 'modules/drawer';
 import SquareBtn from '../Button/SquareBtn';
 import { UnfinishedPostCardContainer } from './styles';
 

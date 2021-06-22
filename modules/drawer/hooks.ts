@@ -26,7 +26,7 @@ import {
   UpdatePhotoBinderPayload,
 } from './types';
 
-export default function useDrawer() {
+export function useDrawer() {
   const {
     getLikeList,
     hasMore,
@@ -132,3 +132,5 @@ export default function useDrawer() {
     createPhotoBinderDispatch,
   };
 }
+
+export default useDrawer;

@@ -2,18 +2,18 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
-import TitleLabel from '../../components/Label/TitleLabel';
-import Layout from '../../components/Layout';
-import DiscoverList from '../../components/List/DiscoverList';
+import TitleLabel from 'components/Label/TitleLabel';
+import Layout from 'components/Layout';
+import DiscoverList from 'components/List/DiscoverList';
 import {
   DiscoverPageDataType,
   getHashtagListAction,
   getPostListAction,
   getTaggedPostListAction,
-} from '../../modules/list';
-import useList from '../../modules/list/hooks';
-import wrapper from '../../modules/store';
-import { authServersiceAction } from '../../utils/getServerSidePropsTemplate';
+  useList,
+} from 'modules/list';
+import wrapper from 'modules/store';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
 
 const DiscoveryContainer = styled.div`
   max-width: 1150px;
