@@ -905,6 +905,7 @@ export const BlogCommentCardBox = styled.li`
 `;
 
 export const BlogPicstoryCardBox = styled.li`
+  cursor: pointer;
   color: ${({ theme }) => theme.grayScale[1]};
   font-family: 'Noto Serif KR';
   padding: 25px;
@@ -914,6 +915,11 @@ export const BlogPicstoryCardBox = styled.li`
   border: 0;
   border-radius: 3px;
   margin-bottom: 50px;
+  transition: 0.3s;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 10px rgba(224, 224, 224, 0.5);
+  }
   article {
     .picstory__description {
       display: flex;

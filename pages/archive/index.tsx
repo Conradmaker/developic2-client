@@ -5,24 +5,19 @@ import SquareBtn from 'components/Button/SquareBtn';
 import ArchiveItem from 'components/Card/ArchiveItem';
 import TitleLabel from 'components/Label/TitleLabel';
 import Layout from 'components/Layout';
-import { getArchiveListAction, useArchive } from 'modules/archive';
-import wrapper from 'modules/store';
-import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
-import { useFetchMore, useUser } from 'hooks';
+import { useArchive } from 'modules/archive';
+import { useAuth, useFetchMore } from 'hooks';
 import { ArchiveContainer } from 'styles/pages/archive';
 
 export default function archive(): JSX.Element {
-  const { userData } = useUser();
+  const { userData } = useAuth({ replace: false });
   const { getArchiveList, getArchiveListDispatch, hasMore } = useArchive();
   const [FetchMoreTrigger, page] = useFetchMore(hasMore);
 
   useEffect(() => {
-    if (hasMore && page > 0) {
-      getArchiveListDispatch({ limit: 8, offset: page * 8 });
-    }
+    if (!hasMore && page > 0) return;
+    getArchiveListDispatch({ limit: 8, offset: page * 8 });
   }, [page]);
-
-  if (!getArchiveList.data) return <></>;
 
   return (
     <Layout>
@@ -39,9 +34,10 @@ export default function archive(): JSX.Element {
           )}
         </section>
         <ul>
-          {getArchiveList.data.map(v => (
-            <ArchiveItem key={v.id} data={v} listLength={getArchiveList.data?.length} />
-          ))}
+          {getArchiveList.data &&
+            getArchiveList.data.map(v => (
+              <ArchiveItem key={v.id} data={v} listLength={getArchiveList.data?.length} />
+            ))}
         </ul>
         <FetchMoreTrigger />
       </ArchiveContainer>
@@ -49,8 +45,9 @@ export default function archive(): JSX.Element {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-  const { dispatch } = context.store;
-  await dispatch(getArchiveListAction({ limit: 8, offset: 0 }));
-});
+// 서버 성능 향상시 적용
+// export const getServerSideProps = wrapper.getServerSideProps(async context => {
+//   authServersiceAction(context);
+//   const { dispatch } = context.store;
+//   dispatch(getArchiveListAction({ limit: 8, offset: 0 }));
+// });

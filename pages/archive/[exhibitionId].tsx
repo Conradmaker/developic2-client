@@ -1,25 +1,23 @@
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Button from 'components/Button/Button';
 import Layout from 'components/Layout';
 import { useArchive } from 'hooks';
 import { calcImageSrc } from 'utils/calcImageSrc';
 import { ArchiveDetailContainer } from 'styles/pages/archive';
+import wrapper from 'modules/store';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
+import { getArchiveDetailAction } from 'modules/archive';
+import { PostContentViewerContainer } from 'components/Editor/styles';
 
 export default function archiveId(): JSX.Element {
-  const router = useRouter();
-  const { exhibitionId } = router.query;
-  const { getArchiveDetail, getArchiveDetailDispatch } = useArchive();
-  useEffect(() => {
-    if (exhibitionId) {
-      getArchiveDetailDispatch(parseInt(exhibitionId as string));
-    }
-  }, [exhibitionId]);
+  const { getArchiveDetail } = useArchive();
+
   if (getArchiveDetail.loading) return <div>로딩중</div>;
   if (getArchiveDetail.error) return <></>;
   if (!getArchiveDetail.data) return <></>;
+
   return (
     <Layout>
       <Head>
@@ -69,9 +67,11 @@ export default function archiveId(): JSX.Element {
         </section>
         <section className="detail__info">
           <p>Info</p>
-          <article
-            dangerouslySetInnerHTML={{ __html: getArchiveDetail.data.description }}
-          ></article>
+          <PostContentViewerContainer>
+            <article
+              dangerouslySetInnerHTML={{ __html: getArchiveDetail.data.description }}
+            ></article>
+          </PostContentViewerContainer>
         </section>
         <div className="btn__group">
           <Link href="/archive">
@@ -89,3 +89,9 @@ export default function archiveId(): JSX.Element {
     </Layout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  authServersiceAction(context);
+  const { dispatch } = context.store;
+  await dispatch(getArchiveDetailAction(+(context.params?.exhibitionId as string)));
+});

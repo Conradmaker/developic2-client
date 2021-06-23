@@ -24,19 +24,19 @@ const initialGetServerSideProps: GetServerSidePropsContextType = callBackArr => 
     if (context.req && cookie) {
       axios.defaults.headers.Cookie = cookie;
     }
-    await context.store.dispatch(authAction(null));
-    _forEach(callBackArr, async callback => await context.store.dispatch(callback));
+    context.store.dispatch(authAction(null));
+    _forEach(callBackArr, callback => context.store.dispatch(callback));
   });
   return getServerSideProps;
 };
 
-export const authServersiceAction = async (context: ContextType): Promise<void> => {
+export const authServersiceAction = (context: ContextType): void => {
   const cookie = context.req ? context.req.headers.cookie : '';
   axios.defaults.headers.Cookie = '';
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie;
   }
-  await context.store.dispatch(authAction(null));
+  context.store.dispatch(authAction(null));
 };
 
 export default initialGetServerSideProps;

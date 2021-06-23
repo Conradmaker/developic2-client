@@ -17,11 +17,11 @@ export default function BlogPosts(): JSX.Element {
 
 // 서버 성능 향상시 적용
 // export const getServerSideProps = wrapper.getServerSideProps(async context => {
-//   await authServersiceAction(context);
+//   authServersiceAction(context);
 //   const { dispatch } = context.store;
 //   if (!context.params) return;
-//   await dispatch(loadBlogUserAction(+(context.params.userId as string)));
-//   await dispatch(
+//   dispatch(loadBlogUserAction(+(context.params.userId as string)));
+//   dispatch(
 //     loadBlogPostListAction({
 //       userId: +(context.params.userId as string),
 //       limit: 12,

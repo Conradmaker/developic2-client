@@ -7,8 +7,8 @@ import BlogPicstoryDetailBox from 'components/Result/BlogPicstoryDetail';
 import { loadBlogPicstoryDetailAction } from 'modules/blog';
 import useBlog from 'modules/blog/hooks';
 import wrapper from 'modules/store';
-import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
 import { PicstoryDetailContainer } from 'styles/pages/[userId]';
+import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
 
 export default function PicstoryId(): JSX.Element {
   const router = useRouter();
@@ -28,8 +28,8 @@ export default function PicstoryId(): JSX.Element {
   );
 }
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
   const { dispatch } = context.store;
   if (!context.params) return;
+  authServersiceAction(context);
   await dispatch(loadBlogPicstoryDetailAction(+(context.params.picstoryId as string)));
 });

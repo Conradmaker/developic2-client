@@ -19,8 +19,8 @@ export default function Picstory(): JSX.Element {
 // export const getServerSideProps = wrapper.getServerSideProps(async context => {
 //   const { dispatch } = context.store;
 //   if (!context.params) return;
-//   await dispatch(loadBlogUserAction(+(context.params.userId as string)));
-//   await dispatch(
+//   dispatch(loadBlogUserAction(+(context.params.userId as string)));
+//   dispatch(
 //     loadBlogPicstoryListAction({
 //       userId: +(context.params.userId as string),
 //       limit: 12,
