@@ -9,7 +9,7 @@ import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import _ChangePasswordModal from 'components/Modal/ChangePasswordModal';
 import ConfirmRemoveModal from 'components/Modal/ConfirmRemoveModal';
 import { SettingNavData } from 'utils/data';
-import { useInput, useModal, useUser } from 'hooks';
+import { useAuth, useInput, useModal, useUser } from 'hooks';
 import { SettingInfoContainer } from 'styles/pages/user';
 
 const genderData = [
@@ -18,13 +18,9 @@ const genderData = [
   { id: 3, value: '여성' },
 ];
 export default function Info(): JSX.Element {
+  const { userData } = useAuth({ replace: true });
   const router = useRouter();
-  const {
-    userData,
-    destroyUser,
-    updateUserInfoDispatch,
-    destroyUserDispatch,
-  } = useUser();
+  const { destroyUser, updateUserInfoDispatch, destroyUserDispatch } = useUser();
   const [nickname, onChangeNickname] = useInput(userData?.nickname);
   const [birth, onChangeBirth] = useInput(userData?.birth);
   const [gender, onChangeGender] = useInput(userData?.gender);

@@ -20,8 +20,6 @@ const BlogwithProfileContainer = styled.div`
   .blog__tab {
     margin: 0 auto;
   }
-  @media ${({ theme }) => theme.viewPortSize.mobile} {
-  }
 `;
 
 type BlogWithNavLayoutPropsType = {
@@ -33,6 +31,7 @@ export default function BlogWithNavLayout({
   const router = useRouter();
   const { userId } = router.query;
   const {
+    loadBlogUserDispatch,
     loadBlogUser: { data: blogUserData },
   } = useBlog();
   const { toastOpenDispatch } = useUI();
@@ -55,7 +54,11 @@ export default function BlogWithNavLayout({
     setIsFollowing(
       userData.writers.findIndex(following => following.id === +(userId as string)) !== -1
     );
-  }, [userData]);
+  }, [userData, blogUserData]);
+
+  useEffect(() => {
+    loadBlogUserDispatch(+(router.query.userId as string));
+  }, []);
 
   if (!blogUserData) return <></>;
 

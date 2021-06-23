@@ -10,11 +10,10 @@ import SortOption from 'components/Tab/SortOption';
 import { SearchPageData, useList } from 'modules/list';
 import UserInfoCard from 'components/Card/UserInfoCard';
 import { searchDateOptionData, searchSortOptionData } from 'utils/data';
-import wrapper from 'modules/store';
-import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
-import { useFetchMore } from 'hooks';
+import { useAuth, useFetchMore } from 'hooks';
 
 function SearchResult({ children }: { children?: React.ReactNode }): JSX.Element {
+  useAuth({ replace: false });
   const { pageData } = useList();
 
   if (
@@ -86,7 +85,3 @@ export default function SearchWriter(): JSX.Element {
     </SearchPageWithNavLayout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-});

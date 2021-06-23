@@ -31,6 +31,11 @@ export const PageNavigationBox = styled.nav`
       li {
         flex: 1;
         margin: 0;
+        font-size: 15px;
+      }
+
+      li.nav--active {
+        top: 0px;
         font-size: 16px;
       }
     }

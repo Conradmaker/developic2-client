@@ -9,9 +9,7 @@ import { SearchPageData, useList } from 'modules/list';
 import { PostSearchListContainer } from 'components/List/styles';
 import CommonPostCard from 'components/Card/CommonPostCard';
 import { searchDateOptionData, searchSortOptionData } from 'utils/data';
-import wrapper from 'modules/store';
-import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
-import { useFetchMore } from 'hooks';
+import { useAuth, useFetchMore } from 'hooks';
 import { SearchContentBox } from 'styles/pages/search';
 
 function PostResult({ children }: { children?: React.ReactNode }): JSX.Element {
@@ -33,6 +31,7 @@ function PostResult({ children }: { children?: React.ReactNode }): JSX.Element {
 }
 
 export default function SearchPost(): JSX.Element {
+  useAuth({ replace: false });
   const { getSearchListDispatch, hasMore } = useList();
   const { query } = useRouter();
   const [currentSort, setCurrentSort] = useState(searchSortOptionData[0]);
@@ -83,7 +82,3 @@ export default function SearchPost(): JSX.Element {
     </SearchPageWithNavLayout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-});

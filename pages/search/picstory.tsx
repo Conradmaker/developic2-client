@@ -8,9 +8,7 @@ import { SearchContentBox } from 'styles/pages/search';
 import BlogPistoryCard from 'components/Card/BlogPistoryCard';
 import { SearchPageData, useList } from 'modules/list';
 import EmptyContent from 'components/Result/EmptyContent';
-import wrapper from 'modules/store';
-import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
-import { useFetchMore } from 'hooks';
+import { useAuth, useFetchMore } from 'hooks';
 
 function PicstoryResult({ children }: { children?: React.ReactNode }) {
   const { pageData } = useList();
@@ -34,6 +32,7 @@ function PicstoryResult({ children }: { children?: React.ReactNode }) {
 }
 
 export default function SearchPicstory(): JSX.Element {
+  useAuth({ replace: false });
   const { getSearchListDispatch, hasMore } = useList();
   const { query } = useRouter();
   const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
@@ -66,7 +65,3 @@ export default function SearchPicstory(): JSX.Element {
     </SearchPageWithNavLayout>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-});

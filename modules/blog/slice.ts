@@ -34,7 +34,7 @@ const blogSlice = createSlice({
     builder
       .addCase(loadBlogUserAction.pending, state => {
         state.loadBlogUser.loading = true;
-        state.loadBlogUser.data = null;
+        state.loadBlogUser.data;
         state.loadBlogUser.error = null;
       })
       .addCase(loadBlogUserAction.fulfilled, (state, { payload }) => {

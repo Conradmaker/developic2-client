@@ -4,16 +4,12 @@ import CustomInput from 'components/Input/CustomInput';
 import PageLabel from 'components/Label/PageLabel';
 import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import { SettingNavData } from 'utils/data';
-import { useInput, useUser } from 'hooks';
+import { useAuth, useInput, useUser } from 'hooks';
 import { SettingIntroContainer } from 'styles/pages/user';
 
 export default function Intro(): JSX.Element {
-  const {
-    userData,
-    userIntro,
-    getUserIntroDispatch,
-    updateUserIntroDispatch,
-  } = useUser();
+  const { userData } = useAuth({ replace: true });
+  const { userIntro, getUserIntroDispatch, updateUserIntroDispatch } = useUser();
   const [website, onChangeWebsite, setWebsite] = useInput('');
   const [info, setInfo] = useState('');
   const [infoError, setInfoError] = useState('');
@@ -41,9 +37,8 @@ export default function Intro(): JSX.Element {
   };
 
   useEffect(() => {
-    if (userData) {
-      getUserIntroDispatch({ userId: userData.id });
-    }
+    if (!userData) return;
+    getUserIntroDispatch({ userId: userData.id });
   }, [userData]);
 
   useEffect(() => {
@@ -54,8 +49,6 @@ export default function Intro(): JSX.Element {
       setModel(userIntro.data.mostlyUseModel);
     }
   }, [userIntro]);
-
-  if (!userIntro.data) return <></>;
 
   return (
     <PageWithNavLayout pageName="설정" pageDesc="Settings" navData={SettingNavData}>

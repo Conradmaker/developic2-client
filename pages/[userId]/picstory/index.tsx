@@ -1,12 +1,11 @@
 import React from 'react';
 import BlogWithNavLayout from 'components/Layout/BlogWithNavLayout';
 import BlogPicstoryList from 'components/List/BlogPicstoryList';
-import { loadBlogPicstoryListAction, loadBlogUserAction } from 'modules/blog';
-import wrapper from 'modules/store';
-import { authServersiceAction } from 'utils/getServerSidePropsTemplate';
 import { BlogPicstoryContainer } from 'styles/pages/[userId]';
+import { useAuth } from 'hooks';
 
 export default function Picstory(): JSX.Element {
+  useAuth({ replace: false });
   return (
     <BlogWithNavLayout>
       <BlogPicstoryContainer>
@@ -16,16 +15,16 @@ export default function Picstory(): JSX.Element {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  await authServersiceAction(context);
-  const { dispatch } = context.store;
-  if (!context.params) return;
-  await dispatch(loadBlogUserAction(+(context.params.userId as string)));
-  await dispatch(
-    loadBlogPicstoryListAction({
-      userId: +(context.params.userId as string),
-      limit: 12,
-      offset: 0,
-    })
-  );
-});
+// //후에 서버 성능 향상시 적용
+// export const getServerSideProps = wrapper.getServerSideProps(async context => {
+//   const { dispatch } = context.store;
+//   if (!context.params) return;
+//   await dispatch(loadBlogUserAction(+(context.params.userId as string)));
+//   await dispatch(
+//     loadBlogPicstoryListAction({
+//       userId: +(context.params.userId as string),
+//       limit: 12,
+//       offset: 0,
+//     })
+//   );
+// });
