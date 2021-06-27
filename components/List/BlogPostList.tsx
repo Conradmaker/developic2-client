@@ -8,7 +8,7 @@ import Incomplete from '../Result/Incomplete';
 import { BlogPostListContainer } from './styles';
 import { useFetchMore, useBlog } from 'hooks';
 
-const breakpointColumnsObj = {
+export const breakpointColumnsObj = {
   default: 2,
   1100: 2,
   700: 2,

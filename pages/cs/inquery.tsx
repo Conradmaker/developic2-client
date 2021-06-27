@@ -7,7 +7,7 @@ import CustomTextarea from 'components/Input/CustomTextarea';
 import PageLabel from 'components/Label/PageLabel';
 import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import { CSNavData } from 'utils/data';
-import { useInput, useUI } from 'hooks';
+import { useAuth, useInput, useUI } from 'hooks';
 import { InqueryContainer } from 'styles/pages/cs';
 
 const inqueryType = [
@@ -30,6 +30,7 @@ export default function Inquery(): JSX.Element {
   const [contact, onChangeContact, setContact] = useInput('');
   const [content, onChangeContent, setContent] = useInput('');
   const { toastOpenDispatch } = useUI();
+  useAuth({ replace: false });
 
   const onChangeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value);

@@ -6,7 +6,7 @@ import Layout from 'components/Layout';
 import HashTagInstant from 'components/Editor/HashTagInstant';
 import TitleInput from 'components/Input/EditPageInput';
 import ConfirmModal from 'components/Modal/ConfirmModal';
-import { useModal, usePost, useUser } from 'hooks';
+import { useAuth, useModal, usePost } from 'hooks';
 import { EditContainer } from 'styles/pages/edit';
 
 const ToastEditorWithNoSSR = dynamic(
@@ -18,12 +18,12 @@ const ToastEditorWithNoSSR = dynamic(
 
 export default function edit(): JSX.Element {
   const { tempPost, postPreSaveDispatch, getTempPostDispatch } = usePost();
-  const { userData } = useUser();
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [tagList, setTagList] = useState<{ id: number; name: string }[]>([]);
   const [imageList, setImageList] = useState<{ imageId: number; src: string }[]>([]);
   const [content, setContent] = useState('글을 입력해주세요.');
+  const { userData } = useAuth({ replace: false });
 
   const temporarySave = React.useCallback(
     (editorContent: string) => {

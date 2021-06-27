@@ -28,6 +28,7 @@ export default function index(): JSX.Element {
     getFeedPostDispatch({ UserId: userData.id, offset: page * 12, limit: 12 });
   }, [page, userData, hasMore]);
 
+  if (!userData) return <></>;
   return (
     <Layout>
       <Head>

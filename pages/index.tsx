@@ -70,7 +70,7 @@ export default function Home(): JSX.Element {
               <TitleLabel title="탐색" desc="Discover interesting posts" />
             </li>
           </Link>
-          <Link href="/feed">
+          <Link href="/archive">
             <li>
               <TitleLabel title="아카이브" desc="Archive for exhibition" />
             </li>

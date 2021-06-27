@@ -124,10 +124,10 @@ export const LikeFltBox = styled(FloatingButtonBox)`
   @media ${({ theme }) => theme.viewPortSize.mobile} {
     position: fixed;
     height: 40px;
-    top: 20px;
-    bottom: auto;
-    left: auto;
-    right: 20px;
+    top: auto;
+    bottom: 50px;
+    left: 20px;
+    right: auto;
     background-color: ${({ theme }) => theme.background.modal};
     span {
       display: none;

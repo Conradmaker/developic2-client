@@ -3,12 +3,13 @@ import React, { useEffect } from 'react';
 import PageLabel from 'components/Label/PageLabel';
 import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import NoticeList from 'components/List/NoticeList';
-import { useCS } from 'hooks';
+import { useAuth, useCS } from 'hooks';
 import { CSNavData } from 'utils/data';
 import { FaqContainer } from 'styles/pages/cs';
 
 export default function Faq(): JSX.Element {
   const { getCs, getFaqDispatch } = useCS();
+  useAuth({ replace: false });
 
   useEffect(() => {
     getFaqDispatch({ limit: 5 });

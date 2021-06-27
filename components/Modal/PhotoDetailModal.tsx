@@ -24,7 +24,7 @@ const computeMetaData = (data: MetaData) => ({
 
 type PhotoDetailModalProps = {
   photoId: number;
-  onClose: () => void;
+  onClose?: () => void;
 };
 export default function PhotoDetailModal({
   photoId,

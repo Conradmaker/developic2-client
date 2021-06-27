@@ -4,11 +4,12 @@ import PageLabel from 'components/Label/PageLabel';
 import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import NoticeList from 'components/List/NoticeList';
 import { CSNavData } from 'utils/data';
-import { useCS } from 'hooks';
+import { useAuth, useCS } from 'hooks';
 import { NoticeContainer } from 'styles/pages/cs';
 
 export default function Notice(): JSX.Element {
   const { getNoticeDispatch, getCs } = useCS();
+  useAuth({ replace: false });
 
   useEffect(() => {
     getNoticeDispatch({ limit: 5 });

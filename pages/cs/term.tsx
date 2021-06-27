@@ -4,8 +4,11 @@ import PageWithNavLayout from 'components/Layout/PageWithNavLayout';
 import Incomplete from 'components/Result/Incomplete';
 import { CSNavData } from 'utils/data';
 import { TermContainer } from 'styles/pages/cs';
+import { useAuth } from 'hooks';
 
 export default function Term(): JSX.Element {
+  useAuth({ replace: false });
+
   return (
     <PageWithNavLayout pageName="고객센터" pageDesc="Customer Center" navData={CSNavData}>
       <Head>

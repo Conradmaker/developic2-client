@@ -21,8 +21,34 @@ export default function archiveId(): JSX.Element {
   return (
     <Layout>
       <Head>
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="DeveloPic" />
+        <meta property="og:title" content={getArchiveDetail.data.title} />
+        <meta property="og:description" content={getArchiveDetail.data.author} />
+        <meta
+          property="og:image"
+          content={calcImageSrc(600, getArchiveDetail.data.poster)}
+        />
+        <meta
+          property="og:url"
+          content={`https://developic.shop/archive/${getArchiveDetail.data.id}`}
+        />
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:site" content="DeveloPic" />
+        <meta property="twitter:title" content={getArchiveDetail.data.title} />
+        <meta property="twitter:description" content={getArchiveDetail.data.author} />
+        <meta
+          property="twitter:image"
+          content="https://i.ibb.co/G5DwjyP/linkedin-profile-image2-removebg-preview.png"
+        />
+        <meta
+          property="twitter:url"
+          content={`https://developic.shop/archive/${getArchiveDetail.data.id}`}
+        />
+
         <title>ARCHIVE | {getArchiveDetail.data.title}</title>
       </Head>
+
       <ArchiveDetailContainer>
         <div className="detail__poster__wrapper">
           <img src={calcImageSrc(600, getArchiveDetail.data.poster)} alt="poster" />

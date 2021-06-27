@@ -44,6 +44,7 @@ const Control = styled.button`
   border-radius: 50%;
   outline: none;
   border: none;
+  padding-bottom: 4px;
   align-items: center;
   justify-content: center;
   transform: translateY(-50%);

@@ -444,8 +444,11 @@ export const PicstoryModalBox = styled(ModalBox)<{ makeMode: boolean }>`
       }
     }
   }
-  .mobile-btn__box {
+  .modal__left .mobile-btn__box,
+  .modal__right .mobile-btn__box {
     display: flex;
+  }
+  .mobile-btn__box {
     justify-content: flex-end;
     margin-top: 20px;
     button + button {
@@ -683,7 +686,7 @@ export const PhotoModalBtnBox = styled.div`
     }
   }
   @media ${({ theme }) => theme.viewPortSize.mobile} {
-    top: 25px;
+    top: 135px;
     right: 20px;
   }
 `;

@@ -7,12 +7,12 @@ import SquareBtn from 'components/Button/SquareBtn';
 import CustomCheckBox from 'components/Input/CustomCheckBox';
 import PicstoryModal from 'components/Modal/PicstoryModal';
 import Layout from 'components/Layout';
-import { useInput, usePost, useUI, useUser } from 'hooks';
+import { useAuth, useInput, usePost, useUI } from 'hooks';
 import { EditInfoPostContainer } from 'styles/pages/edit';
 
 export default function InfoPost(): JSX.Element {
   const { tempPost, submitPostDispatch, getTempPostDispatch, submitPost } = usePost();
-  const { userData } = useUser();
+  const { userData } = useAuth({ replace: false });
 
   const router = useRouter();
   const [picstoryOpen, setPicstoryOpen] = useState(false);

@@ -31,12 +31,12 @@ function PostResult({ children }: { children?: React.ReactNode }): JSX.Element {
 }
 
 export default function SearchPost(): JSX.Element {
-  useAuth({ replace: false });
   const { getSearchListDispatch, hasMore } = useList();
   const { query } = useRouter();
   const [currentSort, setCurrentSort] = useState(searchSortOptionData[0]);
   const [currentDate, setCurrentDate] = useState(searchDateOptionData[0]);
   const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
+  useAuth({ replace: false });
 
   useEffect(() => {
     setPage(0);
@@ -53,7 +53,7 @@ export default function SearchPost(): JSX.Element {
         offset: page * 12,
       });
     }
-  }, [page, query.keyword]);
+  }, [page, currentSort, currentDate, query.keyword]);
 
   return (
     <SearchPageWithNavLayout>

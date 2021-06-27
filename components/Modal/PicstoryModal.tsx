@@ -98,6 +98,7 @@ export default function PicstoryModal({
       description: desc,
       UserId: userData.id,
     });
+    setMakeMode(false);
   };
 
   useEffect(() => {

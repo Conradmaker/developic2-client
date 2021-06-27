@@ -9,7 +9,7 @@ import CustomCheckBox from 'components/Input/CustomCheckBox';
 import CustomDateInput from 'components/Input/CustomDateInput';
 import ImageDropZone from 'components/Input/ImageDropZone';
 import useArchive from 'modules/archive/hooks';
-import { useInput, useUI, useUser } from 'hooks';
+import { useAuth, useInput, useUI } from 'hooks';
 import { ArchiveEditContainer } from 'styles/pages/archive';
 
 const ArchiveEditorWithNoSSR = dynamic(
@@ -20,7 +20,7 @@ const ArchiveEditorWithNoSSR = dynamic(
 );
 
 export default function edit(): JSX.Element {
-  const { userData } = useUser();
+  const { userData } = useAuth({ replace: false });
   const { addArchive, addArchiveDispatch } = useArchive();
   const router = useRouter();
   const [title, onChangeTitle] = useInput('');

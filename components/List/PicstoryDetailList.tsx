@@ -4,6 +4,7 @@ import Masonry from 'react-masonry-css';
 import BlogPostCard from '../Card/BlogPostCard';
 import { BlogPostListContainer } from './styles';
 import { useBlog } from 'hooks';
+import { breakpointColumnsObj } from './BlogPostList';
 
 export default function PicstoryDetailList(): JSX.Element {
   const { loadBlogPicstoryDetail } = useBlog();
@@ -14,7 +15,7 @@ export default function PicstoryDetailList(): JSX.Element {
     <>
       <BlogPostListContainer>
         <Masonry
-          breakpointCols={2}
+          breakpointCols={breakpointColumnsObj}
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"
         >

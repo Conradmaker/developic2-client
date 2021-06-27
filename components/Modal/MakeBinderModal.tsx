@@ -31,6 +31,7 @@ function MakeBinderForm({
       });
       setNewTitle('');
       setNewDesc('');
+      onToggleMakeMode();
     },
     [newTitle, newDesc]
   );

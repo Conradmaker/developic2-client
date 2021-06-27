@@ -13,6 +13,7 @@ export const CustomInputBox = styled.div<{ width?: number }>`
   color: ${({ theme }) => theme.textColor.initial};
   span {
     width: 100px;
+    white-space: nowrap;
     font-family: 'Noto Serif KR', serif;
   }
   input {

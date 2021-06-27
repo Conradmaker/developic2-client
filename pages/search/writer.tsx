@@ -13,7 +13,6 @@ import { searchDateOptionData, searchSortOptionData } from 'utils/data';
 import { useAuth, useFetchMore } from 'hooks';
 
 function SearchResult({ children }: { children?: React.ReactNode }): JSX.Element {
-  useAuth({ replace: false });
   const { pageData } = useList();
 
   if (
@@ -40,6 +39,7 @@ export default function SearchWriter(): JSX.Element {
   const [currentSort, setCurrentSort] = useState(searchSortOptionData[0]);
   const [currentDate, setCurrentDate] = useState(searchDateOptionData[0]);
   const [FetchMoreTrigger, page, setPage] = useFetchMore(hasMore);
+  useAuth({ replace: false });
 
   useEffect(() => {
     setPage(0);
@@ -56,7 +56,7 @@ export default function SearchWriter(): JSX.Element {
         offset: page * 12,
       });
     }
-  }, [page, query.keyword]);
+  }, [page, query.keyword, currentSort, currentDate]);
 
   return (
     <SearchPageWithNavLayout>
