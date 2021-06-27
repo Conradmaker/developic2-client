@@ -30,6 +30,8 @@ export default function PicstoryId(): JSX.Element {
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
   const { dispatch } = context.store;
   if (!context.params) return;
-  authServersiceAction(context);
-  await dispatch(loadBlogPicstoryDetailAction(+(context.params.picstoryId as string)));
+  await Promise.allSettled([
+    authServersiceAction(context),
+    dispatch(loadBlogPicstoryDetailAction(+(context.params.picstoryId as string))),
+  ]);
 });

@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { Store } from 'redux';
-import _forEach from 'lodash/forEach';
 import wrapper from '../modules/store';
 import { State } from '../modules';
 import { authAction } from '../modules/user';
@@ -14,29 +13,29 @@ interface ContextType extends GetServerSidePropsContext {
 }
 
 type GetServerSidePropsContextType = (
-  callBackArr?: Array<any>
+  callBackArr: Array<any>
 ) => GetServerSideProps<Promise<void>, ParsedUrlQuery>;
 
-const initialGetServerSideProps: GetServerSidePropsContextType = callBackArr => {
+export const getMultipleServerSideProps: GetServerSidePropsContextType = callBackArr => {
   const getServerSideProps = wrapper.getServerSideProps(async context => {
     const cookie = context.req ? context.req.headers.cookie : '';
     axios.defaults.headers.Cookie = '';
     if (context.req && cookie) {
       axios.defaults.headers.Cookie = cookie;
     }
-    context.store.dispatch(authAction(null));
-    _forEach(callBackArr, callback => context.store.dispatch(callback));
+    await Promise.all([
+      context.store.dispatch(authAction(null)),
+      callBackArr.map(callback => context.store.dispatch(callback)),
+    ]);
   });
   return getServerSideProps;
 };
 
-export const authServersiceAction = (context: ContextType): void => {
+export const authServersiceAction = async (context: ContextType): Promise<void> => {
   const cookie = context.req ? context.req.headers.cookie : '';
   axios.defaults.headers.Cookie = '';
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie;
   }
-  context.store.dispatch(authAction(null));
+  await context.store.dispatch(authAction(null));
 };
-
-export default initialGetServerSideProps;

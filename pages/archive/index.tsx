@@ -47,7 +47,9 @@ export default function archive(): JSX.Element {
 
 // 서버 성능 향상시 적용
 // export const getServerSideProps = wrapper.getServerSideProps(async context => {
-//   authServersiceAction(context);
 //   const { dispatch } = context.store;
-//   dispatch(getArchiveListAction({ limit: 8, offset: 0 }));
+//   await Promise.allSettled([
+//     authServersiceAction(context),
+//     dispatch(getArchiveListAction({ limit: 8, offset: 0 })),
+//   ]);
 // });

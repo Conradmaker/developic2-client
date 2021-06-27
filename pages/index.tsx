@@ -135,5 +135,5 @@ export default function Home(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  authServersiceAction(context);
+  await authServersiceAction(context);
 });

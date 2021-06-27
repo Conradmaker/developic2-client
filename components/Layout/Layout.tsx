@@ -7,6 +7,7 @@ import Toast from '../Result/ToastPopUp';
 import { LayoutContainer } from './';
 import Footer from './Footer';
 import Header from './Header';
+import Head from 'next/head';
 
 type LayoutPropsType = {
   children: React.ReactNode;
@@ -17,6 +18,12 @@ export default function Layout({ children }: LayoutPropsType): JSX.Element {
   const currentTheme = useThemeState();
   return (
     <ThemeProvider theme={currentTheme === 'light' ? theme.light : theme.dark}>
+      <Head>
+        <meta
+          name="theme-color"
+          content={currentTheme === 'light' ? '#8C30F5' : '#2B2B2B'}
+        />
+      </Head>
       <LayoutContainer>
         <Header />
         {children}

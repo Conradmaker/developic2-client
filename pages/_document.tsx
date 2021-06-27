@@ -35,6 +35,7 @@ class MyDocument extends Document {
             content="https://i.ibb.co/G5DwjyP/linkedin-profile-image2-removebg-preview.png"
           />
           <meta property="twitter:url" content="https://developic.shop" />
+          <meta name="theme-color" content="#273bb9" />
 
           <link rel="icon" href="/favicon.png" />
         </Head>

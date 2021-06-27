@@ -91,7 +91,9 @@ export default function archiveId(): JSX.Element {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  authServersiceAction(context);
   const { dispatch } = context.store;
-  await dispatch(getArchiveDetailAction(+(context.params?.exhibitionId as string)));
+  await Promise.allSettled([
+    authServersiceAction(context),
+    dispatch(getArchiveDetailAction(+(context.params?.exhibitionId as string))),
+  ]);
 });

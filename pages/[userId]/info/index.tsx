@@ -19,6 +19,8 @@ export default function BlogInfo(): JSX.Element {
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
   const { dispatch } = context.store;
   if (!context.params) return;
-  authServersiceAction(context);
-  await dispatch(loadBlogUserAction(+(context.params.userId as string)));
+  await Promise.allSettled([
+    authServersiceAction(context),
+    dispatch(loadBlogUserAction(+(context.params.userId as string))),
+  ]);
 });
