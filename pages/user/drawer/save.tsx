@@ -36,7 +36,11 @@ function SaveList(): JSX.Element {
     <>
       <SavePageContainer>
         {getTempList.data.map(tempItem => (
-          <UnfinishedPostCard id={tempItem.id} tempPostData={tempItem} />
+          <UnfinishedPostCard
+            key={tempItem.id + 'saveList'}
+            id={tempItem.id}
+            tempPostData={tempItem}
+          />
         ))}
       </SavePageContainer>
       <FetchMoreTrigger />

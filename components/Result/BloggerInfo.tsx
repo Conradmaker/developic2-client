@@ -35,7 +35,7 @@ export default function BlogUserInfo(): JSX.Element {
         {Object.entries(infoState).map(
           ([key, value]) =>
             value && (
-              <div className="user__info">
+              <div className="user__info" key={key + value}>
                 <strong>{key}</strong>
                 <p onClick={() => goWebsite(key, value)}>{value}</p>
               </div>

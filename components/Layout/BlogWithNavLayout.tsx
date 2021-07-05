@@ -100,7 +100,7 @@ export default function BlogWithNavLayout({
           </BlogUserProfile>
           <BlogTabBox>
             {BlogNavData.map(navItem => (
-              <Link href={`/${userId + navItem.link}`}>
+              <Link href={`/${userId + navItem.link}`} key={navItem.link + 'nav'}>
                 <li
                   className={
                     router.asPath === `/${userId + navItem.link}` ? 'nav--active' : ''

@@ -36,7 +36,7 @@ function BinderList(): JSX.Element {
     <>
       <BinderPageContainer>
         {getBinderList.data.map(binder => (
-          <PhotoBinderCard id={binder.id} binderData={binder} />
+          <PhotoBinderCard key={binder.id} id={binder.id} binderData={binder} />
         ))}
       </BinderPageContainer>
       <FetchMoreTrigger />
