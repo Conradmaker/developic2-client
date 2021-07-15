@@ -1,34 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 디벨로픽
 
-## Getting Started
+![AnimatedImage.gif](https://res.craft.do/user/full/b1bfd0d5-f25f-9cb2-4956-fa895ea5961c/doc/124075C2-FDE8-4DBA-8070-67F4FEE980FE/5B388B2A-20AB-4D17-92CA-C8E28F3D3E38_2/AnimatedImage.gif)
 
-First, run the development server:
+사진작가를 위한 블로그 플랫폼입니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+> **디벨로퍼 + 픽쳐**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> 사진을 좋아하는 개발자가 사진가를 위한 블로그 플랫폼을 만들어 보면 어떨까? 에서 시작한 프로젝트입니다.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- 개발기간 :  2021.3 ~ 2021.6 ( 중간 공부기간 포함 )
+- 인원 : 3명
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## 관련 링크
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+#### 사이트 링크
 
-## Learn More
+[DeveloPic](https://developic.shop/)
 
-To learn more about Next.js, take a look at the following resources:
+#### 클라이언트 깃헙 저장소 링크
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[Conradmaker/developic2-client](https://github.com/Conradmaker/developic2-client)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### 백앤드 서버 깃헙 저장소 링크
 
-## Deploy on Vercel
+[Conradmaker/developic-ver2-server](https://github.com/Conradmaker/developic-ver2-server)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### API 문서
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[DeveloPic ver.2 API Documentation](https://documenter.getpostman.com/view/13075087/TzXtKLoR)
+
+## 프로젝트 스택
+
+#### 클라이언트
+
+- TypeScript
+- React
+- Next.js
+- Redux (redux-toolkit) + redux-thunk
+- emotion.js
+- toast-ui
+- 배포도구 - netlify + route53
+
+#### 백앤드 서버
+
+- TypeScript
+- Node.js
+- Express
+- passport.js
+- Sequelize
+- MySQL
+- AWS - EC2, RDS, S3, Lambda, route53
+
+## 프로젝트 Architecture
+
+![developic (1).png.png](https://res.craft.do/user/full/b1bfd0d5-f25f-9cb2-4956-fa895ea5961c/doc/124075C2-FDE8-4DBA-8070-67F4FEE980FE/61FE36FC-3A39-4AD9-89D7-EE91369B58CD_2/developic%201.png.png)
+
+## ERD
+
+![developic2.png.png](https://res.craft.do/user/full/b1bfd0d5-f25f-9cb2-4956-fa895ea5961c/doc/124075C2-FDE8-4DBA-8070-67F4FEE980FE/DDC9883B-C169-4FAA-A3E4-CFB47B5C44DB_2/developic2.png.png)
+
